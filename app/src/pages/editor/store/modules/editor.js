@@ -1,6 +1,7 @@
 import Vue from 'vue'
 
 const state = {
+  // 已注册的模块，用于左侧面板展示、选择或拖拽用
   modules: [],
 }
 

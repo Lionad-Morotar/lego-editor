@@ -30,22 +30,26 @@ Module.prototype.setInstance = function(instance) {
 }
 
 // 校验函数
+// 校验（组件编辑时的校验、C端校验是两种东西）refactor wip
 Module.prototype.validate = function() {
-  const callback = errMsg => {
-    if (errMsg) {
-      alert(errMsg)
-      throw new Error('校验错误' + errMsg)
-    }
-  }
   const $validator = this.$instance.validate
-  let isValid
-  try {
-    $validator(callback)
-    isValid = true
-  } catch (error) {
-    isValid = false
+  if (!$validator) {
+    return true
+  } else {
+    let isValid
+    try {
+      $validator(errMsg => {
+        if (errMsg) {
+          alert(errMsg)
+          throw new Error('校验错误' + errMsg)
+        }
+      })
+      isValid = true
+    } catch (error) {
+      isValid = false
+    }
+    return isValid
   }
-  return isValid
 }
 
 /** Life Circle 并不对应 Vue 中的生命周期，只是借用名字 */

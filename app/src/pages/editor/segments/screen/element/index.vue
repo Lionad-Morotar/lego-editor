@@ -6,19 +6,32 @@
   >
     <!-- 每个模块都附带一左一右两个 padding block，将剩余的空间填充满 -->
     <div class="padding left" />
-    <box :active="isSelected">
-      <component :is="module.name" :key="module.uuid" />
-    </box>
+    <outline :active="isSelected">
+      <transparent-module-wrapper :module="module" />
+    </outline>
     <div class="padding right" />
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import Box from './box'
+import Outline from './outline'
 export default {
   components: {
-    Box,
+    Outline,
+    // 用于在 mounted 时给实例回传 Vue 实例
+    TransparentModuleWrapper: {
+      props: {
+        module: Object,
+      },
+      render(h) {
+        const { name, uuid } = this.$props.module
+        return h(name, { props: { key: uuid } })
+      },
+      mounted() {
+        this.$props.module.setInstance(this.$children[0])
+      },
+    },
   },
   props: {
     module: {
@@ -33,10 +46,6 @@ export default {
     isSelected() {
       return this.selected === this.module
     },
-  },
-  mounted() {
-    // todo refactor
-    this.module.setInstance(this.$children[0].$children[0])
   },
   methods: {
     ...mapActions('screen', ['SELECT_MODULE']),

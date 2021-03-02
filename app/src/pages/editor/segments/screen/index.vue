@@ -48,6 +48,5 @@ export default {
   &::-webkit-scrollbar-track {
     background-color: #f0f3f7;
   }
-  
 }
 </style>

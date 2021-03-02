@@ -1,7 +1,9 @@
 import Module from '../models/module'
 
 const state = {
-  // page ?
+  // 只有预览时才可以编辑表单、点击按钮；
+  // 正常编辑时，是非预览状态，表单项都是禁用的。
+  isPreview: false,
   modules: [],
   selected: null,
 }
