@@ -6,7 +6,7 @@ import 'reset-css'
 import 'element-ui/lib/theme-chalk/index.css'
 
 import Editor from './Editor.vue'
-import DefaultModule from './store/modules/editor'
+import DefaultModule from '@/modules'
 import store from './store'
 import './styles/index.scss'
 
