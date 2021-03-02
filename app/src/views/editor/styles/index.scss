@@ -24,17 +24,17 @@
 }
 
 /***************** 编辑器页面基础布局及样式 *****************/
-@nav-height: 56px;
+$nav-height: 56px;
 #editor {
   min-width: 1366px;
   height: 100vh;
   #header {
     padding: 0 36px;
-    height: @nav-height !important;
+    height: $nav-height !important;
     background: #222;
   }
   #body {
-    height: calc(100vh - @nav-height);
+    height: calc(100vh - $nav-height);
   }
   #main {
     padding: 0;

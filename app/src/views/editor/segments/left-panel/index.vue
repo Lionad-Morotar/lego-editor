@@ -56,7 +56,7 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .left-panel {
   display: flex;
   justify-content: center;

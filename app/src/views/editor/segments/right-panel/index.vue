@@ -61,7 +61,7 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .right-panel {
   padding-top: 20px;
   border-left: solid 1px #f0f3f7;

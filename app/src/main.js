@@ -8,7 +8,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import Editor from '@/views/editor'
 import DefaultModule from '@/modules'
 import store from '@/store/editor'
-import '@/views/editor/styles/index.less'
+import '@/views/editor/styles/index.scss'
 
 Vue.use(Element)
 // Vue.use(Fragment) // todo

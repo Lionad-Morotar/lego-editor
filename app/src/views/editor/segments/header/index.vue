@@ -37,22 +37,21 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
-.flex {
+<style lang="scss" scoped>
+/***************** 布局 *****************/
+.header {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-/***************** 布局 *****************/
-.header {
-  .flex();
   height: 100%;
   height: 100%;
 }
 .left,
 .center,
 .right {
-  .flex();
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 33.3%;
   height: 100%;
 }

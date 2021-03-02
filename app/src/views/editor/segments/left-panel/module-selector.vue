@@ -27,7 +27,7 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .module-selector {
   flex-shrink: 0;
   margin-top: 20px;
