@@ -7,21 +7,32 @@ import Vue from 'vue'
 
 /**
  * Module 用来承接模块的公用方法和属性，如 uuid、校验函数等
+ * 约定，由 Module 生成的实例叫做模块实例
  */
 export default function Module(inits) {
-  const { title, description, name } = inits
+  const { title, description, name, component } = inits
+
+  /* 模块属性 */
   // todo uuid
   this.uuid = +new Date()
   this.initialValue = inits
   this.name = name
   this.title = title
   this.description = description
+
+  /* 和 Vue 实例相关的属性 */
+  this.component = component
+  this.props = this.initProps()
   this.$instance = null
-  this.validator = null
+
+  // 全局注册模块，以便加载对应的动态组件
   Vue.component(inits.name)
 }
 
-// 将组件实例（Vue 实例）保存下来 ...
+/**
+ * 保存模块的 Vue 实例
+ * @param {VueInstance} instance 已渲染的组件的 vue 实例
+ */
 Module.prototype.setInstance = function(instance) {
   if (this.$instance && console.warn) {
     console.warn('[WARN] setInstance twice')
@@ -29,8 +40,30 @@ Module.prototype.setInstance = function(instance) {
   this.$instance = instance
 }
 
-// 校验函数
-// 校验（组件编辑时的校验、C端校验是两种东西）refactor wip
+// /**
+//  * 当模块依赖的值发生了变化...
+//  * 这部分可以独立出来是为了反应“变化”正在进行，
+//  * 方便实现 redo undo 操作，
+//  * 后续也许可以交由 vuex 做
+//  * @param {string} key 变化键名
+//  * @param {any} value 变化的值
+//  */
+// Module.prototype.setProps = function(key, value) {
+//   this.props[key] = value
+// }
+
+/**
+ * 初始化模块所依赖的值
+ */
+Module.prototype.initProps = function() {
+  return Object.entries(this.component.props || {}).reduce((h, [k, v]) => {
+    h[k] = v.default
+    return h
+  }, {})
+}
+
+// refactor WIP
+// 校验函数（组件编辑时的校验、C端校验是两种东西）
 Module.prototype.validate = function() {
   const $validator = this.$instance.validate
   if (!$validator) {

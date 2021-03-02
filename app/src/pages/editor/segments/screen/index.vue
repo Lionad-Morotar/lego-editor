@@ -25,8 +25,11 @@ export default {
   mounted() {
     // for test purposes
     setTimeout(() => {
-      this.ADD_MODULE(this.plugins[0])
-    }, 700)
+      this.ADD_MODULE(this.plugins[1])
+      setTimeout(() => {
+        this.ADD_MODULE(this.plugins[0])
+      }, 200)
+    }, 200)
   },
   methods: {
     ...mapActions('screen', ['ADD_MODULE', 'UNSELECTED']),
@@ -45,7 +48,9 @@ export default {
   overflow: hidden scroll;
   user-select: none;
 
+  &::-webkit-scrollbar,
   &::-webkit-scrollbar-track {
+    width: 0;
     background-color: #f0f3f7;
   }
 }

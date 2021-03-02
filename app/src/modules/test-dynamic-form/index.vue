@@ -1,13 +1,13 @@
 <template>
-  <div class="test-form">
-    <h4>请填写表单</h4>
+  <div class="test-dynamic-form">
+    <h4>动态表单</h4>
     <div class="form-con">
       <el-form label-position="top" label-width="80px">
         <el-form-item label="姓名">
-          <el-input placeholder="请输入姓名" v-model="name" />
+          <el-input placeholder="请输入姓名" :value="name" />
         </el-form-item>
         <el-form-item label="电话">
-          <el-input placeholder="请输入电话" v-model="mobile" />
+          <el-input placeholder="请输入电话" :value="mobile" />
         </el-form-item>
         <el-form-item>
           <el-button class="submit" type="primary" @click="submit"
@@ -20,19 +20,24 @@
 </template>
 
 <script>
+import Props from '@/modules/props'
 export default {
   name: 'test-dynamic-form',
+  // props 意味着“数据”是组件依赖的外部的（规范）
   props: {
-    postURL: {
-      required: true,
+    name: Props.string({
+      label: '姓名',
+      default: '仿生狮子就是仿生狮子',
+    }),
+    mobile: Props.string({
+      label: '电话',
+      default: '18579157140',
+    }),
+    postURL: Props.string({
+      label: '请求地址',
       default: '',
-    },
-    name: {
-      default: '',
-    },
-    mobile: {
-      default: '',
-    },
+      // validator todo
+    }),
   },
   // 整点 styles、plugins
   methods: {
@@ -73,7 +78,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.test-form {
+.test-dynamic-form {
   padding: 15px;
   height: 330px;
   background: #5200d1;

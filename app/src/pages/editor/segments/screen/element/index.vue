@@ -25,8 +25,13 @@ export default {
         module: Object,
       },
       render(h) {
-        const { name, uuid } = this.$props.module
-        return h(name, { props: { key: uuid } })
+        const { name, uuid, props } = this.$props.module
+        return h(name, {
+          props: {
+            key: uuid,
+            ...props,
+          },
+        })
       },
       mounted() {
         this.$props.module.setInstance(this.$children[0])

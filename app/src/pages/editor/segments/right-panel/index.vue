@@ -19,17 +19,16 @@
       </div>
     </div>
 
-    <div class="segment">
+    <config-panel />
+
+    <div class="segment" v-if="!selected">
       <div class="header">
-        <span class="label">如果有内容区</span>
+        <span class="label">啊啊啊啊！</span>
         <i class="el-icon el-icon-arrow-down" />
       </div>
       <div class="content">
         <el-button disabled class="action-button" type="text"
-          >增加对比</el-button
-        >
-        <el-button disabled class="action-button" type="text"
-          >删除对比</el-button
+          >你咋啥都没选呢！</el-button
         >
       </div>
     </div>
@@ -38,7 +37,11 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import ConfigPanel from './config-panel'
 export default {
+  components: {
+    ConfigPanel,
+  },
   computed: {
     ...mapState('screen', {
       modules: state => state.modules,
@@ -61,59 +64,61 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .right-panel {
   padding-top: 20px;
   border-left: solid 1px #f0f3f7;
-}
-.segment {
-  padding: 0 20px;
-  width: 100%;
 
-  .header {
-    display: flex;
-    justify-content: space-between;
-    font-size: 20px;
-    font-weight: bold;
-    letter-spacing: 0.4px;
-    cursor: pointer;
+  .segment {
+    padding: 0 20px;
+    width: 100%;
 
-    .label {
-      margin-left: 1px;
-    }
-    .el-icon {
-      font-size: 18px;
-    }
-  }
-}
-.content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 25px;
+    .header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 20px;
+      font-weight: bold;
+      letter-spacing: 0.4px;
+      cursor: pointer;
 
-  .action-button {
-    margin: 25px 0 0 0;
-    padding: 0;
-    width: 180px;
-    height: 40px;
-    line-height: 40px;
-    color: #444;
-    border: solid 1px #eee;
-    border-radius: 20px;
-    transition: 0.25s;
-    &:first-child {
-      margin-top: 0;
+      .label {
+        margin-left: 1px;
+      }
+      .el-icon {
+        font-size: 18px;
+      }
     }
-    &:hover {
-      color: #0058ff;
-    }
-    &:active {
-      background: rgba(0, 88, 255, 0.03);
-    }
-    &:disabled {
-      color: #999;
-      pointer-events: none;
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 25px 0;
+
+      .action-button {
+        margin: 25px 0 0 0;
+        padding: 0;
+        width: 180px;
+        height: 40px;
+        line-height: 40px;
+        color: #444;
+        border: solid 1px #eee;
+        border-radius: 20px;
+        transition: 0.25s;
+        &:first-child {
+          margin-top: 0;
+        }
+        &:hover {
+          color: #0058ff;
+        }
+        &:active {
+          background: rgba(0, 88, 255, 0.03);
+        }
+        &:disabled {
+          color: #999;
+          pointer-events: none;
+        }
+      }
     }
   }
 }
