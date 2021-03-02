@@ -44,5 +44,10 @@ export default {
   height: 100%;
   overflow: hidden scroll;
   user-select: none;
+
+  &::-webkit-scrollbar-track {
+    background-color: #f0f3f7;
+  }
+  
 }
 </style>
