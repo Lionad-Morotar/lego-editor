@@ -3,11 +3,8 @@
     <h4>{{ formName }}</h4>
     <div class="form-con">
       <el-form label-position="top" label-width="80px">
-        <el-form-item label="姓名">
-          <el-input placeholder="请输入姓名" :value="name" />
-        </el-form-item>
         <el-form-item label="电话">
-          <el-input placeholder="请输入电话" :value="mobile" />
+          <el-input placeholder="请输入电话" v-model="mobile" />
         </el-form-item>
         <el-form-item>
           <el-button class="submit" type="primary" @click="submit"
@@ -23,7 +20,6 @@
 import Props from '@/modules/props'
 export default {
   name: 'test-dynamic-form',
-  // props 意味着“数据”是组件依赖的外部的（规范）
   props: {
     formName: Props.string({
       label: '表单名称',
@@ -33,14 +29,6 @@ export default {
       maxlength: 10,
       showWordLimit: true,
     }),
-    name: Props.string({
-      label: '姓名',
-      default: '仿生狮子就是仿生狮子',
-    }),
-    mobile: Props.string({
-      label: '电话',
-      default: '18579157140',
-    }),
     postURL: Props.string({
       label: '请求地址',
       default: '',
@@ -48,13 +36,14 @@ export default {
       disabled: true,
     }),
   },
+  data() {
+    return {
+      mobile: '18579157140',
+    }
+  },
   // 整点 styles、plugins
   methods: {
     validate() {
-      if (!this.name) {
-        alert('请填写姓名')
-        return false
-      }
       if (!this.mobile) {
         alert('请填写电话')
         return false
@@ -89,7 +78,6 @@ export default {
 <style lang="scss" scoped>
 .test-dynamic-form {
   padding: 15px;
-  height: 330px;
   background: #5200d1;
 }
 h4 {
@@ -104,7 +92,7 @@ h4 {
 .form-con {
   padding: 0 15px;
   width: 100%;
-  height: 234px;
+  min-height: 160px;
   background: white;
 
   .submit {

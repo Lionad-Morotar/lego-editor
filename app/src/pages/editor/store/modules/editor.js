@@ -3,11 +3,15 @@ import Vue from 'vue'
 const state = {
   // 已注册的模块，用于左侧面板展示、选择或拖拽用
   modules: [],
+  isPreview: false,
 }
 
 const mutations = {
   ADD_MODULE(state, newModule) {
     state.modules.push(newModule)
+  },
+  TOGGLE_ISPREVIEW(state, value) {
+    state.isPreview = value
   },
 }
 
@@ -23,6 +27,9 @@ const actions = {
         commit('ADD_MODULE', newModule)
       }
     })
+  },
+  TOGGLE_ISPREVIEW({ commit, state }) {
+    commit('TOGGLE_ISPREVIEW', !state.isPreview)
   },
 }
 

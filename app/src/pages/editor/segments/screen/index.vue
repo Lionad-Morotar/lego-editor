@@ -22,14 +22,16 @@ export default {
       modules: state => state.modules,
     }),
   },
-  mounted() {
+  created() {
     // for test purposes
-    setTimeout(() => {
-      this.ADD_MODULE(this.plugins[1])
+    if (this.modules.length === 0) {
       setTimeout(() => {
-        this.ADD_MODULE(this.plugins[0])
+        this.ADD_MODULE(this.plugins[1])
+        setTimeout(() => {
+          this.ADD_MODULE(this.plugins[0])
+        }, 200)
       }, 200)
-    }, 200)
+    }
   },
   methods: {
     ...mapActions('screen', ['ADD_MODULE', 'UNSELECTED']),
@@ -51,7 +53,6 @@ export default {
   &::-webkit-scrollbar,
   &::-webkit-scrollbar-track {
     width: 0;
-    background-color: #f0f3f7;
   }
 }
 </style>

@@ -11,7 +11,9 @@
       >
     </div>
     <div class="right">
-      <el-button disabled type="text" icon="el-icon-view">预览</el-button>
+      <el-button type="text" icon="el-icon-view" @click="togglePreview">{{
+        isPreview ? '编辑' : '预览'
+      }}</el-button>
       <el-button class="release" type="primary" @click="save">发布</el-button>
     </div>
   </div>
@@ -21,17 +23,24 @@
 import { mapState, mapActions } from 'vuex'
 export default {
   computed: {
+    ...mapState('editor', {
+      isPreview: state => state.isPreview,
+    }),
     ...mapState('screen', {
       modules: state => state.modules,
     }),
   },
   methods: {
+    ...mapActions('editor', ['TOGGLE_ISPREVIEW']),
     ...mapActions('screen', []),
     save() {
       const isValid = this.modules.every(x => x.validate())
       if (isValid) {
         console.log('saved')
       }
+    },
+    togglePreview() {
+      this.TOGGLE_ISPREVIEW()
     },
   },
 }
