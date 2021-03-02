@@ -29,7 +29,7 @@ export default {
     NavHeader,
     LeftPanel,
     RightPanel,
-    Screen,
-  },
+    Screen
+  }
 }
 </script>

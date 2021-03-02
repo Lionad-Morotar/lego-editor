@@ -42,22 +42,22 @@ export default {
   computed: {
     ...mapState('screen', {
       modules: state => state.modules,
-      selected: state => state.selected,
-    }),
+      selected: state => state.selected
+    })
   },
   methods: {
     ...mapActions('screen', ['DELETE_SELETED_MODULE', 'MOVE_MODULE']),
     // 删除当前屏幕中选中的模块
-    deleteModule() {
+    deleteModule () {
       this.DELETE_SELETED_MODULE()
     },
-    handleMoveUp() {
+    handleMoveUp () {
       this.MOVE_MODULE(-1)
     },
-    handleMoveDown() {
+    handleMoveDown () {
       this.MOVE_MODULE(1)
-    },
-  },
+    }
+  }
 }
 </script>
 

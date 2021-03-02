@@ -22,18 +22,18 @@ import { mapState, mapActions } from 'vuex'
 export default {
   computed: {
     ...mapState('screen', {
-      modules: state => state.modules,
-    }),
+      modules: state => state.modules
+    })
   },
   methods: {
     ...mapActions('screen', []),
-    save() {
+    save () {
       const isValid = this.modules.every(x => x.validate())
       if (isValid) {
         console.log('saved')
       }
-    },
-  },
+    }
+  }
 }
 </script>
 

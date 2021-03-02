@@ -22,7 +22,7 @@
 <script>
 export default {
   name: 'test-form',
-  data() {
+  data () {
     return {
       disabled: false,
       url: 'www.baidu.com',
@@ -31,22 +31,23 @@ export default {
       name: '',
       mobileLabel: '电话',
       mobilePlaceholder: '请输入电话',
-      mobile: '',
+      mobile: ''
     }
   },
+  // TODO: 根据展示侧或编辑侧动态的过validate和对应的方法名
   // 整点 styles、plugins
   methods: {
-    validate(callback) {
+    validate (callback) {
       !this.nameLabel && callback('请填写第一行输入框的标题')
       !this.name && callback('请填写第一行输入框的内容')
       !this.mobileLabel && callback('请填写第二行输入框的标题')
       !this.mobile && callback('请填写第二行输入框的内容')
       callback()
     },
-    handleClick() {
+    handleClick () {
       if (this.disabled) return
 
-      let formData = new FormData()
+      const formData = new FormData()
       formData.append('name', this.name)
       formData.append('mobile', this.mobile)
       console.log('value: ', this.name, this.mobile)
@@ -59,8 +60,8 @@ export default {
       // }
       // req.open('post', 'www.baidu.com', true)
       // req.send(formData)
-    },
-  },
+    }
+  }
 }
 </script>
 

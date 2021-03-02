@@ -10,24 +10,24 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home,
+    component: Home
   },
   {
     path: '/about',
     name: 'About',
-    component: () => import('@/components/About.vue'),
+    component: () => import('@/components/About.vue')
   },
   {
     path: '/editor',
     name: 'Editor',
-    component: () => import('../Editor.vue'),
-  },
+    component: () => import('../Editor.vue')
+  }
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes,
+  routes
 })
 
 export default router

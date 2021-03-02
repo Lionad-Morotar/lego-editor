@@ -16,13 +16,13 @@ export default {
   computed: {
     ...mapState('editor', {
       // todo rename ?
-      plugins: state => state.modules,
+      plugins: state => state.modules
     }),
     ...mapState('screen', {
-      modules: state => state.modules,
-    }),
+      modules: state => state.modules
+    })
   },
-  mounted() {
+  mounted () {
     // for test purposes
     setTimeout(() => {
       this.ADD_MODULE(this.plugins[0])
@@ -30,10 +30,10 @@ export default {
   },
   methods: {
     ...mapActions('screen', ['ADD_MODULE', 'UNSELECTED']),
-    unselectedModule() {
+    unselectedModule () {
       this.UNSELECTED()
-    },
-  },
+    }
+  }
 }
 </script>
 

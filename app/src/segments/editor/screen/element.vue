@@ -15,27 +15,27 @@ import { mapState, mapActions } from 'vuex'
 export default {
   props: {
     module: {
-      required: true,
-    },
+      required: true
+    }
   },
   computed: {
     ...mapState('screen', {
       modules: state => state.modules,
-      selected: state => state.selected,
+      selected: state => state.selected
     }),
-    isSelected() {
+    isSelected () {
       return this.selected === this.module
-    },
+    }
   },
-  mounted() {
+  mounted () {
     this.module.setInstance(this.$children[0])
   },
   methods: {
     ...mapActions('screen', ['SELECT_MODULE']),
-    selectModule() {
+    selectModule () {
       !this.isSelected && this.SELECT_MODULE(this.module)
-    },
-  },
+    }
+  }
 }
 </script>
 

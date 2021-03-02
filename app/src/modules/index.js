@@ -1,4 +1,4 @@
-import TestForm from './test-form/index'
+import TestForm from './test-form'
 
 export default {
   moduleList: [
@@ -7,7 +7,7 @@ export default {
       description: '非常简单的一个测试表单',
       name: TestForm.name,
       component: TestForm,
-      cover: '图片地址',
-    },
-  ],
+      cover: '图片地址'
+    }
+  ]
 }
