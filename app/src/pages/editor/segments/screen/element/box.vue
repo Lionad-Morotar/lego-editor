@@ -32,11 +32,10 @@ export default {
     left: -2px;
     top: -2px;
     width: calc(100% + 4px);
-    height: calc(100% + 4px);
-    transition: 0.25s;
+    height: calc(100% + 2px);
     border: solid 2px transparent;
+    z-index: 1;
     // todo refactor
-    user-select: none;
     pointer-events: none;
 
     .point {
@@ -58,7 +57,7 @@ export default {
         top: -8px;
       }
       &.bottom {
-        bottom: -8px;
+        bottom: -10px;
       }
     }
   }
