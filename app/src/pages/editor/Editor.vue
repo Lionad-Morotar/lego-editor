@@ -19,10 +19,10 @@
 </template>
 
 <script>
-import NavHeader from './segments/header/index'
-import LeftPanel from './segments/left-panel/index'
-import RightPanel from './segments/right-panel/index'
-import Screen from './segments/screen/index'
+import NavHeader from '@/segments/editor/header'
+import LeftPanel from '@/segments/editor/left-panel'
+import RightPanel from '@/segments/editor/right-panel'
+import Screen from '@/segments/editor/screen'
 
 export default {
   components: {
