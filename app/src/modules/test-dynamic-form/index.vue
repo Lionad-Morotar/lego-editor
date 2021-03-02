@@ -30,6 +30,8 @@ export default {
       default: '动态表单',
       placeholder: '请填写表单名称',
       required: true,
+      maxlength: 10,
+      showWordLimit: true,
     }),
     name: Props.string({
       label: '姓名',
@@ -42,7 +44,8 @@ export default {
     postURL: Props.string({
       label: '请求地址',
       default: '',
-      // validator todo
+      placeholder: '暂不可设置',
+      disabled: true,
     }),
   },
   // 整点 styles、plugins

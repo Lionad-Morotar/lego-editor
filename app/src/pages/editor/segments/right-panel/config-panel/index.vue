@@ -9,13 +9,12 @@ defau
       <div class="config-panel">
         <el-form label-width="80px" label-position="top">
           <template v-for="[name, item] in configEntries">
-            <el-form-item :label="item.config.label" :key="name">
-              <config-item
-                :name="name"
-                :config="item.config"
-                :selected="selected"
-              />
-            </el-form-item>
+            <config-item
+              :name="name"
+              :config="item.config"
+              :selected="selected"
+              :key="name"
+            />
           </template>
         </el-form>
       </div>
@@ -31,17 +30,32 @@ export default {
       props: ['name', 'config', 'selected'],
       render(h) {
         const { name, config, selected } = this.$props
-        return h(config.component, {
-          props: {
-            ...config,
-            value: selected.props[name],
-          },
-          on: {
-            input: function(newVal) {
-              selected.setProp(name, newVal)
+        // console.log(config)
+        return h(
+          'el-form-item',
+          {
+            props: {
+              label: config.label,
+              required: config.required,
             },
           },
-        })
+          [
+            h(config.component, {
+              props: {
+                ...config,
+                value: selected.props[name],
+              },
+              attrs: {
+                ...config,
+              },
+              on: {
+                input: function(newVal) {
+                  selected.setProp(name, newVal)
+                },
+              },
+            }),
+          ],
+        )
       },
     },
   },
