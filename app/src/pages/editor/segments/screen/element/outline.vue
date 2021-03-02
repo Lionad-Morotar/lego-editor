@@ -1,5 +1,5 @@
 <template>
-  <div class="box" :class="active ? 'active' : ''">
+  <div class="outline" :class="active ? 'active' : ''">
     <slot />
     <!-- 元素多起来的话，会不会有性能问题？ -->
     <div class="outline">
@@ -23,7 +23,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.box {
+.outline {
   position: relative;
   display: flex;
 
@@ -71,7 +71,7 @@ export default {
   }
 
   & > *:first-child {
-    flex: 1;
+    width: 100%;
   }
 }
 </style>

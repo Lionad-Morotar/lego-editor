@@ -1,6 +1,6 @@
 <template>
   <div class="test-dynamic-form">
-    <h4>动态表单</h4>
+    <h4>{{ formName }}</h4>
     <div class="form-con">
       <el-form label-position="top" label-width="80px">
         <el-form-item label="姓名">
@@ -25,6 +25,12 @@ export default {
   name: 'test-dynamic-form',
   // props 意味着“数据”是组件依赖的外部的（规范）
   props: {
+    formName: Props.string({
+      label: '表单名称',
+      default: '动态表单',
+      placeholder: '请填写表单名称',
+      required: true,
+    }),
     name: Props.string({
       label: '姓名',
       default: '仿生狮子就是仿生狮子',

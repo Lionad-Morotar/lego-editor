@@ -7,7 +7,7 @@
     <!-- 每个模块都附带一左一右两个 padding block，将剩余的空间填充满 -->
     <div class="padding left" />
     <outline :active="isSelected">
-      <transparent-module-wrapper :module="module" />
+      <instance :module="module" />
     </outline>
     <div class="padding right" />
   </div>
@@ -16,27 +16,11 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import Outline from './outline'
+import Instance from './instance'
 export default {
   components: {
     Outline,
-    // 用于在 mounted 时给实例回传 Vue 实例
-    TransparentModuleWrapper: {
-      props: {
-        module: Object,
-      },
-      render(h) {
-        const { name, uuid, props } = this.$props.module
-        return h(name, {
-          props: {
-            key: uuid,
-            ...props,
-          },
-        })
-      },
-      mounted() {
-        this.$props.module.setInstance(this.$children[0])
-      },
-    },
+    Instance,
   },
   props: {
     module: {

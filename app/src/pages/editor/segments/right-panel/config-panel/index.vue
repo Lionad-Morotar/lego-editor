@@ -10,7 +10,11 @@ defau
         <el-form label-width="80px" label-position="top">
           <template v-for="[name, item] in configEntries">
             <el-form-item :label="item.config.label" :key="name">
-              <component :is="item.config.component" v-model="selected.props[name]" />
+              <config-item
+                :name="name"
+                :config="item.config"
+                :selected="selected"
+              />
             </el-form-item>
           </template>
         </el-form>
@@ -22,6 +26,25 @@ defau
 <script>
 import { mapState } from 'vuex'
 export default {
+  components: {
+    ConfigItem: {
+      props: ['name', 'config', 'selected'],
+      render(h) {
+        const { name, config, selected } = this.$props
+        return h(config.component, {
+          props: {
+            ...config,
+            value: selected.props[name],
+          },
+          on: {
+            input: function(newVal) {
+              selected.setProp(name, newVal)
+            },
+          },
+        })
+      },
+    },
+  },
   computed: {
     ...mapState('screen', {
       selected: state => state.selected,

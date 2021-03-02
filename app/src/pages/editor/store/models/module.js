@@ -48,9 +48,9 @@ Module.prototype.setInstance = function(instance) {
 //  * @param {string} key 变化键名
 //  * @param {any} value 变化的值
 //  */
-// Module.prototype.setProps = function(key, value) {
-//   this.props[key] = value
-// }
+Module.prototype.setProp = function(key, value) {
+  this.props[key] = value
+}
 
 /**
  * 初始化模块所依赖的值
