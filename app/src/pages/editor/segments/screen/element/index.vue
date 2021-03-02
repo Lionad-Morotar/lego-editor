@@ -4,15 +4,22 @@
     :class="isSelected ? 'selected' : ''"
     @click.stop="selectModule"
   >
+    <!-- 每个模块都附带一左一右两个 padding block，将剩余的空间填充满 -->
     <div class="padding left" />
-    <component :is="module.name" :key="module.uuid" />
+    <box :active="isSelected">
+      <component :is="module.name" :key="module.uuid" />
+    </box>
     <div class="padding right" />
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import Box from './box'
 export default {
+  components: {
+    Box,
+  },
   props: {
     module: {
       required: true,
@@ -28,7 +35,8 @@ export default {
     },
   },
   mounted() {
-    this.module.setInstance(this.$children[0])
+    // todo refactor
+    this.module.setInstance(this.$children[0].$children[0])
   },
   methods: {
     ...mapActions('screen', ['SELECT_MODULE']),

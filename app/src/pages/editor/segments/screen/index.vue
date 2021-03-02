@@ -8,7 +8,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import ScreenElement from './element'
+import ScreenElement from './element/index'
 export default {
   components: {
     ScreenElement,
