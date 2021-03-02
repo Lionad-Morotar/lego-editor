@@ -38,20 +38,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/***************** 布局 *****************/
-.header {
+@mixin flex {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+/***************** 布局 *****************/
+.header {
+  @include flex;
   height: 100%;
   height: 100%;
 }
 .left,
 .center,
 .right {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flex;
   width: 33.3%;
   height: 100%;
 }

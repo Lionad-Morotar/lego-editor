@@ -64,7 +64,7 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .test-form {
   padding: 15px;
   height: 330px;
