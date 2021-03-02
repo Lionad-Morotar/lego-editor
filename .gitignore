@@ -29,9 +29,9 @@ lerna-debug.log*
 !.vscode/launch.json
 !.vscode/extensions.json
 
+node_modules
 
 # app项目子集
-/app/node_modules
 /app/dist
 
 # local env files
@@ -40,7 +40,6 @@ lerna-debug.log*
 
 # server项目子集
 /server/dist
-/server/node_modules
 
 # Log files
 /*/npm-debug.log*
