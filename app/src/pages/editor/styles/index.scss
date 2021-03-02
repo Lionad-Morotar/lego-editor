@@ -24,28 +24,16 @@
 // }
 
 /***************** 编辑器页面基础布局及样式 *****************/
-<<<<<<< HEAD:app/src/pages/editor/styles/index.scss
-$nav-height: 56px;
-=======
->>>>>>> 823f91ad7402a77e860625b7011790aec39b68be:app/src/pages/editor/styles/index.scss
 #editor {
   min-width: 1366px;
   height: 100vh;
   #header {
     padding: 0 36px;
-<<<<<<< HEAD:app/src/pages/editor/styles/index.scss
-    height: $nav-height !important;
-    background: #222;
-  }
-  #body {
-    height: calc(100vh - $nav-height);
-=======
     height: 56px !important;
     background: #222;
   }
   #body {
     height: calc(100vh - 56px);
->>>>>>> 823f91ad7402a77e860625b7011790aec39b68be:app/src/pages/editor/styles/index.scss
   }
   #main {
     padding: 0;

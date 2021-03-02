@@ -7,13 +7,13 @@ module.exports = {
       template: 'public/index.html',
       // 在dist/edit.html的输出
       filename: 'index.html',
-      title: 'index'
+      title: 'index',
     },
     browser: {
       entry: 'src/pages/browser/main.js',
       template: 'public/index.html',
       filename: 'browser.html',
-      title: 'browser'
+      title: 'browser',
     },
-  }
+  },
 }

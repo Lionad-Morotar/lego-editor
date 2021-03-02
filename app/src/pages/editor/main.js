@@ -7,13 +7,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 
 import Editor from './Editor.vue'
 import DefaultModule from '@/modules'
-<<<<<<< HEAD:app/src/main.js
-import store from '@/store/editor'
-import '@/views/editor/styles/index.scss'
-=======
 import store from './store'
 import './styles/index.scss'
->>>>>>> 823f91ad7402a77e860625b7011790aec39b68be:app/src/pages/editor/main.js
 
 Vue.use(Element)
 // Vue.use(Fragment) // todo
@@ -38,4 +33,3 @@ LegoEditor.install = function(Vue) {
 }
 
 export default LegoEditor
-
