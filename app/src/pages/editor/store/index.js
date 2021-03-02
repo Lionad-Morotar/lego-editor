@@ -16,6 +16,6 @@ export default new Vuex.Store({
     // 保存编辑的模板数据
     screen,
     // 保存用户信息
-    user,
-  },
+    user
+  }
 })

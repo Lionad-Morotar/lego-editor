@@ -1,19 +1,19 @@
 import Vue from 'vue'
 
 const state = {
-  modules: [],
+  modules: []
 }
 
 const mutations = {
-  ADD_MODULE(state, newModule) {
+  ADD_MODULE (state, newModule) {
     state.modules.push(newModule)
-  },
+  }
 }
 
 const getters = {}
 
 const actions = {
-  INSTALL_MODULES({ commit }, moduleList = []) {
+  INSTALL_MODULES ({ commit }, moduleList = []) {
     moduleList.map(newModule => {
       const isValidModule = m => !!m // todo
       if (isValidModule(newModule)) {
@@ -22,7 +22,7 @@ const actions = {
         commit('ADD_MODULE', newModule)
       }
     })
-  },
+  }
 }
 
 export default {
@@ -30,5 +30,5 @@ export default {
   state,
   getters,
   actions,
-  mutations,
+  mutations
 }

@@ -6,6 +6,10 @@
   "author": "xielizhen <xielizhen@baxing.com>",
   "license": "MIT",
   "scripts": {
-    
+    "postinstall": "husky install"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "husky": "^5.1.3"
   }
 }

@@ -11,7 +11,7 @@ import { mapState, mapActions } from 'vuex'
 import ScreenElement from './element'
 export default {
   components: {
-    ScreenElement,
+    ScreenElement
   },
   computed: {
     ...mapState('editor', {
