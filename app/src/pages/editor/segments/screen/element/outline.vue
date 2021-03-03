@@ -2,7 +2,7 @@
   <div
     class="box-outline"
     :class="isActive ? 'active' : ''"
-    @click="handleClick"
+    @click="selectElement"
   >
     <slot />
     <div class="outline">
@@ -28,25 +28,19 @@ export default {
   },
   methods: {
     ...mapActions('screen', ['SELECT_ELEMENT']),
-    // 捕获到点击时激活当前选框，
-    // 除非已激活选框是当前选框的子项
-    handleClick(e) {
-      // 最多只有两层 Outline，所以目前只记录 firstTarget
-      const firstTarget = (e.path || []).find(x =>
-        x?.classList?.contains('box-outline'),
-      )
+    // 捕获到点击时激活当前选框
+    selectElement(e) {
       const allTargets = (e.path || []).filter(x =>
         x?.classList?.contains('box-outline'),
       )
+      const firstTarget = allTargets[0]
       // 当前选中的是子项
       const isCurrentSelectedChildren =
         firstTarget === this.selectedElement?.$el
-      // 当前点击传播到了自身
-      const isPassbySelf = allTargets.includes(this.$el)
+      // 忽略点击事件冒泡触发的事件
+      const isPassbySelf = allTargets[allTargets.length - 1] === this.$el
       const shouldIgnore = isCurrentSelectedChildren && isPassbySelf
-
-      e.preventDefault()
-
+      // console.log(isPassbySelf, shouldIgnore)
       !shouldIgnore && this.SELECT_ELEMENT(this)
     },
   },

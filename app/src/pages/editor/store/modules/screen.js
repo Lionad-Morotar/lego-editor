@@ -52,6 +52,7 @@ const actions = {
   },
   SELECT_MODULE({ commit }, module) {
     commit('SELECT_MODULE', module)
+    commit('SELECT_ELEMENT', module.$instance.$children[0])
   },
   DELETE_MODULE({ commit }, module) {
     commit('DELETE_MODULE', module)
@@ -59,6 +60,7 @@ const actions = {
   UNSELECTED({ commit, state }) {
     if (state.selected) {
       commit('DELETE_SELECTED')
+      commit('UNSELECT_ELEMENT')
     }
   },
   // 移动模块，order 正数向数组右侧，负数向数组左侧
@@ -77,18 +79,7 @@ const actions = {
       commit('SELECT_ELEMENT', target)
     }
   },
-  UNSELECT_ELEMENT({ commit, state }, target = null) {
-    if (target && state.selectedElement !== target) {
-      // do nothing
-    }
-    if (!target) {
-      commit('UNSELECT_ELEMENT')
-    }
-  },
-
-  /* 以下 Action 不对应有 Mutation */
-
-  DELETE_SELETED_MODULE({ commit, state }) {
+  DELETE_SELECTED_MODULE({ commit, state }) {
     if (state.selected) {
       commit('DELETE_MODULE', state.selected)
     }

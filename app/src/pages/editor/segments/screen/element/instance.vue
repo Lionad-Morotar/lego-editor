@@ -1,43 +1,32 @@
 <script>
-import { mapState, mapActions } from 'vuex'
 export default {
-  props: {
-    module: Object,
-  },
+  props: ['module'],
   computed: {
-    ...mapState('screen', {
-      modules: state => state.modules,
-      selected: state => state.selected,
-    }),
-    isSelected() {
-      return this.selected === this.module
-    },
     // 界面显示的值和右侧面板的动态表单直接绑定，
     // 但是右侧面板表单值为空时，
     // 界面上不能为空，需要展示默认值
     propsWithDefaultValue() {
-      const { props, component } = this.$props.module
-      const getDefaultPropsValue = k => component.props[k].default
+      const props = this.$props.module.props
+      const propsConfig = this.$props.module.propsConfig
+      // console.log(props, propsConfig)
+      const getDefaultPropsValue = k => propsConfig[k].default
       return Object.entries(props).reduce((h, [k, v]) => {
         h[k] = v || getDefaultPropsValue(k)
         return h
       }, {})
     },
   },
-  methods: {
-    ...mapActions('screen', []),
+  mounted () {
+    this.module.setInstance(this.$children[0])
   },
   render(h) {
     const { name, uuid } = this.$props.module
-    // TODO 綁定字组件的 props
     return h(name, {
+      key: uuid,
       props: {
         ...this.propsWithDefaultValue,
-        key: uuid,
-      },
+      }
     })
   },
 }
 </script>
-
-<style></style>

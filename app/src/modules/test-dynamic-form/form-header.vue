@@ -15,13 +15,18 @@ export default {
       showWordLimit: true,
     }),
   },
+  computed: {
+    test() {
+      console.log('this.formName:', this.formName)
+      return this.formName
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 h4 {
-  margin: 20px;
-  margin-top: 10px;
+  margin: 10px;
   font-size: 24px;
   color: white;
   font-weight: 300;

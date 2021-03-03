@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Outline from '../../segments/screen/element/outline'
 import ClickCapture from '../../segments/screen/element/click-capture'
 
+import Module from '../models/module'
+
 const state = {
   // 已注册的模块，用于左侧面板展示、选择或拖拽用
   modules: [],
@@ -28,25 +30,13 @@ const actions = {
   },
   INSTALL_MODULES({ commit }, { moduleList = [], editable = true }) {
     moduleList.map(newModule => {
-      const isValidModule = m => !!m // todo
+      // todo
+      const isValidModule = m => !!m
       if (isValidModule(newModule)) {
-        if (editable) {
-          // 收集组件依赖的外部数据
-          const gatherProps = Object.assign(
-            {},
-            Object.entries(newModule.component.components || {}).reduce(
-              (h, [, v]) => {
-                h = {
-                  ...h,
-                  ...(v.props || {}),
-                }
-                return h
-              },
-              {},
-            ),
-          )
-          newModule.component.props = gatherProps
-
+        if (!editable) {
+          Vue.component(newModule.name, newModule.component)
+        } else {
+          Module.gatherProps(newModule.name, newModule.component)
           // 将子组件用 Outline 包裹使其支持选中高亮
           newModule.component.components = Object.entries(
             newModule.component.components || {},
@@ -79,10 +69,7 @@ const actions = {
               )
             },
           })
-        } else {
-          Vue.component(newModule.name, newModule.component)
         }
-
         commit('ADD_MODULE', newModule)
       }
     })

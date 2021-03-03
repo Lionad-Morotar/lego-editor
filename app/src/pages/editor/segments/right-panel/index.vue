@@ -49,10 +49,10 @@ export default {
     }),
   },
   methods: {
-    ...mapActions('screen', ['DELETE_SELETED_MODULE', 'MOVE_MODULE']),
+    ...mapActions('screen', ['DELETE_SELECTED_MODULE', 'MOVE_MODULE']),
     // 删除当前屏幕中选中的模块
     deleteModule() {
-      this.DELETE_SELETED_MODULE()
+      this.DELETE_SELECTED_MODULE()
     },
     handleMoveUp() {
       this.MOVE_MODULE(-1)

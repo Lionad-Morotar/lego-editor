@@ -30,7 +30,7 @@ export default {
       props: ['name', 'config', 'selected'],
       render(h) {
         const { name, config, selected } = this.$props
-        // console.log(config)
+        // console.log(selected.props)
         return h(
           'el-form-item',
           {

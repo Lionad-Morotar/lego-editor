@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 // TODO doc
 
 /**
@@ -14,12 +16,14 @@ export default function Module(inits) {
   this.name = name
   this.title = title
   this.description = description
+  this.data = Vue.observable({})
 
   /* 和 Vue 实例相关的属性 */
-  this.component = component
-  this.props = this.initProps()
-  // 需不需要维护模块实例和 vue 实例的关系？
   this.$instance = null
+  this.component = component
+  this.props = Vue.observable(this.initProps())
+  Object.entries(this.props).map(([k, v]) => (this.data[k] = v))
+  this.propsConfig = Module.propsMap[this.name]
 }
 
 /**
@@ -43,13 +47,42 @@ Module.prototype.setInstance = function(instance) {
 //  */
 Module.prototype.setProp = function(key, value) {
   this.props[key] = value
+  this.data[key] = value
+  // console.log('this.props: ', this.props)
+}
+
+/**
+ * 递归收集组件的依赖数据（Props）
+ * @param {string} name Vue组件名称
+ * @param {VueComponent} component Vue组件（非实例）
+ */
+Module.propsMap = {}
+Module.gatherProps = function(name, component) {
+  function getComponentAndChildrenProps(cmpt) {
+    const cmpts = cmpt.components || {}
+    return Object.entries(cmpts).reduce((h, [, v]) => {
+      h = {
+        ...h,
+        ...(v.props || {}),
+        ...(cmpts.components
+          ? getComponentAndChildrenProps(cmpts.components)
+          : {}),
+      }
+      return h
+    }, {})
+  }
+  const res = getComponentAndChildrenProps(component)
+  Module.propsMap[name] = res
+  return Module.propsMap[name]
 }
 
 /**
  * 初始化模块所依赖的值
  */
 Module.prototype.initProps = function() {
-  return Object.entries(this.component.props || {}).reduce((h, [k, v]) => {
+  const name = this.component.name
+  const propsConfig = Module.propsMap[name]
+  return Object.entries(propsConfig).reduce((h, [k, v]) => {
     h[k] = v.default
     return h
   }, {})

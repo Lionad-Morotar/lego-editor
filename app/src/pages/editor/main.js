@@ -8,9 +8,11 @@ import 'element-ui/lib/theme-chalk/index.css'
 import Editor from './Editor.vue'
 import DefaultModule from '@/modules'
 import store from './store'
+import utils from './utils'
 import './styles/index.scss'
 
 Vue.use(Element)
+Vue.prototype.$utils = utils
 // Vue.use(Fragment) // todo
 
 const LegoEditor = new Vue({
