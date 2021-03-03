@@ -17,6 +17,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 export default {
+  name: 'box-outline',
   props: ['props'],
   computed: {
     ...mapState('screen', {

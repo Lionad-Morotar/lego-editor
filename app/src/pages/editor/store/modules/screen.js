@@ -52,7 +52,7 @@ const actions = {
   },
   SELECT_MODULE({ commit }, module) {
     commit('SELECT_MODULE', module)
-    commit('SELECT_ELEMENT', module.$instance.$children[0])
+    commit('SELECT_ELEMENT', module.$elements[0])
   },
   DELETE_MODULE({ commit }, module) {
     commit('DELETE_MODULE', module)

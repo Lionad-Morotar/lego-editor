@@ -1,8 +1,6 @@
 import Vue from 'vue'
-import Outline from '../../segments/screen/element/outline'
-import ClickCapture from '../../segments/screen/element/click-capture'
-
 import Module from '../models/module'
+import ScreenElement from '../../segments/screen/element'
 
 const state = {
   // 已注册的模块，用于左侧面板展示、选择或拖拽用
@@ -30,44 +28,41 @@ const actions = {
   },
   INSTALL_MODULES({ commit }, { moduleList = [], editable = true }) {
     moduleList.map(newModule => {
-      // todo
       const isValidModule = m => !!m
       if (isValidModule(newModule)) {
         if (!editable) {
           Vue.component(newModule.name, newModule.component)
         } else {
+          // 收集模块的外部数据依赖
           Module.gatherProps(newModule.name, newModule.component)
-          // 将子组件用 Outline 包裹使其支持选中高亮
-          newModule.component.components = Object.entries(
-            newModule.component.components || {},
-          ).reduce((h, [k, v]) => {
-            h[k] = {
-              render(h) {
-                return h(
-                  Outline,
-                  {
-                    props: {
-                      props: v.props,
-                    },
+          // 包装子模块
+          const hasComponents = newModule.component.components
+          if (hasComponents) {
+            newModule.component.components = Object
+              .entries(hasComponents)
+              .reduce((h, [k, v]) => {
+                h[k] = {
+                  render(h) {
+                    return h(ScreenElement, {
+                      props: {
+                        component: v,
+                        captureClick: true
+                      }
+                    })
                   },
-                  [h(ClickCapture, {}, [h(v)])],
-                )
-              },
-            }
-            return h
-          }, {})
+                }
+                return h
+              }, {})
+          }
+          // 包装模块以及注册
           Vue.component(newModule.name, {
-            render(h) {
-              return h(
-                Outline,
-                {
-                  props: {
-                    props: newModule.component.props,
-                  },
-                },
-                [h(newModule.component)],
-              )
-            },
+            render (h) {
+              return h(ScreenElement, { 
+                props: {
+                  component: newModule.component
+                }
+              })
+            }
           })
         }
         commit('ADD_MODULE', newModule)

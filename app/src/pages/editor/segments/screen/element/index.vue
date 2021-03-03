@@ -1,72 +1,34 @@
-<template>
-  <div
-    class="module-card"
-    :class="isSelected ? 'selected' : ''"
-    @click.stop="selectModule"
-  >
-    <!-- 每个模块都附带一左一右两个 padding block，将剩余的空间填充满 -->
-    <div class="padding left" @click="selectTopElement" />
-    <instance :ref="module.uuid" :module="module" />
-    <div class="padding right" @click="selectTopElement" />
-  </div>
-</template>
-
 <script>
-import { mapState, mapActions } from 'vuex'
-import Instance from './instance'
+import Outline from './outline'
+import ClickCapture from './click-capture'
+
+// 术语，Element，即“屏幕中的元素”，
+// 给模块（以及子模块）附加编辑时用的功能，
+// 如聚焦时高亮的选框
 export default {
-  components: {
-    Instance,
-  },
-  props: ['module'],
-  computed: {
-    ...mapState('screen', {
-      modules: state => state.modules,
-      selected: state => state.selected,
-      selectedElement: state => state.selectedElement,
-    }),
-    isSelected() {
-      return this.selected === this.module
-    },
-  },
-  methods: {
-    ...mapActions('screen', ['SELECT_MODULE', 'SELECT_ELEMENT']),
-    selectModule() {
-      if (!this.isSelected) {
-        this.SELECT_MODULE(this.module)
-      }
-    },
-    // 点击 PaddingBox 时高亮最外层 Outline
-    selectTopElement() {
-      const curModuleTopElement = this.module.$instance.$children[0]
-      this.SELECT_ELEMENT(curModuleTopElement)
-    }
-  },
+  props: [
+    // 被包裹的模块
+    'component',
+    // 是否捕获点击以阻止传播
+    'captureClick'
+  ],
+  render (h) {
+    const component = this.$props.component
+    const captureClick = this.$props.captureClick
+
+    const $child = captureClick 
+      ? h(ClickCapture, {}, [h(component)])
+      : h(component)
+
+    return h(
+      Outline,
+      {
+        props: { 
+          props: component.props
+        },
+      },
+      [$child],
+    )
+  }
 }
 </script>
-
-<style lang="scss" scoped>
-.module-card {
-  display: flex;
-  cursor: pointer;
-
-  // todo refactor
-  & > *:nth-child(2) {
-    width: 375px;
-  }
-
-  &.selected {
-    .padding {
-      background: #e1e5ea;
-    }
-  }
-  .padding {
-    flex: 1;
-    transition: 0.25s;
-  }
-  .module {
-    flex-shrink: 0;
-    width: 375px;
-  }
-}
-</style>

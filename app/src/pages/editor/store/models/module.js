@@ -20,6 +20,7 @@ export default function Module(inits) {
 
   /* 和 Vue 实例相关的属性 */
   this.$instance = null
+  this.$elements = []
   this.component = component
   this.props = Vue.observable(this.initProps())
   Object.entries(this.props).map(([k, v]) => (this.data[k] = v))
@@ -87,32 +88,3 @@ Module.prototype.initProps = function() {
     return h
   }, {})
 }
-
-// refactor WIP
-// 校验函数（组件编辑时的校验、C端校验是两种东西）
-Module.prototype.validate = function() {
-  // const $validator = this.$instance.validate
-  // if (!$validator) {
-  //   return true
-  // } else {
-  //   let isValid
-  //   try {
-  //     $validator(errMsg => {
-  //       if (errMsg) {
-  //         alert(errMsg)
-  //         throw new Error('校验错误' + errMsg)
-  //       }
-  //     })
-  //     isValid = true
-  //   } catch (error) {
-  //     isValid = false
-  //   }
-  //   return isValid
-  // }
-}
-
-/** Life Circle 并不对应 Vue 中的生命周期，只是借用名字 */
-
-Module.prototype.mounted = function() {}
-Module.prototype.beforeDestroy = function() {}
-Module.prototype.destroy = function() {}

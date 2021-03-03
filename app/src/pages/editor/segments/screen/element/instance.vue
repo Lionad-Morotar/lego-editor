@@ -8,7 +8,6 @@ export default {
     propsWithDefaultValue() {
       const props = this.$props.module.props
       const propsConfig = this.$props.module.propsConfig
-      // console.log(props, propsConfig)
       const getDefaultPropsValue = k => propsConfig[k].default
       return Object.entries(props).reduce((h, [k, v]) => {
         h[k] = v || getDefaultPropsValue(k)
@@ -18,9 +17,14 @@ export default {
   },
   mounted () {
     this.module.setInstance(this.$children[0])
+    // 目前没存子组件的选框元素，
+    // 需要一个广搜全存下来
+    this.module.$elements = [this.$children[0].$children[0].$children[0]]
   },
   render(h) {
     const { name, uuid } = this.$props.module
+    // console.log(this.propsWithDefaultValue.subTitle)
+    // console.log(this.$props.module.component)
     return h(name, {
       key: uuid,
       props: {

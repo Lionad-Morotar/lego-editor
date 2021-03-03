@@ -1,17 +1,17 @@
 <template>
   <div class="screen" @click="unselectedModule">
     <template v-for="m in modules">
-      <screen-element :module="m" :key="m.uuid" />
+      <screen-block :module="m" :key="m.uuid" />
     </template>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import ScreenElement from './element/index'
+import ScreenBlock from './block'
 export default {
   components: {
-    ScreenElement,
+    ScreenBlock,
   },
   computed: {
     ...mapState('editor', {
