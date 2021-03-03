@@ -6,7 +6,7 @@
   >
     <!-- 每个模块都附带一左一右两个 padding block，将剩余的空间填充满 -->
     <div class="padding left" />
-    <instance :module="module" />
+    <instance :ref="module.uuid" :module="module" />
     <div class="padding right" />
   </div>
 </template>
@@ -33,9 +33,12 @@ export default {
     },
   },
   methods: {
-    ...mapActions('screen', ['SELECT_MODULE']),
+    ...mapActions('screen', ['SELECT_MODULE','SELECT_ELEMENT']),
     selectModule() {
-      !this.isSelected && this.SELECT_MODULE(this.module)
+      if (!this.isSelected) {
+        this.SELECT_MODULE(this.module)
+        this.SELECT_ELEMENT(this.$refs[this.module.uuid].$children[0].$children[0])
+      }
     },
   },
 }
