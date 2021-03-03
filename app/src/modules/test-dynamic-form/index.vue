@@ -40,7 +40,7 @@ export default {
   background: #5200d1;
 }
 .form-sub-title {
-  margin: 15px 0;
+  padding: 15px 0;
   font-size: 12px;
   color: #f0f3f7;
   text-align: center;
