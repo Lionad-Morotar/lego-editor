@@ -25,12 +25,7 @@ export default {
   components: {
     FormHeader,
     FormContent,
-  },
-  watch: {
-    subTitle(n) {
-      console.log('subTitle changed: ', n)
-    },
-  },
+  }
 }
 </script>
 

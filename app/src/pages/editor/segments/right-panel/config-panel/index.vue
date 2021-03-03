@@ -30,10 +30,10 @@ export default {
       props: ['name', 'config', 'selected', 'selectedOutline'],
       render(h) {
         const { name, config, selected } = this.$props
-        // console.log(selected.props)
         return h(
           'el-form-item',
           {
+            key: selected.uuid + '_' + name,
             props: {
               label: config.label,
               required: config.required,

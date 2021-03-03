@@ -26,6 +26,7 @@ const actions = {
   CLEAR_MODULE({ commit }) {
     commit('CLEAR_MODULE')
   },
+  // 解耦“install”以及“preInstall”？
   INSTALL_MODULES({ commit }, { moduleList = [], editable = true }) {
     moduleList.map(newModule => {
       const isValidModule = m => !!m
@@ -33,7 +34,7 @@ const actions = {
         if (!editable) {
           Vue.component(newModule.name, newModule.component)
         } else {
-          // 收集模块的外部数据依赖
+          // 收集外部数据依赖
           Module.gatherProps(newModule.name, newModule.component)
           // 包装子模块
           const hasComponents = newModule.component.components
