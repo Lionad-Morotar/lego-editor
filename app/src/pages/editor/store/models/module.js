@@ -69,7 +69,7 @@ Module.gatherProps = function(name, component) {
           : {}),
       }
       return h
-    }, {})
+    }, {...(cmpt.props || {})})
   }
   const res = getComponentAndChildrenProps(component)
   Module.propsMap[name] = res

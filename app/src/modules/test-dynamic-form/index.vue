@@ -26,10 +26,9 @@ export default {
     FormHeader,
     FormContent,
   },
-  computed: {
-    testFooterText() {
-      console.log('test: ', this.footerText)
-      return this.footerText
+  watch: {
+    subTitle(n) {
+      console.log('subTitle changed: ', n)
     },
   },
 }
