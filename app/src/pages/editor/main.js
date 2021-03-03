@@ -20,7 +20,9 @@ const LegoEditor = new Vue({
     ...mapActions('editor', ['INSTALL_MODULES']),
   },
   mounted() {
-    this.INSTALL_MODULES(DefaultModule.moduleList)
+    this.INSTALL_MODULES({
+      moduleList: DefaultModule.getDefaultModuleList(),
+    })
   },
   render() {
     return <Editor />

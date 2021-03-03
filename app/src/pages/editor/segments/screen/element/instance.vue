@@ -5,7 +5,13 @@ export default {
     module: Object,
   },
   computed: {
-    ...mapState('screen', {}),
+    ...mapState('screen', {
+      modules: state => state.modules,
+      selected: state => state.selected,
+    }),
+    isSelected() {
+      return this.selected === this.module
+    },
     // 界面显示的值和右侧面板的动态表单直接绑定，
     // 但是右侧面板表单值为空时，
     // 界面上不能为空，需要展示默认值
@@ -18,19 +24,16 @@ export default {
       }, {})
     },
   },
-  mounted() {
-    // 给模块实例回传 Vue 实例
-    this.$props.module.setInstance(this.$children[0])
-  },
   methods: {
     ...mapActions('screen', []),
   },
   render(h) {
     const { name, uuid } = this.$props.module
+    // TODO 綁定字组件的 props
     return h(name, {
       props: {
-        key: uuid,
         ...this.propsWithDefaultValue,
+        key: uuid,
       },
     })
   },

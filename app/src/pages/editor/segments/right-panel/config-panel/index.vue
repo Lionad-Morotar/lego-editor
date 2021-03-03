@@ -62,9 +62,10 @@ export default {
   computed: {
     ...mapState('screen', {
       selected: state => state.selected,
+      selectedElement: state => state.selectedElement,
     }),
     config() {
-      return this.selected.component.props || {}
+      return this.selectedElement?.props || {}
     },
     configEntries() {
       return Object.entries(this.config)

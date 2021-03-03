@@ -1,9 +1,4 @@
-import Vue from 'vue'
-
 // TODO doc
-
-// todo utils ?
-// const deepClone = m => m
 
 /**
  * Module 用来承接模块的公用方法和属性，如 uuid、校验函数等
@@ -23,10 +18,8 @@ export default function Module(inits) {
   /* 和 Vue 实例相关的属性 */
   this.component = component
   this.props = this.initProps()
+  // 需不需要维护模块实例和 vue 实例的关系？
   this.$instance = null
-
-  // 全局注册模块，以便加载对应的动态组件
-  Vue.component(inits.name)
 }
 
 /**
@@ -65,24 +58,24 @@ Module.prototype.initProps = function() {
 // refactor WIP
 // 校验函数（组件编辑时的校验、C端校验是两种东西）
 Module.prototype.validate = function() {
-  const $validator = this.$instance.validate
-  if (!$validator) {
-    return true
-  } else {
-    let isValid
-    try {
-      $validator(errMsg => {
-        if (errMsg) {
-          alert(errMsg)
-          throw new Error('校验错误' + errMsg)
-        }
-      })
-      isValid = true
-    } catch (error) {
-      isValid = false
-    }
-    return isValid
-  }
+  // const $validator = this.$instance.validate
+  // if (!$validator) {
+  //   return true
+  // } else {
+  //   let isValid
+  //   try {
+  //     $validator(errMsg => {
+  //       if (errMsg) {
+  //         alert(errMsg)
+  //         throw new Error('校验错误' + errMsg)
+  //       }
+  //     })
+  //     isValid = true
+  //   } catch (error) {
+  //     isValid = false
+  //   }
+  //   return isValid
+  // }
 }
 
 /** Life Circle 并不对应 Vue 中的生命周期，只是借用名字 */

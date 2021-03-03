@@ -6,20 +6,16 @@
   >
     <!-- 每个模块都附带一左一右两个 padding block，将剩余的空间填充满 -->
     <div class="padding left" />
-    <outline :active="isSelected">
-      <instance :module="module" />
-    </outline>
+    <instance :module="module" />
     <div class="padding right" />
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import Outline from './outline'
 import Instance from './instance'
 export default {
   components: {
-    Outline,
     Instance,
   },
   props: {

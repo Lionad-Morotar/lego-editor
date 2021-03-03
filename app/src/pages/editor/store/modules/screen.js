@@ -1,11 +1,9 @@
 import Module from '../models/module'
 
 const state = {
-  // 只有预览时才可以编辑表单、点击按钮；
-  // 正常编辑时，是非预览状态，表单项都是禁用的。
-  isPreview: false,
   modules: [],
   selected: null,
+  selectedElement: null,
 }
 
 const mutations = {
@@ -37,6 +35,12 @@ const mutations = {
       findTarget,
     )
   },
+  SELECT_ELEMENT(state, element) {
+    state.selectedElement = element
+  },
+  UNSELECT_ELEMENT(state) {
+    state.selectedElement = null
+  },
 }
 
 const getters = {}
@@ -66,6 +70,19 @@ const actions = {
         order,
         findTarget,
       })
+    }
+  },
+  SELECT_ELEMENT({ commit, state }, target) {
+    if (state.selectedElement !== target) {
+      commit('SELECT_ELEMENT', target)
+    }
+  },
+  UNSELECT_ELEMENT({ commit, state }, target = null) {
+    if (target && state.selectedElement !== target) {
+      // do nothing
+    }
+    if (!target) {
+      commit('UNSELECT_ELEMENT')
     }
   },
 

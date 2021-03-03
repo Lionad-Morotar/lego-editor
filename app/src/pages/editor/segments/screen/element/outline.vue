@@ -1,7 +1,10 @@
 <template>
-  <div class="outline" :class="active ? 'active' : ''">
+  <div
+    class="box-outline"
+    :class="isActive ? 'active' : ''"
+    @click="handleClick"
+  >
     <slot />
-    <!-- 元素多起来的话，会不会有性能问题？ -->
     <div class="outline">
       <div class="point left top" />
       <div class="point left bottom" />
@@ -12,18 +15,46 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
 export default {
-  props: {
-    active: {
-      type: Boolean,
-      default: false,
+  props: ['props'],
+  computed: {
+    ...mapState('screen', {
+      selectedElement: state => state.selectedElement,
+    }),
+    isActive() {
+      return this.selectedElement === this
+    },
+  },
+  methods: {
+    ...mapActions('screen', ['SELECT_ELEMENT']),
+    // 捕获到点击时激活当前选框，
+    // 除非已激活选框是当前选框的子项
+    handleClick(e) {
+      // 最多只有两层 Outline，所以目前只记录 firstTarget
+      const firstTarget = (e.path || []).find(x =>
+        x?.classList?.contains('box-outline'),
+      )
+      const allTargets = (e.path || []).filter(x =>
+        x?.classList?.contains('box-outline'),
+      )
+      // 当前选中的是子项
+      const isCurrentSelectedChildren =
+        firstTarget === this.selectedElement?.$el
+      // 当前点击传播到了自身
+      const isPassbySelf = allTargets.includes(this.$el)
+      const shouldIgnore = isCurrentSelectedChildren && isPassbySelf
+
+      e.preventDefault()
+
+      !shouldIgnore && this.SELECT_ELEMENT(this)
     },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.outline {
+.box-outline {
   position: relative;
   display: flex;
 
@@ -62,7 +93,7 @@ export default {
     }
   }
   &.active {
-    .outline {
+    & > .outline {
       border: solid 2px #a1caff;
       .point {
         display: block;

@@ -21,6 +21,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import DefaultModule from '@/modules'
 export default {
   computed: {
     ...mapState('editor', {
@@ -31,7 +32,11 @@ export default {
     }),
   },
   methods: {
-    ...mapActions('editor', ['TOGGLE_ISPREVIEW']),
+    ...mapActions('editor', [
+      'TOGGLE_ISPREVIEW',
+      'INSTALL_MODULES',
+      'CLEAR_MODULE',
+    ]),
     ...mapActions('screen', []),
     save() {
       const isValid = this.modules.every(x => x.validate())
@@ -40,6 +45,11 @@ export default {
       }
     },
     togglePreview() {
+      this.CLEAR_MODULE()
+      this.INSTALL_MODULES({
+        moduleList: DefaultModule.getDefaultModuleList(),
+        editable: this.isPreview,
+      })
       this.TOGGLE_ISPREVIEW()
     },
   },
