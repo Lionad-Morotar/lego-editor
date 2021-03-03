@@ -1,8 +1,7 @@
-defau
 <template>
   <div class="segment" v-if="selected && configEntries.length > 0">
     <div class="header">
-      <span class="label">控制面板</span>
+      <span class="label">配置面板</span>
       <i class="el-icon el-icon-arrow-down" />
     </div>
     <div class="content">
@@ -13,6 +12,7 @@ defau
               :name="name"
               :config="item.config"
               :selected="selected"
+              :selectedOutline="selectedOutline"
               :key="name"
             />
           </template>
@@ -27,7 +27,7 @@ import { mapState } from 'vuex'
 export default {
   components: {
     ConfigItem: {
-      props: ['name', 'config', 'selected'],
+      props: ['name', 'config', 'selected', 'selectedOutline'],
       render(h) {
         const { name, config, selected } = this.$props
         // console.log(selected.props)
@@ -62,10 +62,10 @@ export default {
   computed: {
     ...mapState('screen', {
       selected: state => state.selected,
-      selectedElement: state => state.selectedElement,
+      selectedOutline: state => state.selectedOutline,
     }),
     config() {
-      return this.selectedElement?.props || {}
+      return this.selectedOutline?.props || {}
     },
     configEntries() {
       return Object.entries(this.config)

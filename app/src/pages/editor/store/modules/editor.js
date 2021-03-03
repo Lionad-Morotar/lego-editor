@@ -38,31 +38,31 @@ const actions = {
           // 包装子模块
           const hasComponents = newModule.component.components
           if (hasComponents) {
-            newModule.component.components = Object
-              .entries(hasComponents)
-              .reduce((h, [k, v]) => {
-                h[k] = {
-                  render(h) {
-                    return h(ScreenElement, {
-                      props: {
-                        component: v,
-                        captureClick: true
-                      }
-                    })
-                  },
-                }
-                return h
-              }, {})
+            newModule.component.components = Object.entries(
+              hasComponents,
+            ).reduce((h, [k, v]) => {
+              h[k] = {
+                render(h) {
+                  return h(ScreenElement, {
+                    props: {
+                      component: v,
+                      captureClick: true,
+                    },
+                  })
+                },
+              }
+              return h
+            }, {})
           }
           // 包装模块以及注册
           Vue.component(newModule.name, {
-            render (h) {
-              return h(ScreenElement, { 
+            render(h) {
+              return h(ScreenElement, {
                 props: {
-                  component: newModule.component
-                }
+                  component: newModule.component,
+                },
               })
-            }
+            },
           })
         }
         commit('ADD_MODULE', newModule)

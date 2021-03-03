@@ -21,14 +21,14 @@ export default {
   props: ['props'],
   computed: {
     ...mapState('screen', {
-      selectedElement: state => state.selectedElement,
+      selectedOutline: state => state.selectedOutline,
     }),
     isActive() {
-      return this.selectedElement === this
+      return this.selectedOutline === this
     },
   },
   methods: {
-    ...mapActions('screen', ['SELECT_ELEMENT']),
+    ...mapActions('screen', ['SELECT_OUTLINE']),
     // 捕获到点击时激活当前选框
     selectElement(e) {
       const allTargets = (e.path || []).filter(x =>
@@ -37,12 +37,12 @@ export default {
       const firstTarget = allTargets[0]
       // 当前选中的是子项
       const isCurrentSelectedChildren =
-        firstTarget === this.selectedElement?.$el
+        firstTarget === this.selectedOutline?.$el
       // 忽略点击事件冒泡触发的事件
       const isPassbySelf = allTargets[allTargets.length - 1] === this.$el
       const shouldIgnore = isCurrentSelectedChildren && isPassbySelf
       // console.log(isPassbySelf, shouldIgnore)
-      !shouldIgnore && this.SELECT_ELEMENT(this)
+      !shouldIgnore && this.SELECT_OUTLINE(this)
     },
   },
 }

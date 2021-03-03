@@ -19,5 +19,5 @@ const contains = (parent, toFind) => {
 }
 
 export default {
-  contains
+  contains,
 }

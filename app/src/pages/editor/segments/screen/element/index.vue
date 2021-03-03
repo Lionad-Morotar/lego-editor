@@ -10,25 +10,27 @@ export default {
     // 被包裹的模块
     'component',
     // 是否捕获点击以阻止传播
-    'captureClick'
+    'captureClick',
   ],
-  render (h) {
+  render(h) {
     const component = this.$props.component
     const captureClick = this.$props.captureClick
 
-    const $child = captureClick 
+    const $child = captureClick
       ? h(ClickCapture, {}, [h(component)])
       : h(component)
+
+    console.log(this)
 
     return h(
       Outline,
       {
-        props: { 
-          props: component.props
+        props: {
+          props: component.props,
         },
       },
       [$child],
     )
-  }
+  },
 }
 </script>

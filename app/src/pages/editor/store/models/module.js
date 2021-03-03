@@ -5,6 +5,9 @@ import Vue from 'vue'
 /**
  * Module 用来承接模块的公用方法和属性，如 uuid、校验函数等
  * 约定，由 Module 生成的实例叫做模块实例
+ * ***
+ * props  模块依赖的外部值（也就是 Vue 组件的 props）
+ * data   模块状态，由 props 清洗校验后得到，能与数据库交互
  */
 export default function Module(inits) {
   const { title, description, name, component } = inits
@@ -20,7 +23,7 @@ export default function Module(inits) {
 
   /* 和 Vue 实例相关的属性 */
   this.$instance = null
-  this.$elements = []
+  this.$outlines = []
   this.component = component
   this.props = Vue.observable(this.initProps())
   Object.entries(this.props).map(([k, v]) => (this.data[k] = v))
@@ -48,7 +51,8 @@ Module.prototype.setInstance = function(instance) {
 //  */
 Module.prototype.setProp = function(key, value) {
   this.props[key] = value
-  this.data[key] = value
+  // todo wash before set data
+  // this.data[key] = value
   // console.log('this.props: ', this.props)
 }
 
@@ -61,16 +65,19 @@ Module.propsMap = {}
 Module.gatherProps = function(name, component) {
   function getComponentAndChildrenProps(cmpt) {
     const cmpts = cmpt.components || {}
-    return Object.entries(cmpts).reduce((h, [, v]) => {
-      h = {
-        ...h,
-        ...(v.props || {}),
-        ...(cmpts.components
-          ? getComponentAndChildrenProps(cmpts.components)
-          : {}),
-      }
-      return h
-    }, {...(cmpt.props || {})})
+    return Object.entries(cmpts).reduce(
+      (h, [, v]) => {
+        h = {
+          ...h,
+          ...(v.props || {}),
+          ...(cmpts.components
+            ? getComponentAndChildrenProps(cmpts.components)
+            : {}),
+        }
+        return h
+      },
+      { ...(cmpt.props || {}) },
+    )
   }
   const res = getComponentAndChildrenProps(component)
   Module.propsMap[name] = res

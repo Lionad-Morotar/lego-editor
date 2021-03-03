@@ -3,7 +3,7 @@ import Module from '../models/module'
 const state = {
   modules: [],
   selected: null,
-  selectedElement: null,
+  selectedOutline: null,
 }
 
 const mutations = {
@@ -35,11 +35,11 @@ const mutations = {
       findTarget,
     )
   },
-  SELECT_ELEMENT(state, element) {
-    state.selectedElement = element
+  SELECT_OUTLINE(state, element) {
+    state.selectedOutline = element
   },
-  UNSELECT_ELEMENT(state) {
-    state.selectedElement = null
+  UNSELECT_OUTLINE(state) {
+    state.selectedOutline = null
   },
 }
 
@@ -52,7 +52,7 @@ const actions = {
   },
   SELECT_MODULE({ commit }, module) {
     commit('SELECT_MODULE', module)
-    commit('SELECT_ELEMENT', module.$elements[0])
+    commit('SELECT_OUTLINE', module.$outlines[0])
   },
   DELETE_MODULE({ commit }, module) {
     commit('DELETE_MODULE', module)
@@ -60,7 +60,7 @@ const actions = {
   UNSELECTED({ commit, state }) {
     if (state.selected) {
       commit('DELETE_SELECTED')
-      commit('UNSELECT_ELEMENT')
+      commit('UNSELECT_OUTLINE')
     }
   },
   // 移动模块，order 正数向数组右侧，负数向数组左侧
@@ -74,9 +74,9 @@ const actions = {
       })
     }
   },
-  SELECT_ELEMENT({ commit, state }, target) {
-    if (state.selectedElement !== target) {
-      commit('SELECT_ELEMENT', target)
+  SELECT_OUTLINE({ commit, state }, target) {
+    if (state.selectedOutline !== target) {
+      commit('SELECT_OUTLINE', target)
     }
   },
   DELETE_SELECTED_MODULE({ commit, state }) {

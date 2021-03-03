@@ -23,14 +23,14 @@ export default {
     ...mapState('screen', {
       modules: state => state.modules,
       selected: state => state.selected,
-      selectedElement: state => state.selectedElement,
+      selectedOutline: state => state.selectedOutline,
     }),
     isSelected() {
       return this.selected === this.module
     },
   },
   methods: {
-    ...mapActions('screen', ['SELECT_MODULE', 'SELECT_ELEMENT']),
+    ...mapActions('screen', ['SELECT_MODULE', 'SELECT_OUTLINE']),
     selectModule() {
       if (!this.isSelected) {
         this.SELECT_MODULE(this.module)
@@ -38,9 +38,9 @@ export default {
     },
     // 点击 PaddingBox 时高亮最外层 Outline
     selectTopElement() {
-      const curModuleTopElement = this.module.$elements[0]
-      this.SELECT_ELEMENT(curModuleTopElement)
-    }
+      const curModuleTopElement = this.module.$outlines[0]
+      this.SELECT_OUTLINE(curModuleTopElement)
+    },
   },
 }
 </script>
