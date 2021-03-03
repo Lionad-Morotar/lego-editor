@@ -58,7 +58,7 @@ const actions = {
                   {
                     props: {
                       props: v.props,
-                    }
+                    },
                   },
                   [h(ClickCapture, {}, [h(v)])],
                 )
@@ -73,9 +73,9 @@ const actions = {
                 {
                   props: {
                     props: newModule.component.props,
-                  }
+                  },
                 },
-                [h(newModule.component)]
+                [h(newModule.component)],
               )
             },
           })
