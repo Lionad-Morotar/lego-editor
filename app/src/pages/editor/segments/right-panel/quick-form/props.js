@@ -6,6 +6,9 @@ const merge = (...args) => Object.assign(...args)
 /**
  * DS 定义了模块的数据与模块样式以怎样的形式聚合
  * DS 即 DataStructures
+ * DS 永远会返回“新”数据，举个例子，
+ * @example
+ * DS.text === DS.text // 结果为 false
  */
 const DS = {
   get text() {
@@ -22,7 +25,7 @@ const DS = {
 
 /**
  * 生成精简的样式对象
- * @todo refactor CSS 值合并
+ * @todo refactor CSS 多值合并
  */
 const genStyles = (val = {}) => {
   const { textAlign, bold, italic, underLine, strikeThrough } = val
@@ -36,7 +39,13 @@ const genStyles = (val = {}) => {
 }
 
 /**
- * Props 规范规定了模块的依赖的数据的类型
+ * Props 定义不同的数据类型，以约定不同类型的数据结构及在右侧编辑面板中如何配置该数据
+ * @see https://cn.vuejs.org/v2/guide/components-props.html#Prop-%E9%AA%8C%E8%AF%81
+ * 和 Vue 的 Props 验证不同之处在于：
+ * 1. default 默认值字段在返回对象或数组时不需要显式用工厂函数去返回值
+ *    （不过还是会出现 Vue 警告，需要想个办法关一下）
+ * 2. validator 自定义校验函数返回两种格式信息：
+ *    undefined 或不返回，代表校验通过；失败的原因（字符串），代表校验失败
  */
 const Props = {
   /**
@@ -89,6 +98,8 @@ const Props = {
 
   /**
    * 自定义类型
+   * 用于配置自定义编辑面板
+   * @todo 总之将来肯定能用上
    */
 
   // customize(config) {
