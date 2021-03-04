@@ -20,10 +20,10 @@ export default {
     }),
   },
   computed: {
-    styles () {
+    styles() {
       return Props.genStyles(this.text)
-    }
-  }
+    },
+  },
 }
 </script>
 

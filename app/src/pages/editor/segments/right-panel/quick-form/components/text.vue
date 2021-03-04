@@ -2,26 +2,49 @@
   <div>
     <el-input v-bind="$attrs" v-model="v.text" />
     <div class="icons-con">
-      <div class="icon" title="左对齐" @click="v.textAlign='left'">
-        <i class="iconfont icon-align-left" :class="v.textAlign==='left'?'active':''" />
+      <div class="icon" title="左对齐" @click="v.textAlign = 'left'">
+        <i
+          class="iconfont icon-align-left"
+          :class="v.textAlign === 'left' ? 'active' : ''"
+        />
       </div>
-      <div class="icon" title="居中对齐" @click="v.textAlign='center'">
-        <i class="iconfont icon-align-center" :class="v.textAlign==='center'?'active':''" />
+      <div class="icon" title="居中对齐" @click="v.textAlign = 'center'">
+        <i
+          class="iconfont icon-align-center"
+          :class="v.textAlign === 'center' ? 'active' : ''"
+        />
       </div>
-      <div class="icon" title="右对齐" @click="v.textAlign='right'">
-        <i class="iconfont icon-align-right" :class="v.textAlign==='right'?'active':''" />
+      <div class="icon" title="右对齐" @click="v.textAlign = 'right'">
+        <i
+          class="iconfont icon-align-right"
+          :class="v.textAlign === 'right' ? 'active' : ''"
+        />
       </div>
-      <div class="icon" title="加粗" @click="v.bold=!v.bold">
-        <i class="iconfont icon-bold" :class="v.bold?'active':''" />
+      <div class="icon" title="加粗" @click="v.bold = !v.bold">
+        <i class="iconfont icon-bold" :class="v.bold ? 'active' : ''" />
       </div>
-      <div class="icon" title="斜体" @click="v.italic=!v.italic">
-        <i class="iconfont icon-italic" :class="v.italic?'active':''" />
+      <div class="icon" title="斜体" @click="v.italic = !v.italic">
+        <i class="iconfont icon-italic" :class="v.italic ? 'active' : ''" />
       </div>
-      <div class="icon" title="中划线" @click="v.underLine=!(v.strikeThrough=!v.strikeThrough)">
-        <i class="iconfont icon-strikethrough" :class="v.strikeThrough?'active':''" />
+      <div
+        class="icon"
+        title="中划线"
+        @click="v.underLine = !(v.strikeThrough = !v.strikeThrough)"
+      >
+        <i
+          class="iconfont icon-strikethrough"
+          :class="v.strikeThrough ? 'active' : ''"
+        />
       </div>
-      <div class="icon" title="下划线" @click="v.strikeThrough=!(v.underLine=!v.underLine)">
-        <i class="iconfont icon-underline" :class="v.underLine?'active':''" />
+      <div
+        class="icon"
+        title="下划线"
+        @click="v.strikeThrough = !(v.underLine = !v.underLine)"
+      >
+        <i
+          class="iconfont icon-underline"
+          :class="v.underLine ? 'active' : ''"
+        />
       </div>
     </div>
   </div>
@@ -31,21 +54,21 @@
 import Props from '../props'
 export default {
   props: ['value'],
-  data () {
+  data() {
     return {
       v: {
-        ...(this.value || Props.DS.text)
-      }
+        ...(this.value || Props.DS.text),
+      },
     }
   },
   watch: {
     v: {
       deep: true,
-      handler (newValue) {
+      handler(newValue) {
         this.$emit('change', newValue)
-      }
-    }
-  }
+      },
+    },
+  },
 }
 </script>
 

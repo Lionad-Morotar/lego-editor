@@ -19,7 +19,7 @@ export default {
       label: '表单副标题',
       default: {
         text: 'a dynamic form for test',
-        textAlign: 'center'
+        textAlign: 'center',
       },
       maxlength: 40,
       showWordLimit: true,
@@ -34,11 +34,11 @@ export default {
     }),
   },
   computed: {
-    styles () {
+    styles() {
       return {
-        subTitle: Props.genStyles(this.subTitle)
+        subTitle: Props.genStyles(this.subTitle),
       }
-    }
+    },
   },
   components: {
     FormHeader,

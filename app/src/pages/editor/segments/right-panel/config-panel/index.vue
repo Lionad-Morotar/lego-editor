@@ -26,11 +26,7 @@ import { mapState } from 'vuex'
 export default {
   components: {
     ConfigItem: {
-      props: [
-        'name',
-        'config',
-        'selected',
-      ],
+      props: ['name', 'config', 'selected'],
       render(h) {
         const { name, config, selected } = this.$props
         return h(
@@ -41,8 +37,8 @@ export default {
               label: config.label,
               required: config.required,
               error: selected.propsConfig[name]?.error,
-              ['inline-message']: true
-            }
+              ['inline-message']: true,
+            },
           },
           [
             h(config.component, {
@@ -56,7 +52,7 @@ export default {
               on: {
                 input: newVal => selected.setProp(name, newVal),
                 change: newVal => selected.setProp(name, newVal),
-              }
+              },
             }),
           ],
         )
@@ -102,6 +98,5 @@ export default {
   .el-input-number {
     width: 100%;
   }
-
 }
 </style>

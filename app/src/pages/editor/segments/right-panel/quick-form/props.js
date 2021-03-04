@@ -8,16 +8,16 @@ const merge = (...args) => Object.assign(...args)
  * DS 即 DataStructures
  */
 const DS = {
-  get text () {
+  get text() {
     return {
       text: '',
       textAlign: 'left',
       bold: false,
       italic: false,
       underLine: false,
-      strikeThrough: false
+      strikeThrough: false,
     }
-  }
+  },
 }
 
 /**
@@ -25,13 +25,7 @@ const DS = {
  * @todo refactor CSS 值合并
  */
 const genStyles = (val = {}) => {
-  const {
-    textAlign,
-    bold,
-    italic,
-    underLine,
-    strikeThrough
-  } = val
+  const { textAlign, bold, italic, underLine, strikeThrough } = val
   const res = {}
   if (textAlign) res.textAlign = textAlign
   if (bold) res.fontWeight = 'bold'
@@ -45,7 +39,6 @@ const genStyles = (val = {}) => {
  * Props 规范规定了模块的依赖的数据的类型
  */
 const Props = {
-
   /**
    * 基础类型，如 String、Number
    * 可类比为 VueJS 中给 Props 传入的 Type
@@ -57,8 +50,8 @@ const Props = {
       default: config.default,
       config: {
         component: Element.Input,
-        ...config
-      }
+        ...config,
+      },
     }
   },
 
@@ -68,8 +61,8 @@ const Props = {
       default: config.default,
       config: {
         component: Element.InputNumber,
-        ...config
-      }
+        ...config,
+      },
     }
   },
 
@@ -79,17 +72,18 @@ const Props = {
 
   // 字符串，可设置文本居中、加粗等样式
   text(config) {
-    const defaultVal = typeof config.default === 'string' 
-      ? merge(DS.text, { text: config.default })
-      : merge(DS.text, config.default)
+    const defaultVal =
+      typeof config.default === 'string'
+        ? merge(DS.text, { text: config.default })
+        : merge(DS.text, config.default)
     return {
       type: Object,
       default: defaultVal,
       defaultDisplay: defaultVal.text,
       config: {
         component: QuickForm.Text,
-        ...config
-      }
+        ...config,
+      },
     }
   },
 
@@ -105,7 +99,6 @@ const Props = {
   //     config
   //   }
   // }
-
 }
 
 Props.DS = DS

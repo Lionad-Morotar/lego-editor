@@ -10,7 +10,7 @@ export default {
       label: '表单名称',
       default: {
         text: '动态表单',
-        textAlign: 'center'
+        textAlign: 'center',
       },
       placeholder: '请填写表单名称',
       required: true,
@@ -19,9 +19,9 @@ export default {
     }),
   },
   computed: {
-    styles () {
+    styles() {
       return Props.genStyles(this.formName)
-    }
+    },
   },
 }
 </script>
