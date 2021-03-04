@@ -37,6 +37,7 @@ export default {
             props: {
               label: config.label,
               required: config.required,
+              error: selected.propsConfig[name].error
             },
           },
           [

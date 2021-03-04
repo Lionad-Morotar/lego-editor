@@ -18,8 +18,17 @@ export default {
     subTitle: Props.string({
       label: '表单副标题',
       default: 'a dynamic form for test',
-      maxlength: 20,
+      maxlength: 40,
       showWordLimit: true,
+      validator (value) {
+        console.log('value: ', value)
+        if (value.length == 0) {
+          return '请填写表单副标题'
+        }
+        if (value.length > 40) {
+          return '表单副标题长度上限 40'
+        }
+      }
     }),
   },
   components: {

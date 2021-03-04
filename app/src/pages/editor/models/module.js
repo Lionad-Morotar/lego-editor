@@ -60,9 +60,16 @@ Module.getModel = uuid => Module.modelsMap[uuid]
  */
 Module.prototype.setProp = function(key, value) {
   this.props[key] = value
-  // todo wash before set data
-  // this.data[key] = value
-  // console.log('this.props: ', this.props)
+  /* 校验并将 props 更新到 data */
+  const handler = this.propsConfig[key]
+  const validate = handler?.config?.validator || (() => void 0)
+  const error = validate(value)
+  if (error) {
+    this.propsConfig[key].error = error
+  } else {
+    this.propsConfig[key].error = ''
+    this.data[key] = value
+  }
 }
 
 /**
@@ -77,6 +84,8 @@ Module.gatherProps = function(name, component) {
     return Object.entries(cmpts).reduce(
       (h, [, v]) => {
         h = {
+          // 依赖项保存失败时的错误信息
+          error: '',
           ...h,
           ...(v.props || {}),
           ...(cmpts.components
