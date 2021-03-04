@@ -1,14 +1,17 @@
 <template>
-  <h4>{{ formName }}</h4>
+  <h4 :style="styles">{{ formName.text }}</h4>
 </template>
 
 <script>
-import Props from '@/modules/props'
+import Props from '../props'
 export default {
   props: {
-    formName: Props.string({
+    formName: Props.text({
       label: '表单名称',
-      default: '动态表单',
+      default: {
+        text: '动态表单',
+        textAlign: 'center'
+      },
       placeholder: '请填写表单名称',
       required: true,
       maxlength: 10,
@@ -16,10 +19,9 @@ export default {
     }),
   },
   computed: {
-    test() {
-      console.log('this.formName:', this.formName)
-      return this.formName
-    },
+    styles () {
+      return Props.genStyles(this.formName)
+    }
   },
 }
 </script>
@@ -30,7 +32,6 @@ h4 {
   font-size: 24px;
   color: white;
   font-weight: 300;
-  text-align: center;
   letter-spacing: 1px;
 }
 </style>
