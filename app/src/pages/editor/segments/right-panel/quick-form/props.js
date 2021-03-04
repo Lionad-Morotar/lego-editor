@@ -1,4 +1,4 @@
-import { Input } from 'element-ui'
+import Element from 'element-ui'
 
 // const merge = (...args) => Object.assign(...args)
 
@@ -12,13 +12,23 @@ export default {
    * 可类比为 VueJS 中给 Props 传入的 Type
    */
 
-  // 字符串类型
   string(config) {
     return {
       type: String,
       default: config.default,
       config: {
-        component: Input.name,
+        component: Element.Input,
+        ...config
+      }
+    }
+  },
+
+  number(config) {
+    return {
+      type: Number,
+      default: config.default,
+      config: {
+        component: Element.InputNumber,
         ...config
       }
     }
