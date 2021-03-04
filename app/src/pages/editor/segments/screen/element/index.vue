@@ -18,23 +18,42 @@ export default {
     // 是否捕获点击以阻止传播
     'captureClick',
   ],
+  computed: {
+    curModel () {
+      return Module.getModel(this.model)
+    },
+    // 组件依赖（props）需要响应来自实例的外部依赖数据的更新
+    // todo 每次 props 更新，这个 computed 会发生三次，数据流可能存在问题
+    receivedUpdate () {
+      return this.curModel.props
+    },
+    // 界面显示的值和右侧面板的动态表单直接绑定，
+    // 但是右侧面板表单值为空时，
+    // 界面上不能为空，需要展示默认值
+    propsWithDefaultValue () {
+      const propsConfig = this.curModel.propsConfig
+      const getDefaultPropsValue = k => propsConfig[k].default
+      
+      const updatedProps = this.receivedUpdate
+      return Object.entries(updatedProps).reduce((h, [k, v]) => {
+        h[k] = v || getDefaultPropsValue(k)
+        return h
+      }, {})
+    }
+  },
   render(h) {
     const component = this.$props.component
     const captureClick = this.$props.captureClick
 
-    // 组件依赖（props）需要响应来自实例的外部依赖数据的更新
-    const moduleModel = Module.getModel(this.model)
-    const receivedProps = moduleModel.props
-
     const $cmpt = h(component, {
       props: {
-        ...receivedProps,
+        ...this.propsWithDefaultValue,
       },
     })
     const $child = captureClick ? h(ClickCapture, {}, [$cmpt]) : $cmpt
 
     // 组件作为 Outline 的插槽内容渲染
-    // ! 谨慎修改，获取 Vue 组件实例依赖当前组件层级结构
+    // ! 谨慎修改，模块实例在获取 Vue 组件实例以及组件的 Outline 实例时，依赖了当前组件的层级结构
     return h(
       Outline,
       {

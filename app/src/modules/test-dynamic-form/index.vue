@@ -21,7 +21,6 @@ export default {
       maxlength: 40,
       showWordLimit: true,
       validator (value) {
-        console.log('value: ', value)
         if (value.length == 0) {
           return '请填写表单副标题'
         }
