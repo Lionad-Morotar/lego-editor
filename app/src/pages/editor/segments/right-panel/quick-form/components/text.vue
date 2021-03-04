@@ -1,6 +1,7 @@
 <template>
   <div>
     <el-input v-bind="$attrs" v-model="v.text" />
+    <!-- 这个代码太丑了，首先得怪现在用的格式化工具太差劲了 TWT -->
     <div class="icons-con">
       <div class="icon" title="左对齐" @click="v.textAlign = 'left'">
         <i
@@ -29,18 +30,14 @@
       <div
         class="icon"
         title="中划线"
-        @click="v.underLine = !(v.strikeThrough = !v.strikeThrough)"
+        @click="v.strikeThrough = !v.strikeThrough"
       >
         <i
           class="iconfont icon-strikethrough"
           :class="v.strikeThrough ? 'active' : ''"
         />
       </div>
-      <div
-        class="icon"
-        title="下划线"
-        @click="v.strikeThrough = !(v.underLine = !v.underLine)"
-      >
+      <div class="icon" title="下划线" @click="v.underLine = !v.underLine">
         <i
           class="iconfont icon-underline"
           :class="v.underLine ? 'active' : ''"
