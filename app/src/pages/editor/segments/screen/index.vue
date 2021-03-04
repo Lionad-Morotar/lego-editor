@@ -26,10 +26,10 @@ export default {
     // for test purposes
     if (this.modules.length === 0) {
       setTimeout(() => {
+        this.ADD_MODULE(this.plugins[0])
+      }, 200)
+      setTimeout(() => {
         this.ADD_MODULE(this.plugins[1])
-        // setTimeout(() => {
-        //   this.ADD_MODULE(this.plugins[0])
-        // }, 200)
       }, 200)
     }
   },

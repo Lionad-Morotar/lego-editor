@@ -19,27 +19,34 @@ export default {
     'captureClick',
   ],
   computed: {
-    curModel () {
+    curModel() {
+      // console.log('this.model: ', this.model)
       return Module.getModel(this.model)
     },
     // 组件依赖（props）需要响应来自实例的外部依赖数据的更新
-    // todo 每次 props 更新，这个 computed 会发生三次，数据流可能存在问题
-    receivedUpdate () {
+    // todo FIXME 每次 props 更新，这个 computed 会发生三次，
+    // todo 数据流可能存在问题，需要排查
+    receivedUpdate() {
+      // console.log('receivedUpdate: ', this.curModel.props)
       return this.curModel.props
     },
     // 界面显示的值和右侧面板的动态表单直接绑定，
     // 但是右侧面板表单值为空时，
     // 界面上不能为空，需要展示默认值
-    propsWithDefaultValue () {
+    propsWithDefaultValue() {
       const propsConfig = this.curModel.propsConfig
-      const getDefaultPropsValue = k => propsConfig[k].default
-      
+      const getDefaultPropsValue = k => {
+        const val = propsConfig[k].defaultDisplay || propsConfig[k].default
+        // console.log(k, val)
+        return val
+      }
+
       const updatedProps = this.receivedUpdate
       return Object.entries(updatedProps).reduce((h, [k, v]) => {
         h[k] = v || getDefaultPropsValue(k)
         return h
       }, {})
-    }
+    },
   },
   render(h) {
     const component = this.$props.component

@@ -6,13 +6,12 @@
     </div>
     <div class="content">
       <div class="config-panel">
-        <el-form label-width="80px" label-position="top">
+        <el-form label-width="80px" label-position="top" @submit.native.prevent>
           <template v-for="[name, item] in configEntries">
             <config-item
               :name="name"
               :config="item.config"
               :selected="selected"
-              :selectedOutline="selectedOutline"
               :key="name"
             />
           </template>
@@ -27,7 +26,11 @@ import { mapState } from 'vuex'
 export default {
   components: {
     ConfigItem: {
-      props: ['name', 'config', 'selected', 'selectedOutline'],
+      props: [
+        'name',
+        'config',
+        'selected',
+      ],
       render(h) {
         const { name, config, selected } = this.$props
         return h(
@@ -37,8 +40,9 @@ export default {
             props: {
               label: config.label,
               required: config.required,
-              error: selected.propsConfig[name].error
-            },
+              error: selected.propsConfig[name]?.error,
+              ['inline-message']: true
+            }
           },
           [
             h(config.component, {
@@ -50,10 +54,9 @@ export default {
                 ...config,
               },
               on: {
-                input: function(newVal) {
-                  selected.setProp(name, newVal)
-                },
-              },
+                input: newVal => selected.setProp(name, newVal),
+                change: newVal => selected.setProp(name, newVal),
+              }
             }),
           ],
         )
@@ -89,5 +92,16 @@ export default {
   /deep/ .el-form-item {
     margin: 0;
   }
+}
+</style>
+
+<style lang="scss">
+.config-panel {
+  width: 100%;
+
+  .el-input-number {
+    width: 100%;
+  }
+
 }
 </style>

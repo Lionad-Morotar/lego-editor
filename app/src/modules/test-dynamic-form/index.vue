@@ -20,14 +20,14 @@ export default {
       default: 'a dynamic form for test',
       maxlength: 40,
       showWordLimit: true,
-      validator (value) {
+      validator(value) {
         if (value.length == 0) {
           return '请填写表单副标题'
         }
         if (value.length > 40) {
           return '表单副标题长度上限 40'
         }
-      }
+      },
     }),
   },
   components: {

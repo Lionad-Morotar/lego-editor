@@ -1,4 +1,4 @@
-// TODO doc
+import clone from 'lodash.clonedeep'
 
 /**
  * Module 用来承接模块的公用方法和属性，如 uuid、校验函数等
@@ -81,21 +81,21 @@ Module.propsMap = {}
 Module.gatherProps = function(name, component) {
   function getComponentAndChildrenProps(cmpt) {
     const cmpts = cmpt.components || {}
-    return Object.entries(cmpts).reduce(
-      (h, [, v]) => {
-        h = {
-          // 依赖项保存失败时的错误信息
-          error: '',
-          ...h,
-          ...(v.props || {}),
-          ...(cmpts.components
-            ? getComponentAndChildrenProps(cmpts.components)
-            : {}),
-        }
-        return h
-      },
-      { ...(cmpt.props || {}) },
-    )
+    const props = Object.entries(cmpts).reduce((h, [, v]) => {
+      h = {
+        ...h,
+        ...(v.props || {}),
+        ...(cmpts.components
+          ? getComponentAndChildrenProps(cmpts.components)
+          : {}),
+      }
+      return h
+    }, cmpt.props || {})
+    Object.keys(props).map(name => {
+      // 用作依赖项校验失败时的错误信息
+      props[name].error = ''
+    })
+    return props
   }
   const res = getComponentAndChildrenProps(component)
   Module.propsMap[name] = res
@@ -109,7 +109,8 @@ Module.prototype.initProps = function() {
   const name = this.component.name
   const propsConfig = Module.propsMap[name]
   return Object.entries(propsConfig).reduce((h, [k, v]) => {
-    h[k] = v.default
+    // todo remove deepclone
+    h[k] = clone(v.default)
     return h
   }, {})
 }
