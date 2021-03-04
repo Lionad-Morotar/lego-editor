@@ -31,13 +31,17 @@ export default function Module(inits) {
  * 绑定 Vue 实例
  * @param {VueInstance} instance 模块的 Vue 实例
  */
-Module.prototype.bindInstance = function (instance) {
+Module.prototype.bindInstance = function(instance) {
   if (this.$instance && console?.warn) {
     console.warn('[WARN] bindInstance twice')
   }
   this.$instance = instance
 }
-Module.prototype.bindModel = function (uuid) {
+/**
+ * 保存模型实例和模型 uuid 的映射关系
+ * @param {string} uuid
+ */
+Module.prototype.bindModel = function(uuid) {
   if (Module.modelsMap[uuid] && console?.warn) {
     console.warn('[WARN] bindInstance twice')
   }

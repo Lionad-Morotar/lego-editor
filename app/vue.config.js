@@ -1,3 +1,16 @@
+// const path = require('path')
+
+const configureWebpack = {
+  // ? 无效？
+  // resolve: {
+  //   alias: {
+  //     '@': path.join(__dirname, './'),
+  //     '@editor': path.join(__dirname, './pages/editor/'),
+  //     '@browser': path.join(__dirname, './pages/browser/'),
+  //   }
+  // }
+}
+
 module.exports = {
   pages: {
     index: {
@@ -16,4 +29,5 @@ module.exports = {
       title: 'browser',
     },
   },
+  configureWebpack,
 }

@@ -25,7 +25,7 @@ export default {
   components: {
     FormHeader,
     FormContent,
-  }
+  },
 }
 </script>
 

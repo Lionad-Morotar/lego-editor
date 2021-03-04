@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Module from '../models/module'
+import Module from '../../models/module'
 import ScreenElement from '../../segments/screen/element'
 
 const state = {

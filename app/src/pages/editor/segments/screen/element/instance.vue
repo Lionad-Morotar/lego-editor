@@ -1,9 +1,9 @@
 <script>
 export default {
   props: ['module'],
-  provide () {
+  provide() {
     return {
-      model: this.module.uuid
+      model: this.module.uuid,
     }
   },
   computed: {
@@ -20,11 +20,11 @@ export default {
       }, {})
     },
   },
-  created () {
+  created() {
     this.module.bindModel(this.module.uuid)
   },
   // TODO refactor
-  mounted () {
+  mounted() {
     this.module.bindInstance(this.$children[0])
     // FIXME
     // 目前没存子模块的选框实例，

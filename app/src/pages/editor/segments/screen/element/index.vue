@@ -1,9 +1,9 @@
 <script>
-import Module from '@/pages/editor/store/models/module'
+import Module from '../../../models/module'
 import Outline from './outline'
 import ClickCapture from './click-capture'
 
-// TODO refactor 
+// TODO refactor
 // 使用函数式组件可以透传任意内容，
 // 可以减少一层 props 嵌套
 
@@ -28,12 +28,10 @@ export default {
 
     const $cmpt = h(component, {
       props: {
-        ...receivedProps
-      }
+        ...receivedProps,
+      },
     })
-    const $child = captureClick
-      ? h(ClickCapture, {}, [$cmpt])
-      : $cmpt
+    const $child = captureClick ? h(ClickCapture, {}, [$cmpt]) : $cmpt
 
     // 组件作为 Outline 的插槽内容渲染
     // ! 谨慎修改，获取 Vue 组件实例依赖当前组件层级结构
@@ -41,7 +39,7 @@ export default {
       Outline,
       {
         props: {
-          props: component.props
+          props: component.props,
         },
       },
       [$child],
