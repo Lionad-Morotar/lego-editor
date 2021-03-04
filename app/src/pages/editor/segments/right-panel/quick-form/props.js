@@ -22,7 +22,6 @@ const DS = {
 
 /**
  * 生成精简的样式对象
- * （在将来有利于 SSR 体积）
  * @todo refactor CSS 值合并
  */
 const genStyles = (val = {}) => {

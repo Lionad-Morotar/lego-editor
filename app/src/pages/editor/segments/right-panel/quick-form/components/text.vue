@@ -14,15 +14,15 @@
       <div class="icon" title="加粗" @click="v.bold=!v.bold">
         <i class="iconfont icon-bold" :class="v.bold?'active':''" />
       </div>
-      <!-- <div class="icon" title="斜体" @click="v.italic=!v.italic">
-        <i class="iconfont icon-italic" />
+      <div class="icon" title="斜体" @click="v.italic=!v.italic">
+        <i class="iconfont icon-italic" :class="v.italic?'active':''" />
       </div>
-      <div class="icon" title="中划线" @click="v.strikeThrough=!v.strikeThrough">
-        <i class="iconfont icon-strikethrough" />
+      <div class="icon" title="中划线" @click="v.underLine=!(v.strikeThrough=!v.strikeThrough)">
+        <i class="iconfont icon-strikethrough" :class="v.strikeThrough?'active':''" />
       </div>
-      <div class="icon" title="下划线" @click="v.underLine=!v.underLine">
-        <i class="iconfont icon-underline" />
-      </div> -->
+      <div class="icon" title="下划线" @click="v.strikeThrough=!(v.underLine=!v.underLine)">
+        <i class="iconfont icon-underline" :class="v.underLine?'active':''" />
+      </div>
     </div>
   </div>
 </template>
