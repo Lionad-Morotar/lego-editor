@@ -56,6 +56,7 @@
 </template>
 
 <script>
+import debounce from 'lodash.debounce'
 import Props from '../props'
 export default {
   props: ['value'],
@@ -69,9 +70,11 @@ export default {
   watch: {
     v: {
       deep: true,
-      handler(newValue) {
+      handler: debounce(function (newValue) {
+        // todo check
+        console.log('test decounce')
         this.$emit('change', newValue)
-      },
+      }, 350),
     },
   },
 }
