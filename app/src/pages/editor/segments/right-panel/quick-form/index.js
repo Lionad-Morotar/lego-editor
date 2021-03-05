@@ -1,4 +1,5 @@
 import Text from './components/text'
+import Image from './components/image'
 
 /**
  * 约定
@@ -14,4 +15,5 @@ import Text from './components/text'
 
 export default {
   Text,
+  Image,
 }

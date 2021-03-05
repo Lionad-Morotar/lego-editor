@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-input v-bind="$attrs" v-model="v.text" />
-    <!-- 这个代码太丑了，首先得怪现在用的格式化工具太差劲了 TWT -->
+    <!-- 这个代码太丑了，得怪格式化工具太差劲了 TWT -->
     <div class="icons-con">
       <div class="icon" title="左对齐" @click="v.textAlign = 'left'">
         <i

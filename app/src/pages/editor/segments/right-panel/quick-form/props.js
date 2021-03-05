@@ -21,6 +21,13 @@ const DS = {
       strikeThrough: false,
     }
   },
+  get image() {
+    return {
+      url: '',
+      objectFit: 'contain',
+      objectPosition: 'center',
+    }
+  },
 }
 
 /**
@@ -28,17 +35,37 @@ const DS = {
  * @todo refactor CSS 多值合并
  */
 const genStyles = (val = {}) => {
-  const { textAlign, bold, italic, underLine, strikeThrough } = val
+  const {
+    textAlign,
+    bold,
+    italic,
+    underLine,
+    strikeThrough,
+    objectFit,
+    objectPosition,
+  } = val
   const res = {
     textDecoration: [],
   }
+
+  /* text */
   if (textAlign) res.textAlign = textAlign
   if (bold) res.fontWeight = 'bold'
   if (italic) res.fontStyle = 'italic'
   if (underLine) res.textDecoration.push('underLine')
   if (strikeThrough) res.textDecoration.push('line-through')
 
-  res.textDecoration = res.textDecoration.join(' ')
+  /* image */
+  if (objectFit) res.objectFit = objectFit
+  if (objectPosition) res.objectPosition = objectPosition
+
+  /* clean useless */
+  if (res.textDecoration.length) {
+    res.textDecoration = res.textDecoration.join(' ')
+  } else {
+    delete res.textDecoration
+  }
+
   return res
 }
 
@@ -95,6 +122,23 @@ const Props = {
       _valueKey: 'text',
       config: {
         component: QuickForm.Text,
+        ...config,
+      },
+    }
+  },
+
+  // 图片链接，可设置图片缩放、对齐等样式
+  image(config) {
+    const defaultVal =
+      typeof config.default === 'string'
+        ? merge(DS.image, { url: config.default })
+        : merge(DS.image, config.default)
+    return {
+      type: Object,
+      default: defaultVal,
+      _valueKey: 'url',
+      config: {
+        component: QuickForm.Image,
         ...config,
       },
     }

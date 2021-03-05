@@ -94,15 +94,10 @@ Module.gatherProps = function(name, component) {
       // 依赖项校验失败的错误信息
       props[name].error = ''
       /* 获取依赖项的展示值（真实值可能是一个包含样式和文本值的对象） */
-      props[name].getDisplayValue =
-        value => k
-          ? value[k]
-          : value
+      props[name].getDisplayValue = value => (k ? value[k] : value)
       props[name].injectDisplayFallback = value => {
         return Object.assign(value, {
-          [k]: k
-            ? props[name].default[k]
-            : props[name].default
+          [k]: k ? props[name].default[k] : props[name].default,
         })
       }
     })

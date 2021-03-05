@@ -1,6 +1,6 @@
 <template>
   <div class="lego-image">
-    <img :src="url" />
+    <img :src="image.url" :style="styles" />
   </div>
 </template>
 
@@ -9,25 +9,29 @@ import Props from '../props'
 export default {
   name: 'lego-image',
   props: {
-    url: Props.string({
+    image: Props.image({
       label: '图片地址',
       default: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/spark.png',
       required: true,
       showWordLimit: true,
-      validator(value) {
-        if (value.length == 0) {
+      validator({ url }) {
+        if (url.length == 0) {
           return '请填写图片链接'
         }
-      }
-    })
-  }
+      },
+    }),
+  },
+  computed: {
+    styles() {
+      return Props.genStyles(this.image)
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 .lego-image {
-  word-break: break-all;
-  white-space: break-spaces;
+  line-height: 0;
 
   & > img {
     width: 100%;
