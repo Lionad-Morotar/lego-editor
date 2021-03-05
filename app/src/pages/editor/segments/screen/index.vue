@@ -31,6 +31,9 @@ export default {
       setTimeout(() => {
         this.ADD_MODULE(this.plugins[1])
       }, 200)
+      setTimeout(() => {
+        this.ADD_MODULE(this.plugins[2])
+      }, 200)
     }
   },
   methods: {

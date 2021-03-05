@@ -1,6 +1,7 @@
 import clone from 'lodash.clonedeep'
 
 import Text from './text/index'
+import Image from './image/index'
 import TestDynamicForm from './test-dynamic-form/index'
 
 export default {
@@ -11,6 +12,13 @@ export default {
         description: '非常简单的文本组件',
         name: Text.name,
         component: Text,
+        cover: '模块在左侧面板展示时的图片地址',
+      },
+      {
+        title: '图片组件',
+        description: '非常简单的图片组件',
+        name: Image.name,
+        component: Image,
         cover: '模块在左侧面板展示时的图片地址',
       },
       {

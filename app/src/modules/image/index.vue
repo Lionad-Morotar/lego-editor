@@ -1,35 +1,37 @@
 <template>
-  <div class="lego-text" :style="styles">{{ text.text }}</div>
+  <div class="lego-image">
+    <img :src="url" />
+  </div>
 </template>
 
 <script>
 import Props from '../props'
 export default {
-  name: 'lego-text',
+  name: 'lego-image',
   props: {
-    text: Props.text({
-      label: '文本内容',
-      default: '一行文本',
+    url: Props.string({
+      label: '图片地址',
+      default: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/spark.png',
       required: true,
       showWordLimit: true,
-      validator({ text }) {
-        if (text.length == 0) {
-          return '请填写文本内容'
+      validator(value) {
+        if (value.length == 0) {
+          return '请填写图片链接'
         }
-      },
-    }),
-  },
-  computed: {
-    styles() {
-      return Props.genStyles(this.text)
-    },
-  },
+      }
+    })
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-.lego-text {
+.lego-image {
   word-break: break-all;
   white-space: break-spaces;
+
+  & > img {
+    width: 100%;
+    height: auto;
+  }
 }
 </style>
