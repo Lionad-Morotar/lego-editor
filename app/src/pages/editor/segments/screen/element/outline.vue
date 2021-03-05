@@ -51,7 +51,7 @@ export default {
 <style lang="scss" scoped>
 .box-outline {
   position: relative;
-  display: flex;
+  // display: flex;
 
   .outline {
     position: absolute;

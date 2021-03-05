@@ -12,7 +12,6 @@ export default {}
 <style lang="scss" scoped>
 .click-capture {
   position: relative;
-  display: flex;
   pointer-events: none;
 
   & > *:first-child {

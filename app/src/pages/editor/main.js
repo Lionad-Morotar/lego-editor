@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import { mapActions } from 'vuex'
 import Element from 'element-ui'
-// import Fragment from 'vue-fragment' // todo
+import Fragment from 'vue-fragment'
 import 'reset-css'
 import 'element-ui/lib/theme-chalk/index.css'
 
@@ -13,7 +13,7 @@ import './styles/index.scss'
 
 Vue.use(Element)
 Vue.prototype.$utils = utils
-// Vue.use(Fragment) // todo
+Vue.use(Fragment.Plugin)
 
 const LegoEditor = new Vue({
   name: 'lego-editor',
