@@ -1,5 +1,3 @@
-import clone from 'lodash.clonedeep'
-
 /**
  * Module 用来承接模块的公用方法和属性，如 uuid、校验函数等
  * 约定，由 Module 生成的实例叫做模块实例
@@ -92,8 +90,21 @@ Module.gatherProps = function(name, component) {
       return h
     }, cmpt.props || {})
     Object.keys(props).map(name => {
-      // 用作依赖项校验失败时的错误信息
+      const k = props[name]._valueKey
+      // 依赖项校验失败的错误信息
       props[name].error = ''
+      /* 获取依赖项的展示值（真实值可能是一个包含样式和文本值的对象） */
+      props[name].getDisplayValue =
+        value => k
+          ? value[k]
+          : value
+      props[name].injectDisplayFallback = value => {
+        return Object.assign(value, {
+          [k]: k
+            ? props[name].default[k]
+            : props[name].default
+        })
+      }
     })
     return props
   }
@@ -109,8 +120,7 @@ Module.prototype.initProps = function() {
   const name = this.component.name
   const propsConfig = Module.propsMap[name]
   return Object.entries(propsConfig).reduce((h, [k, v]) => {
-    // todo remove deepclone
-    h[k] = clone(v.default)
+    h[k] = v.default
     return h
   }, {})
 }

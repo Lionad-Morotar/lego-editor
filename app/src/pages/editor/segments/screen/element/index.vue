@@ -1,4 +1,6 @@
 <script>
+import clone from 'lodash.clonedeep'
+
 import Module from '../../../models/module'
 import Outline from './outline'
 import ClickCapture from './click-capture'
@@ -20,30 +22,25 @@ export default {
   ],
   computed: {
     curModel() {
-      // console.log('this.model: ', this.model)
       return Module.getModel(this.model)
     },
     // 组件依赖（props）需要响应来自实例的外部依赖数据的更新
     // todo FIXME 每次 props 更新，这个 computed 会发生三次，
     // todo 数据流可能存在问题，需要排查
     receivedUpdate() {
-      // console.log('receivedUpdate: ', this.curModel.props)
       return this.curModel.props
     },
+    // TODO refactor 解放 getDisplayValue 相关逻辑
     // 界面显示的值和右侧面板的动态表单直接绑定，
     // 但是右侧面板表单值为空时，
-    // 界面上不能为空，需要展示默认值
+    // 界面上不能为空，需要回退展示默认值
     propsWithDefaultValue() {
       const propsConfig = this.curModel.propsConfig
-      const getDefaultPropsValue = k => {
-        const val = propsConfig[k].defaultDisplay || propsConfig[k].default
-        // console.log(k, val)
-        return val
-      }
-
-      const updatedProps = this.receivedUpdate
+      const updatedProps = clone(this.receivedUpdate)
       return Object.entries(updatedProps).reduce((h, [k, v]) => {
-        h[k] = v || getDefaultPropsValue(k)
+        const item = propsConfig[k]
+        const hasDisplayValue = !!item.getDisplayValue(v)
+        h[k] = hasDisplayValue ? v : item.injectDisplayFallback(v)
         return h
       }, {})
     },

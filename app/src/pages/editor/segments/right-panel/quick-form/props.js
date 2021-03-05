@@ -29,15 +29,15 @@ const DS = {
  */
 const genStyles = (val = {}) => {
   const { textAlign, bold, italic, underLine, strikeThrough } = val
-  const res = { 
-    textDecoration: [] 
+  const res = {
+    textDecoration: [],
   }
   if (textAlign) res.textAlign = textAlign
   if (bold) res.fontWeight = 'bold'
   if (italic) res.fontStyle = 'italic'
   if (underLine) res.textDecoration.push('underLine')
   if (strikeThrough) res.textDecoration.push('line-through')
-  
+
   res.textDecoration = res.textDecoration.join(' ')
   return res
 }
@@ -92,7 +92,7 @@ const Props = {
     return {
       type: Object,
       default: defaultVal,
-      defaultDisplay: defaultVal.text,
+      _valueKey: 'text',
       config: {
         component: QuickForm.Text,
         ...config,
