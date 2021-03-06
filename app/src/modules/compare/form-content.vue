@@ -1,5 +1,6 @@
 <template>
   <div class="vs-con">
+    {{counts}}
     <div class="vs">
       <div class="left">
         <div class="title">浩瀚家装</div>
@@ -31,9 +32,19 @@
 </template>
 
 <script>
-// import Props from '@/modules/props'
+import Props from '@/modules/props'
+import AddRemoveCompare from './panel/add-remove-compare'
 export default {
-  props: {},
+  props: {
+    // 如果需要多个组件公用一个配置项，只需要直接写同名 props 就可以了，
+    // 也可以导出一份配置，多个组件 Import 这个配置的内容，
+    // 但不能直接 Import parent.vue from xxx，会有循环依赖问题
+    counts: Props.custom({
+      type: Number,
+      default: 1,
+      component: AddRemoveCompare,
+    }),
+  },
   data() {
     return {}
   },
@@ -43,8 +54,7 @@ export default {
 
 <style lang="scss" scoped>
 .vs-con {
-  padding: 0 15px;
-  padding-bottom: 15px;
+  padding: 15px;
   width: 100%;
   min-height: 160px;
   background: white;

@@ -57,7 +57,7 @@ h3 {
 }
 h4 {
   padding-top: 15px;
-  padding-bottom: 25px;
+  padding-bottom: 10px;
   font-size: 14px;
   color: #888;
   letter-spacing: 0.5px;

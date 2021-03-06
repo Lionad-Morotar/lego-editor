@@ -1,6 +1,7 @@
 <template>
   <div class="compare">
     <form-header />
+    {{counts}}
     <form-content />
   </div>
 </template>
