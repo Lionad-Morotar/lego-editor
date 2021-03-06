@@ -19,6 +19,7 @@ export default {
       default: {
         text: '测试表单',
         textAlign: 'center',
+        bold: true
       },
       placeholder: '请填写表单名称',
       required: true,

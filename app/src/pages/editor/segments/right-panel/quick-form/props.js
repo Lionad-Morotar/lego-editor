@@ -109,23 +109,15 @@ const Props = {
   string(config) {
     return new Prop({
       type: String,
-      default: config.default,
-      config: {
-        component: QuickForm.BaseText,
-        ...config,
-      },
-    })
+      component: QuickForm.BaseText
+    }, config)
   },
 
   number(config) {
     return new Prop({
       type: Number,
-      default: config.default,
-      config: {
-        component: QuickForm.BaseNumber,
-        ...config,
-      },
-    })
+      component: QuickForm.BaseNumber
+    }, config)
   },
 
   /**
@@ -142,11 +134,8 @@ const Props = {
       type: Object,
       default: defaultVal,
       _valueKey: 'text',
-      config: {
-        component: QuickForm.StyledText,
-        ...config,
-      },
-    })
+      component: QuickForm.StyledText
+    }, config)
   },
 
   // 图片链接，可设置图片缩放、对齐等样式
@@ -159,11 +148,8 @@ const Props = {
       type: Object,
       default: defaultVal,
       _valueKey: 'url',
-      config: {
-        component: QuickForm.StyledImage,
-        ...config,
-      },
-    })
+      component: QuickForm.StyledImage
+    }, config)
   },
 
   /**
@@ -174,18 +160,28 @@ const Props = {
   custom(config) {
     return new Prop({
       type: config.type || [String, Number, Object],
-      default: config.default,
-      config: {
-        component: config.component,
-        ...config,
-      },
-    })
+      component: config.component
+    }, config)
   },
 }
 
 /* 配置实例 */
-function Prop (config) {
-  return Object.assign(Object.create(Prop.prototype), config)
+function Prop (base, config) {
+  const prop = Object.assign(
+    Object.create(Prop.prototype),
+    {
+      default: config.default
+    },
+    base,
+    {
+      config: {
+        component: base.component,
+        ...config
+      }
+    }
+  )
+  delete prop.component
+  return prop
 }
 
 Props.DS = DS

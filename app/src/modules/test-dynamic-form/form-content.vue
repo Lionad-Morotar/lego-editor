@@ -17,15 +17,9 @@
 import Props from '@/modules/props'
 export default {
   props: {
-    formItems: Props.string({
-      label: '动态表单项',
-      default: '',
-      placeholder: '暂不可设置',
-      disabled: true,
-    }),
     postURL: Props.string({
       label: '请求地址',
-      default: '',
+      default: 'www.baidu.com',
       placeholder: '暂不可设置',
       disabled: true,
     }),
