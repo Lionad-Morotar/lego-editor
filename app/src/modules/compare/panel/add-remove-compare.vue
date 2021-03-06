@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import Props from '../../props'
 export default {
   props: ['value', 'props'],
   data() {
@@ -30,13 +31,13 @@ export default {
         this.props.compares.push({
           left: {
             title: '浩瀚家装',
-            description: '免费出效果图，提前看到家的样子',
-            url: ''
+            description: Props.merge(Props.DS.text, { text: '免费出效果图，提前看到家的样子' }),
+            url: Props.merge(Props.DS.image, { url: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/left.png' })
           },
           right: {
             title: '普通家装',
-            description: '多站式购物，风格不统一',
-            url: ''
+            description: Props.merge(Props.DS.text, { text: '看个鬼鬼' }),
+            url: Props.merge(Props.DS.image, { url: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/right.png' })
           }
         })
         this.$nextTick(() => {

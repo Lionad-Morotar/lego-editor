@@ -69,6 +69,29 @@ const genStyles = (val = {}) => {
 }
 
 /**
+ * 从配置实例获得初始值
+ * @param prop 配置实例
+ */
+const getDefault = prop => {
+  const clone = obj => {
+    if (obj instanceof Object) {
+      const initial = obj instanceof Array ? [] : {}
+      return Object.entries(obj).reduce((h, [k, v]) => {
+        if (v instanceof Prop) {
+          h[k] = clone(v.default)
+        } else {
+          h[k] = clone(v)
+        }
+        return h
+      }, initial)
+    } else {
+      return obj
+    }
+  }
+  return clone(prop.default)
+}
+
+/**
  * Props 定义不同的数据类型，以约定不同类型的数据结构及在右侧编辑面板中如何配置该数据
  * @see https://cn.vuejs.org/v2/guide/components-props.html#Prop-%E9%AA%8C%E8%AF%81
  * 和 Vue 的 Props 验证不同之处在于：
@@ -84,25 +107,25 @@ const Props = {
    */
 
   string(config) {
-    return {
+    return new Prop({
       type: String,
       default: config.default,
       config: {
         component: QuickForm.BaseText,
         ...config,
       },
-    }
+    })
   },
 
   number(config) {
-    return {
+    return new Prop({
       type: Number,
       default: config.default,
       config: {
         component: QuickForm.BaseNumber,
         ...config,
       },
-    }
+    })
   },
 
   /**
@@ -115,7 +138,7 @@ const Props = {
       typeof config.default === 'string'
         ? merge(DS.text, { text: config.default })
         : merge(DS.text, config.default)
-    return {
+    return new Prop({
       type: Object,
       default: defaultVal,
       _valueKey: 'text',
@@ -123,7 +146,7 @@ const Props = {
         component: QuickForm.StyledText,
         ...config,
       },
-    }
+    })
   },
 
   // 图片链接，可设置图片缩放、对齐等样式
@@ -132,7 +155,7 @@ const Props = {
       typeof config.default === 'string'
         ? merge(DS.image, { url: config.default })
         : merge(DS.image, config.default)
-    return {
+    return new Prop({
       type: Object,
       default: defaultVal,
       _valueKey: 'url',
@@ -140,7 +163,7 @@ const Props = {
         component: QuickForm.StyledImage,
         ...config,
       },
-    }
+    })
   },
 
   /**
@@ -149,18 +172,25 @@ const Props = {
    */
 
   custom(config) {
-    return {
+    return new Prop({
       type: config.type || [String, Number, Object],
       default: config.default,
       config: {
         component: config.component,
         ...config,
       },
-    }
+    })
   },
+}
+
+/* 配置实例 */
+function Prop (config) {
+  return Object.assign(Object.create(Prop.prototype), config)
 }
 
 Props.DS = DS
 Props.genStyles = genStyles
+Props.getDefault = getDefault
+Props.merge = merge
 
 export default Props

@@ -1,3 +1,6 @@
+// TODO refactor with webpack.resolver
+import Props from '../segments/right-panel/quick-form/props'
+
 /**
  * Module 用来承接模块的公用方法和属性
  * ***
@@ -125,7 +128,7 @@ Module.prototype.initProps = function() {
   const name = this.component.name
   const propsConfig = Module.propsMap[name]
   return Object.entries(propsConfig).reduce((h, [k, v]) => {
-    h[k] = v.default
+    h[k] = Props.getDefault(v)
     return h
-  }, {})
+  }, {}) 
 }

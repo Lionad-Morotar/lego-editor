@@ -15,7 +15,7 @@ export default {
   props: {
     counts: Props.custom({
       type: Number,
-      default: 1,
+      default: 2,
       component: AddRemoveCompare,
     }),
   },
