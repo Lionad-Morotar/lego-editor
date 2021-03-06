@@ -1,4 +1,3 @@
-import Element from 'element-ui'
 import QuickForm from './index'
 
 const merge = (...args) => Object.assign(...args)
@@ -89,7 +88,7 @@ const Props = {
       type: String,
       default: config.default,
       config: {
-        component: Element.Input,
+        component: QuickForm.BaseText,
         ...config,
       },
     }
@@ -100,7 +99,7 @@ const Props = {
       type: Number,
       default: config.default,
       config: {
-        component: Element.InputNumber,
+        component: QuickForm.BaseNumber,
         ...config,
       },
     }
@@ -121,7 +120,7 @@ const Props = {
       default: defaultVal,
       _valueKey: 'text',
       config: {
-        component: QuickForm.Text,
+        component: QuickForm.StyledText,
         ...config,
       },
     }
@@ -138,7 +137,7 @@ const Props = {
       default: defaultVal,
       _valueKey: 'url',
       config: {
-        component: QuickForm.Image,
+        component: QuickForm.StyledImage,
         ...config,
       },
     }

@@ -1,5 +1,8 @@
-import Text from './components/text'
-import Image from './components/image'
+import BaseText from './components/base-text'
+import BaseNumber from './components/base-number'
+
+import StyledText from './components/styled-text'
+import StyledImage from './components/styled-image'
 
 /**
  * 约定
@@ -14,6 +17,8 @@ import Image from './components/image'
  */
 
 export default {
-  Text,
-  Image,
+  BaseText,
+  BaseNumber,
+  StyledText,
+  StyledImage,
 }

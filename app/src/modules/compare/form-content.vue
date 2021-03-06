@@ -1,48 +1,66 @@
 <template>
   <div class="vs-con">
-    <div class="vs">
-      <div class="left">
-        <div class="title">浩瀚家装</div>
-        <img src="" />
-        <div class="description">一站式购齐，风格统一</div>
-      </div>
-      <div class="right">
-        <div class="title">普通家装</div>
-        <img src="" />
-        <div class="description">
-          东拼西凑，材料来源未知，存在一定的安全隐患
+    <template v-if="counts === 0">
+      <p>还没有内容哦，快去添加吧~</p>
+    </template>
+    <template v-else>
+      <div class="vs" v-for="idx in counts" :key="idx">
+        <div class="left">
+          <div class="title">{{compares[idx-1].left.title}}</div>
+          <img :src="compares[idx-1].left.url" />
+          <div class="description">{{compares[idx-1].left.description}}</div>
+        </div>
+        <div class="right">
+          <div class="title">{{compares[idx-1].right.title}}</div>
+          <img :src="compares[idx-1].right.url" />
+          <div class="description">{{compares[idx-1].right.description}}</div>
         </div>
       </div>
-    </div>
-
-    <div class="vs">
-      <div class="left">
-        <div class="title">浩瀚家装</div>
-        <img src="" />
-        <div class="description">免费出效果图，提前看到家的样子</div>
-      </div>
-      <div class="right">
-        <div class="title">普通家装</div>
-        <img src="" />
-        <div class="description">多站式购物，风格不统一</div>
-      </div>
-    </div>
+    </template>
   </div>
 </template>
 
 <script>
 import Props from '@/modules/props'
 import AddRemoveCompare from './panel/add-remove-compare'
+import ConfigCompares from './panel/config-compares'
 export default {
   props: {
-    // 如果需要多个组件公用一个配置项，只需要直接写同名 props 就可以了，
-    // 也可以导出一份配置，多个组件 Import 这个配置的内容，
-    // 但不能直接 Import parent.vue from xxx，会有循环依赖问题
     counts: Props.custom({
       type: Number,
       default: 1,
       component: AddRemoveCompare,
     }),
+    compares: Props.custom({
+      type: Array,
+      component: ConfigCompares,
+      default: [
+        {
+          left: {
+            title: '浩瀚家装',
+            description: '一站式购齐，风格统一',
+            url: ''
+          },
+          right: {
+            title: '普通家装',
+            description: '东拼西凑，材料来源未知，存在一定的安全隐患',
+            url: ''
+          }
+        },
+        // {
+        //   left: {
+        //     title: '浩瀚家装',
+        //     description: '免费出效果图，提前看到家的样子',
+        //     url: ''
+        //   },
+        //   right: {
+        //     title: '普通家装',
+        //     description: '多站式购物，风格不统一',
+        //     url: ''
+        //   }
+        // },
+      ],
+    })
   },
   data() {
     return {}
