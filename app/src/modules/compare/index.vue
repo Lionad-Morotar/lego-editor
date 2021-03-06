@@ -1,15 +1,25 @@
 <template>
   <div class="compare">
     <form-header />
+    {{counts}}
     <form-content />
   </div>
 </template>
 
 <script>
+import Props from '../props'
 import FormHeader from './form-header'
 import FormContent from './form-content'
+import AddRemoveCompare from './panel/add-remove-compare'
 export default {
   name: 'compare',
+  props: {
+    counts: Props.custom({
+      type: Number,
+      default: 1,
+      component: AddRemoveCompare
+    })
+  },
   components: {
     FormHeader,
     FormContent,

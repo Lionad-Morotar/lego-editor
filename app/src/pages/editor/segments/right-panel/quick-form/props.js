@@ -147,17 +147,18 @@ const Props = {
   /**
    * 自定义类型
    * 用于配置自定义编辑面板
-   * @todo 总之将来肯定能用上
    */
 
-  // customize(config) {
-  //   return {
-  //     type: [String, Number, Object],
-  //     default: config.default,
-  //     component: config.component,
-  //     config
-  //   }
-  // }
+  custom(config) {
+    return {
+      type: config.type || [String, Number, Object],
+      default: config.default,
+      config: {
+        component: config.component,
+        ...config
+      }
+    }
+  }
 }
 
 Props.DS = DS
