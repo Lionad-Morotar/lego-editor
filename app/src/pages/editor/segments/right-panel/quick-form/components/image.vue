@@ -19,7 +19,9 @@
           :class="v.objectFit == 'contain' ? 'active' : ''"
         />
       </div>
+
       <div style="width: 100%" />
+
       <div class="label">对齐：</div>
       <!-- <div class="icon" title="居中对齐" @click="v.objectPosition = 'center'">
         <i

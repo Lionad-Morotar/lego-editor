@@ -28,7 +28,7 @@ export default {
       },
       placeholder: '请填写表单副标题',
       required: true,
-      maxlength: 10,
+      maxlength: 25,
       showWordLimit: true,
     })
   },

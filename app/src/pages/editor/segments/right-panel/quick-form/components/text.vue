@@ -3,24 +3,7 @@
     <el-input v-bind="$attrs" v-model="v.text" />
     <!-- 这个代码太丑了，得怪格式化工具太差劲了 TWT -->
     <div class="icons-con">
-      <div class="icon" title="左对齐" @click="v.textAlign = 'left'">
-        <i
-          class="iconfont icon-align-left"
-          :class="v.textAlign === 'left' ? 'active' : ''"
-        />
-      </div>
-      <div class="icon" title="居中对齐" @click="v.textAlign = 'center'">
-        <i
-          class="iconfont icon-align-center"
-          :class="v.textAlign === 'center' ? 'active' : ''"
-        />
-      </div>
-      <div class="icon" title="右对齐" @click="v.textAlign = 'right'">
-        <i
-          class="iconfont icon-align-right"
-          :class="v.textAlign === 'right' ? 'active' : ''"
-        />
-      </div>
+      <div class="label">样式：</div>
       <div class="icon" title="加粗" @click="v.bold = !v.bold">
         <i class="iconfont icon-bold" :class="v.bold ? 'active' : ''" />
       </div>
@@ -41,6 +24,28 @@
         <i
           class="iconfont icon-underline"
           :class="v.underLine ? 'active' : ''"
+        />
+      </div>
+      
+      <div style="width: 100%" />
+      
+      <div class="label">对齐：</div>
+      <div class="icon" title="左对齐" @click="v.textAlign = 'left'">
+        <i
+          class="iconfont icon-align-left"
+          :class="v.textAlign === 'left' ? 'active' : ''"
+        />
+      </div>
+      <div class="icon" title="居中对齐" @click="v.textAlign = 'center'">
+        <i
+          class="iconfont icon-align-center"
+          :class="v.textAlign === 'center' ? 'active' : ''"
+        />
+      </div>
+      <div class="icon" title="右对齐" @click="v.textAlign = 'right'">
+        <i
+          class="iconfont icon-align-right"
+          :class="v.textAlign === 'right' ? 'active' : ''"
         />
       </div>
     </div>
@@ -73,6 +78,12 @@ export default {
 .icons-con {
   display: flex;
   flex-wrap: wrap;
+
+  .label {
+    margin: 15px 15px 0 0;
+    height: 40px;
+    line-height: 38px;
+  }
 
   .icon {
     margin: 15px 15px 0 0;

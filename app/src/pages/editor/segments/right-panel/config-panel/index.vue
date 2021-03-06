@@ -79,6 +79,10 @@ export default {
 .config-panel {
   width: 100%;
 
+  .el-form-item + .el-form-item {
+    margin-top: 20px;
+  }
+
   /deep/ .el-input__inner {
     background-color: white;
   }
