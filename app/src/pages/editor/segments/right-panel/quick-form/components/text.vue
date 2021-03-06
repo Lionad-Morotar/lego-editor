@@ -26,9 +26,9 @@
           :class="v.underLine ? 'active' : ''"
         />
       </div>
-      
+
       <div style="width: 100%" />
-      
+
       <div class="label">对齐：</div>
       <div class="icon" title="左对齐" @click="v.textAlign = 'left'">
         <i

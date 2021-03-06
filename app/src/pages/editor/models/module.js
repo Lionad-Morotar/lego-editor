@@ -100,7 +100,7 @@ Module.gatherProps = function(name, component) {
         const defaultVal = k ? props[name].default[k] : props[name].default
         return defaultVal
           ? Object.assign(value, {
-              [k]: defaultVal
+              [k]: defaultVal,
             })
           : undefined
       }

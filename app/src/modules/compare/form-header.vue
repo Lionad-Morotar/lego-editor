@@ -30,13 +30,13 @@ export default {
       required: true,
       maxlength: 25,
       showWordLimit: true,
-    })
+    }),
   },
   computed: {
     styles() {
       return {
         title: Props.genStyles(this.title),
-        subTitle: Props.genStyles(this.subTitle)
+        subTitle: Props.genStyles(this.subTitle),
       }
     },
   },
@@ -44,7 +44,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-h3, h4 {
+h3,
+h4 {
   display: block;
 }
 h3 {
@@ -59,6 +60,6 @@ h4 {
   padding-bottom: 25px;
   font-size: 14px;
   color: #888;
-  letter-spacing: .5px;
+  letter-spacing: 0.5px;
 }
 </style>

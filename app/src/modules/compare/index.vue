@@ -1,7 +1,6 @@
 <template>
   <div class="compare">
     <form-header />
-    {{counts}}
     <form-content />
   </div>
 </template>
@@ -17,8 +16,8 @@ export default {
     counts: Props.custom({
       type: Number,
       default: 1,
-      component: AddRemoveCompare
-    })
+      component: AddRemoveCompare,
+    }),
   },
   components: {
     FormHeader,

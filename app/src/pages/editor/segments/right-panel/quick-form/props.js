@@ -155,10 +155,10 @@ const Props = {
       default: config.default,
       config: {
         component: config.component,
-        ...config
-      }
+        ...config,
+      },
     }
-  }
+  },
 }
 
 Props.DS = DS

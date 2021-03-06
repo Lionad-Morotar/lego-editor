@@ -72,7 +72,7 @@ export default {
   watch: {
     v: {
       deep: true,
-      handler: debounce(function (newValue) {
+      handler: debounce(function(newValue) {
         // todo check
         console.log('test decounce')
         this.$emit('change', newValue)

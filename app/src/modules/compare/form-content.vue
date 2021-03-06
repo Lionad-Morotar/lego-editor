@@ -1,6 +1,5 @@
 <template>
   <div class="vs-con">
-
     <div class="vs">
       <div class="left">
         <div class="title">浩瀚家装</div>
@@ -10,7 +9,9 @@
       <div class="right">
         <div class="title">普通家装</div>
         <img src="" />
-        <div class="description">东拼西凑，材料来源未知，存在一定的安全隐患</div>
+        <div class="description">
+          东拼西凑，材料来源未知，存在一定的安全隐患
+        </div>
       </div>
     </div>
 
@@ -26,21 +27,17 @@
         <div class="description">多站式购物，风格不统一</div>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
 // import Props from '@/modules/props'
 export default {
-  props: {
-  },
+  props: {},
   data() {
-    return {
-    }
+    return {}
   },
-  methods: {
-  }
+  methods: {},
 }
 </script>
 
@@ -82,7 +79,7 @@ export default {
     &:after {
       content: 'VS';
       position: absolute;
-      top: -.5em;
+      top: -0.5em;
       left: 50%;
       width: 100px;
       font-size: 18px;
@@ -146,7 +143,7 @@ export default {
       line-height: 24px;
       text-align: center;
       border-radius: 4px;
-      letter-spacing: .3px;
+      letter-spacing: 0.3px;
       font-size: 13px;
       font-weight: 300;
       color: white;

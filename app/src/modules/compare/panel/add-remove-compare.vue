@@ -1,33 +1,37 @@
 <template>
   <div class="con">
-    <el-button class="button" :disabled="v==max" type="text" @click="add">增加对比</el-button>
-    <el-button class="button" :disabled="v==min" type="text" @click="subtract">减少对比</el-button>
+    <el-button class="button" :disabled="v == max" type="text" @click="add"
+      >增加对比</el-button
+    >
+    <el-button class="button" :disabled="v == min" type="text" @click="subtract"
+      >减少对比</el-button
+    >
   </div>
 </template>
 
 <script>
 export default {
-   props: ['value'],
-   data() {
-     return {
-       v: this.value,
-       min: 0,
-       max: 10
-     }
-   },
-   watch: {
-    v (newValue) {
-      this.$emit('change', newValue)
+  props: ['value'],
+  data() {
+    return {
+      v: this.value,
+      min: 0,
+      max: 10,
     }
   },
+  watch: {
+    v(newValue) {
+      this.$emit('change', newValue)
+    },
+  },
   methods: {
-    add () {
+    add() {
       this.v = Math.min(this.max, this.v + 1)
     },
-    subtract () {
+    subtract() {
       this.v = Math.max(this.min, this.v - 1)
-    }
-  }
+    },
+  },
 }
 </script>
 
