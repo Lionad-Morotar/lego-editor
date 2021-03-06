@@ -1,24 +1,30 @@
 /**
- * Module 用来承接模块的公用方法和属性，如 uuid、校验函数等
- * 约定，由 Module 生成的实例叫做模块实例
+ * Module 用来承接模块的公用方法和属性
  * ***
- * props  模块依赖的外部值（也就是 Vue 组件的 props）
- * data   模块状态，由 props 清洗校验后得到，能与数据库交互
+ * @param uuid   模块的独一无二的 ID，就算两个模块类型相同也如此
+ * @param title  模块名称
+ * @param description  模块的描述
+ * @param name   模块对应组件的名称
+ * @param component  模块对应的组件（未编译）
+ * @param $instance  已渲染的模块的组件实例
+ * @param $outlines  已渲染的模块的高亮边框的实例
+ * @param props  模块依赖的外部值，是模块的所有父子兄弟组件的依赖的值的集合
+ * @param data   模块数据，由 props 清洗校验后得到，主要用于和数据库交互
+ * @param propsConfig  模块的依赖的外部值对应的原始定义
  */
 export default function Module(inits) {
   const { title, description, name, component } = inits
 
   /* 模块属性 */
   this.uuid = String(+new Date()) + '_' + String(Math.random()).slice(-6)
-  this.initialValue = inits
-  this.name = name
   this.title = title
   this.description = description
   this.data = {}
-
+  
   /* 和 Vue 实例相关的属性 */
   this.$instance = null
   this.$outlines = []
+  this.name = name
   this.component = component
   this.props = this.initProps()
   Object.entries(this.props).map(([k, v]) => (this.data[k] = v))
@@ -109,7 +115,7 @@ Module.gatherProps = function(name, component) {
   }
   const res = getComponentAndChildrenProps(component)
   Module.propsMap[name] = res
-  return Module.propsMap[name]
+  return res
 }
 
 /**

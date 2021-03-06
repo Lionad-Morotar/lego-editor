@@ -1,6 +1,5 @@
 <template>
   <div class="vs-con">
-    {{counts}}
     <div class="vs">
       <div class="left">
         <div class="title">浩瀚家装</div>
