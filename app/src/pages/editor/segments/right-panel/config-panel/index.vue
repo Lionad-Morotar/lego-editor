@@ -45,12 +45,13 @@ export default {
               props: {
                 ...config,
                 value: selected.props[name],
+                props: selected.props
               },
               attrs: {
                 ...config,
               },
               on: {
-                input: newVal => selected.setProp(name, newVal),
+                // input: newVal => selected.setProp(name, newVal),
                 change: newVal => selected.setProp(name, newVal),
               },
             }),

@@ -1,9 +1,9 @@
 <template>
   <div class="con">
-    <el-button class="button" :disabled="v == max" type="text" @click="add"
+    <el-button class="button" :disabled="v === max" type="text" @click="add"
       >增加对比</el-button
     >
-    <el-button class="button" :disabled="v == min" type="text" @click="subtract"
+    <el-button class="button" :disabled="v === min" type="text" @click="subtract"
       >减少对比</el-button
     >
   </div>
@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  props: ['value'],
+  props: ['value', 'props'],
   data() {
     return {
       v: this.value,
@@ -26,10 +26,31 @@ export default {
   },
   methods: {
     add() {
-      this.v = Math.min(this.max, this.v + 1)
+      if (this.v !== this.max) {
+        this.props.compares.push({
+          left: {
+            title: '浩瀚家装',
+            description: '免费出效果图，提前看到家的样子',
+            url: ''
+          },
+          right: {
+            title: '普通家装',
+            description: '多站式购物，风格不统一',
+            url: ''
+          }
+        })
+        this.$nextTick(() => {
+          this.v += 1
+        })
+      }
     },
     subtract() {
-      this.v = Math.max(this.min, this.v - 1)
+      if (this.v !== this.min) {
+        this.v -= 1
+        this.$nextTick(() => {
+          this.props.compares.splice(this.props.compares.length - 1, 1)
+        })
+      }
     },
   },
 }

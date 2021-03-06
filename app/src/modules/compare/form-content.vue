@@ -46,19 +46,7 @@ export default {
             description: '东拼西凑，材料来源未知，存在一定的安全隐患',
             url: ''
           }
-        },
-        // {
-        //   left: {
-        //     title: '浩瀚家装',
-        //     description: '免费出效果图，提前看到家的样子',
-        //     url: ''
-        //   },
-        //   right: {
-        //     title: '普通家装',
-        //     description: '多站式购物，风格不统一',
-        //     url: ''
-        //   }
-        // },
+        }
       ],
     })
   },
@@ -79,13 +67,15 @@ export default {
   .vs {
     display: flex;
     justify-content: space-around;
-    align-items: center;
+    align-items: flex-start;
     position: relative;
     margin-bottom: 30px;
+    padding-top: 20px;
+    padding-bottom: 10px;
     border: solid 1px #4381ff;
     border-radius: 5px;
     width: 345px;
-    height: 155px;
+    min-height: 155px;
 
     &:last-child {
       margin-bottom: 0;
@@ -121,6 +111,9 @@ export default {
     .right {
       flex-shrink: 0;
       width: 140px;
+    }
+    .title {
+      word-break: break-all;
     }
 
     .left {
@@ -193,7 +186,7 @@ export default {
       background: #fefefe;
     }
     .description {
-      height: 2em;
+      min-height: 2em;
       font-size: 12px;
       color: #333;
       line-height: 1.5em;

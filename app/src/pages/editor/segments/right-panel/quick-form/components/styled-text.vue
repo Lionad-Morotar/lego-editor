@@ -55,7 +55,12 @@
 <script>
 import Props from '../props'
 export default {
+  name: 'quick-form-styled-text',
   props: ['value'],
+  model: {
+    prop: 'value',
+    event: 'change'
+  },
   data() {
     return {
       v: {

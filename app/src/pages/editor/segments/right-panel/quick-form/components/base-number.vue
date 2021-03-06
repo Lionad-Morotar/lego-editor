@@ -4,7 +4,12 @@
 
 <script>
 export default {
+  name: 'quick-form-base-number',
   props: ['value'],
+  model: {
+    prop: 'value',
+    event: 'change'
+  },
   data() {
     return {
       v: this.value,
