@@ -1,7 +1,8 @@
 <template>
   <div class="right-panel">
+    
     <!-- todo refactor -->
-    <div class="segment" v-if="selected">
+    <div class="segment" v-if="isSelectedTopOutline">
       <div class="header">
         <span class="label">模块操作</span>
         <i class="el-icon el-icon-arrow-down" />
@@ -46,7 +47,11 @@ export default {
     ...mapState('screen', {
       modules: state => state.modules,
       selected: state => state.selected,
+      selectedOutline: state => state.selectedOutline,
     }),
+    isSelectedTopOutline() {
+      return this.selected && this.selected.$outlines && (this.selected.$outlines[0] === this.selectedOutline)
+    },
   },
   methods: {
     ...mapActions('screen', ['DELETE_SELECTED_MODULE', 'MOVE_MODULE']),

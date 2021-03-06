@@ -14,6 +14,7 @@ export default {
       default: {
         text: '服务优势',
         textAlign: 'center',
+        bold: true
       },
       placeholder: '请填写表单名称',
       required: true,
@@ -52,7 +53,6 @@ h3 {
   padding-top: 20px;
   font-size: 28px;
   color: #5200d1;
-  font-weight: bold;
   letter-spacing: 2px;
 }
 h4 {

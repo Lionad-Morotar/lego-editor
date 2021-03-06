@@ -1,6 +1,6 @@
 <template>
   <div class="test-dynamic-form">
-    <form-header />
+    <h3 :style="styles.title">{{ title.text }}</h3>
     <div class="form-sub-title" :style="styles.subTitle">
       {{ subTitle.text }}
     </div>
@@ -10,11 +10,21 @@
 
 <script>
 import Props from '../props'
-import FormHeader from './form-header'
 import FormContent from './form-content'
 export default {
   name: 'test-dynamic-form',
   props: {
+    title: Props.text({
+      label: '表单名称',
+      default: {
+        text: '测试表单',
+        textAlign: 'center',
+      },
+      placeholder: '请填写表单名称',
+      required: true,
+      maxlength: 10,
+      showWordLimit: true,
+    }),
     subTitle: Props.text({
       label: '表单副标题',
       default: {
@@ -36,12 +46,12 @@ export default {
   computed: {
     styles() {
       return {
+        title: Props.genStyles(this.title),
         subTitle: Props.genStyles(this.subTitle),
       }
     },
   },
   components: {
-    FormHeader,
     FormContent,
   },
 }
@@ -51,6 +61,13 @@ export default {
 .test-dynamic-form {
   padding: 15px;
   background: #5200d1;
+}
+h3 {
+  margin: 10px;
+  font-size: 24px;
+  color: white;
+  font-weight: 300;
+  letter-spacing: 1px;
 }
 .form-sub-title {
   padding: 5px 0 15px 0;
