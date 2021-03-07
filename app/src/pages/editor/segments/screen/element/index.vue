@@ -30,17 +30,13 @@ export default {
     receivedUpdate() {
       return this.curModel.props
     },
-    // TODO refactor 解放 getDisplayValue 相关逻辑
-    // 界面显示的值和右侧面板的动态表单直接绑定，
-    // 但是右侧面板表单值为空时，
-    // 界面上不能为空，需要回退展示默认值
     propsWithDefaultValue() {
       const propsConfig = this.curModel.propsConfig
       const updatedProps = clone(this.receivedUpdate)
       return Object.entries(updatedProps).reduce((h, [k, v]) => {
         const item = propsConfig[k]
         const hasDisplayValue = !!item.getDisplayValue(v)
-        h[k] = hasDisplayValue ? v : item.injectDisplayFallback(v)
+        h[k] = hasDisplayValue ? v : item.injectDisplayValueFallback(v)
         return h
       }, {})
     },

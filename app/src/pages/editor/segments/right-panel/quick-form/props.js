@@ -69,10 +69,10 @@ const genStyles = (val = {}) => {
 }
 
 /**
- * 从配置实例获得初始值
+ * 从配置实例生成初始值
  * @param prop 配置实例
  */
-const getDefault = prop => {
+const genDefaults = prop => {
   const clone = obj => {
     if (obj instanceof Object) {
       const initial = obj instanceof Array ? [] : {}
@@ -159,14 +159,14 @@ const Props = {
 
   custom(config) {
     return new Prop({
-      type: config.type || [String, Number, Object],
-      component: config.component
+      type: config.type || [String, Number, Object]
     }, config)
   },
 }
 
 /* 配置实例 */
 function Prop (base, config) {
+  const { _valueKey: k } = base
   const prop = Object.assign(
     Object.create(Prop.prototype),
     {
@@ -177,6 +177,20 @@ function Prop (base, config) {
       config: {
         component: base.component,
         ...config
+      },
+      // 依赖项校验失败的错误信息
+      error: '',
+      // 从依赖项值中获得可供页面展示的值
+      // 如从 DS.text 结构中获得 DS.text.text
+      getDisplayValue: propVal => k ? propVal[k] : propVal,
+      // 当展示值为空,页面上仍应展示 Fallback 而不是空值
+      injectDisplayValueFallback: propVal => {
+        const displayValue = k ? prop.default[k] : prop.default
+        return displayValue
+          ? Object.assign(propVal, {
+            [k]: displayValue,
+          })
+          : undefined
       }
     }
   )
@@ -186,7 +200,7 @@ function Prop (base, config) {
 
 Props.DS = DS
 Props.genStyles = genStyles
-Props.getDefault = getDefault
+Props.genDefaults = genDefaults
 Props.merge = merge
 
 export default Props

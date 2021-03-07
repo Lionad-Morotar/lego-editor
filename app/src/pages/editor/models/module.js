@@ -89,7 +89,7 @@ Module.propsMap = {}
 Module.gatherProps = function(name, component) {
   function getComponentAndChildrenProps(cmpt) {
     const cmpts = cmpt.components || {}
-    const props = Object.entries(cmpts).reduce((h, [, v]) => {
+    return Object.entries(cmpts).reduce((h, [, v]) => {
       h = {
         ...h,
         ...(v.props || {}),
@@ -99,22 +99,6 @@ Module.gatherProps = function(name, component) {
       }
       return h
     }, cmpt.props || {})
-    Object.keys(props).map(name => {
-      const k = props[name]._valueKey
-      // 依赖项校验失败的错误信息
-      props[name].error = ''
-      /* 获取依赖项的展示值（真实值可能是一个包含样式和文本值的对象） */
-      props[name].getDisplayValue = value => (k ? value[k] : value)
-      props[name].injectDisplayFallback = value => {
-        const defaultVal = k ? props[name].default[k] : props[name].default
-        return defaultVal
-          ? Object.assign(value, {
-              [k]: defaultVal,
-            })
-          : undefined
-      }
-    })
-    return props
   }
   const res = getComponentAndChildrenProps(component)
   Module.propsMap[name] = res
@@ -128,7 +112,7 @@ Module.prototype.initProps = function() {
   const name = this.component.name
   const propsConfig = Module.propsMap[name]
   return Object.entries(propsConfig).reduce((h, [k, v]) => {
-    h[k] = Props.getDefault(v)
+    h[k] = Props.genDefaults(v)
     return h
   }, {}) 
 }
