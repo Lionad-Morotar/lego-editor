@@ -1,7 +1,7 @@
 <template>
   <div class="vs-con">
     <template v-if="counts === 0">
-      <p>还没有内容哦，快去添加吧~</p>
+      <p class="vs empty-tip">还没有内容哦，快去添加吧~</p>
     </template>
     <template v-else>
       <div class="vs" v-for="idx in counts" :key="idx">
@@ -68,7 +68,7 @@ export default {
           right: {
             title: '普通家装',
             description: Props.text({
-              default: '看个鬼鬼',
+              default: '没效果图，看个鬼鬼啊',
             }),
             url: Props.image({
               default: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/right.png'
@@ -137,6 +137,12 @@ export default {
       letter-spacing: 1px;
       text-indent: 0.3em;
       transform: translateX(-50%);
+    }
+
+    &.empty-tip {
+      padding-top: 40px; 
+      font-size: 12px; 
+      color: #444;
     }
 
     .left,

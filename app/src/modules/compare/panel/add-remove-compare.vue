@@ -36,7 +36,7 @@ export default {
           },
           right: {
             title: '普通家装',
-            description: Props.merge(Props.DS.text, { text: '看个鬼鬼' }),
+            description: Props.merge(Props.DS.text, { text: '没效果图，看个鬼鬼啊' }),
             url: Props.merge(Props.DS.image, { url: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/right.png' })
           }
         })
