@@ -32,6 +32,7 @@ export default {
     },
     propsWithDefaultValue() {
       const propsConfig = this.curModel.propsConfig
+      // 为了防止右侧编辑面板的值和当前值粘连需将更新深拷贝一份出来
       const updatedProps = clone(this.receivedUpdate)
       return Object.entries(updatedProps).reduce((h, [k, v]) => {
         const item = propsConfig[k]

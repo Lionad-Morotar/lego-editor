@@ -8,7 +8,7 @@ export default {
   props: ['value'],
   model: {
     prop: 'value',
-    event: 'change'
+    event: 'change',
   },
   data() {
     return {
@@ -16,9 +16,9 @@ export default {
     }
   },
   watch: {
-    v (newValue) {
+    v(newValue) {
       this.$emit('change', newValue)
-    }
-  }
+    },
+  },
 }
 </script>

@@ -107,17 +107,23 @@ const Props = {
    */
 
   string(config) {
-    return new Prop({
-      type: String,
-      component: QuickForm.BaseText
-    }, config)
+    return new Prop(
+      {
+        type: String,
+        component: QuickForm.BaseText,
+      },
+      config,
+    )
   },
 
   number(config) {
-    return new Prop({
-      type: Number,
-      component: QuickForm.BaseNumber
-    }, config)
+    return new Prop(
+      {
+        type: Number,
+        component: QuickForm.BaseNumber,
+      },
+      config,
+    )
   },
 
   /**
@@ -130,12 +136,15 @@ const Props = {
       typeof config.default === 'string'
         ? merge(DS.text, { text: config.default })
         : merge(DS.text, config.default)
-    return new Prop({
-      type: Object,
-      default: defaultVal,
-      _valueKey: 'text',
-      component: QuickForm.StyledText
-    }, config)
+    return new Prop(
+      {
+        type: Object,
+        default: defaultVal,
+        _valueKey: 'text',
+        component: QuickForm.StyledText,
+      },
+      config,
+    )
   },
 
   // 图片链接，可设置图片缩放、对齐等样式
@@ -144,12 +153,15 @@ const Props = {
       typeof config.default === 'string'
         ? merge(DS.image, { url: config.default })
         : merge(DS.image, config.default)
-    return new Prop({
-      type: Object,
-      default: defaultVal,
-      _valueKey: 'url',
-      component: QuickForm.StyledImage
-    }, config)
+    return new Prop(
+      {
+        type: Object,
+        default: defaultVal,
+        _valueKey: 'url',
+        component: QuickForm.StyledImage,
+      },
+      config,
+    )
   },
 
   /**
@@ -158,9 +170,12 @@ const Props = {
    */
 
   custom(config) {
-    return new Prop({
-      type: config.type || [String, Number, Object]
-    }, config)
+    return new Prop(
+      {
+        type: config.type || [String, Number, Object],
+      },
+      config,
+    )
   },
 }
 
@@ -170,19 +185,19 @@ function Prop(base, config) {
   const prop = Object.assign(
     Object.create(Prop.prototype),
     {
-      default: config.default
+      default: config.default,
     },
     base,
     {
       config: {
         component: base.component,
-        ...config
+        ...config,
       },
-      // 依赖项校验失败的错误信息
-      error: '',
+      // 保留依赖项最后一次校验失败的错误信息
+      lastError: '',
       // 从依赖项值中获得可供页面展示的值
       // 如从 DS.text 结构中获得 DS.text.text
-      getDisplayValue: propVal => k ? propVal[k] : propVal,
+      getDisplayValue: propVal => (k ? propVal[k] : propVal),
       // 当展示值为空,页面上仍应展示 Fallback 而不是空值
       injectDisplayValueFallbackMaybe: propVal => {
         const noFallback = !(prop.config.fallback === true)
@@ -190,12 +205,19 @@ function Prop(base, config) {
         return noFallback
           ? propVal
           : displayValue
-            ? Object.assign(propVal, {
+          ? Object.assign(propVal, {
               [k]: displayValue,
             })
-            : undefined
-      }
-    }
+          : undefined
+      },
+      // 当依赖值发生变动时，调用此函数以返回一个校验后的值
+      // todo 完善逻辑
+      // eslint-disable-next-line
+      genData: (newValue, oldValue) => {
+        console.log('value change to : ', newValue)
+        return newValue
+      },
+    },
   )
   delete prop.component
   return prop

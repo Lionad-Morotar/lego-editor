@@ -14,7 +14,7 @@ export default {
       default: {
         text: '服务优势',
         textAlign: 'center',
-        bold: true
+        bold: true,
       },
       fallback: true,
       placeholder: '请填写表单名称',

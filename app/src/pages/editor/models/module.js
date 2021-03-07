@@ -23,7 +23,7 @@ export default function Module(inits) {
   this.title = title
   this.description = description
   this.data = {}
-  
+
   /* 和 Vue 实例相关的属性 */
   this.$instance = null
   this.$outlines = []
@@ -69,14 +69,18 @@ Module.prototype.setProp = function(key, value) {
   this.props[key] = value
   /* 校验并将 props 更新到 data */
   const handler = this.propsConfig[key]
-  const validate = handler?.config?.validator || (() => void 0)
-  const error = validate(value)
+  const validate = handler.config?.validator || (() => void 0)
+  const error = validate(value, this.props)
   if (error) {
-    this.propsConfig[key].error = error
+    handler.lastError = error
     // ?? this.data[key] = null
   } else {
-    this.propsConfig[key].error = ''
-    this.data[key] = value
+    handler.lastError = ''
+    const oldValue = this.data[key]
+    const newValue = handler.genData(value, oldValue)
+    if (newValue !== oldValue) {
+      this.data[key] = newValue
+    }
   }
 }
 
@@ -114,5 +118,5 @@ Module.prototype.initProps = function() {
   return Object.entries(propsConfig).reduce((h, [k, v]) => {
     h[k] = Props.genDefaults(v)
     return h
-  }, {}) 
+  }, {})
 }

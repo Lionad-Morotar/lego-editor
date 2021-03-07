@@ -3,7 +3,11 @@
     <el-button class="button" :disabled="v === max" type="text" @click="add"
       >增加对比</el-button
     >
-    <el-button class="button" :disabled="v === min" type="text" @click="subtract"
+    <el-button
+      class="button"
+      :disabled="v === min"
+      type="text"
+      @click="subtract"
       >减少对比</el-button
     >
   </div>
@@ -31,14 +35,24 @@ export default {
         this.props.compares.push({
           left: {
             title: '浩瀚家装',
-            description: Props.merge(Props.DS.text, { text: '免费出效果图，提前看到家的样子' }),
-            url: Props.merge(Props.DS.image, { url: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/left.png' })
+            description: Props.merge(Props.DS.text, {
+              text: '免费出效果图，提前看到家的样子',
+            }),
+            url: Props.merge(Props.DS.image, {
+              url:
+                'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/left.png',
+            }),
           },
           right: {
             title: '普通家装',
-            description: Props.merge(Props.DS.text, { text: '没效果图，看个鬼鬼啊' }),
-            url: Props.merge(Props.DS.image, { url: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/right.png' })
-          }
+            description: Props.merge(Props.DS.text, {
+              text: '没效果图，看个鬼鬼啊',
+            }),
+            url: Props.merge(Props.DS.image, {
+              url:
+                'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/right.png',
+            }),
+          },
         })
         this.$nextTick(() => {
           this.v += 1

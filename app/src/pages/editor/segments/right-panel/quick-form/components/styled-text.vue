@@ -59,7 +59,7 @@ export default {
   props: ['value'],
   model: {
     prop: 'value',
-    event: 'change'
+    event: 'change',
   },
   data() {
     return {

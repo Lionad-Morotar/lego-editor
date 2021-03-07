@@ -6,14 +6,18 @@
     <template v-else>
       <div class="vs" v-for="idx in counts" :key="idx">
         <div class="left">
-          <div class="title">{{compares[idx-1].left.title}}</div>
-          <img :src="compares[idx-1].left.url.url" />
-          <div class="description" :style="styles[idx-1].leftDes">{{compares[idx-1].left.description.text}}</div>
+          <div class="title">{{ compares[idx - 1].left.title }}</div>
+          <img :src="compares[idx - 1].left.url.url" />
+          <div class="description" :style="styles[idx - 1].leftDes">
+            {{ compares[idx - 1].left.description.text }}
+          </div>
         </div>
         <div class="right">
-          <div class="title">{{compares[idx-1].right.title}}</div>
-          <img :src="compares[idx-1].right.url.url" />
-          <div class="description" :style="styles[idx-1].rightDes">{{compares[idx-1].right.description.text}}</div>
+          <div class="title">{{ compares[idx - 1].right.title }}</div>
+          <img :src="compares[idx - 1].right.url.url" />
+          <div class="description" :style="styles[idx - 1].rightDes">
+            {{ compares[idx - 1].right.description.text }}
+          </div>
         </div>
       </div>
     </template>
@@ -30,6 +34,9 @@ export default {
       type: Number,
       default: 2,
       component: AddRemoveCompare,
+      validator(counts) {
+        if (counts === 0) return '请添加至少一项对比'
+      },
     }),
     compares: Props.custom({
       type: Array,
@@ -42,8 +49,9 @@ export default {
               default: '一站式购齐，风格统一',
             }),
             url: Props.image({
-              default: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/left.png'
-            })
+              default:
+                'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/left.png',
+            }),
           },
           right: {
             title: '普通家装',
@@ -51,9 +59,10 @@ export default {
               default: '东拼西凑，材料来源未知，存在一定的安全隐患',
             }),
             url: Props.image({
-              default: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/right.png'
-            })
-          }
+              default:
+                'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/right.png',
+            }),
+          },
         },
         {
           left: {
@@ -62,8 +71,9 @@ export default {
               default: '免费出效果图，提前看到家的样子',
             }),
             url: Props.image({
-              default: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/left.png'
-            })
+              default:
+                'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/left.png',
+            }),
           },
           right: {
             title: '普通家装',
@@ -71,21 +81,36 @@ export default {
               default: '没效果图，看个鬼鬼啊',
             }),
             url: Props.image({
-              default: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/right.png'
-            })
-          }
-        }
+              default:
+                'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/right.png',
+            }),
+          },
+        },
       ],
-    })
+      validator(v, props) {
+        const { title } = props
+        if (v.length === 0) return '请添加至少一项对比'
+        const errors = v.map((compare, idx) => {
+          const base = `请填写${title.text}的第${idx + 1}项对比中的`
+          if (!compare.left.title) return base + '左侧标题'
+          if (!compare.left.description.text) return base + '左侧描述'
+          if (!compare.left.url.url) return base + '左侧图片'
+          if (!compare.right.title) return base + '右侧标题'
+          if (!compare.right.description.text) return base + '右侧描述'
+          if (!compare.right.url.url) return base + '右侧图片'
+        })
+        return errors.filter(Boolean)[0]
+      },
+    }),
   },
   computed: {
-    styles () {
+    styles() {
       return this.compares.map(x => ({
         leftDes: Props.genStyles(x.left.description),
         rightDes: Props.genStyles(x.right.description),
       }))
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -140,8 +165,8 @@ export default {
     }
 
     &.empty-tip {
-      padding-top: 40px; 
-      font-size: 12px; 
+      padding-top: 40px;
+      font-size: 12px;
       color: #444;
     }
 

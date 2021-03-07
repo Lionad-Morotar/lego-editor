@@ -1,6 +1,5 @@
 <template>
   <div class="right-panel">
-    
     <!-- todo refactor -->
     <div class="segment" v-if="isSelectedTopOutline">
       <div class="header">
@@ -50,7 +49,11 @@ export default {
       selectedOutline: state => state.selectedOutline,
     }),
     isSelectedTopOutline() {
-      return this.selected && this.selected.$outlines && (this.selected.$outlines[0] === this.selectedOutline)
+      return (
+        this.selected &&
+        this.selected.$outlines &&
+        this.selected.$outlines[0] === this.selectedOutline
+      )
     },
   },
   methods: {

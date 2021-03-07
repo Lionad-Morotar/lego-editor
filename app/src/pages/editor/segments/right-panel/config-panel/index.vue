@@ -29,6 +29,7 @@ export default {
       props: ['name', 'config', 'selected'],
       render(h) {
         const { name, config, selected } = this.$props
+        // console.log(selected.propsConfig[name])
         return h(
           'el-form-item',
           {
@@ -36,7 +37,7 @@ export default {
             props: {
               label: config.label,
               required: config.required,
-              error: selected.propsConfig[name]?.error,
+              error: selected.propsConfig[name]?.lastError,
               ['inline-message']: true,
             },
           },
@@ -45,7 +46,7 @@ export default {
               props: {
                 ...config,
                 value: selected.props[name],
-                props: selected.props
+                props: selected.props,
               },
               attrs: {
                 ...config,
