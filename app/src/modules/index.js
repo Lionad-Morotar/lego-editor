@@ -4,6 +4,7 @@ import BaseText from './base-text/index'
 import BaseImage from './base-image/index'
 import Compare from './compare/index'
 import TestDynamicForm from './test-dynamic-form/index'
+// import TestDynamicOutline from './test-dynamic-outline/index'
 
 export default {
   getDefaultModuleList() {
@@ -36,6 +37,13 @@ export default {
         component: Compare,
         cover: '模块在左侧面板展示时的图片地址',
       },
+      // {
+      //   title: '测试动态选框',
+      //   description: '给数组添加一个项目后，该项目能够触发高亮选框',
+      //   name: TestDynamicOutline.name,
+      //   component: TestDynamicOutline,
+      //   cover: '模块在左侧面板展示时的图片地址',
+      // },
     ])
   },
 }

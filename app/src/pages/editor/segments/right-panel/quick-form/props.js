@@ -165,18 +165,29 @@ const Props = {
   },
 
   /**
-   * 自定义类型
-   * 用于配置自定义编辑面板
+   * 高级类型
    */
 
+  // 用于配置自定义编辑面板
   custom(config) {
     return new Prop(
       {
-        type: config.type || [String, Number, Object],
+        type: config.type || [String, Number, Object, Array],
       },
       config,
     )
   },
+
+  // 用于分发数组依赖项或对象依赖项的一部分
+  // part(config) {
+  //   return new Props(
+  //     {
+  //       type: config.type || [String, Number, Object],
+  //       default: null,
+  //     },
+  //     config,
+  //   )
+  // },
 }
 
 /* 配置实例 */
@@ -186,13 +197,6 @@ function Prop(base, config) {
     Object.create(Prop.prototype),
     {
       default: config.default,
-    },
-    base,
-    {
-      config: {
-        component: base.component,
-        ...config,
-      },
       // 保留依赖项最后一次校验失败的错误信息
       lastError: '',
       // 从依赖项值中获得可供页面展示的值
@@ -218,6 +222,13 @@ function Prop(base, config) {
         return newValue
       },
     },
+    base,
+    {
+      config: {
+        component: base.component,
+        ...config,
+      }
+    }
   )
   delete prop.component
   return prop
@@ -227,5 +238,6 @@ Props.DS = DS
 Props.genStyles = genStyles
 Props.genDefaults = genDefaults
 Props.merge = merge
+Props.Prop = Prop
 
 export default Props

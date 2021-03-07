@@ -91,18 +91,26 @@ Module.prototype.setProp = function(key, value) {
  */
 Module.propsMap = {}
 Module.gatherProps = function(name, component) {
+  function getValidProps (props) {
+    return Object.entries(props || {}).reduce((h, [k, v]) => {
+      if (v instanceof Props.Prop) {
+        h[k] = v
+      }
+      return h
+    }, {})
+  }
   function getComponentAndChildrenProps(cmpt) {
     const cmpts = cmpt.components || {}
     return Object.entries(cmpts).reduce((h, [, v]) => {
       h = {
         ...h,
-        ...(v.props || {}),
+        ...getValidProps(v.props),
         ...(cmpts.components
           ? getComponentAndChildrenProps(cmpts.components)
           : {}),
       }
       return h
-    }, cmpt.props || {})
+    }, getValidProps(cmpt.props))
   }
   const res = getComponentAndChildrenProps(component)
   Module.propsMap[name] = res

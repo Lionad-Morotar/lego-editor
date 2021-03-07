@@ -45,10 +45,13 @@ const actions = {
               h[k] = {
                 render(h) {
                   return h(ScreenElement, {
+                    attrs: {
+                      ...this.$attrs
+                    },
                     props: {
                       component: v,
                       captureClick: true,
-                    },
+                    }
                   })
                 },
               }
@@ -58,7 +61,11 @@ const actions = {
           // 包装模块以及注册
           Vue.component(newModule.name, {
             render(h) {
+              // console.log(this.$attrs)
               return h(ScreenElement, {
+                attrs: {
+                  ...this.$attrs
+                },
                 props: {
                   component: newModule.component,
                 },

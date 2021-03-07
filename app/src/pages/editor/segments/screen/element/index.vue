@@ -36,8 +36,12 @@ export default {
       const updatedProps = clone(this.receivedUpdate)
       return Object.entries(updatedProps).reduce((h, [k, v]) => {
         const item = propsConfig[k]
-        const hasDisplayValue = !!item.getDisplayValue(v)
-        h[k] = hasDisplayValue ? v : item.injectDisplayValueFallbackMaybe(v)
+        if (item.getDisplayValue) {
+          const hasDisplayValue = !!item.getDisplayValue(v)
+          h[k] = hasDisplayValue ? v : item.injectDisplayValueFallbackMaybe(v)
+        } else {
+          h[k] = v
+        }
         return h
       }, {})
     },
@@ -46,14 +50,16 @@ export default {
     const component = this.$props.component
     const captureClick = this.$props.captureClick
 
+    // console.log(this.$slots, this.$children, this.$scopedSlots)
+    const $slots = this.$parent.$slots.default || []
     const $cmpt = h(component, {
       props: {
+        ...this.$attrs,
         ...this.propsWithDefaultValue,
-      },
-    })
+      }
+    }, $slots)
     const $child = captureClick ? h(ClickCapture, {}, [$cmpt]) : $cmpt
 
-    // 组件作为 Outline 的插槽内容渲染
     // ! 谨慎修改，模块实例在获取 Vue 组件实例以及组件的 Outline 实例时，依赖了当前组件的层级结构
     return h(
       Outline,

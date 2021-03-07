@@ -7,14 +7,14 @@
       <div class="vs" v-for="idx in counts" :key="idx">
         <div class="left">
           <div class="title">{{ compares[idx - 1].left.title }}</div>
-          <img :src="compares[idx - 1].left.url.url" />
+          <img :src="compares[idx - 1].left.url.url" :style="styles[idx - 1].leftImage" />
           <div class="description" :style="styles[idx - 1].leftDes">
             {{ compares[idx - 1].left.description.text }}
           </div>
         </div>
         <div class="right">
           <div class="title">{{ compares[idx - 1].right.title }}</div>
-          <img :src="compares[idx - 1].right.url.url" />
+          <img :src="compares[idx - 1].right.url.url" :style="styles[idx - 1].rightImage" />
           <div class="description" :style="styles[idx - 1].rightDes">
             {{ compares[idx - 1].right.description.text }}
           </div>
@@ -108,6 +108,8 @@ export default {
       return this.compares.map(x => ({
         leftDes: Props.genStyles(x.left.description),
         rightDes: Props.genStyles(x.right.description),
+        leftImage: Props.genStyles(x.left.url),
+        rightImage: Props.genStyles(x.right.url),
       }))
     },
   },

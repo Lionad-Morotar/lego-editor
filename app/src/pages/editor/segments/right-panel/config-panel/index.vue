@@ -23,6 +23,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import Props from '../quick-form/props'
 export default {
   components: {
     ConfigItem: {
@@ -70,7 +71,15 @@ export default {
       return this.selectedOutline?.props || {}
     },
     configEntries() {
-      return Object.entries(this.config)
+      // console.log(this.selectedOutline)
+      return Object.entries(
+        Object.entries(this.config).reduce((h, [k, v]) => {
+          if (v instanceof Props.Prop) {
+            h[k] = v
+          }
+          return h
+        }, {})
+      )
     },
   },
   methods: {},

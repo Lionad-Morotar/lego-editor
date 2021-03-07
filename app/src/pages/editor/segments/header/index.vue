@@ -39,10 +39,7 @@ export default {
     ]),
     ...mapActions('screen', []),
     save() {
-      const isValid = this.modules.every(x => x.validate())
-      if (isValid) {
-        console.log('saved')
-      }
+      console.log(this.modules.map(x => x.data))
     },
     togglePreview() {
       this.CLEAR_MODULE()
