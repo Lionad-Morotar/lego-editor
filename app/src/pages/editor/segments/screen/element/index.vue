@@ -36,7 +36,7 @@ export default {
       return Object.entries(updatedProps).reduce((h, [k, v]) => {
         const item = propsConfig[k]
         const hasDisplayValue = !!item.getDisplayValue(v)
-        h[k] = hasDisplayValue ? v : item.injectDisplayValueFallback(v)
+        h[k] = hasDisplayValue ? v : item.injectDisplayValueFallbackMaybe(v)
         return h
       }, {})
     },

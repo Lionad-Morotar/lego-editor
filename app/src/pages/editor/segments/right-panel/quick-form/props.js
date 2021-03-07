@@ -165,7 +165,7 @@ const Props = {
 }
 
 /* 配置实例 */
-function Prop (base, config) {
+function Prop(base, config) {
   const { _valueKey: k } = base
   const prop = Object.assign(
     Object.create(Prop.prototype),
@@ -184,13 +184,16 @@ function Prop (base, config) {
       // 如从 DS.text 结构中获得 DS.text.text
       getDisplayValue: propVal => k ? propVal[k] : propVal,
       // 当展示值为空,页面上仍应展示 Fallback 而不是空值
-      injectDisplayValueFallback: propVal => {
+      injectDisplayValueFallbackMaybe: propVal => {
+        const noFallback = !(prop.config.fallback === true)
         const displayValue = k ? prop.default[k] : prop.default
-        return displayValue
-          ? Object.assign(propVal, {
-            [k]: displayValue,
-          })
-          : undefined
+        return noFallback
+          ? propVal
+          : displayValue
+            ? Object.assign(propVal, {
+              [k]: displayValue,
+            })
+            : undefined
       }
     }
   )

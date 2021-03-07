@@ -29,7 +29,6 @@ export default {
     counts: Props.custom({
       type: Number,
       default: 2,
-      fallback: false,
       component: AddRemoveCompare,
     }),
     compares: Props.custom({
@@ -86,13 +85,7 @@ export default {
         rightDes: Props.genStyles(x.right.description),
       }))
     }
-  },
-  watch: {
-    counts (n) {
-      console.log('n: ', n)
-    }
-  },
-  methods: {},
+  }
 }
 </script>
 

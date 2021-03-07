@@ -16,6 +16,7 @@ export default {
         textAlign: 'center',
         bold: true
       },
+      fallback: true,
       placeholder: '请填写表单名称',
       required: true,
       maxlength: 10,
@@ -27,6 +28,7 @@ export default {
         text: '浩瀚家装和普通家装的对比',
         textAlign: 'center',
       },
+      fallback: true,
       placeholder: '请填写表单副标题',
       required: true,
       maxlength: 25,

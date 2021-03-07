@@ -12,6 +12,7 @@ export default {
     image: Props.image({
       label: '图片地址',
       default: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/spark.png',
+      fallback: true,
       required: true,
       showWordLimit: true,
       validator({ url }) {

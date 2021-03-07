@@ -10,6 +10,7 @@ export default {
     text: Props.text({
       label: '文本内容',
       default: '一行文本',
+      fallback: true,
       required: true,
       showWordLimit: true,
       validator({ text }) {

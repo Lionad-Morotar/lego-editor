@@ -21,6 +21,7 @@ export default {
         textAlign: 'center',
         bold: true
       },
+      fallback: true,
       placeholder: '请填写表单名称',
       required: true,
       maxlength: 10,
@@ -32,6 +33,7 @@ export default {
         text: 'a dynamic form for test',
         textAlign: 'center',
       },
+      fallback: true,
       maxlength: 40,
       showWordLimit: true,
       validator({ text }) {
