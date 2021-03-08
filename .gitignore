@@ -1,7 +1,3 @@
-# compiled output
-/dist
-/node_modules
-
 # Logs
 logs
 *.log
@@ -38,16 +34,18 @@ lerna-debug.log*
 /app/node_modules
 /app/dist
 
-
 # local env files
 /app/.env.local
 /app/.env.*.local
 
 # server项目子集
 /server/dist
+/server/node_modules
 
 # Log files
 /*/npm-debug.log*
 /*/yarn-debug.log*
 /*/yarn-error.log*
 /*/pnpm-debug.log*
+
+/node_modules

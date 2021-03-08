@@ -22,7 +22,7 @@
 <script>
 export default {
   name: 'test-form',
-  data() {
+  data () {
     return {
       disabled: false,
       url: 'www.baidu.com',
