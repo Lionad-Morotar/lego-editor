@@ -78,7 +78,7 @@ export default {
             h[k] = v
           }
           return h
-        }, {})
+        }, {}),
       )
     },
   },

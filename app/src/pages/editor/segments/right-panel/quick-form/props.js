@@ -227,8 +227,8 @@ function Prop(base, config) {
       config: {
         component: base.component,
         ...config,
-      }
-    }
+      },
+    },
   )
   delete prop.component
   return prop

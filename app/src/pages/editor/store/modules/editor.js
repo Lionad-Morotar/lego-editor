@@ -46,12 +46,12 @@ const actions = {
                 render(h) {
                   return h(ScreenElement, {
                     attrs: {
-                      ...this.$attrs
+                      ...this.$attrs,
                     },
                     props: {
                       component: v,
                       captureClick: true,
-                    }
+                    },
                   })
                 },
               }
@@ -64,7 +64,7 @@ const actions = {
               // console.log(this.$attrs)
               return h(ScreenElement, {
                 attrs: {
-                  ...this.$attrs
+                  ...this.$attrs,
                 },
                 props: {
                   component: newModule.component,

@@ -52,12 +52,16 @@ export default {
 
     // console.log(this.$slots, this.$children, this.$scopedSlots)
     const $slots = this.$parent.$slots.default || []
-    const $cmpt = h(component, {
-      props: {
-        ...this.$attrs,
-        ...this.propsWithDefaultValue,
-      }
-    }, $slots)
+    const $cmpt = h(
+      component,
+      {
+        props: {
+          ...this.$attrs,
+          ...this.propsWithDefaultValue,
+        },
+      },
+      $slots,
+    )
     const $child = captureClick ? h(ClickCapture, {}, [$cmpt]) : $cmpt
 
     // ! 谨慎修改，模块实例在获取 Vue 组件实例以及组件的 Outline 实例时，依赖了当前组件的层级结构

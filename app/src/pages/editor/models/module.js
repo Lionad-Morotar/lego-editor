@@ -91,7 +91,7 @@ Module.prototype.setProp = function(key, value) {
  */
 Module.propsMap = {}
 Module.gatherProps = function(name, component) {
-  function getValidProps (props) {
+  function getValidProps(props) {
     return Object.entries(props || {}).reduce((h, [k, v]) => {
       if (v instanceof Props.Prop) {
         h[k] = v

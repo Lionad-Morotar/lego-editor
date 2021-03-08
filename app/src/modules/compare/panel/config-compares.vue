@@ -2,17 +2,17 @@
   <fragment>
     <div v-for="idx in props.counts" :key="idx">
       <div class="label">左侧标题</div>
-      <base-text v-model="v[idx-1].left.title" />
+      <base-text v-model="v[idx - 1].left.title" />
       <div class="label">左侧描述</div>
-      <styled-text v-model="v[idx-1].left.description" />
+      <styled-text v-model="v[idx - 1].left.description" />
       <div class="label">左侧图片</div>
-      <styled-image v-model="v[idx-1].left.url" />
+      <styled-image v-model="v[idx - 1].left.url" />
       <div class="label">右侧标题</div>
-      <base-text v-model="v[idx-1].right.title" />
+      <base-text v-model="v[idx - 1].right.title" />
       <div class="label">右侧描述</div>
-      <styled-text v-model="v[idx-1].right.description" />
+      <styled-text v-model="v[idx - 1].right.description" />
       <div class="label">右侧图片</div>
-      <styled-image v-model="v[idx-1].right.url" />
+      <styled-image v-model="v[idx - 1].right.url" />
     </div>
   </fragment>
 </template>
@@ -39,9 +39,8 @@ export default {
     BaseText: Forms.BaseText,
     StyledText: Forms.StyledText,
     StyledImage: Forms.StyledImage,
-  }
+  },
 }
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
