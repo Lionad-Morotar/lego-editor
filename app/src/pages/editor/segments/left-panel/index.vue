@@ -46,13 +46,13 @@ import { mapState } from 'vuex'
 import ModuleSelector from './module-selector'
 export default {
   components: {
-    ModuleSelector,
+    ModuleSelector
   },
   computed: {
     ...mapState('editor', {
-      modules: state => state.modules,
-    }),
-  },
+      modules: state => state.modules
+    })
+  }
 }
 </script>
 

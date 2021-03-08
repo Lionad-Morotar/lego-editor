@@ -10,23 +10,23 @@ const merge = (...args) => Object.assign(...args)
  * DS.text === DS.text // 结果为 false
  */
 const DS = {
-  get text() {
+  get text () {
     return {
       text: '',
       textAlign: 'left',
       bold: false,
       italic: false,
       underLine: false,
-      strikeThrough: false,
+      strikeThrough: false
     }
   },
-  get image() {
+  get image () {
     return {
       url: '',
       objectFit: 'contain',
-      objectPosition: 'center',
+      objectPosition: 'center'
     }
-  },
+  }
 }
 
 /**
@@ -41,10 +41,10 @@ const genStyles = (val = {}) => {
     underLine,
     strikeThrough,
     objectFit,
-    objectPosition,
+    objectPosition
   } = val
   const res = {
-    textDecoration: [],
+    textDecoration: []
   }
 
   /* text */
@@ -106,23 +106,23 @@ const Props = {
    * 可类比为 VueJS 中给 Props 传入的 Type
    */
 
-  string(config) {
+  string (config) {
     return new Prop(
       {
         type: String,
-        component: QuickForm.BaseText,
+        component: QuickForm.BaseText
       },
-      config,
+      config
     )
   },
 
-  number(config) {
+  number (config) {
     return new Prop(
       {
         type: Number,
-        component: QuickForm.BaseNumber,
+        component: QuickForm.BaseNumber
       },
-      config,
+      config
     )
   },
 
@@ -131,7 +131,7 @@ const Props = {
    */
 
   // 字符串，可设置文本居中、加粗等样式
-  text(config) {
+  text (config) {
     const defaultVal =
       typeof config.default === 'string'
         ? merge(DS.text, { text: config.default })
@@ -141,14 +141,14 @@ const Props = {
         type: Object,
         default: defaultVal,
         _valueKey: 'text',
-        component: QuickForm.StyledText,
+        component: QuickForm.StyledText
       },
-      config,
+      config
     )
   },
 
   // 图片链接，可设置图片缩放、对齐等样式
-  image(config) {
+  image (config) {
     const defaultVal =
       typeof config.default === 'string'
         ? merge(DS.image, { url: config.default })
@@ -158,9 +158,9 @@ const Props = {
         type: Object,
         default: defaultVal,
         _valueKey: 'url',
-        component: QuickForm.StyledImage,
+        component: QuickForm.StyledImage
       },
-      config,
+      config
     )
   },
 
@@ -169,14 +169,14 @@ const Props = {
    */
 
   // 用于配置自定义编辑面板
-  custom(config) {
+  custom (config) {
     return new Prop(
       {
-        type: config.type || [String, Number, Object, Array],
+        type: config.type || [String, Number, Object, Array]
       },
-      config,
+      config
     )
-  },
+  }
 
   // 用于分发数组依赖项或对象依赖项的一部分
   // part(config) {
@@ -191,7 +191,7 @@ const Props = {
 }
 
 /* 配置实例 */
-function Prop(base, config) {
+function Prop (base, config) {
   const { _valueKey: k } = base
   const prop = Object.assign(
     Object.create(Prop.prototype),
@@ -209,10 +209,10 @@ function Prop(base, config) {
         return noFallback
           ? propVal
           : displayValue
-          ? Object.assign(propVal, {
-              [k]: displayValue,
+            ? Object.assign(propVal, {
+              [k]: displayValue
             })
-          : undefined
+            : undefined
       },
       // 当依赖值发生变动时，调用此函数以返回一个校验后的值
       // todo 完善逻辑
@@ -220,15 +220,15 @@ function Prop(base, config) {
       genData: (newValue, oldValue) => {
         console.log('value change to : ', newValue)
         return newValue
-      },
+      }
     },
     base,
     {
       config: {
         component: base.component,
-        ...config,
-      },
-    },
+        ...config
+      }
+    }
   )
   delete prop.component
   return prop

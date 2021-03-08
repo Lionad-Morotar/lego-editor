@@ -22,24 +22,24 @@ import Forms from '../../forms'
 export default {
   name: 'compare',
   props: ['value', 'props'],
-  data() {
+  data () {
     return {
-      v: this.value,
+      v: this.value
     }
   },
   watch: {
     v: {
       deep: true,
-      handler(newValue) {
+      handler (newValue) {
         this.$emit('change', newValue)
-      },
-    },
+      }
+    }
   },
   components: {
     BaseText: Forms.BaseText,
     StyledText: Forms.StyledText,
-    StyledImage: Forms.StyledImage,
-  },
+    StyledImage: Forms.StyledImage
+  }
 }
 </script>
 

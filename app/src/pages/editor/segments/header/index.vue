@@ -25,31 +25,31 @@ import DefaultModule from '@/modules'
 export default {
   computed: {
     ...mapState('editor', {
-      isPreview: state => state.isPreview,
+      isPreview: state => state.isPreview
     }),
     ...mapState('screen', {
-      modules: state => state.modules,
-    }),
+      modules: state => state.modules
+    })
   },
   methods: {
     ...mapActions('editor', [
       'TOGGLE_ISPREVIEW',
       'INSTALL_MODULES',
-      'CLEAR_MODULE',
+      'CLEAR_MODULE'
     ]),
     ...mapActions('screen', []),
-    save() {
+    save () {
       console.log(this.modules.map(x => x.data))
     },
-    togglePreview() {
+    togglePreview () {
       this.CLEAR_MODULE()
       this.INSTALL_MODULES({
         moduleList: DefaultModule.getDefaultModuleList(),
-        editable: this.isPreview,
+        editable: this.isPreview
       })
       this.TOGGLE_ISPREVIEW()
-    },
-  },
+    }
+  }
 }
 </script>
 

@@ -4,7 +4,7 @@
  * @param {VueInstance} toFind
  */
 const contains = (parent, toFind) => {
-  function findMatch(target) {
+  function findMatch (target) {
     const targets = target instanceof Array ? target : [target]
     const isFind = targets.find(x => x === toFind)
     if (isFind) {
@@ -19,5 +19,5 @@ const contains = (parent, toFind) => {
 }
 
 export default {
-  contains,
+  contains
 }

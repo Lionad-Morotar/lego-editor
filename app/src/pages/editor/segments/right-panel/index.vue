@@ -40,35 +40,35 @@ import { mapState, mapActions } from 'vuex'
 import ConfigPanel from './config-panel'
 export default {
   components: {
-    ConfigPanel,
+    ConfigPanel
   },
   computed: {
     ...mapState('screen', {
       modules: state => state.modules,
       selected: state => state.selected,
-      selectedOutline: state => state.selectedOutline,
+      selectedOutline: state => state.selectedOutline
     }),
-    isSelectedTopOutline() {
+    isSelectedTopOutline () {
       return (
         this.selected &&
         this.selected.$outlines &&
         this.selected.$outlines[0] === this.selectedOutline
       )
-    },
+    }
   },
   methods: {
     ...mapActions('screen', ['DELETE_SELECTED_MODULE', 'MOVE_MODULE']),
     // 删除当前屏幕中选中的模块
-    deleteModule() {
+    deleteModule () {
       this.DELETE_SELECTED_MODULE()
     },
-    handleMoveUp() {
+    handleMoveUp () {
       this.MOVE_MODULE(-1)
     },
-    handleMoveDown() {
+    handleMoveDown () {
       this.MOVE_MODULE(1)
-    },
-  },
+    }
+  }
 }
 </script>
 

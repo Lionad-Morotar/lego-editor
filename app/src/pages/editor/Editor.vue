@@ -33,12 +33,12 @@ export default {
     LeftPanel,
     RightPanel,
     Screen,
-    Preview,
+    Preview
   },
   computed: {
     ...mapState('editor', {
-      isPreview: state => state.isPreview,
-    }),
-  },
+      isPreview: state => state.isPreview
+    })
+  }
 }
 </script>

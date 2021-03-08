@@ -65,25 +65,25 @@ export default {
   props: ['value'],
   model: {
     prop: 'value',
-    event: 'change',
+    event: 'change'
   },
-  data() {
+  data () {
     return {
       v: {
-        ...(this.value || Props.DS.image),
-      },
+        ...(this.value || Props.DS.image)
+      }
     }
   },
   watch: {
     v: {
       deep: true,
-      handler: debounce(function(newValue) {
+      handler: debounce(function (newValue) {
         // todo check
         console.log('test decounce')
         this.$emit('change', newValue)
-      }, 350),
-    },
-  },
+      }, 350)
+    }
+  }
 }
 </script>
 

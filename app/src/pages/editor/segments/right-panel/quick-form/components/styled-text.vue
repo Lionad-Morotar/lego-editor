@@ -59,23 +59,23 @@ export default {
   props: ['value'],
   model: {
     prop: 'value',
-    event: 'change',
+    event: 'change'
   },
-  data() {
+  data () {
     return {
       v: {
-        ...(this.value || Props.DS.text),
-      },
+        ...(this.value || Props.DS.text)
+      }
     }
   },
   watch: {
     v: {
       deep: true,
-      handler(newValue) {
+      handler (newValue) {
         this.$emit('change', newValue)
-      },
-    },
-  },
+      }
+    }
+  }
 }
 </script>
 

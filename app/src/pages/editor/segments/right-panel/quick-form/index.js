@@ -20,5 +20,5 @@ export default {
   BaseText,
   BaseNumber,
   StyledText,
-  StyledImage,
+  StyledImage
 }

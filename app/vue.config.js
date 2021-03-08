@@ -14,6 +14,6 @@ module.exports = {
       template: 'public/index.html',
       filename: 'browser.html',
       title: 'browser'
-    },
+    }
   }
 }

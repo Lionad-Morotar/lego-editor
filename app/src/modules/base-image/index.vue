@@ -15,18 +15,18 @@ export default {
       fallback: true,
       required: true,
       showWordLimit: true,
-      validator({ url }) {
-        if (url.length == 0) {
+      validator ({ url }) {
+        if (url.length === 0) {
           return '请填写图片链接'
         }
-      },
-    }),
+      }
+    })
   },
   computed: {
-    styles() {
+    styles () {
       return Props.genStyles(this.image)
-    },
-  },
+    }
+  }
 }
 </script>
 

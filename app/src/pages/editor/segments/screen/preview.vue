@@ -12,19 +12,19 @@ export default {
   components: {
     Instance: {
       props: ['module'],
-      render(h) {
+      render (h) {
         const { name } = this.$props.module
         return h(name, {
-          props: {},
+          props: {}
         })
-      },
-    },
+      }
+    }
   },
   computed: {
     ...mapState('screen', {
-      modules: state => state.modules,
-    }),
-  },
+      modules: state => state.modules
+    })
+  }
 }
 </script>
 
