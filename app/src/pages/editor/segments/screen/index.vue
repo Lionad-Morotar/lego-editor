@@ -25,14 +25,19 @@ export default {
   created () {
     // for test purposes
     if (this.modules.length === 0) {
+      // setTimeout(() => {
+      //   this.ADD_MODULE(this.plugins[0])
+      // }, 200)
+      // setTimeout(() => {
+      //   this.ADD_MODULE(this.plugins[1])
+      // }, 200)
+      // setTimeout(() => {
+      //   this.ADD_MODULE(this.plugins[2])
+      // }, 200)
+
+      // 测试组件
       setTimeout(() => {
-        this.ADD_MODULE(this.plugins[0])
-      }, 200)
-      setTimeout(() => {
-        this.ADD_MODULE(this.plugins[1])
-      }, 200)
-      setTimeout(() => {
-        this.ADD_MODULE(this.plugins[2])
+        this.ADD_MODULE(this.plugins[this.plugins.length - 1])
       }, 200)
     }
   },

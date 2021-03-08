@@ -1,6 +1,6 @@
+import Example from './components/example'
 import BaseText from './components/base-text'
 import BaseNumber from './components/base-number'
-
 import StyledText from './components/styled-text'
 import StyledImage from './components/styled-image'
 
@@ -17,6 +17,7 @@ import StyledImage from './components/styled-image'
  */
 
 export default {
+  Example,
   BaseText,
   BaseNumber,
   StyledText,
