@@ -1,0 +1,11 @@
+{
+  "name": "lego-fe",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@gitlab.baixing.cn:xielizhen/lego-fe.git",
+  "author": "xielizhen <xielizhen@baxing.com>",
+  "license": "MIT",
+  "scripts": {
+    
+  }
+}
