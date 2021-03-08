@@ -17,57 +17,57 @@
 import Props from '../../props'
 export default {
   props: ['value', 'props'],
-  data() {
+  data () {
     return {
       v: this.value,
       min: 0,
-      max: 10,
+      max: 10
     }
   },
   watch: {
-    v(newValue) {
+    v (newValue) {
       this.$emit('change', newValue)
-    },
+    }
   },
   methods: {
-    add() {
+    add () {
       if (this.v !== this.max) {
         this.props.compares.push({
           left: {
             title: '浩瀚家装',
             description: Props.merge(Props.DS.text, {
-              text: '免费出效果图，提前看到家的样子',
+              text: '免费出效果图，提前看到家的样子'
             }),
             url: Props.merge(Props.DS.image, {
               url:
-                'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/left.png',
-            }),
+                'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/left.png'
+            })
           },
           right: {
             title: '普通家装',
             description: Props.merge(Props.DS.text, {
-              text: '没效果图，看个鬼鬼啊',
+              text: '没效果图，看个鬼鬼啊'
             }),
             url: Props.merge(Props.DS.image, {
               url:
-                'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/right.png',
-            }),
-          },
+                'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/right.png'
+            })
+          }
         })
         this.$nextTick(() => {
           this.v += 1
         })
       }
     },
-    subtract() {
+    subtract () {
       if (this.v !== this.min) {
         this.v -= 1
         this.$nextTick(() => {
           this.props.compares.splice(this.props.compares.length - 1, 1)
         })
       }
-    },
-  },
+    }
+  }
 }
 </script>
 

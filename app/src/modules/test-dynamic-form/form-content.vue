@@ -21,26 +21,26 @@ export default {
       label: '请求地址',
       default: 'www.baidu.com',
       placeholder: '暂不可设置',
-      disabled: true,
-    }),
+      disabled: true
+    })
   },
-  data() {
+  data () {
     return {
-      mobile: '18579157140',
+      mobile: '18579157140'
     }
   },
   methods: {
-    validate() {
+    validate () {
       if (!this.mobile) {
         alert('请填写电话')
         return false
       }
       return true
     },
-    submit() {
+    submit () {
       const isValid = this.validate()
       if (!isValid) {
-        let formData = new FormData()
+        const formData = new FormData()
         formData.append('name', this.name)
         formData.append('mobile', this.mobile)
 
@@ -48,7 +48,7 @@ export default {
         console.log('value: ', this.name, this.mobile)
 
         const req = new XMLHttpRequest()
-        req.onreadystatechange = function() {
+        req.onreadystatechange = function () {
           if (req.readyState === 4) {
             const message = req.status === 200 ? '提交成功' : '提交失败'
             alert(message)
@@ -57,8 +57,8 @@ export default {
         req.open('post', this.postURL, true)
         req.send(formData)
       }
-    },
-  },
+    }
+  }
 }
 </script>
 

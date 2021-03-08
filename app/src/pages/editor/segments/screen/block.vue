@@ -16,32 +16,32 @@ import { mapState, mapActions } from 'vuex'
 import Instance from './element/instance'
 export default {
   components: {
-    Instance,
+    Instance
   },
   props: ['module'],
   computed: {
     ...mapState('screen', {
       modules: state => state.modules,
       selected: state => state.selected,
-      selectedOutline: state => state.selectedOutline,
+      selectedOutline: state => state.selectedOutline
     }),
-    isSelected() {
+    isSelected () {
       return this.selected === this.module
-    },
+    }
   },
   methods: {
     ...mapActions('screen', ['SELECT_MODULE', 'SELECT_OUTLINE']),
-    selectModule() {
+    selectModule () {
       if (!this.isSelected) {
         this.SELECT_MODULE(this.module)
       }
     },
     // 点击 PaddingBox 时高亮最外层 Outline
-    selectTopElement() {
+    selectTopElement () {
       const curModuleTopElement = this.module.$outlines[0]
       this.SELECT_OUTLINE(curModuleTopElement)
-    },
-  },
+    }
+  }
 }
 </script>
 

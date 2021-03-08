@@ -19,44 +19,44 @@ export default {
       default: {
         text: '测试表单',
         textAlign: 'center',
-        bold: true,
+        bold: true
       },
       fallback: true,
       placeholder: '请填写表单名称',
       required: true,
       maxlength: 10,
-      showWordLimit: true,
+      showWordLimit: true
     }),
     subTitle: Props.text({
       label: '表单副标题',
       default: {
         text: 'a dynamic form for test',
-        textAlign: 'center',
+        textAlign: 'center'
       },
       fallback: true,
       maxlength: 40,
       showWordLimit: true,
-      validator({ text }) {
-        if (text.length == 0) {
+      validator ({ text }) {
+        if (text.length === 0) {
           return '请填写表单副标题'
         }
         if (text.length > 40) {
           return '表单副标题长度上限 40'
         }
-      },
-    }),
+      }
+    })
   },
   computed: {
-    styles() {
+    styles () {
       return {
         title: Props.genStyles(this.title),
-        subTitle: Props.genStyles(this.subTitle),
+        subTitle: Props.genStyles(this.subTitle)
       }
-    },
+    }
   },
   components: {
-    FormContent,
-  },
+    FormContent
+  }
 }
 </script>
 
