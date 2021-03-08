@@ -1,5 +1,5 @@
 // TODO refactor with webpack.resolver
 
-import Forms from '../pages/editor/segments/right-panel/quick-form'
+import Forms from '../pages/editor/forms/index'
 
 export default Forms

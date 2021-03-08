@@ -1,5 +1,5 @@
 // TODO refactor with webpack.resolver
-import Props from '../segments/right-panel/quick-form/props'
+import Props from '../forms/props'
 
 /**
  * Module 用来承接模块的公用方法和属性
