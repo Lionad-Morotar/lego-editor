@@ -26,14 +26,13 @@
 
 <script>
 import Props from '@/modules/props'
-import AddRemoveCompare from './panel/add-remove-compare'
 import ConfigCompares from './panel/config-compares'
 export default {
   props: {
     counts: Props.custom({
       type: Number,
       default: 2,
-      component: AddRemoveCompare,
+      component: null,
       validator(counts) {
         if (counts === 0) return '请添加至少一项对比'
       },
