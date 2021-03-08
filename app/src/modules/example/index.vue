@@ -18,9 +18,13 @@
 
     <!-- todo 图片上传组件，选色组件等示例 -->
 
-    <el-alert title="简单数字 + 自定义编辑面板" type="info" :closable="false" />
+    <el-alert title="自定义编辑面板" type="info" :closable="false" />
     <div @click="log(numberWithCustomPanel)">{{ numberWithCustomPanel }}</div>
-    <div class="des">写表单其实是一件体力活...</div></div>
+    <div class="des">写表单其实是一件体力活...</div>
+
+    <el-alert title="高亮框效果" type="info" :closable="false" />
+    <test-component />
+    <div class="des">所有模块内定义的组件（Components）都会自动附上高亮框。此外，也可以将模块的多个依赖项拆分到不同的组件中，这样就可以根据选中区域的不同来编辑不同的依赖项了（需要注意一点，父子组件中不同的依赖项的结构是扁平的，并不是嵌套的）。</div>
 
   </div>
 </template>
@@ -29,6 +33,7 @@
 /* eslint-disable */
 import Props from '../props'
 import ConfigNumberWithCustomPanel from './panel/config-number-with-custom-panel'
+import TestComponent from './test-component.vue'
 export default {
   name: 'lego-example',
   props: {
@@ -62,7 +67,7 @@ export default {
     }),
 
     numberWithCustomPanel: Props.custom({
-      label: '简单数字 + 自定义编辑面板',
+      label: '自定义编辑面板',
       default: 0,
       // 相关自定义编辑面板的约定请看表单 Readme 及示例文件
       // @see '@/pages/editor/forms/readme'
@@ -83,6 +88,9 @@ export default {
         styledText: Props.genStyles(this.styledText)
       }
     }
+  },
+  components: {
+    TestComponent
   }
 }
 </script>
@@ -93,11 +101,20 @@ export default {
   background: white;
   word-break: break-all;
   white-space: break-spaces;
+  counter-reset: elalert;
 
   .el-alert {
     margin: 10px 0;
     padding: 5px 0px;
     border: solid 1px currentColor;
+    color: #0058ff;
+
+    &::before {
+      content:"No. " counter(elalert);
+      counter-increment: elalert;
+      margin-left: 10px;
+      font-size: 12px;
+    }
 
     &:first-child {
       margin-top: 0;
