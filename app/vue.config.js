@@ -26,8 +26,7 @@ module.exports = {
       entry: 'src/pages/browser/main.js',
       template: 'public/index.html',
       filename: 'browser.html',
-      title: 'browser',
-    },
-  },
-  configureWebpack,
+      title: 'browser'
+    }
+  }
 }

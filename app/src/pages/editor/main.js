@@ -19,20 +19,20 @@ const LegoEditor = new Vue({
   name: 'lego-editor',
   store,
   methods: {
-    ...mapActions('editor', ['INSTALL_MODULES']),
+    ...mapActions('editor', ['INSTALL_MODULES'])
   },
-  mounted() {
+  mounted () {
     this.INSTALL_MODULES({
-      moduleList: DefaultModule.getDefaultModuleList(),
+      moduleList: DefaultModule.getDefaultModuleList()
     })
   },
-  render() {
+  render () {
     return <Editor />
-  },
+  }
 }).$mount('#app')
 
 // 导出模块，方面引入或做成多入口
-LegoEditor.install = function(Vue) {
+LegoEditor.install = function (Vue) {
   Vue.component(LegoEditor.name, LegoEditor)
 }
 

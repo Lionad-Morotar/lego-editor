@@ -21,18 +21,18 @@ export default {
   props: ['props'],
   computed: {
     ...mapState('screen', {
-      selectedOutline: state => state.selectedOutline,
+      selectedOutline: state => state.selectedOutline
     }),
-    isActive() {
+    isActive () {
       return this.selectedOutline === this
-    },
+    }
   },
   methods: {
     ...mapActions('screen', ['SELECT_OUTLINE']),
     // 捕获到点击时激活当前选框
-    selectElement(e) {
+    selectElement (e) {
       const allTargets = (e.path || []).filter(x =>
-        x?.classList?.contains('box-outline'),
+        x?.classList?.contains('box-outline')
       )
       const firstTarget = allTargets[0]
       // 当前选中的是子项
@@ -43,8 +43,8 @@ export default {
       const shouldIgnore = isCurrentSelectedChildren && isPassbySelf
       // console.log(isPassbySelf, shouldIgnore)
       !shouldIgnore && this.SELECT_OUTLINE(this)
-    },
-  },
+    }
+  }
 }
 </script>
 

@@ -1,5 +1,5 @@
 // TODO refactor with webpack.resolver
 
-import Props from '../pages/editor/segments/right-panel/quick-form/props'
+import Props from '../pages/editor/forms/props'
 
 export default Props

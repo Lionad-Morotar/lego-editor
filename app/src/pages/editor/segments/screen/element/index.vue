@@ -18,19 +18,19 @@ export default {
     // 被包裹的模块
     'component',
     // 是否捕获点击以阻止传播
-    'captureClick',
+    'captureClick'
   ],
   computed: {
-    curModel() {
+    curModel () {
       return Module.getModel(this.model)
     },
     // 组件依赖（props）需要响应来自实例的外部依赖数据的更新
     // todo FIXME 每次 props 更新，这个 computed 会发生三次，
     // todo 数据流可能存在问题，需要排查
-    receivedUpdate() {
+    receivedUpdate () {
       return this.curModel.props
     },
-    propsWithDefaultValue() {
+    propsWithDefaultValue () {
       const propsConfig = this.curModel.propsConfig
       // 为了防止右侧编辑面板的值和当前值粘连需将更新深拷贝一份出来
       const updatedProps = clone(this.receivedUpdate)
@@ -44,20 +44,24 @@ export default {
         }
         return h
       }, {})
-    },
+    }
   },
-  render(h) {
+  render (h) {
     const component = this.$props.component
     const captureClick = this.$props.captureClick
 
     // console.log(this.$slots, this.$children, this.$scopedSlots)
     const $slots = this.$parent.$slots.default || []
-    const $cmpt = h(component, {
-      props: {
-        ...this.$attrs,
-        ...this.propsWithDefaultValue,
-      }
-    }, $slots)
+    const $cmpt = h(
+      component,
+      {
+        props: {
+          ...this.$attrs,
+          ...this.propsWithDefaultValue
+        }
+      },
+      $slots
+    )
     const $child = captureClick ? h(ClickCapture, {}, [$cmpt]) : $cmpt
 
     // ! 谨慎修改，模块实例在获取 Vue 组件实例以及组件的 Outline 实例时，依赖了当前组件的层级结构
@@ -65,11 +69,11 @@ export default {
       Outline,
       {
         props: {
-          props: component.props,
-        },
+          props: component.props
+        }
       },
-      [$child],
+      [$child]
     )
-  },
+  }
 }
 </script>

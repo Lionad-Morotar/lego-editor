@@ -1,5 +1,5 @@
 // TODO refactor with webpack.resolver
-import Props from '../segments/right-panel/quick-form/props'
+import Props from '../forms/props'
 
 /**
  * Module 用来承接模块的公用方法和属性
@@ -15,7 +15,7 @@ import Props from '../segments/right-panel/quick-form/props'
  * @param data   模块数据，由 props 清洗校验后得到，主要用于和数据库交互
  * @param propsConfig  模块的依赖的外部值对应的原始定义
  */
-export default function Module(inits) {
+export default function Module (inits) {
   const { title, description, name, component } = inits
 
   /* 模块属性 */
@@ -38,7 +38,7 @@ export default function Module(inits) {
  * 绑定 Vue 实例
  * @param {VueInstance} instance 模块的 Vue 实例
  */
-Module.prototype.bindInstance = function(instance) {
+Module.prototype.bindInstance = function (instance) {
   if (this.$instance && console?.warn) {
     console.warn('[WARN] bindInstance twice')
   }
@@ -48,7 +48,7 @@ Module.prototype.bindInstance = function(instance) {
  * 保存模型实例和模型 uuid 的映射关系
  * @param {string} uuid
  */
-Module.prototype.bindModel = function(uuid) {
+Module.prototype.bindModel = function (uuid) {
   if (Module.modelsMap[uuid] && console?.warn) {
     console.warn('[WARN] bindInstance twice')
   }
@@ -65,11 +65,11 @@ Module.getModel = uuid => Module.modelsMap[uuid]
  * @param {string} key 变化键名
  * @param {any} value 变化的值
  */
-Module.prototype.setProp = function(key, value) {
+Module.prototype.setProp = function (key, value) {
   this.props[key] = value
   /* 校验并将 props 更新到 data */
   const handler = this.propsConfig[key]
-  const validate = handler.config?.validator || (() => void 0)
+  const validate = handler.config?.validator || (() => undefined)
   const error = validate(value, this.props)
   if (error) {
     handler.lastError = error
@@ -90,7 +90,7 @@ Module.prototype.setProp = function(key, value) {
  * @param {VueComponent} component Vue组件
  */
 Module.propsMap = {}
-Module.gatherProps = function(name, component) {
+Module.gatherProps = function (name, component) {
   function getValidProps (props) {
     return Object.entries(props || {}).reduce((h, [k, v]) => {
       if (v instanceof Props.Prop) {
@@ -99,7 +99,7 @@ Module.gatherProps = function(name, component) {
       return h
     }, {})
   }
-  function getComponentAndChildrenProps(cmpt) {
+  function getComponentAndChildrenProps (cmpt) {
     const cmpts = cmpt.components || {}
     return Object.entries(cmpts).reduce((h, [, v]) => {
       h = {
@@ -107,7 +107,7 @@ Module.gatherProps = function(name, component) {
         ...getValidProps(v.props),
         ...(cmpts.components
           ? getComponentAndChildrenProps(cmpts.components)
-          : {}),
+          : {})
       }
       return h
     }, getValidProps(cmpt.props))
@@ -120,7 +120,7 @@ Module.gatherProps = function(name, component) {
 /**
  * 初始化模块所依赖的值
  */
-Module.prototype.initProps = function() {
+Module.prototype.initProps = function () {
   const name = this.component.name
   const propsConfig = Module.propsMap[name]
   return Object.entries(propsConfig).reduce((h, [k, v]) => {

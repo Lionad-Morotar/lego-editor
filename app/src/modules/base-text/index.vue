@@ -13,18 +13,18 @@ export default {
       fallback: true,
       required: true,
       showWordLimit: true,
-      validator({ text }) {
-        if (text.length == 0) {
+      validator ({ text }) {
+        if (text.length === 0) {
           return '请填写文本内容'
         }
-      },
-    }),
+      }
+    })
   },
   computed: {
-    styles() {
+    styles () {
       return Props.genStyles(this.text)
-    },
-  },
+    }
+  }
 }
 </script>
 

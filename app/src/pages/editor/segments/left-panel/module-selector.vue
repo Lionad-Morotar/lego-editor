@@ -15,15 +15,15 @@ export default {
   props: {
     // 组件数据
     inits: {
-      required: true,
-    },
+      required: true
+    }
   },
   methods: {
     ...mapActions('screen', ['ADD_MODULE']),
-    addToScreen() {
+    addToScreen () {
       this.ADD_MODULE(this.inits)
-    },
-  },
+    }
+  }
 }
 </script>
 

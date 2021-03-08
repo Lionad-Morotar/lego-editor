@@ -23,12 +23,12 @@
 
 <script>
 import { mapState } from 'vuex'
-import Props from '../quick-form/props'
+import Props from '../../../forms/props'
 export default {
   components: {
     ConfigItem: {
       props: ['name', 'config', 'selected'],
-      render(h) {
+      render (h) {
         const { name, config, selected } = this.$props
         // console.log(selected.propsConfig[name])
         return h(
@@ -39,38 +39,38 @@ export default {
               label: config.label,
               required: config.required,
               error: selected.propsConfig[name]?.lastError,
-              ['inline-message']: true,
-            },
+              'inline-message': true
+            }
           },
           [
             h(config.component, {
               props: {
                 ...config,
                 value: selected.props[name],
-                props: selected.props,
+                props: selected.props
               },
               attrs: {
-                ...config,
+                ...config
               },
               on: {
                 // input: newVal => selected.setProp(name, newVal),
-                change: newVal => selected.setProp(name, newVal),
-              },
-            }),
-          ],
+                change: newVal => selected.setProp(name, newVal)
+              }
+            })
+          ]
         )
-      },
-    },
+      }
+    }
   },
   computed: {
     ...mapState('screen', {
       selected: state => state.selected,
-      selectedOutline: state => state.selectedOutline,
+      selectedOutline: state => state.selectedOutline
     }),
-    config() {
+    config () {
       return this.selectedOutline?.props || {}
     },
-    configEntries() {
+    configEntries () {
       // console.log(this.selectedOutline)
       return Object.entries(
         Object.entries(this.config).reduce((h, [k, v]) => {
@@ -80,9 +80,9 @@ export default {
           return h
         }, {})
       )
-    },
+    }
   },
-  methods: {},
+  methods: {}
 }
 </script>
 

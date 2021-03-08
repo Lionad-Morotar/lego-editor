@@ -16,13 +16,13 @@ export default {
     counts: Props.custom({
       type: Number,
       default: 2,
-      component: AddRemoveCompare,
-    }),
+      component: AddRemoveCompare
+    })
   },
   components: {
     FormHeader,
-    FormContent,
-  },
+    FormContent
+  }
 }
 </script>
 

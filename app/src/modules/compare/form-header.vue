@@ -14,35 +14,35 @@ export default {
       default: {
         text: '服务优势',
         textAlign: 'center',
-        bold: true,
+        bold: true
       },
       fallback: true,
       placeholder: '请填写表单名称',
       required: true,
       maxlength: 10,
-      showWordLimit: true,
+      showWordLimit: true
     }),
     subTitle: Props.text({
       label: '表单副标题',
       default: {
         text: '浩瀚家装和普通家装的对比',
-        textAlign: 'center',
+        textAlign: 'center'
       },
       fallback: true,
       placeholder: '请填写表单副标题',
       required: true,
       maxlength: 25,
-      showWordLimit: true,
-    }),
+      showWordLimit: true
+    })
   },
   computed: {
-    styles() {
+    styles () {
       return {
         title: Props.genStyles(this.title),
-        subTitle: Props.genStyles(this.subTitle),
+        subTitle: Props.genStyles(this.subTitle)
       }
-    },
-  },
+    }
+  }
 }
 </script>
 

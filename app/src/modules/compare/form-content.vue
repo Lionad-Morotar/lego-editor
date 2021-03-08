@@ -7,14 +7,20 @@
       <div class="vs" v-for="idx in counts" :key="idx">
         <div class="left">
           <div class="title">{{ compares[idx - 1].left.title }}</div>
-          <img :src="compares[idx - 1].left.url.url" :style="styles[idx - 1].leftImage" />
+          <img
+            :src="compares[idx - 1].left.url.url"
+            :style="styles[idx - 1].leftImage"
+          />
           <div class="description" :style="styles[idx - 1].leftDes">
             {{ compares[idx - 1].left.description.text }}
           </div>
         </div>
         <div class="right">
           <div class="title">{{ compares[idx - 1].right.title }}</div>
-          <img :src="compares[idx - 1].right.url.url" :style="styles[idx - 1].rightImage" />
+          <img
+            :src="compares[idx - 1].right.url.url"
+            :style="styles[idx - 1].rightImage"
+          />
           <div class="description" :style="styles[idx - 1].rightDes">
             {{ compares[idx - 1].right.description.text }}
           </div>
@@ -26,17 +32,16 @@
 
 <script>
 import Props from '@/modules/props'
-import AddRemoveCompare from './panel/add-remove-compare'
 import ConfigCompares from './panel/config-compares'
 export default {
   props: {
     counts: Props.custom({
       type: Number,
       default: 2,
-      component: AddRemoveCompare,
-      validator(counts) {
+      component: null,
+      validator (counts) {
         if (counts === 0) return '请添加至少一项对比'
-      },
+      }
     }),
     compares: Props.custom({
       type: Array,
@@ -46,48 +51,48 @@ export default {
           left: {
             title: '浩瀚家装',
             description: Props.text({
-              default: '一站式购齐，风格统一',
+              default: '一站式购齐，风格统一'
             }),
             url: Props.image({
               default:
-                'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/left.png',
-            }),
+                'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/left.png'
+            })
           },
           right: {
             title: '普通家装',
             description: Props.text({
-              default: '东拼西凑，材料来源未知，存在一定的安全隐患',
+              default: '东拼西凑，材料来源未知，存在一定的安全隐患'
             }),
             url: Props.image({
               default:
-                'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/right.png',
-            }),
-          },
+                'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/right.png'
+            })
+          }
         },
         {
           left: {
             title: '浩瀚家装',
             description: Props.text({
-              default: '免费出效果图，提前看到家的样子',
+              default: '免费出效果图，提前看到家的样子'
             }),
             url: Props.image({
               default:
-                'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/left.png',
-            }),
+                'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/left.png'
+            })
           },
           right: {
             title: '普通家装',
             description: Props.text({
-              default: '没效果图，看个鬼鬼啊',
+              default: '没效果图，看个鬼鬼啊'
             }),
             url: Props.image({
               default:
-                'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/right.png',
-            }),
-          },
-        },
+                'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/right.png'
+            })
+          }
+        }
       ],
-      validator(v, props) {
+      validator (v, props) {
         const { title } = props
         if (v.length === 0) return '请添加至少一项对比'
         const errors = v.map((compare, idx) => {
@@ -100,19 +105,19 @@ export default {
           if (!compare.right.url.url) return base + '右侧图片'
         })
         return errors.filter(Boolean)[0]
-      },
-    }),
+      }
+    })
   },
   computed: {
-    styles() {
+    styles () {
       return this.compares.map(x => ({
         leftDes: Props.genStyles(x.left.description),
         rightDes: Props.genStyles(x.right.description),
         leftImage: Props.genStyles(x.left.url),
-        rightImage: Props.genStyles(x.right.url),
+        rightImage: Props.genStyles(x.right.url)
       }))
-    },
-  },
+    }
+  }
 }
 </script>
 

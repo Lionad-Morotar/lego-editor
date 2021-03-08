@@ -11,43 +11,42 @@ import { mapState, mapActions } from 'vuex'
 import ScreenBlock from './block'
 export default {
   components: {
-    ScreenBlock,
+    ScreenBlock
   },
   computed: {
     ...mapState('editor', {
       // todo rename ?
-      plugins: state => state.modules,
+      plugins: state => state.modules
     }),
     ...mapState('screen', {
-      modules: state => state.modules,
-    }),
+      modules: state => state.modules
+    })
   },
-  created() {
+  created () {
     // for test purposes
     if (this.modules.length === 0) {
       // setTimeout(() => {
+      //   this.ADD_MODULE(this.plugins[0])
+      // }, 200)
+      // setTimeout(() => {
       //   this.ADD_MODULE(this.plugins[1])
       // }, 200)
-      setTimeout(() => {
-        this.ADD_MODULE(this.plugins[2])
-      }, 200)
-      setTimeout(() => {
-        this.ADD_MODULE(this.plugins[0])
-      }, 200)
-      setTimeout(() => {
-        this.ADD_MODULE(this.plugins[3])
-      }, 200)
       // setTimeout(() => {
-      //   this.ADD_MODULE(this.plugins[4])
+      //   this.ADD_MODULE(this.plugins[2])
       // }, 200)
+
+      // 测试组件
+      setTimeout(() => {
+        this.ADD_MODULE(this.plugins[this.plugins.length - 1])
+      }, 200)
     }
   },
   methods: {
     ...mapActions('screen', ['ADD_MODULE', 'UNSELECTED']),
-    unselectedModule() {
+    unselectedModule () {
       this.UNSELECTED()
-    },
-  },
+    }
+  }
 }
 </script>
 

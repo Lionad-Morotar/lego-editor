@@ -46,3 +46,5 @@ node_modules
 /*/yarn-debug.log*
 /*/yarn-error.log*
 /*/pnpm-debug.log*
+
+/node_modules
