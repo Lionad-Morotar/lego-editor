@@ -43,8 +43,11 @@ lerna-debug.log*
 /app/.env.local
 /app/.env.*.local
 
+# server项目子集
+/server/dist
+
 # Log files
-/app/npm-debug.log*
-/app/yarn-debug.log*
-/app/yarn-error.log*
-/app/pnpm-debug.log*
+/*/npm-debug.log*
+/*/yarn-debug.log*
+/*/yarn-error.log*
+/*/pnpm-debug.log*
