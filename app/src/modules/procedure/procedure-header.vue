@@ -32,6 +32,7 @@ h3,
 h4 {
   display: block;
   text-align: center;
+  word-break: break-all;
 }
 h3 {
   font-size: 22px;

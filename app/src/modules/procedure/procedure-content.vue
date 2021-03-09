@@ -93,6 +93,7 @@ export default {
     border-radius: 16px;
     background: white;
     color: #f09033;
+    font-weight: bold;
     letter-spacing: 1px;
   }
   .content {
