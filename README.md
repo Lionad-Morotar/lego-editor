@@ -5,5 +5,19 @@
 - server: node端相关内容  
 - scripts: 脚本
 
-TODO: 在一级package.json中书写脚本同时启动两个项目，便于连调
+
+### 安装项目依赖
+```
+yarn run init
+```
+
+### 启动前端服务和后端node服务
+```
+yarn run start
+```
+
+### 生产环境编译
+```
+yarn run build
+```
 

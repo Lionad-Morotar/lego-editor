@@ -1,4 +1,10 @@
+const path = require('path')
+
 module.exports = {
+  lintOnSave: process.env.NODE_ENV !== 'production',
+  devServer: {
+    proxy: 'http://localhost:7500'
+  },
   pages: {
     index: {
       // page的入口
@@ -15,5 +21,10 @@ module.exports = {
       filename: 'browser.html',
       title: 'browser'
     }
+  },
+  chainWebpack: config => {
+    config.resolve.alias
+    .set('@', path.resolve('src'))
+    .set('editor',path.resolve('src/pages/editor'))
   }
 }
