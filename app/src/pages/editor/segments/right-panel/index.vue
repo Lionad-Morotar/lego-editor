@@ -76,6 +76,7 @@ export default {
 .right-panel {
   padding-top: 20px;
   border-left: solid 1px #f0f3f7;
+  user-select: none;
 
   .segment {
     padding: 0 20px;

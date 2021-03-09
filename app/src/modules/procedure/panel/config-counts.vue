@@ -16,6 +16,18 @@
         >减少流程</el-button
       >
     </div>
+    <hr style="width: 68%" />
+    <div class="content">
+      <el-button
+        v-for="idx in props.counts"
+        class="action-button"
+        type="text"
+        :disabled="v === min"
+        :key="idx"
+        @click="() => remove(idx-1)"
+        >删除{{props.procedures[idx-1].title}}</el-button
+      >
+    </div>
   </div>
 </template>
 
@@ -26,7 +38,7 @@ export default {
   data () {
     return {
       v: this.value,
-      min: 0,
+      min: 1,
       max: 10
     }
   },
@@ -56,6 +68,12 @@ export default {
           this.props.procedures.splice(this.props.procedures.length - 1, 1)
         })
       }
+    },
+    remove (idx) {
+      this.v -= 1
+      this.$nextTick(() => {
+        this.props.procedures.splice(idx, 1)
+      })
     }
   }
 }
