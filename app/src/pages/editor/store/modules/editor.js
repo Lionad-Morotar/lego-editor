@@ -1,9 +1,11 @@
 import Vue from 'vue'
-import Module from '../../models/module'
-import ScreenElement from '../../segments/screen/element'
+
+import { ModuleTypeEnums } from '@/constant'
+import utils from '../../utils'
+import { preInstall } from '../../segments/screen/element/index'
 
 const state = {
-  // 已注册的模块，用于左侧面板展示、选择或拖拽用
+  // 已注册的模块，用于左侧面板展示、点击选择或拖拽用
   modules: [],
   isPreview: false
 }
@@ -20,62 +22,53 @@ const mutations = {
   }
 }
 
-const getters = {}
+const getters = {
+  // 基础组件
+  basementModules: state => state.modules.filter(x => x.categories.includes(ModuleTypeEnums.BASE)),
+  // 高级组件
+  composedModules: (_, getters) => state.modules.filter(x => !getters.basementModules.includes(x)),
+  // 基础组件的分类
+  // todo order
+  basementCategories: (_, getters) => {
+    const allCates = getters.basementModules.reduce((h, c) => h.concat(c.categories), [])
+    const catesSet = new Set(allCates)
+    catesSet.delete(ModuleTypeEnums.BASE)
+    return [...catesSet]
+  },
+  // 复合组件的分类
+  composedCategories: (_, getters) => {
+    const allCates = getters.composedModules.reduce((h, c) => h.concat(c.categories), [])
+    return [...new Set(allCates)]
+  },
+  // 根据分类获得对应的模块
+  getModulesByCategories: state => (cate = []) => {
+    const cates = cate instanceof Array ? cate : [cate]
+    return state.modules.filter(x => x.categories.some(y => cates.includes(y)))
+  }
+}
 
 const actions = {
   CLEAR_MODULE ({ commit }) {
     commit('CLEAR_MODULE')
   },
-  // 解耦“install”以及“preInstall”？
-  INSTALL_MODULES ({ commit }, { moduleList = [], editable = true }) {
-    moduleList.map(newModule => {
-      const isValidModule = m => !!m
-      if (isValidModule(newModule)) {
-        if (!editable) {
-          Vue.component(newModule.name, newModule.component)
-        } else {
-          // 收集外部数据依赖
-          Module.gatherProps(newModule.name, newModule.component)
-          // 包装子模块
-          const hasComponents = newModule.component.components
-          if (hasComponents) {
-            newModule.component.components = Object.entries(
-              hasComponents
-            ).reduce((h, [k, v]) => {
-              h[k] = {
-                render (h) {
-                  return h(ScreenElement, {
-                    attrs: {
-                      ...this.$attrs
-                    },
-                    props: {
-                      component: v,
-                      captureClick: true
-                    }
-                  })
-                }
-              }
-              return h
-            }, {})
-          }
-          // 包装模块以及注册
-          Vue.component(newModule.name, {
-            render (h) {
-              // console.log(this.$attrs)
-              return h(ScreenElement, {
-                attrs: {
-                  ...this.$attrs
-                },
-                props: {
-                  component: newModule.component
-                }
-              })
-            }
-          })
-        }
-        commit('ADD_MODULE', newModule)
+  INSTALL_MODULES ({ commit, getters }, { modules = {}, isPreview = false }) {
+    const {
+      exampleModuleList = [],
+      moduleList = []
+    } = modules
+    // todo isValidModule
+    const install = !isPreview ? preInstall : m => {
+      Vue.component(m.name, m.component)
+      return m
+    }
+    const installs = mlist => mlist.map(newModule => {
+      if (utils.isValidPreInstallModule(newModule)) {
+        const wrappedModule = install(newModule)
+        commit('ADD_MODULE', wrappedModule)
       }
     })
+    installs(moduleList)
+    installs(exampleModuleList)
   },
   TOGGLE_ISPREVIEW ({ commit, state }) {
     commit('TOGGLE_ISPREVIEW', !state.isPreview)

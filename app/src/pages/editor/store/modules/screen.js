@@ -42,7 +42,6 @@ const mutations = {
     state.selectedOutline = null
   }
 }
-
 const getters = {}
 
 const actions = {

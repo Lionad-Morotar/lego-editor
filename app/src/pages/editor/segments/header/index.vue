@@ -44,7 +44,7 @@ export default {
     togglePreview () {
       this.CLEAR_MODULE()
       this.INSTALL_MODULES({
-        moduleList: DefaultModule.getDefaultModuleList(),
+        modules: DefaultModule.getDefaultModuleList(),
         editable: this.isPreview
       })
       this.TOGGLE_ISPREVIEW()
