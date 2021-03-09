@@ -27,20 +27,14 @@ export default {
   created () {
     // for test purposes
     if (this.modules.length === 0) {
-      // setTimeout(() => {
-      //   this.ADD_MODULE(this.plugins[0])
-      // }, 200)
-      // setTimeout(() => {
-      //   this.ADD_MODULE(this.plugins[1])
-      // }, 200)
-      // setTimeout(() => {
-      //   this.ADD_MODULE(this.plugins[2])
-      // }, 200)
+      setTimeout(() => {
+        this.ADD_MODULE(this.plugins.find(x => x.title === '流程模块'))
+      }, 200)
 
       // 测试组件
-      setTimeout(() => {
-        this.ADD_MODULE(this.plugins[this.plugins.length - 1])
-      }, 200)
+      // setTimeout(() => {
+      //   this.ADD_MODULE(this.plugins[this.plugins.length - 1])
+      // }, 200)
     }
   },
   methods: {
@@ -68,6 +62,7 @@ export default {
 .page {
   margin: 0 auto;
   width: 375px;
+  min-height: 655px;
   // 白色先写死，后期背景色可能会作为页面的属性
   background: white;
   box-shadow: 0 0 7px 1px #ddd;

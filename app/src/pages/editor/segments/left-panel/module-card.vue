@@ -36,11 +36,12 @@ export default {
   }
 
   .cover {
-    width: 100%;
+    width: 210px;
     height: auto;
     box-shadow: 0 0 3px 0 transparent;
     transition: .25s, box-shadow .15s;
     will-change: scale;
+    image-rendering: -webkit-optimize-contrast;
 
     &:hover {
       box-shadow: 0 0 7px 0 #ccc;
