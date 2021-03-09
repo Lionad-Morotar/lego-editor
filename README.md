@@ -1,32 +1,23 @@
 ## 新落地页前端项目
-## Installation
 
-```bash
-$ npm install
+### 项目结构
+- app: 前端相关内容，包括编辑侧和展示侧  
+- server: node端相关内容  
+- scripts: 脚本
+
+
+### 安装项目依赖
+```
+yarn run init
 ```
 
-## Running the app
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+### 启动前端服务和后端node服务
+```
+yarn run start
 ```
 
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+### 生产环境编译
 ```
+yarn run build
+```
+
