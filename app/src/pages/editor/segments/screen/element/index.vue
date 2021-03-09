@@ -49,6 +49,8 @@ export default {
     const component = this.$props.component
     const captureClick = this.$props.captureClick
 
+    // console.log(this.$attrs, this.$props)
+    // console.log(this.$attrs, this.$props, this.propsWithDefaultValue)
     // console.log(this.$slots, this.$children, this.$scopedSlots)
     const $slots = this.$parent.$slots.default || []
     const $cmpt = h(
