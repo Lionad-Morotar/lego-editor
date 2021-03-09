@@ -47,6 +47,7 @@ export default {
 
 <style lang="scss" scoped>
 .module-block {
+  position: relative;
   display: flex;
   cursor: pointer;
 
@@ -57,12 +58,22 @@ export default {
 
   &.selected {
     .padding {
-      background: #e1e5ea;
+      background: #e6e8eb;
     }
   }
   .padding {
-    flex: 1;
+    position: absolute;
+    width: 100vw;
     transition: 0.25s;
+    z-index: 0;
+    height: 100%;
+
+    &.left {
+      left: -100vw;
+    }
+    &.right {
+      right: -100vw;
+    }
   }
   .module {
     flex-shrink: 0;

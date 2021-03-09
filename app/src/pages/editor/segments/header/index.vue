@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="left">
-      <el-button type="text" icon="el-icon-arrow-left">返回</el-button>
+      <el-button class="return-btn" type="text"><i class="el-icon el-icon-arrow-left" />返回</el-button>
     </div>
     <div class="center">
       <el-button disabled type="text" icon="el-icon-back">上一步</el-button>
@@ -63,7 +63,7 @@ export default {
 .header {
   @include flex;
   height: 100%;
-  height: 100%;
+  background: #222;
 }
 .left,
 .center,
@@ -93,11 +93,12 @@ export default {
     margin: 0;
     width: 110px;
     height: 100%;
-    color: #ccc;
+    color: #cecece;
     transition: 0.25s;
 
     &:hover {
-      background: #777;
+      background: #333;
+      color: white;
     }
     &:disabled {
       color: #777;
@@ -108,7 +109,7 @@ export default {
 .right {
   .el-button {
     width: 110px;
-    color: #ccc;
+    color: #cecece;
   }
   .release {
     padding: 0;
@@ -117,6 +118,20 @@ export default {
     line-height: 30px;
     background: #0058ff;
     color: white;
+    transition: .25s;
+
+    &:hover {
+      background: #5d8cf7;
+    }
+  }
+}
+.return-btn {
+  .el-icon {
+    margin-top: -3px;
+    margin-right: 2px;
+    font-size: 18px;
+    font-weight: bold;
+    vertical-align: middle;
   }
 }
 </style>

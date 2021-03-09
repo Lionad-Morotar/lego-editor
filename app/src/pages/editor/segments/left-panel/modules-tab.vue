@@ -72,11 +72,12 @@ export default {
   font-size: 14px;
 
   .header {
-    margin-top: 1.5em;
+    margin-top: 10px;
     padding-left: 18px;
     height: 42px;
     line-height: 42px;
     font-weight: bold;
+    cursor: default;
   }
   .header:first-child {
     margin-top: 0;
@@ -84,14 +85,17 @@ export default {
 
   .menu {
     padding-left: 23px;
-    height: 46px;
-    line-height: 46px;
+    height: 43px;
+    line-height: 43px;
     border-left: 2px transparent solid;
     color: #777;
     font-size: 13px;
     transition: 0.25s;
     cursor: pointer;
 
+    &:hover {
+      color: #0058fe;
+    }
     &.active {
       border-left: 2px #0058fe solid;
       background: #f5f8ff;

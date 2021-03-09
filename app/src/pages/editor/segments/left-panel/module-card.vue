@@ -38,6 +38,14 @@ export default {
   .cover {
     width: 100%;
     height: auto;
+    box-shadow: 0 0 3px 0 transparent;
+    transition: .25s, box-shadow .15s;
+    will-change: scale;
+
+    &:hover {
+      box-shadow: 0 0 7px 0 #ccc;
+      transform: scale(1.05);
+    }
   }
 }
 </style>

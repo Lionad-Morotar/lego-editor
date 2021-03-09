@@ -1,8 +1,10 @@
 <template>
   <div class="screen" @click="unselectedModule">
-    <template v-for="m in modules">
-      <screen-block :module="m" :key="m.uuid" />
-    </template>
+    <div class="page">
+      <template v-for="m in modules">
+        <screen-block :module="m" :key="m.uuid" />
+      </template>
+    </div>
   </div>
 </template>
 
@@ -52,7 +54,7 @@ export default {
 
 <style lang="scss" scoped>
 .screen {
-  padding: 20px 0;
+  padding: 45px 0;
   width: 100%;
   height: 100%;
   overflow: hidden scroll;
@@ -62,5 +64,12 @@ export default {
   &::-webkit-scrollbar-track {
     width: 0;
   }
+}
+.page {
+  margin: 0 auto;
+  width: 375px;
+  // 白色先写死，后期背景色可能会作为页面的属性
+  background: white;
+  box-shadow: 0 0 7px 1px #ddd;
 }
 </style>
