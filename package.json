@@ -4,5 +4,12 @@
   "main": "index.js",
   "repository": "git@gitlab.baixing.cn:xielizhen/lego-fe.git",
   "author": "xielizhen <xielizhen@baxing.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "init": "yarn install && node scripts/init.js",
+    "start": "node scripts/start.js"
+  },
+  "dependencies": {
+    "chalk": "^4.1.0"
+  }
 }

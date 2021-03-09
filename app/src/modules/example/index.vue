@@ -34,6 +34,7 @@
 import Props from '../props'
 import ConfigNumberWithCustomPanel from './panel/config-number-with-custom-panel'
 import TestComponent from './test-component.vue'
+
 export default {
   name: 'lego-example',
   props: {
