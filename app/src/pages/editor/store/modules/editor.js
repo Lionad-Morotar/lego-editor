@@ -7,6 +7,8 @@ import { preInstall } from '../../segments/screen/element/index'
 const state = {
   // 已注册的模块，用于左侧面板展示、点击选择或拖拽用
   modules: [],
+  // 选中的模块的分类
+  selectedModuleCategory: null,
   isPreview: false
 }
 
@@ -19,6 +21,12 @@ const mutations = {
   },
   TOGGLE_ISPREVIEW (state, value) {
     state.isPreview = value
+  },
+  SELECT_MODULE_CATEGORY (state, value) {
+    state.selectedModuleCategory = value
+  },
+  UNSELECT_MODULE_CATEGORY (state, value) {
+    state.selectedModuleCategory = null
   }
 }
 
@@ -40,18 +48,22 @@ const getters = {
     const allCates = getters.composedModules.reduce((h, c) => h.concat(c.categories), [])
     return [...new Set(allCates)]
   },
+  // 所有组件的分类
+  categories: (_, getters) => [].concat(getters.basementCategories).concat(getters.composedCategories),
   // 根据分类获得对应的模块
   getModulesByCategories: state => (cate = []) => {
     const cates = cate instanceof Array ? cate : [cate]
     return state.modules.filter(x => x.categories.some(y => cates.includes(y)))
-  }
+  },
+  // 当前选中的分类的模块
+  selectedModulesByCategories: (state, getters) => getters.getModulesByCategories(state.selectedModuleCategory)
 }
 
 const actions = {
   CLEAR_MODULE ({ commit }) {
     commit('CLEAR_MODULE')
   },
-  INSTALL_MODULES ({ commit, getters }, { modules = {}, isPreview = false }) {
+  INSTALL_MODULES ({ commit, state, getters }, { modules = {}, isPreview = false }) {
     const {
       exampleModuleList = [],
       moduleList = []
@@ -69,9 +81,20 @@ const actions = {
     })
     installs(moduleList)
     installs(exampleModuleList)
+
+    // 默认选中第一个分类
+    if (!state.selectedModuleCategory) {
+      const firstCate = getters.categories[0]
+      if (firstCate) {
+        commit('SELECT_MODULE_CATEGORY', firstCate)
+      }
+    }
   },
   TOGGLE_ISPREVIEW ({ commit, state }) {
     commit('TOGGLE_ISPREVIEW', !state.isPreview)
+  },
+  SELECT_MODULE_CATEGORY ({ commit }, value) {
+    commit('SELECT_MODULE_CATEGORY', value)
   }
 }
 

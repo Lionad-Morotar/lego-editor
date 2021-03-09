@@ -19,7 +19,7 @@ export default {
         description: '非常简单的文本组件',
         name: BaseText.name,
         component: BaseText,
-        cover: 'xxxx',
+        cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/pic.png',
         categories: [baseType, '文字组件']
       },
       {
@@ -27,7 +27,7 @@ export default {
         description: '非常简单的图片组件',
         name: BaseImage.name,
         component: BaseImage,
-        cover: 'xxxx',
+        cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/pic.png',
         categories: [baseType, '图片组件']
       },
       {
@@ -35,7 +35,7 @@ export default {
         description: '简单的对比组件',
         name: Compare.name,
         component: Compare,
-        cover: 'xxxx',
+        cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/pic.png',
         categories: ['对比组件']
       }
     ]
@@ -45,7 +45,7 @@ export default {
         description: '供开发时参考及落文档用',
         name: Example.name,
         component: Example,
-        cover: 'xxxx',
+        cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/pic.png',
         categories: [baseType, '测试示例']
       }
     ]
