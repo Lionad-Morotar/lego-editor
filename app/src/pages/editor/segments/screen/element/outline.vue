@@ -2,7 +2,7 @@
   <div
     class="box-outline"
     :class="isActive ? 'active' : ''"
-    @click="selectElement"
+    @click.stop="selectElement"
   >
     <slot />
     <div class="outline">
@@ -16,33 +16,30 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import Module from '../../../models/module'
 export default {
   name: 'box-outline',
+  inject: ['model'],
   props: ['props'],
   computed: {
     ...mapState('screen', {
       selectedOutline: state => state.selectedOutline
     }),
+    curModel () {
+      return Module.getModel(this.model)
+    },
     isActive () {
       return this.selectedOutline === this
     }
   },
   methods: {
-    ...mapActions('screen', ['SELECT_OUTLINE']),
-    // 捕获到点击时激活当前选框
-    selectElement (e) {
-      const allTargets = (e.path || []).filter(x =>
-        x?.classList?.contains('box-outline')
-      )
-      const firstTarget = allTargets[0]
-      // 当前选中的是子项
-      const isCurrentSelectedChildren =
-        firstTarget === this.selectedOutline?.$el
-      // 忽略点击事件冒泡触发的事件
-      const isPassbySelf = allTargets[allTargets.length - 1] === this.$el
-      const shouldIgnore = isCurrentSelectedChildren && isPassbySelf
-      // console.log(isPassbySelf, shouldIgnore)
-      !shouldIgnore && this.SELECT_OUTLINE(this)
+    ...mapActions('screen', [
+      'SELECT_MODULE',
+      'SELECT_OUTLINE'
+    ]),
+    selectElement () {
+      this.SELECT_MODULE(this.curModel)
+      this.SELECT_OUTLINE(this)
     }
   }
 }
