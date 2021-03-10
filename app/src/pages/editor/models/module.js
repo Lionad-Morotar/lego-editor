@@ -2,6 +2,19 @@
 import Props from '../forms/props'
 
 /**
+ * TYPE
+ * 保存到数据库的数据格式定义
+ * @todo doc
+ * @todo implement
+ * @example
+ * {
+ *  [`DATA_KEY`]: this.data,
+ *  [`META_KEY`]: this.getMetaData()
+ * }
+ */
+const META_KEY = 'meta'
+
+/**
  * Module 用来承接模块的公用方法和属性
  * ***
  * @param uuid   模块的独一无二的 ID，就算两个模块类型相同也如此
@@ -91,15 +104,15 @@ Module.prototype.setProp = function (key, value) {
  */
 Module.propsMap = {}
 Module.gatherProps = function (name, component) {
-  function getValidProps (props) {
+  function getValidProps (props, baseProps = {}) {
     return Object.entries(props || {}).reduce((h, [k, v]) => {
       if (v instanceof Props.Prop) {
         h[k] = v
       }
       return h
-    }, {})
+    }, baseProps)
   }
-  function getComponentAndChildrenProps (cmpt) {
+  function getComponentAndChildrenProps (cmpt, baseProps) {
     const cmpts = cmpt.components || {}
     return Object.entries(cmpts).reduce((h, [, v]) => {
       h = {
@@ -110,7 +123,7 @@ Module.gatherProps = function (name, component) {
           : {})
       }
       return h
-    }, getValidProps(cmpt.props))
+    }, getValidProps(cmpt.props, baseProps))
   }
   const res = getComponentAndChildrenProps(component)
   Module.propsMap[name] = res
@@ -123,8 +136,25 @@ Module.gatherProps = function (name, component) {
 Module.prototype.initProps = function () {
   const name = this.component.name
   const propsConfig = Module.propsMap[name]
+  const injectedMetaProps = {
+    [META_KEY]: this.getMetaData()
+  }
+
   return Object.entries(propsConfig).reduce((h, [k, v]) => {
     h[k] = Props.genDefaults(v)
     return h
-  }, {})
+  }, injectedMetaProps)
+}
+
+/***
+ * 获取模块的元描述信息
+ * 比如 title、name 应该和数据一起保存存放到数据库，就需要用到元信息
+ */
+Module.prototype.getMetaData = function () {
+  return {
+    uuid: this.uuid,
+    title: this.title,
+    description: this.description,
+    name: this.name
+  }
 }

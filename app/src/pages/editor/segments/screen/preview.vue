@@ -8,6 +8,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import TestData from '@/modules/test/example-data'
 export default {
   components: {
     Instance: {
@@ -24,6 +25,12 @@ export default {
     ...mapState('screen', {
       modules: state => state.modules
     })
+  },
+  created () {
+    this.modules.length = 0
+    const findInits = TestData.map(x => x)
+    // const toDisplayModule =
+    console.log('findInits: ', findInits)
   }
 }
 </script>

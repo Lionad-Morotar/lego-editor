@@ -24,7 +24,7 @@ module.exports = {
   },
   chainWebpack: config => {
     config.resolve.alias
-    .set('@', path.resolve('src'))
-    .set('editor',path.resolve('src/pages/editor'))
+      .set('@', path.resolve('src'))
+      .set('editor', path.resolve('src/pages/editor'))
   }
 }

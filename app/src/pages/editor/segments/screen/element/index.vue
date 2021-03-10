@@ -35,7 +35,7 @@ export default {
       const updatedProps = clone(this.receivedUpdate)
       return Object.entries(updatedProps).reduce((h, [k, v]) => {
         const item = propsConfig[k]
-        if (item.getDisplayValue) {
+        if (item && item.getDisplayValue) {
           const hasDisplayValue = !!item.getDisplayValue(v)
           h[k] = hasDisplayValue ? v : item.injectDisplayValueFallbackMaybe(v)
         } else {
