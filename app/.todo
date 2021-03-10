@@ -4,3 +4,4 @@
 * 新增完模块后，滚动到模块位置
 * 所有“约定”应该出文档
 * Props 某些属性不应该透传（enumerable）
+* functional components

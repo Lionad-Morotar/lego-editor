@@ -2,27 +2,43 @@ import Vue from 'vue'
 import Module from 'editor/models/module'
 import Props from 'editor/forms/props'
 import ScreenElement from './index.vue'
-import SimpleScreenElement from './simple'
 
-// 安装模块，附加上高亮选框、放点击等功能
-export const installEditableElement = newModule => {
-  // 收集外部数据依赖
-  Module.gatherProps(newModule.name, newModule.component)
-  // 包装子模块
+/**
+ * 安装模块
+ */
+export const installElement = (newModule, config = {}) => {
+  const {
+    // 是否要收集模块的依赖
+    gatherProps = false,
+    // 是否需要把 Props 规范（editor/forms/props.js）转换成 Vue Props 规范
+    standardizeProp = true,
+    // 是否包裹一层高亮选框
+    outline = false,
+    // 是否捕获点击以阻止传播
+    captureClick = false
+  } = config
+
+  if (gatherProps) {
+    Module.gatherProps(newModule.name, newModule.component)
+  }
+
+  /* 处理子组件（当前约定只有单层的父子关系） */
+
   const hasComponents = newModule.component.components
   if (hasComponents) {
     newModule.component.components = Object.entries(
       hasComponents
     ).reduce((h, [k, v]) => {
+      if (standardizeProp) {
+        v.props = Props.genVueProps(v.props)
+      }
       h[k] = {
         render (h) {
           return h(ScreenElement, {
-            attrs: {
-              ...this.$attrs
-            },
             props: {
               component: v,
-              captureClick: true
+              captureClick,
+              outline
             }
           })
         }
@@ -30,16 +46,20 @@ export const installEditableElement = newModule => {
       return h
     }, {})
   }
-  // 包装模块以及注册
+
+  /* 处理父组件 */
+
+  if (standardizeProp) {
+    newModule.component.props = Props.genVueProps(newModule.component.props)
+  }
   Vue.component(newModule.name, {
     render (h) {
-      // console.log(this.$attrs)
       return h(ScreenElement, {
-        attrs: {
-          ...this.$attrs
-        },
         props: {
-          component: newModule.component
+          component: newModule.component,
+          // todo refactor
+          captureClick: false,
+          outline
         }
       })
     }
@@ -49,38 +69,12 @@ export const installEditableElement = newModule => {
 }
 
 /**
- * 正常安装模块（正常渲染）
- * 需要把 Props 规范（editor/forms/props.js）转换成 Vue Props 规范
+ * 安装可编辑的模块
+ * 即附加上高亮选框、放点击等功能
  */
-export const installElement = newModule => {
-  const hasComponents = newModule.component.components
-  if (hasComponents) {
-    newModule.component.components = Object.entries(
-      hasComponents
-    ).reduce((h, [k, v]) => {
-      v.props = Props.genVueProps(v.props)
-      h[k] = {
-        render (h) {
-          return h(SimpleScreenElement, {
-            props: {
-              component: v
-            }
-          })
-        }
-      }
-      return h
-    }, {})
-  }
-  newModule.component.props = Props.genVueProps(newModule.component.props)
-  Vue.component(newModule.name, {
-    render (h) {
-      return h(SimpleScreenElement, {
-        props: {
-          component: newModule.component
-        }
-      })
-    }
-  })
-
-  return newModule
-}
+export const installEditableElement = newModule => installElement(newModule, {
+  gatherProps: true,
+  standardizeProp: false,
+  outline: true,
+  captureClick: true
+})
