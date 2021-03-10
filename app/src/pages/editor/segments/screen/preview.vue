@@ -42,8 +42,10 @@ export default {
         datas[idx].meta.component = targetModule.component
         return targetModule
       } else {
+        /* Do not delete these console logs Start */
         console.log('datas: ', datas)
         console.log('installedModules: ', this.installedModules)
+        /* Do not delete these console logs End */
         throw new Error('[ERR] invalid modules or datas')
       }
     })

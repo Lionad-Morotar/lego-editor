@@ -25,6 +25,8 @@ const mutations = {
   DELETE_SELECTED (state) {
     state.selected = null
   },
+  // 移动模块，order 正数向数组右侧，负数向数组左侧
+  // 先删除这个元素，然后在指定位置新增这个元素
   MOVE_MODULE (state, { order, findTarget }) {
     const index = state.modules.findIndex(x => x === findTarget)
     const length = state.modules.length
@@ -62,7 +64,6 @@ const actions = {
       commit('UNSELECT_OUTLINE')
     }
   },
-  // 移动模块，order 正数向数组右侧，负数向数组左侧
   MOVE_MODULE ({ commit, state }, order, module) {
     const targetModule = module || state.selected
     const findTarget = state.modules.find(x => x === targetModule)

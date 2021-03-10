@@ -1,4 +1,5 @@
 <script>
+// 动态组件不方便定制事件，所以用 instance 包一层
 export default {
   props: ['module', 'bindModule'],
   provide () {
