@@ -19,13 +19,13 @@
     <hr style="width: 68%" />
     <div class="content">
       <el-button
-        v-for="idx in props.counts"
+        v-for="(procedure, idx) in props.procedures"
         class="action-button"
         type="text"
         :disabled="v === min"
         :key="idx"
-        @click="() => remove(idx-1)"
-        >删除{{props.procedures[idx-1].title}}</el-button
+        @click="() => remove(idx)"
+        >删除{{procedure.title}}</el-button
       >
     </div>
   </div>
@@ -63,16 +63,12 @@ export default {
     subtract () {
       if (this.v !== this.min) {
         this.v -= 1
-        this.$nextTick(() => {
-          this.props.procedures.splice(this.props.procedures.length - 1, 1)
-        })
+        this.props.procedures.splice(this.props.procedures.length - 1, 1)
       }
     },
     remove (idx) {
       this.v -= 1
-      this.$nextTick(() => {
-        this.props.procedures.splice(idx, 1)
-      })
+      this.props.procedures.splice(idx, 1)
     }
   }
 }

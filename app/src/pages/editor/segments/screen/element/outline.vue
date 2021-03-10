@@ -32,6 +32,9 @@ export default {
       return this.selectedOutline === this
     }
   },
+  mounted () {
+    // console.log(this.$attrs, this.$props)
+  },
   methods: {
     ...mapActions('screen', [
       'SELECT_MODULE',
