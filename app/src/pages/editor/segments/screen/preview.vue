@@ -10,7 +10,6 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import DefaultModule from '@/modules'
 import TestData from '@/modules/test/example-data'
 import Instance from './instance'
 export default {
@@ -25,15 +24,6 @@ export default {
       modules: state => state.modules
     })
   },
-  created () {
-    // todo “重安装”
-    this.modules.length = 0
-    this.CLEAR_MODULE()
-    this.INSTALL_MODULES({
-      modules: DefaultModule.getDefaultModuleList(),
-      isPreview: true
-    })
-  },
   mounted () {
     const datas = TestData
     const findInits = datas.map((x, idx) => {
@@ -43,7 +33,7 @@ export default {
         return targetModule
       } else {
         /* Do not delete these console logs Start */
-        console.log('datas: ', datas)
+        console.log('data: ', x)
         console.log('installedModules: ', this.installedModules)
         /* Do not delete these console logs End */
         throw new Error('[ERR] invalid modules or datas')
@@ -59,7 +49,8 @@ export default {
   methods: {
     ...mapActions('editor', [
       'INSTALL_MODULES',
-      'CLEAR_MODULE'
+      'CLEAR_MODULE',
+      'REINSTALL_MODULES'
     ]),
     ...mapActions('screen', [
       'ADD_MODULE'
