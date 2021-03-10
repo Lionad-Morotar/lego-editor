@@ -13,7 +13,9 @@ export default {
   methods: {
     ...mapActions('screen', ['ADD_MODULE']),
     addToScreen () {
-      this.ADD_MODULE(this.inits)
+      this.ADD_MODULE({
+        inits: this.inits
+      })
     }
   }
 }

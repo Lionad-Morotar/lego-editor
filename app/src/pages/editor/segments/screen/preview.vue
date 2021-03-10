@@ -10,17 +10,12 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import DefaultModule from '@/modules'
+import TestData from '@/modules/test/example-data'
+import Instance from './instance-preview'
 export default {
   components: {
-    Instance: {
-      props: ['module'],
-      render (h) {
-        const { name } = this.$props.module
-        return h(name, {
-          props: {}
-        })
-      }
-    }
+    Instance
   },
   computed: {
     ...mapState('editor', {
@@ -28,6 +23,34 @@ export default {
     }),
     ...mapState('screen', {
       modules: state => state.modules
+    })
+  },
+  created () {
+    this.modules.length = 0
+    this.CLEAR_MODULE()
+    this.INSTALL_MODULES({
+      modules: DefaultModule.getDefaultModuleList(),
+      isPreview: true
+    })
+  },
+  mounted () {
+    const datas = TestData
+    const findInits = datas.map((x, idx) => {
+      const targetModule = this.installedModules.find(y => y.name === x.meta.name)
+      if (targetModule) {
+        datas[idx].meta.component = targetModule.component
+        return targetModule
+      } else {
+        console.log('datas: ', datas)
+        console.log('installedModules: ', this.installedModules)
+        throw new Error('[ERR] invalid modules or datas')
+      }
+    })
+    findInits.map((inits, idx) => {
+      this.ADD_MODULE({
+        inits,
+        initialData: datas[idx]
+      })
     })
   },
   methods: {

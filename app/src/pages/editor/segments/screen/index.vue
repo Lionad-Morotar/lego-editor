@@ -33,7 +33,9 @@ export default {
 
     // 测试组件
     setTimeout(() => {
-      this.ADD_MODULE(this.plugins[this.plugins.length - 1])
+      this.ADD_MODULE({
+        inits: this.plugins[this.plugins.length - 1]
+      })
     }, 200)
   },
   methods: {

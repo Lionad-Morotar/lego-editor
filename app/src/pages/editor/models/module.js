@@ -28,23 +28,47 @@ const META_KEY = 'meta'
  * @param data   模块数据，由 props 清洗校验后得到，主要用于和数据库交互
  * @param propsConfig  模块的依赖的外部值对应的原始定义
  */
-export default function Module (inits) {
+export default function Module (inits, initialData = {}) {
   const { title, description, name, component } = inits
+  // TODO refactor 初始化方法
+  const { meta = {}, ...rest } = initialData
+  const hasInitialData = !!meta.title
+
+  // console.log('initialData: ', initialData)
 
   /* 模块属性 */
-  this.uuid = String(+new Date()) + '_' + String(Math.random()).slice(-6)
-  this.title = title
-  this.description = description
+  this.uuid = meta.uuid || String(+new Date()) + '_' + String(Math.random()).slice(-6)
+  this.title = meta.title || title
+  this.description = meta.description || description
   this.data = {}
 
   /* 和 Vue 实例相关的属性 */
   this.$instance = null
   this.$outlines = []
-  this.name = name
-  this.component = component
-  this.props = this.initProps()
+  this.name = meta.name || name
+  this.component = meta.component || component
+  this.props = hasInitialData ? rest : this.initProps()
   Object.entries(this.props).map(([k, v]) => (this.data[k] = v))
   this.propsConfig = Module.propsMap[this.name]
+
+  Module.instanceList.push(this)
+
+  // console.log('initialData: ', this.props)
+}
+
+/* 保存实例、保存实例与 uuid 的映射关系 */
+Module.instanceList = []
+Module.instanceMap = {}
+
+// 通过 uuid 获取实例
+Module.getModel = function (uuid) {
+  const find = Module.instanceMap[uuid] ||
+    Module.instanceList.find(x => String(x.uuid) === String(uuid))
+  if (find) {
+    return find
+  } else {
+    console.warn(`[WARN] model which binded uuid ${uuid} not found`)
+  }
 }
 
 /**
@@ -62,13 +86,11 @@ Module.prototype.bindInstance = function (instance) {
  * @param {string} uuid
  */
 Module.prototype.bindModel = function (uuid) {
-  if (Module.modelsMap[uuid] && console?.warn) {
+  if (Module.instanceMap[uuid] && console?.warn) {
     console.warn('[WARN] bindInstance twice')
   }
-  Module.modelsMap[uuid] = this
+  Module.instanceMap[uuid] = this
 }
-Module.modelsMap = {}
-Module.getModel = uuid => Module.modelsMap[uuid]
 
 /**
  * 当模块依赖的值发生了变化...

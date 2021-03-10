@@ -21,7 +21,6 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import DefaultModule from '@/modules'
 export default {
   computed: {
     ...mapState('editor', {
@@ -33,20 +32,12 @@ export default {
   },
   methods: {
     ...mapActions('editor', [
-      'TOGGLE_ISPREVIEW',
-      'INSTALL_MODULES',
-      'CLEAR_MODULE'
+      'TOGGLE_ISPREVIEW'
     ]),
-    ...mapActions('screen', []),
     save () {
       console.log(this.modules.map(x => x.data))
     },
     togglePreview () {
-      this.CLEAR_MODULE()
-      this.INSTALL_MODULES({
-        modules: DefaultModule.getDefaultModuleList(),
-        editable: this.isPreview
-      })
       this.TOGGLE_ISPREVIEW()
     }
   }

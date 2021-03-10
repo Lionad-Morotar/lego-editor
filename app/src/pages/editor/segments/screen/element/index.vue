@@ -27,9 +27,11 @@ export default {
     // todo FIXME 每次 props 更新，这个 computed 会发生三次，
     // todo 数据流可能存在问题，需要排查
     receivedUpdate () {
-      return this.curModel.props
+      return this.curModel?.props
     },
     propsWithDefaultValue () {
+      if (!this.receivedUpdate) return {}
+
       const propsConfig = this.curModel.propsConfig
       // 为了防止右侧编辑面板的值和当前值粘连需将更新深拷贝一份出来
       const updatedProps = clone(this.receivedUpdate)

@@ -1,8 +1,6 @@
-import Vue from 'vue'
-
 import { ModuleTypeEnums } from '@/constant'
-import utils from '../../utils'
-import { preInstall } from '../../segments/screen/element/index'
+import utils from 'editor/utils'
+import { installEditableElement, installElement } from 'editor/segments/screen/element/index'
 
 const state = {
   // 已注册的模块，用于左侧面板展示、点击选择或拖拽用
@@ -69,10 +67,7 @@ const actions = {
       moduleList = []
     } = modules
     // todo isValidModule
-    const install = !isPreview ? preInstall : m => {
-      Vue.component(m.name, m.component)
-      return m
-    }
+    const install = isPreview ? installElement : installEditableElement
     const installs = mlist => mlist.map(newModule => {
       if (utils.isValidPreInstallModule(newModule)) {
         const wrappedModule = install(newModule)

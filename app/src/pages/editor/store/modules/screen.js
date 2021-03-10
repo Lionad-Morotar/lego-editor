@@ -45,8 +45,8 @@ const mutations = {
 const getters = {}
 
 const actions = {
-  ADD_MODULE ({ commit }, inits) {
-    const instance = new Module(inits)
+  ADD_MODULE ({ commit }, { inits, initialData = {} }) {
+    const instance = new Module(inits, initialData)
     commit('ADD_MODULE', instance)
   },
   SELECT_MODULE ({ commit }, module) {

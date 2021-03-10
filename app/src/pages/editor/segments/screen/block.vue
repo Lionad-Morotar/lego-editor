@@ -13,7 +13,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import Instance from './element/instance'
+import Instance from './instance'
 export default {
   components: {
     Instance

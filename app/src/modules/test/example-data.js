@@ -1,7 +1,13 @@
 export default [
   {
+    meta: {
+      uuid: '1615345174616_674747',
+      title: '流程模块',
+      description: '流程模块测试',
+      name: 'lego-procedure'
+    },
     counts: 4,
-    title: '回收流程',
+    title: '- 黄金回收 -',
     subTitle: '累计成交150万+件，是您最好的选择',
     procedures: [
       {
@@ -27,6 +33,12 @@ export default [
     ]
   },
   {
+    meta: {
+      uuid: '1615345172665_557862',
+      title: '测试模块',
+      description: '测试模块',
+      name: 'lego-example'
+    },
     text: '第一行文本',
     number: 1,
     numberWithProps: 2,
