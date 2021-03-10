@@ -69,7 +69,7 @@ const actions = {
     // todo isValidModule
     const install = isPreview ? installElement : installEditableElement
     const installs = mlist => mlist.map(newModule => {
-      if (utils.isValidPreInstallModule(newModule)) {
+      if (utils.validInitModuleData(newModule)) {
         const wrappedModule = install(newModule)
         commit('ADD_MODULE', wrappedModule)
       }

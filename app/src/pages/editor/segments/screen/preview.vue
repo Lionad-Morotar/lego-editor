@@ -12,7 +12,7 @@
 import { mapState, mapActions } from 'vuex'
 import DefaultModule from '@/modules'
 import TestData from '@/modules/test/example-data'
-import Instance from './instance-preview'
+import Instance from './instance'
 export default {
   components: {
     Instance
@@ -26,6 +26,7 @@ export default {
     })
   },
   created () {
+    // todo “重安装”
     this.modules.length = 0
     this.CLEAR_MODULE()
     this.INSTALL_MODULES({

@@ -6,7 +6,7 @@
   >
     <!-- 每个模块都附带一左一右两个 padding block，将剩余的空间填充满 -->
     <div class="padding left" @click="selectTopElement" />
-    <instance :module="module" />
+    <instance :module="module" :bindModule="true" />
     <div class="padding right" @click="selectTopElement" />
   </div>
 </template>
