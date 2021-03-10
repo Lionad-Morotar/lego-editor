@@ -25,17 +25,16 @@ export default {
     })
   },
   created () {
-    // for test purposes
-    if (this.modules.length === 0) {
-      setTimeout(() => {
-        this.ADD_MODULE(this.plugins.find(x => x.title === '流程模块'))
-      }, 200)
+    /* for test purposes */
+    this.modules.length = 0
+    // setTimeout(() => {
+    //   this.ADD_MODULE(this.plugins.find(x => x.title === '流程模块-测试选中子项流程高亮'))
+    // }, 200)
 
-      // 测试组件
-      // setTimeout(() => {
-      //   this.ADD_MODULE(this.plugins[this.plugins.length - 1])
-      // }, 200)
-    }
+    // 测试组件
+    setTimeout(() => {
+      this.ADD_MODULE(this.plugins[this.plugins.length - 1])
+    }, 200)
   },
   methods: {
     ...mapActions('screen', ['ADD_MODULE', 'UNSELECTED']),
