@@ -36,6 +36,7 @@ export const installElement = (newModule, config = {}) => {
         render (h) {
           return h(ScreenElement, {
             props: {
+              pass: { ...this.$attrs },
               component: v,
               captureClick,
               outline

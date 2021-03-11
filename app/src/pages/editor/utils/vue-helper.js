@@ -1,5 +1,5 @@
 /**
- * 判断 B 是否是 A 的子组件
+ * 判断 toFind 是否是 parent 的子组件
  * @param {VueInstance} parent
  * @param {VueInstance} toFind
  */

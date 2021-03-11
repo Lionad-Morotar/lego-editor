@@ -71,7 +71,7 @@ export default {
     &:nth-child(2n) {
       background: #cc392b;
       flex-direction: row-reverse;
-      
+
       .title {
         color: #cc392b;
       }

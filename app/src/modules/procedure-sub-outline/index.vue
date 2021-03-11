@@ -4,6 +4,7 @@
     <div class="container">
       <procedure
         v-for="(procedure, idx) in procedures"
+        :procedures="procedures"
         :procedure="procedure"
         :idx="idx"
         :key="idx+procedure.title"
@@ -14,7 +15,7 @@
 
 <script>
 /* eslint-disable */
-// TODO  48:20  error  Strings must use singlequote  quotes
+// TODO  48:20  error  Strings must use singlequote quotes
 import Props from '../props'
 import ProcedureHeader from './procedure-header'
 import Procedure from './procedure'
@@ -62,62 +63,63 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .lego-procedure-sub-outline {
   padding: 24px 16px;
-}
-.container {
-  margin-top: 24px;
 
-  & > *:nth-child(2n) /deep/ .procedure {
-    background: #cc392b;
-    flex-direction: row-reverse;
-    
-    .title {
-      color: #cc392b;
+  .container {
+    margin-top: 24px;
+
+    & > *:nth-child(2n) .procedure {
+      background: #cc392b;
+      flex-direction: row-reverse;
+
+      .title {
+        color: #cc392b;
+      }
     }
-  }
-  & > *:first-child /deep/ .procedure {
-    margin-top: 0;
-  }
-
-  /deep/ .procedure {
-    margin-top: 10px;
-    display: flex;
-    width: 100%;
-    height: 122px;
-    border-radius: 9px;
-    background: #f09033;
-    overflow: hidden;
-
-    .content-con {
-      flex: 1;
+    & > *:first-child .procedure {
+      margin-top: 0;
     }
-    .title {
-      margin: auto;
+
+    .procedure {
       margin-top: 10px;
-      width: 117px;
-      height: 32px;
-      line-height: 32px;
-      text-align: center;
-      border-radius: 16px;
-      background: white;
-      color: #f09033;
-      font-weight: bold;
-      letter-spacing: 1px;
-    }
-    .content {
-      padding-top: 6px;
-      text-align: center;
-      color: #f2f2f2;
-      font-size: 13px;
-      line-height: 1.5;
-      letter-spacing: .5px;
-      word-break: keep-all;
-    }
-    .image {
-      width: 165px;
-      height: 100%;
+      display: flex;
+      width: 100%;
+      height: 122px;
+      border-radius: 9px;
+      background: #f09033;
+      overflow: hidden;
+
+      .content-con {
+        flex: 1;
+      }
+      .title {
+        margin: auto;
+        margin-top: 10px;
+        width: 117px;
+        height: 32px;
+        line-height: 32px;
+        text-align: center;
+        border-radius: 16px;
+        background: white;
+        color: #f09033;
+        font-weight: bold;
+        letter-spacing: 1px;
+      }
+      .content {
+        padding-top: 6px;
+        text-align: center;
+        color: #f2f2f2;
+        font-size: 13px;
+        line-height: 1.5;
+        letter-spacing: .5px;
+        word-break: keep-all;
+      }
+      .image {
+        width: 165px;
+        height: 100%;
+      }
     }
   }
 }

@@ -6,7 +6,16 @@ import ClickCapture from './click-capture'
 
 export default {
   inject: ['model'],
-  props: ['component', 'outline', 'captureClick'],
+  props: [
+    // 子元素
+    'component',
+    // 是否包裹一层高亮选框
+    'outline',
+    // 是否捕获点击以阻止传播
+    'captureClick',
+    // 透传的属性
+    'pass'
+  ],
   computed: {
     curModel () {
       return Module.getModel(this.model)
@@ -41,7 +50,7 @@ export default {
     const $slots = this.$parent.$slots.default || []
     const cmptWithProps = h(component, {
       props: {
-        // ...this.$attrs,
+        ...this.pass,
         ...this.propsWithDefaultValue
       }
     }, $slots)

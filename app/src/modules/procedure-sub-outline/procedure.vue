@@ -1,16 +1,15 @@
 <template>
   <div class="procedure">
-    asdfasdfsadf
-    <!-- <div class="content-con">
-      <div class="title">{{ procedures[idx].title }}</div>
-      <div class="content">{{ procedures[idx].content }}</div>
+    <div class="content-con">
+      <div class="title">{{ procedure.title }}</div>
+      <div class="content">{{ procedure.content }}</div>
     </div>
     <img
       class="image"
-      :src="procedures[idx].image"
-      :alt="procedures[idx].content"
-      :title="procedures[idx].title"
-    /> -->
+      :src="procedure.image"
+      :alt="procedure.content"
+      :title="procedure.title"
+    />
   </div>
 </template>
 
@@ -20,6 +19,10 @@
 import Props from '@/modules/props'
 import ConfigProcedure from './panel/config-procedure'
 export default {
-  props: ['idx', 'procedures']
+  props: ['idx', 'procedures', 'procedure'],
+  mounted () {
+    // console.log(this.$props, this.$attrs)
+    console.log(this)
+  }
 }
 </script>
