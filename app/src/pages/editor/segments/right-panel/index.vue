@@ -7,10 +7,10 @@
         <i class="el-icon el-icon-arrow-down" />
       </div>
       <div class="content">
-        <el-button class="action-button" type="text" @click="handleMoveUp"
+        <el-button class="action-button" type="text" :disabled="isFirst" @click="handleMoveUp"
           >上移模块</el-button
         >
-        <el-button class="action-button" type="text" @click="handleMoveDown"
+        <el-button class="action-button" type="text" :disabled="isLast" @click="handleMoveDown"
           >下移模块</el-button
         >
         <el-button class="action-button" type="text" @click="deleteModule"
@@ -54,6 +54,12 @@ export default {
         this.selected.$outlines &&
         this.selected.$outlines[0] === this.selectedOutline
       )
+    },
+    isFirst () {
+      return this.selected === this.modules[0]
+    },
+    isLast () {
+      return this.selected === this.modules[this.modules.length - 1]
     }
   },
   methods: {
