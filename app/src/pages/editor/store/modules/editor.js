@@ -1,20 +1,22 @@
-import Vue from 'vue'
-
 import { ModuleTypeEnums } from '@/constant'
-import utils from '../../utils'
-import { preInstall } from '../../segments/screen/element/index'
+import utils from 'editor/utils'
+import { installEditableElement, installElement } from 'editor/segments/screen/element/index'
 
 const state = {
   // 已注册的模块，用于左侧面板展示、点击选择或拖拽用
+  // todo rename
   modules: [],
+  // 已注册模块的原始信息的缓存，用于切换预览和编辑状态时重新注册模块等场景
+  moduleSets: new Set(),
   // 选中的模块的分类
   selectedModuleCategory: null,
   isPreview: false
 }
 
 const mutations = {
-  ADD_MODULE (state, newModule) {
-    state.modules.push(newModule)
+  ADD_MODULE (state, { module, inits }) {
+    state.modules.push(module)
+    state.moduleSets.add(inits)
   },
   CLEAR_MODULE (state) {
     state.modules = []
@@ -25,7 +27,7 @@ const mutations = {
   SELECT_MODULE_CATEGORY (state, value) {
     state.selectedModuleCategory = value
   },
-  UNSELECT_MODULE_CATEGORY (state, value) {
+  UNSELECT_MODULE_CATEGORY (state) {
     state.selectedModuleCategory = null
   }
 }
@@ -63,20 +65,31 @@ const actions = {
   CLEAR_MODULE ({ commit }) {
     commit('CLEAR_MODULE')
   },
+  REINSTALL_MODULES ({ commit, state, rootState, dispatch }, payloads) {
+    // FIXME 非标操作
+    rootState.screen.modules.length = 0
+    commit('CLEAR_MODULE')
+    dispatch('INSTALL_MODULES', {
+      modules: {
+        moduleList: [...state.moduleSets]
+      },
+      ...payloads
+    })
+  },
   INSTALL_MODULES ({ commit, state, getters }, { modules = {}, isPreview = false }) {
     const {
       exampleModuleList = [],
       moduleList = []
     } = modules
-    // todo isValidModule
-    const install = !isPreview ? preInstall : m => {
-      Vue.component(m.name, m.component)
-      return m
-    }
+
+    const install = isPreview ? installElement : installEditableElement
     const installs = mlist => mlist.map(newModule => {
-      if (utils.isValidPreInstallModule(newModule)) {
+      if (utils.validInitModuleData(newModule)) {
         const wrappedModule = install(newModule)
-        commit('ADD_MODULE', wrappedModule)
+        commit('ADD_MODULE', {
+          module: wrappedModule,
+          inits: newModule
+        })
       }
     })
     installs(moduleList)
@@ -90,8 +103,11 @@ const actions = {
       }
     }
   },
-  TOGGLE_ISPREVIEW ({ commit, state }) {
-    commit('TOGGLE_ISPREVIEW', !state.isPreview)
+  TOGGLE_ISPREVIEW ({ commit, state, dispatch }) {
+    const nextPreviewState = !state.isPreview
+    commit('TOGGLE_ISPREVIEW', nextPreviewState)
+    // FIXME reinstall 之后，选中示例模块的高亮框示例，右侧动态面板绑定的值失效的问题
+    dispatch('REINSTALL_MODULES', nextPreviewState)
   },
   SELECT_MODULE_CATEGORY ({ commit }, value) {
     commit('SELECT_MODULE_CATEGORY', value)

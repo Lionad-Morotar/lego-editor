@@ -2,7 +2,7 @@
   <!-- eslint-disable -->
   <div class="lego-example">
 
-    <el-alert title="简单文本" type="info" :closable="false" />
+    <el-alert title="简单文本1" type="info" :closable="false" />
     <div @click="log(text)">{{ text }}</div>
 
     <el-alert title="简单数字" type="info" :closable="false" />

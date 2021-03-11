@@ -40,6 +40,15 @@ export default {
         cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/procedure-1.png',
         categories: ['流程模块']
       },
+      // ! TODO WIP Warning
+      {
+        title: '流程模块-测试选中子项流程高亮',
+        description: '流程模块-测试选中子项流程高亮',
+        name: ProcedureSubOutline.name,
+        component: ProcedureSubOutline,
+        cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/procedure-1.png',
+        categories: ['流程模块']
+      },
       {
         title: '流程模块-测试选中子项流程高亮',
         description: '流程模块-测试选中子项流程高亮',

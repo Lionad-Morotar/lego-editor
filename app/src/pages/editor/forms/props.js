@@ -94,9 +94,10 @@ const genDefaults = prop => {
 /**
  * Props 定义不同的数据类型，以约定不同类型的数据结构及在右侧编辑面板中如何配置该数据
  * @see https://cn.vuejs.org/v2/guide/components-props.html#Prop-%E9%AA%8C%E8%AF%81
+ * @todo 也许可以和 Vue 的 Props 规范完全统一？
  * 和 Vue 的 Props 验证不同之处在于：
- * 1. default 默认值字段在返回对象或数组时不需要显式用工厂函数去返回值
- *    （不过还是会出现 Vue 警告，需要想个办法关一下）
+ * 1. default 默认值字段在返回对象或数组时不需要显式用工厂函数去返回值，
+ *    所以正常渲染时，需要用 genVueProps 把 Prop 还原未 Vue 规范的 Props
  * 2. validator 自定义校验函数返回两种格式信息：
  *    undefined 或不返回，代表校验通过；失败的原因（字符串），代表校验失败
  */
@@ -190,7 +191,29 @@ const Props = {
   // },
 }
 
+/**
+ * 正常渲染（如 C 端渲染）时，Props 约定需要转成 Vue Props 约定
+ * @see https://cn.vuejs.org/v2/guide/components-props.html#ad
+ */
+function genVueProps (propsInstance = {}) {
+  const genVueProp = propInstance => ({
+    type: propInstance.type,
+    required: propInstance.required,
+    default: () => propInstance.default
+  })
+  return Object.entries(propsInstance).reduce((h, [k, v]) => {
+    // TODO 处理 Props 约定嵌套的结构
+    if (v instanceof Prop) {
+      h[k] = genVueProp(v)
+    } else {
+      h[k] = v
+    }
+    return h
+  }, {})
+}
+
 /* 配置实例 */
+// TODO key configurable
 function Prop (base, config) {
   const { _valueKey: k } = base
   const prop = Object.assign(
@@ -237,6 +260,7 @@ function Prop (base, config) {
 Props.DS = DS
 Props.genStyles = genStyles
 Props.genDefaults = genDefaults
+Props.genVueProps = genVueProps
 Props.merge = merge
 Props.Prop = Prop
 

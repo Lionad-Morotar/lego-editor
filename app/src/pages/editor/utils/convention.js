@@ -4,7 +4,7 @@
 
 // 判断数据是否符合安装模块所需的数据格式，
 // 对应示例见 @/modules/index
-const isValidPreInstallModule = inits => {
+const validInitModuleData = inits => {
   const validator = {
     title: v => typeof v === 'string' && v.length > 0,
     description: () => true,
@@ -23,5 +23,5 @@ const isValidPreInstallModule = inits => {
 }
 
 export default {
-  isValidPreInstallModule
+  validInitModuleData
 }

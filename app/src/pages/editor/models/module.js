@@ -2,6 +2,19 @@
 import Props from '../forms/props'
 
 /**
+ * TYPE
+ * 保存到数据库的数据格式定义
+ * @todo doc
+ * @todo implement
+ * @example
+ * {
+ *  [`DATA_KEY`]: this.data,
+ *  [`META_KEY`]: this.getMetaData()
+ * }
+ */
+const META_KEY = 'meta'
+
+/**
  * Module 用来承接模块的公用方法和属性
  * ***
  * @param uuid   模块的独一无二的 ID，就算两个模块类型相同也如此
@@ -15,23 +28,47 @@ import Props from '../forms/props'
  * @param data   模块数据，由 props 清洗校验后得到，主要用于和数据库交互
  * @param propsConfig  模块的依赖的外部值对应的原始定义
  */
-export default function Module (inits) {
+export default function Module (inits, initialData = {}) {
   const { title, description, name, component } = inits
+  // TODO refactor 初始化方法
+  const { meta = {}, ...rest } = initialData
+  const hasInitialData = !!meta.title
+
+  // console.log('initialData: ', initialData)
 
   /* 模块属性 */
-  this.uuid = String(+new Date()) + '_' + String(Math.random()).slice(-6)
-  this.title = title
-  this.description = description
+  this.uuid = meta.uuid || String(+new Date()) + '_' + String(Math.random()).slice(-6)
+  this.title = meta.title || title
+  this.description = meta.description || description
   this.data = {}
 
   /* 和 Vue 实例相关的属性 */
   this.$instance = null
   this.$outlines = []
-  this.name = name
-  this.component = component
-  this.props = this.initProps()
+  this.name = meta.name || name
+  this.component = meta.component || component
+  this.props = hasInitialData ? rest : this.initProps()
   Object.entries(this.props).map(([k, v]) => (this.data[k] = v))
   this.propsConfig = Module.propsMap[this.name]
+
+  Module.instanceList.push(this)
+
+  // console.log('initialData: ', this.props)
+}
+
+/* 保存实例、保存实例与 uuid 的映射关系 */
+Module.instanceList = []
+Module.instanceMap = {}
+
+// 通过 uuid 获取实例
+Module.getModel = function (uuid) {
+  const find = Module.instanceMap[uuid] ||
+    Module.instanceList.find(x => String(x.uuid) === String(uuid))
+  if (find) {
+    return find
+  } else {
+    console.warn(`[WARN] model which binded uuid ${uuid} not found`)
+  }
 }
 
 /**
@@ -49,13 +86,11 @@ Module.prototype.bindInstance = function (instance) {
  * @param {string} uuid
  */
 Module.prototype.bindModel = function (uuid) {
-  if (Module.modelsMap[uuid] && console?.warn) {
+  if (Module.instanceMap[uuid] && console?.warn) {
     console.warn('[WARN] bindInstance twice')
   }
-  Module.modelsMap[uuid] = this
+  Module.instanceMap[uuid] = this
 }
-Module.modelsMap = {}
-Module.getModel = uuid => Module.modelsMap[uuid]
 
 /**
  * 当模块依赖的值发生了变化...
@@ -91,15 +126,15 @@ Module.prototype.setProp = function (key, value) {
  */
 Module.propsMap = {}
 Module.gatherProps = function (name, component) {
-  function getValidProps (props) {
+  function getValidProps (props, baseProps = {}) {
     return Object.entries(props || {}).reduce((h, [k, v]) => {
       if (v instanceof Props.Prop) {
         h[k] = v
       }
       return h
-    }, {})
+    }, baseProps)
   }
-  function getComponentAndChildrenProps (cmpt) {
+  function getComponentAndChildrenProps (cmpt, baseProps) {
     const cmpts = cmpt.components || {}
     return Object.entries(cmpts).reduce((h, [, v]) => {
       h = {
@@ -110,7 +145,7 @@ Module.gatherProps = function (name, component) {
           : {})
       }
       return h
-    }, getValidProps(cmpt.props))
+    }, getValidProps(cmpt.props, baseProps))
   }
   const res = getComponentAndChildrenProps(component)
   Module.propsMap[name] = res
@@ -123,8 +158,25 @@ Module.gatherProps = function (name, component) {
 Module.prototype.initProps = function () {
   const name = this.component.name
   const propsConfig = Module.propsMap[name]
+  const injectedMetaProps = {
+    [META_KEY]: this.getMetaData()
+  }
+
   return Object.entries(propsConfig).reduce((h, [k, v]) => {
     h[k] = Props.genDefaults(v)
     return h
-  }, {})
+  }, injectedMetaProps)
+}
+
+/***
+ * 获取模块的元描述信息
+ * 比如 title、name 应该和数据一起保存存放到数据库，就需要用到元信息
+ */
+Module.prototype.getMetaData = function () {
+  return {
+    uuid: this.uuid,
+    title: this.title,
+    description: this.description,
+    name: this.name
+  }
 }
