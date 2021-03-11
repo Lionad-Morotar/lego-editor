@@ -191,7 +191,7 @@ const Props = {
 }
 
 /* 配置实例 */
-function Prop (base, config) {
+function Prop (base, config = {}) {
   const { _valueKey: k } = base
   const prop = Object.assign(
     Object.create(Prop.prototype),

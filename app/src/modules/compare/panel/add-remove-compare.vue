@@ -31,6 +31,11 @@ export default {
       max: 10
     }
   },
+  computed: {
+    len () {
+      return this.v.length
+    }
+  },
   watch: {
     v: {
       deep: true,
@@ -41,8 +46,8 @@ export default {
   },
   methods: {
     add () {
-      if (this.v !== this.max) {
-        this.props.compares.push({
+      if (this.len !== this.max) {
+        this.v.push({
           left: {
             title: '浩瀚家装',
             description: Props.merge(Props.DS.text, {
@@ -64,15 +69,11 @@ export default {
             })
           }
         })
-        this.v += 1
       }
     },
     subtract () {
-      if (this.v !== this.min) {
-        this.v -= 1
-        this.$nextTick(() => {
-          this.props.compares.splice(this.props.compares.length - 1, 1)
-        })
+      if (this.len !== this.min) {
+        this.v.splice(this.v.length - 1, 1)
       }
     }
   }

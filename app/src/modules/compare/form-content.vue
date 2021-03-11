@@ -1,28 +1,28 @@
 <template>
   <div class="vs-con">
-    <template v-if="counts === 0">
+    <template v-if="compares.length === 0">
       <p class="vs empty-tip">还没有内容哦，快去添加吧~</p>
     </template>
     <template v-else>
-      <div class="vs" v-for="idx in counts" :key="idx">
+      <div class="vs" v-for="(compare, idx) in compares" :key="idx">
         <div class="left">
-          <div class="title">{{ compares[idx - 1].left.title }}</div>
+          <div class="title">{{ compare.left.title }}</div>
           <img
-            :src="compares[idx - 1].left.url.url"
-            :style="styles[idx - 1].leftImage"
+            :src="compare.left.url.url"
+            :style="styles[idx].leftImage"
           />
-          <div class="description" :style="styles[idx - 1].leftDes">
-            {{ compares[idx - 1].left.description.text }}
+          <div class="description" :style="styles[idx].leftDes">
+            {{ compare.left.description.text }}
           </div>
         </div>
         <div class="right">
-          <div class="title">{{ compares[idx - 1].right.title }}</div>
+          <div class="title">{{ compare.right.title }}</div>
           <img
-            :src="compares[idx - 1].right.url.url"
-            :style="styles[idx - 1].rightImage"
+            :src="compare.right.url.url"
+            :style="styles[idx].rightImage"
           />
-          <div class="description" :style="styles[idx - 1].rightDes">
-            {{ compares[idx - 1].right.description.text }}
+          <div class="description" :style="styles[idx].rightDes">
+            {{ compare.right.description.text }}
           </div>
         </div>
       </div>
@@ -32,20 +32,14 @@
 
 <script>
 import Props from '@/modules/props'
+import AddRemoveCompare from './panel/add-remove-compare'
 import ConfigCompares from './panel/config-compares'
+import { zip } from '../utils'
 export default {
   props: {
-    counts: Props.custom({
-      type: Number,
-      default: 2,
-      component: null,
-      validator (counts) {
-        if (counts === 0) return '请添加至少一项对比'
-      }
-    }),
     compares: Props.custom({
+      component: zip(AddRemoveCompare, ConfigCompares),
       type: Array,
-      component: ConfigCompares,
       default: [
         {
           left: {

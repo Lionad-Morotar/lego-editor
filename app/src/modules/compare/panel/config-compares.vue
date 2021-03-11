@@ -1,18 +1,18 @@
 <template>
   <fragment>
-    <div v-for="idx in props.counts" :key="idx">
+    <div v-for="(compare, idx) in value" :key="idx">
       <div class="label">左侧标题</div>
-      <base-text v-model="v[idx - 1].left.title" />
+      <base-text v-model="compare.left.title" />
       <div class="label">左侧描述</div>
-      <styled-text v-model="v[idx - 1].left.description" />
+      <styled-text v-model="compare.left.description" />
       <div class="label">左侧图片</div>
-      <styled-image v-model="v[idx - 1].left.url" />
+      <styled-image v-model="compare.left.url" />
       <div class="label">右侧标题</div>
-      <base-text v-model="v[idx - 1].right.title" />
+      <base-text v-model="compare.right.title" />
       <div class="label">右侧描述</div>
-      <styled-text v-model="v[idx - 1].right.description" />
+      <styled-text v-model="compare.right.description" />
       <div class="label">右侧图片</div>
-      <styled-image v-model="v[idx - 1].right.url" />
+      <styled-image v-model="compare.right.url" />
     </div>
   </fragment>
 </template>

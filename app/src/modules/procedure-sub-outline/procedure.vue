@@ -19,10 +19,6 @@
 import Props from '@/modules/props'
 import ConfigProcedure from './panel/config-procedure'
 export default {
-  props: ['idx', 'procedures', 'procedure'],
-  mounted () {
-    // console.log(this.$props, this.$attrs)
-    console.log(this)
-  }
+  props: ['idx', 'procedures', 'procedure']
 }
 </script>

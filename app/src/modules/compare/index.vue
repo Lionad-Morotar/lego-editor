@@ -1,7 +1,7 @@
 <template>
   <div class="compare">
     <form-header />
-    <form-content />
+    <form-content :compares="compares" />
   </div>
 </template>
 
@@ -9,15 +9,10 @@
 import Props from '../props'
 import FormHeader from './form-header'
 import FormContent from './form-content'
-import AddRemoveCompare from './panel/add-remove-compare'
 export default {
   name: 'compare',
   props: {
-    counts: Props.custom({
-      type: Number,
-      default: 2,
-      component: AddRemoveCompare
-    })
+    compares: Props.custom({})
   },
   components: {
     FormHeader,
