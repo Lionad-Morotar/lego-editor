@@ -3,14 +3,14 @@
     <div class="content">
       <el-button
         class="action-button"
-        :disabled="v === max"
+        :disabled="len === max"
         type="text"
         @click="add"
         >增加流程</el-button
       >
       <el-button
         class="action-button"
-        :disabled="v === min"
+        :disabled="len === min"
         type="text"
         @click="subtract"
         >减少流程</el-button
@@ -19,10 +19,10 @@
     <hr style="width: 68%" />
     <div class="content">
       <el-button
-        v-for="(procedure, idx) in props.procedures"
+        v-for="(procedure, idx) in v"
         class="action-button"
         type="text"
-        :disabled="v === min"
+        :disabled="len === min"
         :key="idx"
         @click="() => remove(idx)"
         >删除{{procedure.title}}</el-button
@@ -41,6 +41,11 @@ export default {
       max: 10
     }
   },
+  computed: {
+    len () {
+      return this.v.length
+    }
+  },
   watch: {
     v: {
       deep: true,
@@ -51,24 +56,17 @@ export default {
   },
   methods: {
     add () {
-      if (this.v !== this.max) {
-        this.props.procedures.push({
-          title: '流程' + (this.props.procedures.length + 1),
-          content: '流程内容',
-          image: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/pic.png'
-        })
-        this.v += 1
-      }
+      this.v.push({
+        title: '流程' + (this.v.length + 1),
+        content: '流程内容',
+        image: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/pic.png'
+      })
     },
     subtract () {
-      if (this.v !== this.min) {
-        this.v -= 1
-        this.props.procedures.splice(this.props.procedures.length - 1, 1)
-      }
+      this.v.splice(this.v.length - 1, 1)
     },
     remove (idx) {
-      this.v -= 1
-      this.props.procedures.splice(idx, 1)
+      this.v.splice(idx, 1)
     }
   }
 }

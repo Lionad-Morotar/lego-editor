@@ -21,17 +21,13 @@ import ProcedureHeader from './procedure-header'
 import Procedure from './procedure'
 import ConfigCounts from './panel/config-counts'
 import ConfigProcedures from './panel/config-procedures'
+import { zip } from '../utils'
 export default {
   name: 'lego-procedure-sub-outline',
   props: {
-    counts: Props.custom({
-      type: Number,
-      default: 4,
-      component: ConfigCounts
-    }),
     procedures: Props.custom({
       type: Array,
-      component: ConfigProcedures,
+      component: zip(ConfigCounts, ConfigProcedures),
       default: [
         {
           title: '流程1',

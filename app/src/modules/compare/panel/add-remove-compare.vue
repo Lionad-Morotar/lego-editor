@@ -3,14 +3,14 @@
     <div class="content">
       <el-button
         class="action-button"
-        :disabled="v === max"
+        :disabled="len === max"
         type="text"
         @click="add"
         >增加对比</el-button
       >
       <el-button
         class="action-button"
-        :disabled="v === min"
+        :disabled="len === min"
         type="text"
         @click="subtract"
         >减少对比</el-button
@@ -46,35 +46,31 @@ export default {
   },
   methods: {
     add () {
-      if (this.len !== this.max) {
-        this.v.push({
-          left: {
-            title: '浩瀚家装',
-            description: Props.merge(Props.DS.text, {
-              text: '免费出效果图，提前看到家的样子'
-            }),
-            url: Props.merge(Props.DS.image, {
-              url:
-                'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/left.png'
-            })
-          },
-          right: {
-            title: '普通家装',
-            description: Props.merge(Props.DS.text, {
-              text: '没效果图，看个鬼鬼啊'
-            }),
-            url: Props.merge(Props.DS.image, {
-              url:
-                'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/right.png'
-            })
-          }
-        })
-      }
+      this.v.push({
+        left: {
+          title: '浩瀚家装',
+          description: Props.merge(Props.DS.text, {
+            text: '免费出效果图，提前看到家的样子'
+          }),
+          url: Props.merge(Props.DS.image, {
+            url:
+              'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/left.png'
+          })
+        },
+        right: {
+          title: '普通家装',
+          description: Props.merge(Props.DS.text, {
+            text: '没效果图，看个鬼鬼啊'
+          }),
+          url: Props.merge(Props.DS.image, {
+            url:
+              'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/right.png'
+          })
+        }
+      })
     },
     subtract () {
-      if (this.len !== this.min) {
-        this.v.splice(this.v.length - 1, 1)
-      }
+      this.v.splice(this.v.length - 1, 1)
     }
   }
 }

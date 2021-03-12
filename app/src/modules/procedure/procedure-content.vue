@@ -1,15 +1,15 @@
 <template>
   <div class="container">
-    <div class="procedure" v-for="idx in counts" :key="idx">
+    <div class="procedure" v-for="(procedure, idx) in procedures" :key="idx">
         <div class="content-con">
-          <div class="title">{{ procedures[idx-1].title }}</div>
-          <div class="content">{{ procedures[idx-1].content }}</div>
+          <div class="title">{{ procedure.title }}</div>
+          <div class="content">{{ procedure.content }}</div>
         </div>
         <img
           class="image"
-          :src="procedures[idx-1].image"
-          :alt="procedures[idx-1].content"
-          :title="procedures[idx-1].title"
+          :src="procedure.image"
+          :alt="procedure.content"
+          :title="procedure.title"
         />
     </div>
   </div>
@@ -20,15 +20,13 @@
 // TODO  48:20  error  Strings must use singlequote  quotes
 import Props from '@/modules/props'
 import ConfigProcedures from './panel/config-procedures'
+import ConfigCounts from './panel/config-counts'
+import { zip } from '@/modules/utils'
 export default {
   props: {
-    counts: Props.custom({
-      type: Number,
-      default: 4
-    }),
     procedures: Props.custom({
       type: Array,
-      component: ConfigProcedures,
+      component: zip(ConfigCounts, ConfigProcedures),
       default: [
         {
           title: '流程1',
