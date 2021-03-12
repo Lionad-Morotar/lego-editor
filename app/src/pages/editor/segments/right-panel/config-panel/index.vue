@@ -33,7 +33,7 @@ export default {
         return h(
           'el-form-item',
           {
-            key: selected.uuid + '_' + name,
+            // key: selected.uuid + '_' + name,
             props: {
               label: config.label,
               required: config.required,
@@ -66,6 +66,8 @@ export default {
       selectedOutline: state => state.selectedOutline
     }),
     config () {
+      // const triggerCollect = () => this.selected.props
+      // triggerCollect()
       return this.selectedOutline?.props || {}
     },
     configEntries () {

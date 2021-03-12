@@ -13,6 +13,7 @@ import './styles/index.scss'
 
 Vue.use(Element)
 Vue.prototype.$utils = utils
+// ! https://github.com/Thunberg087/vue-fragment/issues/62
 Vue.use(Fragment.Plugin)
 
 const LegoEditor = new Vue({

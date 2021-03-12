@@ -38,8 +38,8 @@ import { zip } from '../utils'
 export default {
   props: {
     compares: Props.custom({
-      component: zip(AddRemoveCompare, ConfigCompares),
       type: Array,
+      component: zip(AddRemoveCompare, ConfigCompares),
       default: [
         {
           left: {

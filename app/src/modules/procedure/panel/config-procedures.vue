@@ -1,6 +1,6 @@
 <template>
-  <fragment>
-    <div v-for="(procedure, idx) in v" :key="idx">
+  <div>
+    <div v-for="(procedure, idx) in v" :key="idx+procedure.title">
       <div class="label">流程名称</div>
       <base-text v-model="procedure.title" />
       <div class="label">流程内容</div>
@@ -8,7 +8,7 @@
       <div class="label">流程图片</div>
       <base-text v-model="procedure.image" />
     </div>
-  </fragment>
+  </div>
 </template>
 
 <script>

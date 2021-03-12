@@ -1,5 +1,5 @@
 <template>
-  <fragment>
+  <div>
     <div v-for="(compare, idx) in value" :key="idx">
       <div class="label">左侧标题</div>
       <base-text v-model="compare.left.title" />
@@ -14,7 +14,7 @@
       <div class="label">右侧图片</div>
       <styled-image v-model="compare.right.url" />
     </div>
-  </fragment>
+  </div>
 </template>
 
 <script>

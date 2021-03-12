@@ -1,3 +1,19 @@
+// todo refactor
+// Vue.prototype.$utils = Object.assign(
+//   Vue.prototype.$utils || {},
+//   {
+//     keys (...args) {
+//       return args.reduce((h, c) => {
+//         switch (typeof c) {
+//           case 'string': return h + c
+//           case 'object': return h + Vue.prototype.$utils.values(c)
+//           default: throw new Error('todo refactor')
+//         }
+//       }, '')
+//     }
+//   }
+// )
+
 /**
  * 将多个组件压缩为单个组件
  */

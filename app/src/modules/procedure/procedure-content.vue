@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="procedure" v-for="(procedure, idx) in procedures" :key="idx">
+    <div class="procedure" v-for="(procedure, idx) in procedures" :key="''+idx+procedures.title">
         <div class="content-con">
           <div class="title">{{ procedure.title }}</div>
           <div class="content">{{ procedure.content }}</div>
