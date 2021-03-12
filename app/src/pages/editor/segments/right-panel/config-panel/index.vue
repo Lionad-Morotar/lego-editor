@@ -23,14 +23,13 @@
 
 <script>
 import { mapState } from 'vuex'
-import Props from '../../../forms/props'
+import Props from 'editor/forms/props'
 export default {
   components: {
     ConfigItem: {
       props: ['name', 'config', 'selected'],
       render (h) {
         const { name, config, selected } = this.$props
-        // console.log(selected.propsConfig[name])
         return h(
           'el-form-item',
           {
@@ -53,7 +52,6 @@ export default {
                 ...config
               },
               on: {
-                // input: newVal => selected.setProp(name, newVal),
                 change: newVal => selected.setProp(name, newVal)
               }
             })
@@ -71,10 +69,9 @@ export default {
       return this.selectedOutline?.props || {}
     },
     configEntries () {
-      // console.log(this.selectedOutline)
       return Object.entries(
         Object.entries(this.config).reduce((h, [k, v]) => {
-          if (v instanceof Props.Prop) {
+          if (v instanceof Props.Prop && v.config.component) {
             h[k] = v
           }
           return h
