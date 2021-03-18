@@ -45,7 +45,7 @@ export default {
           'el-form-item',
           {
             // TODO refactor
-            key: selected.uuid + '_' + String(Math.random()).slice(-6),
+            key: selected.uuid + '_' + selectedOutline._uid,
             props: {
               label: config.label,
               required: config.required,
