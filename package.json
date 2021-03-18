@@ -1,15 +1,46 @@
 {
-  "name": "lego-fe",
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": "git@gitlab.baixing.cn:xielizhen/lego-fe.git",
-  "author": "xielizhen <xielizhen@baxing.com>",
-  "license": "MIT",
+  "name": "app",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "init": "yarn install && node scripts/init.js",
-    "start": "node scripts/start.js"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "chalk": "^4.1.0"
+    "core-js": "^3.6.5",
+    "element-ui": "^2.15.1",
+    "lodash.clonedeep": "^4.5.0",
+    "lodash.debounce": "^4.0.8",
+    "register-service-worker": "^1.7.1",
+    "reset-css": "^5.0.1",
+    "vue": "^2.6.11",
+    "vue-fragment": "^1.5.2",
+    "vue-router": "^3.2.0",
+    "vuex": "^3.4.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^4.5.0",
+    "@vue/cli-plugin-eslint": "^4.5.0",
+    "@vue/cli-plugin-pwa": "^4.5.0",
+    "@vue/cli-plugin-router": "^4.5.0",
+    "@vue/cli-plugin-vuex": "^4.5.0",
+    "@vue/cli-service": "^4.5.0",
+    "@vue/eslint-config-standard": "^5.1.2",
+    "babel-eslint": "^10.1.0",
+    "babel-plugin-component": "^1.1.1",
+    "eslint": "^6.7.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "eslint-plugin-vue": "^6.2.2",
+    "lint-staged": "^10.5.4",
+    "sass-loader": "^8.0.2",
+    "node-sass": "4.14.1",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "lint-staged": {
+    "*.{js,vue}": "eslint"
   }
 }
