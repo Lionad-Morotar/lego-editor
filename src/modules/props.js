@@ -1,5 +1,5 @@
 // TODO refactor with webpack.resolver
 
-import Props from '../pages/editor/forms/props'
+import Props from '@/forms/props'
 
 export default Props

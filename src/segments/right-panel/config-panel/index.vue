@@ -23,7 +23,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import Props from 'editor/forms/props'
+import Props from '@/forms/props'
 export default {
   components: {
     ConfigItem: {

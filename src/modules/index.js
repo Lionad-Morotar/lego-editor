@@ -9,7 +9,7 @@ import Procedure from './procedure'
 import ProcedureSubOutline from './procedure-sub-outline'
 
 // todo doc
-// 如果约定有更改，需要同步修改 editor/utils/convention 中的约定校验函数
+// 如果约定有更改，需要同步修改 @/utils/convention 中的约定校验函数
 
 const baseType = ModuleTypeEnums.BASE
 

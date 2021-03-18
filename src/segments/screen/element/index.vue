@@ -1,6 +1,6 @@
 <script>
 import clone from 'lodash.clonedeep'
-import Module from 'editor/models/module'
+import Module from '@/models/module'
 import Outline from './outline'
 import ClickCapture from './click-capture'
 

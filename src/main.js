@@ -5,7 +5,7 @@ import Fragment from 'vue-fragment'
 import 'reset-css'
 import 'element-ui/lib/theme-chalk/index.css'
 
-import Editor from './Editor.vue'
+import Editor from './index.vue'
 import DefaultModule from '@/modules'
 import store from './store'
 import utils from './utils'

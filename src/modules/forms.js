@@ -1,5 +1,5 @@
 // TODO refactor with webpack.resolver
 
-import Forms from '../pages/editor/forms/index'
+import Forms from '@/forms/index'
 
 export default Forms

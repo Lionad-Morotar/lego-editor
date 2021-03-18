@@ -71,8 +71,8 @@ export default {
       label: '自定义编辑面板',
       default: 0,
       // 相关自定义编辑面板的约定请看表单 Readme 及示例文件
-      // @see '@/pages/editor/forms/readme'
-      // @see '@/pages/editor/forms/components/example'
+      // @see '@/forms/readme'
+      // @see '@/forms/components/example'
       component: ConfigNumberWithCustomPanel
     }),
 
