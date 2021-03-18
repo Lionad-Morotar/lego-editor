@@ -38,8 +38,8 @@ export default {
     this.modules.length = 0
     setTimeout(() => {
       this.ADD_MODULE({
-        inits: this.plugins.find(x => x.title === '流程模块')
-        // inits: this.plugins.find(x => x.title === '对比模块')
+        inits: this.plugins.find(x => x.title === '对比模块')
+        // inits: this.plugins.find(x => x.title === '流程模块')
       })
     }, 200)
 

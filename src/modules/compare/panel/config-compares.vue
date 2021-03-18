@@ -7,6 +7,7 @@
       <styled-text v-model="compare.left.description" />
       <div class="label">左侧图片</div>
       <styled-image v-model="compare.left.url" />
+      <hr />
       <div class="label">右侧标题</div>
       <base-text v-model="compare.right.title" />
       <div class="label">右侧描述</div>
@@ -20,7 +21,6 @@
 <script>
 import Forms from '../../forms'
 export default {
-  name: 'compare',
   props: ['value', 'props'],
   data () {
     return {
@@ -42,5 +42,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped></style>

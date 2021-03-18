@@ -19,7 +19,6 @@ import ConfigProcedure from './panel/config-procedure'
 export default {
   props: {
     idx: Props.pass(),
-    procedures: Props.pass(),
     procedure: Props.pass({
       component: ConfigProcedure,
       bindProps (props) {

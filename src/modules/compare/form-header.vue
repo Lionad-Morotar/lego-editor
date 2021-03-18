@@ -52,14 +52,12 @@ h4 {
   display: block;
 }
 h3 {
-  padding-top: 20px;
   font-size: 28px;
   color: #5200d1;
   letter-spacing: 2px;
 }
 h4 {
   padding-top: 15px;
-  padding-bottom: 10px;
   font-size: 14px;
   color: #888;
   letter-spacing: 0.5px;

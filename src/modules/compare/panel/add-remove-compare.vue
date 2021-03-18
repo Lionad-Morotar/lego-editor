@@ -22,12 +22,11 @@
 <script>
 import Props from '../../props'
 export default {
-  name: 'compare',
   props: ['value', 'props'],
   data () {
     return {
       v: this.value,
-      min: 0,
+      min: 1,
       max: 10
     }
   },
