@@ -173,10 +173,19 @@ const Props = {
   custom (config) {
     return new Prop(
       {
-        type: config.type || [String, Number, Object, Array]
+        type: config?.type || [String, Number, Object, Array, Function] // remove ?
       },
       config
     )
+  },
+
+  // 使用 Pass 标记该 Props 是父组件传递过来的而非依赖项
+  pass (config) {
+    return new Prop({}, {
+      ...config,
+      component: config?.component,
+      pass: true
+    })
   }
 
   // 用于分发数组依赖项或对象依赖项的一部分
@@ -214,7 +223,7 @@ function genVueProps (propsInstance = {}) {
 
 /* 配置实例 */
 // TODO key configurable
-function Prop (base, config) {
+function Prop (base, config = {}) {
   const { _valueKey: k } = base
   const prop = Object.assign(
     Object.create(Prop.prototype),

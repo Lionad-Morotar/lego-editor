@@ -14,11 +14,18 @@
 </template>
 
 <script>
-/* eslint-disable */
-// TODO  48:20  error  Strings must use singlequote  quotes
 import Props from '@/modules/props'
 import ConfigProcedure from './panel/config-procedure'
 export default {
-  props: ['idx', 'procedures', 'procedure']
+  props: {
+    idx: Props.pass(),
+    procedures: Props.pass(),
+    procedure: Props.pass({
+      component: ConfigProcedure,
+      bindProps (props) {
+        return props.procedures[this.idx]
+      }
+    })
+  }
 }
 </script>

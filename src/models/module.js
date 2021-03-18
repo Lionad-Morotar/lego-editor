@@ -128,8 +128,13 @@ Module.propsMap = {}
 Module.gatherProps = function (name, component) {
   function getValidProps (props, baseProps = {}) {
     return Object.entries(props || {}).reduce((h, [k, v]) => {
+      const isPassValue = v.config?.pass
       if (v instanceof Props.Prop) {
-        h[k] = v
+        if (isPassValue) {
+          h[k] = h[k] || baseProps[k] || v
+        } else {
+          h[k] = v
+        }
       }
       return h
     }, baseProps)
@@ -139,7 +144,7 @@ Module.gatherProps = function (name, component) {
     return Object.entries(cmpts).reduce((h, [, v]) => {
       h = {
         ...h,
-        ...getValidProps(v.props),
+        ...getValidProps(v.props, h),
         ...(cmpts.components
           ? getComponentAndChildrenProps(cmpts.components)
           : {})
@@ -161,9 +166,11 @@ Module.prototype.initProps = function () {
   const injectedMetaProps = {
     [META_KEY]: this.getMetaData()
   }
-
   return Object.entries(propsConfig).reduce((h, [k, v]) => {
-    h[k] = Props.genDefaults(v)
+    const isPassValue = v.config?.pass
+    if (!isPassValue) {
+      h[k] = Props.genDefaults(v)
+    }
     return h
   }, injectedMetaProps)
 }

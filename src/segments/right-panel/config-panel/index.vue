@@ -12,6 +12,7 @@
               :name="name"
               :config="item.config"
               :selected="selected"
+              :selectedOutline="selectedOutline"
               :key="name"
             />
           </template>
@@ -27,13 +28,24 @@ import Props from '@/forms/props'
 export default {
   components: {
     ConfigItem: {
-      props: ['name', 'config', 'selected'],
+      // TODO refactor
+      props: ['name', 'config', 'selected', 'selectedOutline'],
       render (h) {
-        const { name, config, selected } = this.$props
+        const { name, config, selected, selectedOutline } = this.$props
+
+        /* 获取动态表单 v-model 绑定的值 */
+        const usePassValue = config.pass
+        const value = selected.props[name]
+        const $child = selectedOutline.$children[0].$children[0]
+        const getPassValue = () => config.bindProps
+          ? config.bindProps.bind($child)({ ...selected.props })
+          : $child.props[name]
+
         return h(
           'el-form-item',
           {
-            // key: selected.uuid + '_' + name,
+            // TODO refactor
+            key: selected.uuid + '_' + String(Math.random()).slice(-6),
             props: {
               label: config.label,
               required: config.required,
@@ -45,14 +57,14 @@ export default {
             h(config.component, {
               props: {
                 ...config,
-                value: selected.props[name],
+                value: usePassValue ? getPassValue() : value,
                 props: selected.props
               },
               attrs: {
                 ...config
               },
               on: {
-                change: newVal => selected.setProp(name, newVal)
+                change: newVal => !config.bindProps && selected.setProp(name, newVal)
               }
             })
           ]
@@ -66,8 +78,6 @@ export default {
       selectedOutline: state => state.selectedOutline
     }),
     config () {
-      // const triggerCollect = () => this.selected.props
-      // triggerCollect()
       return this.selectedOutline?.props || {}
     },
     configEntries () {

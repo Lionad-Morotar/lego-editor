@@ -58,7 +58,7 @@ export const installElement = (newModule, config = {}) => {
       return h(ScreenElement, {
         props: {
           component: newModule.component,
-          // todo refactor
+          // 模块本身的高亮选框不需要触发防点击
           captureClick: false,
           outline
         }

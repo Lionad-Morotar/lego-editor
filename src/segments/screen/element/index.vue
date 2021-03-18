@@ -26,6 +26,7 @@ export default {
     receivedUpdate () {
       return this.curModel?.props
     },
+    // TODO 解耦
     propsWithDefaultValue () {
       if (!this.receivedUpdate) return {}
 
