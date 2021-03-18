@@ -5,3 +5,4 @@
 * 所有“约定”应该出文档
 * Props 某些属性不应该透传（enumerable）
 * functional components
+* 删除所有校验相关内容
