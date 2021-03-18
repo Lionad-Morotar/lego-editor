@@ -1,14 +1,14 @@
 <template>
-  <div>
-    <div v-for="(procedure, idx) in v" :key="idx+procedure.title">
+  <fragment>
+    <div v-for="idx in props.counts" :key="idx">
       <div class="label">流程名称</div>
-      <base-text v-model="procedure.title" />
+      <base-text v-model="v[idx - 1].title" />
       <div class="label">流程内容</div>
-      <base-text v-model="procedure.content" />
+      <base-text v-model="v[idx - 1].content" />
       <div class="label">流程图片</div>
-      <base-text v-model="procedure.image" />
+      <base-text v-model="v[idx - 1].image" />
     </div>
-  </div>
+  </fragment>
 </template>
 
 <script>
@@ -33,5 +33,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped></style>

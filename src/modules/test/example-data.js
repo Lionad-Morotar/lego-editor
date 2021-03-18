@@ -6,7 +6,6 @@ export default [
       description: '流程模块测试',
       name: 'lego-procedure'
     },
-    counts: 4,
     title: '- 黄金回收 -',
     subTitle: '累计成交150万+件，是您最好的选择',
     procedures: [

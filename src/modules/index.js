@@ -6,7 +6,6 @@ import BaseText from './base-text'
 import BaseImage from './base-image'
 import Compare from './compare'
 import Procedure from './procedure'
-import ProcedureSubOutline from './procedure-sub-outline'
 
 // todo doc
 // 如果约定有更改，需要同步修改 @/utils/convention 中的约定校验函数
@@ -37,15 +36,6 @@ export default {
         description: '流程模块测试',
         name: Procedure.name,
         component: Procedure,
-        cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/procedure-1.png',
-        categories: ['流程模块']
-      },
-      // ! TODO WIP Warning
-      {
-        title: '流程模块-测试选中子项流程高亮',
-        description: '流程模块-测试选中子项流程高亮',
-        name: ProcedureSubOutline.name,
-        component: ProcedureSubOutline,
         cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/procedure-1.png',
         categories: ['流程模块']
       },
