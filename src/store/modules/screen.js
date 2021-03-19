@@ -7,8 +7,11 @@ const state = {
 }
 
 const mutations = {
-  ADD_MODULE (state, module) {
-    state.modules.push(module)
+  ADD_MODULE (state, { instance, idx }) {
+    state.modules.splice(idx, 0, instance)
+  },
+  UPDATE_MODULES (state, newList) {
+    state.modules = newList
   },
   SELECT_MODULE (state, module) {
     state.selected = module
@@ -47,9 +50,13 @@ const mutations = {
 const getters = {}
 
 const actions = {
-  ADD_MODULE ({ commit }, { inits, initialData = {} }) {
+  ADD_MODULE ({ commit, state }, { inits, initialData = {}, index }) {
     const instance = new Module(inits, initialData)
-    commit('ADD_MODULE', instance)
+    const idx = index == null ? state.modules.length : index
+    commit('ADD_MODULE', { instance, idx })
+  },
+  UPDATE_MODULES ({ commit }, newList) {
+    commit('UPDATE_MODULES', newList)
   },
   SELECT_MODULE ({ commit }, module) {
     commit('SELECT_MODULE', module)

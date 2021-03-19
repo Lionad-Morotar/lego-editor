@@ -20,9 +20,18 @@
     </div>
     <div class="content">
       <div class="module-cards-con">
-        <template v-for="m in selectedModulesByCategories">
-          <module-card :inits="m" :key="m.name" />
-        </template>
+        <!-- TODO 优化落点范围 -->
+        <draggable
+          :group="{ name: 'installed-moudle', pull: 'clone', put: false }"
+          :list="selectedModulesByCategories"
+          :move="dragMove"
+          @end="dragEnd">
+          <module-card
+            v-for="m in selectedModulesByCategories"
+            :inits="m"
+            :key="m.name"
+          />
+        </draggable>
       </div>
     </div>
   </div>
@@ -30,10 +39,12 @@
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex'
+import Draggable from 'vuedraggable'
 import ModuleCard from './module-card'
 export default {
   name: 'modules-block',
   components: {
+    Draggable,
     ModuleCard
   },
   computed: {
@@ -51,8 +62,20 @@ export default {
     ...mapActions('editor', [
       'SELECT_MODULE_CATEGORY'
     ]),
+    ...mapActions('screen', [
+      'ADD_MODULE'
+    ]),
     selectCate (newCate) {
       this.SELECT_MODULE_CATEGORY(newCate)
+    },
+    dragMove (e) {
+      return [...e.related.classList].includes('module-block')
+    },
+    dragEnd (e) {
+      this.ADD_MODULE({
+        inits: e.item.__vue__.inits,
+        index: e.newIndex
+      })
     }
   }
 }
@@ -117,5 +140,8 @@ export default {
     height: 100%;
     overflow: hidden scroll;
   }
+}
+.ghost {
+  color: #0058fe;
 }
 </style>

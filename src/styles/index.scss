@@ -48,6 +48,12 @@
   }
 }
 
+/* Draggable */
+
+.flip-list-move {
+  transition: transform .25s;
+}
+
 /***************** 通用样式 *****************/
 .el-button {
   border: none;

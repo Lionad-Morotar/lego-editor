@@ -23,6 +23,40 @@ export default {
         cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/pic.png',
         categories: [baseType, '文字模块']
       },
+      /* 勿删 用来测试拖拽的组件 Start */
+      {
+        title: '基础文本-1',
+        description: '基础文本测试-1',
+        name: 'test-1',
+        component: BaseText,
+        cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/pic.png',
+        categories: [baseType, '文字模块']
+      },
+      {
+        title: '基础图片-2',
+        description: '基础图片测试-2',
+        name: 'test-2',
+        component: BaseImage,
+        cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/pic.png',
+        categories: [baseType, '文字模块']
+      },
+      {
+        title: '基础文本-3',
+        description: '基础文本测试-3',
+        name: 'test-3',
+        component: BaseText,
+        cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/pic.png',
+        categories: [baseType, '文字模块']
+      },
+      {
+        title: '基础图片-4',
+        description: '基础图片测试-4',
+        name: 'test-4',
+        component: BaseImage,
+        cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/pic.png',
+        categories: [baseType, '文字模块']
+      },
+      /* 勿删 用来测试拖拽的组件 End */
       {
         title: '基础图片',
         description: '基础图片测试',

@@ -1,27 +1,34 @@
 <template>
   <div class="screen" @click="unselectedModule">
     <div class="page">
-      <template v-for="m in modules">
-        <div
-          class="module-block"
-          :class="selected === m ? 'selected' : ''"
-          :key="m.uuid"
-          @click.stop="selectModule(m)">
-          <!-- 每个模块都附带一左一右两个 padding block，将剩余的空间填充满 -->
-          <div class="padding left" @click="selectTopElement(m)" />
-          <instance :module="m" :bindModule="true" />
-          <div class="padding right" @click="selectTopElement(m)" />
-        </div>
-      </template>
+      <draggable
+        v-bind="dragOptions"
+        v-model="draggableModules">
+        <transition-group type="transition" :name="'flip-list'">
+          <div
+            v-for="m in modules"
+            class="module-block"
+            :class="selected === m ? 'selected' : ''"
+            :key="m.uuid"
+            @click.stop="selectModule(m)">
+              <!-- 每个模块都附带一左一右两个 padding block，将剩余的空间填充满 -->
+              <div class="padding left" @click="selectTopElement(m)" />
+              <instance :module="m" :bindModule="true" />
+              <div class="padding right" @click="selectTopElement(m)" />
+          </div>
+        </transition-group>
+      </draggable>
     </div>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import Draggable from 'vuedraggable'
 import Instance from './instance'
 export default {
   components: {
+    Draggable,
     Instance
   },
   computed: {
@@ -32,7 +39,22 @@ export default {
       modules: state => state.modules,
       selected: state => state.selected,
       selectedOutline: state => state.selectedOutline
-    })
+    }),
+    draggableModules: {
+      get () {
+        return this.modules
+      },
+      set (newVal) {
+        this.UPDATE_MODULES(newVal)
+      }
+    },
+    dragOptions () {
+      return {
+        animation: 250,
+        group: 'installed-moudle',
+        ghostClass: 'ghost'
+      }
+    }
   },
   created () {
     this.modules.length = 0
@@ -55,7 +77,8 @@ export default {
       'ADD_MODULE',
       'SELECT_MODULE',
       'SELECT_OUTLINE',
-      'UNSELECTED'
+      'UNSELECTED',
+      'UPDATE_MODULES'
     ]),
     // 点击 PaddingBox 时高亮最外层 Outline
     selectTopElement (targetModule) {
@@ -126,5 +149,10 @@ export default {
     flex-shrink: 0;
     width: 375px;
   }
+}
+.ghost {
+  outline: dashed 3px #0058ff;
+  opacity: .68;
+  z-index: 999;
 }
 </style>
