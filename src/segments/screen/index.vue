@@ -12,6 +12,7 @@
             :key="m.uuid"
             @click.stop="selectModule(m)">
               <!-- 每个模块都附带一左一右两个 padding block，将剩余的空间填充满 -->
+              <!-- todo refactor 拖拽的时候会带影子 -->
               <div class="padding left" @click="selectTopElement(m)" />
               <instance :module="m" :bindModule="true" />
               <div class="padding right" @click="selectTopElement(m)" />
@@ -60,7 +61,8 @@ export default {
     this.modules.length = 0
     setTimeout(() => {
       this.ADD_MODULE({
-        inits: this.plugins.find(x => x.title === '对比模块')
+        inits: this.plugins.find(x => x.title === '基础文本')
+        // inits: this.plugins.find(x => x.title === '对比模块')
         // inits: this.plugins.find(x => x.title === '流程模块')
       })
     }, 200)

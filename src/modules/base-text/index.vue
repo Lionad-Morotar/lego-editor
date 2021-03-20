@@ -9,14 +9,8 @@ export default {
   props: {
     text: Props.text({
       label: '文本内容',
-      default: '一行文本',
-      fallback: true,
-      required: true,
-      showWordLimit: true,
-      validator ({ text }) {
-        if (text.length === 0) {
-          return '请填写文本内容'
-        }
+      default: {
+        text: '一行文本'
       }
     })
   },

@@ -13,6 +13,7 @@ const DS = {
   get text () {
     return {
       text: '',
+      color: '#333',
       textAlign: 'left',
       bold: false,
       italic: false,
@@ -35,6 +36,7 @@ const DS = {
  */
 const genStyles = (val = {}) => {
   const {
+    color,
     textAlign,
     bold,
     italic,
@@ -48,6 +50,7 @@ const genStyles = (val = {}) => {
   }
 
   /* text */
+  if (color) res.color = color
   if (textAlign) res.textAlign = textAlign
   if (bold) res.fontWeight = 'bold'
   if (italic) res.fontStyle = 'italic'
