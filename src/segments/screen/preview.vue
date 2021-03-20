@@ -1,8 +1,8 @@
 <template>
   <div class="mask">
     <div class="preview">
-      <template v-for="m in modules">
-        <instance :module="m" :key="m.uuid" />
+      <template v-for="(m, idx) in modules">
+        <instance :module="m" :key="m.uuid" :style="styles[idx]" />
       </template>
     </div>
   </div>
@@ -10,6 +10,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import Props from '@/forms/props'
 import TestData from '@/modules/test/example-data'
 import Instance from './instance'
 export default {
@@ -22,7 +23,10 @@ export default {
     }),
     ...mapState('screen', {
       modules: state => state.modules
-    })
+    }),
+    styles () {
+      return this.modules.map(m => Props.genStyles({ layout: m.props.layout }))
+    }
   },
   mounted () {
     const datas = TestData
@@ -39,6 +43,7 @@ export default {
         throw new Error('[ERR] invalid modules or datas')
       }
     })
+    console.log(datas)
     findInits.map((inits, idx) => {
       this.ADD_MODULE({
         inits,
@@ -82,6 +87,7 @@ export default {
   }
 }
 .preview {
+  position: relative;
   margin: 0 auto;
   width: 375px;
   min-height: 655px;

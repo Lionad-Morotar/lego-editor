@@ -202,3 +202,14 @@ Module.prototype.getMetaData = function () {
     name: this.name
   }
 }
+
+/**
+ * 获取所有保存到数据库的数据
+ * @todo 剔除默认值，减小保存体积
+ */
+Module.prototype.genStore = function () {
+  return {
+    [META_KEY]: this.getMetaData(),
+    ...this.props
+  }
+}

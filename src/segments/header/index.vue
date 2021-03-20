@@ -35,7 +35,7 @@ export default {
       'TOGGLE_ISPREVIEW'
     ]),
     save () {
-      console.log(this.modules.map(x => x.data))
+      console.log(this.modules.map(x => x.genStore()))
     },
     togglePreview () {
       this.TOGGLE_ISPREVIEW()
