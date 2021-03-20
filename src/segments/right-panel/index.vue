@@ -8,10 +8,10 @@
       </div>
       <div class="content">
         <div class="icons-group">
-          <div class="icon" title="上移模块" :class="isFirst && 'disabled'" @click="handleMoveUp">
+          <div class="icon" title="上移模块" :class="disableMoveUp && 'disabled'" @click="handleMoveUp">
             <i class="iconfont icon-arrowup" />
           </div>
-          <div class="icon" title="下移模块" :class="isLast && 'disabled'" @click="handleMoveDown">
+          <div class="icon" title="下移模块" :class="disableMoveDown && 'disabled'" @click="handleMoveDown">
             <i class="iconfont icon-arrowdown" />
           </div>
           <div class="icon" title="复制模块" @click="cloneModule">
@@ -66,11 +66,20 @@ export default {
         this.selected.$outlines[0] === this.selectedOutline
       )
     },
-    isFirst () {
-      return this.selected === this.modules[0]
+    disableMoveUp () {
+      if (!this.selected.layout.auto) {
+        return true
+      } else {
+        return this.selected === this.modules.find(x => x.layout.auto)
+      }
     },
-    isLast () {
-      return this.selected === this.modules[this.modules.length - 1]
+    disableMoveDown () {
+      if (!this.selected.layout.auto) {
+        return true
+      } else {
+        const reversed = [].concat(this.modules).reverse()
+        return this.selected === reversed.find(x => x.layout.auto)
+      }
     }
   },
   watch: {
