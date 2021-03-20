@@ -64,7 +64,9 @@ export default {
     setTimeout(() => {
       this.ADD_MODULE({
         inits: this.plugins.find(x => x.title === '基础文本')
-        // inits: this.plugins.find(x => x.title === '对比模块')
+      })
+      this.ADD_MODULE({
+        inits: this.plugins.find(x => x.title === '文本区域')
         // inits: this.plugins.find(x => x.title === '流程模块')
       })
     }, 200)

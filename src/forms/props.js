@@ -14,6 +14,8 @@ const DS = {
     return {
       text: '',
       fontSize: 14,
+      lineHeight: 1,
+      letterSpacing: 0,
       color: '#333',
       textAlign: 'left',
       bold: false,
@@ -38,6 +40,8 @@ const DS = {
 const genStyles = (val = {}) => {
   const {
     fontSize,
+    lineHeight,
+    letterSpacing,
     color,
     textAlign,
     bold,
@@ -53,6 +57,8 @@ const genStyles = (val = {}) => {
 
   /* text */
   if (fontSize) res.fontSize = fontSize + 'px'
+  if (lineHeight) res.lineHeight = lineHeight
+  if (letterSpacing) res.letterSpacing = letterSpacing + 'px'
   if (color) res.color = color
   if (textAlign) res.textAlign = textAlign
   if (bold) res.fontWeight = 'bold'
@@ -152,6 +158,12 @@ const Props = {
       },
       config
     )
+  },
+  textarea (config) {
+    return Props.text({
+      component: QuickForm.StyledTextarea,
+      ...config
+    })
   },
 
   // 图片链接，可设置图片缩放、对齐等样式

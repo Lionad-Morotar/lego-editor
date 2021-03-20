@@ -3,6 +3,7 @@ import clone from 'lodash.clonedeep'
 import { ModuleTypeEnums } from '@/constant'
 import Example from './example'
 import BaseText from './base-text'
+import BaseTextarea from './base-textarea'
 import BaseImage from './base-image'
 import Compare from './compare'
 import Procedure from './procedure'
@@ -17,46 +18,20 @@ export default {
     const moduleList = [
       {
         title: '基础文本',
-        description: '基础文本测试',
+        description: '文本组件，可以调节字体大小，颜色等样式',
         name: BaseText.name,
         component: BaseText,
-        cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/pic.png',
-        categories: [baseType, '文字模块']
-      },
-      /* 勿删 用来测试拖拽的组件 Start */
-      {
-        title: '基础文本-1',
-        description: '基础文本测试-1',
-        name: 'test-1',
-        component: BaseText,
-        cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/pic.png',
+        cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/preview-basic-text.png',
         categories: [baseType, '文字模块']
       },
       {
-        title: '基础图片-2',
-        description: '基础图片测试-2',
-        name: 'test-2',
-        component: BaseImage,
-        cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/pic.png',
+        title: '文本区域',
+        description: '文本区域，可看作可以换行的文本组件',
+        name: BaseTextarea.name,
+        component: BaseTextarea,
+        cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/preview-basic-textarea.png',
         categories: [baseType, '文字模块']
       },
-      {
-        title: '基础文本-3',
-        description: '基础文本测试-3',
-        name: 'test-3',
-        component: BaseText,
-        cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/pic.png',
-        categories: [baseType, '文字模块']
-      },
-      {
-        title: '基础图片-4',
-        description: '基础图片测试-4',
-        name: 'test-4',
-        component: BaseImage,
-        cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/pic.png',
-        categories: [baseType, '文字模块']
-      },
-      /* 勿删 用来测试拖拽的组件 End */
       {
         title: '基础图片',
         description: '基础图片测试',

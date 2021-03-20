@@ -11,7 +11,9 @@ export default {
       label: '文本内容',
       default: {
         text: '文本内容',
-        fontSize: 18,
+        fontSize: 20,
+        bold: true,
+        lineHeight: 2,
         textAlign: 'center'
       }
     })
@@ -26,7 +28,6 @@ export default {
 
 <style lang="scss" scoped>
 .lego-text {
-  word-break: break-all;
-  white-space: break-spaces;
+  white-space: nowrap;
 }
 </style>

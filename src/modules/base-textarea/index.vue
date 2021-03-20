@@ -1,0 +1,33 @@
+<template>
+  <div class="lego-textarea" :style="styles">{{ text.text }}</div>
+</template>
+
+<script>
+import Props from '../props'
+export default {
+  name: 'lego-textarea',
+  props: {
+    text: Props.textarea({
+      label: '文本内容',
+      default: {
+        text: 'Officia fugiat cillum officia ullamco voluptate tempor pariatur irure cupidatat nisi incididunt proident irure. Voluptate cillum ullamco ea occaecat veniam ullamco reprehenderit labore adipisicing sint ea.',
+        fontSize: 12,
+        lineHeight: 1.6,
+        color: '#666'
+      }
+    })
+  },
+  computed: {
+    styles () {
+      return Props.genStyles(this.text)
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.lego-textarea {
+  word-break: break-all;
+  white-space: break-spaces;
+}
+</style>
