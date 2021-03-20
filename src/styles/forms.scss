@@ -1,0 +1,77 @@
+.config-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1em;
+  position: relative;
+  min-height: 48px;
+  padding: 0 10px;
+  border: solid 1px #eee;
+  background: #f6f6f6;
+
+  & + & {
+    margin-top: 16px;
+  }
+
+  .config-item-header {
+    height: auto;
+    flex-shrink: 0;
+  }
+  .config-item-content {
+    display: flex;
+    justify-content: flex-end;
+    flex: 1;
+
+    .el-input,
+    .el-input-number {
+      max-width: 200px;
+      height: 34px;
+      line-height: 34px;
+      background: white;
+
+      .el-input__inner {
+        height: 34px;
+        line-height: 34px;
+      }
+      .el-input-number__increase,
+      .el-input-number__decrease {
+        width: 30px;
+        height: 50%;
+        border-radius: 0;
+      }
+    }
+    .el-textarea {
+      textarea {
+        margin-left: -10px;
+        padding: 10px;
+        width: calc(100% + 20px);
+        border: 0px;
+        padding: 0px;
+        background: white;
+        min-height: 21px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+      }
+    }
+    .el-slider {
+      width: 200px;
+    }
+  }
+}
+.vc-chrome {
+  box-shadow: 0 4px 6px 0 rgb(240,240,240);
+  border: solid 1px #e6e8eb;
+  border-radius: 1px;
+
+  .vc-chrome-saturation-wrap {
+    border-radius: 0;
+  }
+}
+.color-picker-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}

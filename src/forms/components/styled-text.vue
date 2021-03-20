@@ -1,11 +1,13 @@
 <template>
   <div>
-    <div class="config-item">
-      <div class="config-item-header">内容</div>
-      <div class="config-item-content">
-        <el-input v-model="v.text" />
+    <slot name="text">
+      <div class="config-item">
+        <div class="config-item-header">内容</div>
+        <div class="config-item-content">
+          <el-input v-model="v.text" spellcheck="false" />
+        </div>
       </div>
-    </div>
+    </slot>
 
     <div class="config-item">
       <div class="config-item-header">字体大小</div>
@@ -15,7 +17,37 @@
     </div>
 
     <div class="config-item">
-      <div class="config-item-header">文本样式</div>
+      <div class="config-item-header">字距</div>
+      <div class="config-item-content">
+        <el-slider
+          class="letter-spacing-slider"
+          v-model="v.letterSpacing"
+          :show-tooltip="false"
+          :min="-3"
+          :max="3"
+          :step="0.1"
+        />
+        <span class="letter-spacing-slider-des">{{v.letterSpacing}}</span>
+      </div>
+    </div>
+
+    <div class="config-item">
+      <div class="config-item-header">行高</div>
+      <div class="config-item-content">
+        <el-slider
+          class="line-height-slider"
+          v-model="v.lineHeight"
+          :show-tooltip="false"
+          :min="1"
+          :max="3"
+          :step="0.1"
+        />
+        <span class="line-height-slider-des">{{v.lineHeight}}</span>
+      </div>
+    </div>
+
+    <div class="config-item">
+      <div class="config-item-header">样式</div>
       <div class="config-item-content">
         <div class="icon" title="加粗" @click="v.bold = !v.bold">
           <i class="iconfont icon-bold" :class="when(v.bold)" />
@@ -33,7 +65,7 @@
     </div>
 
     <div class="config-item">
-      <div class="config-item-header">对齐方式</div>
+      <div class="config-item-header">对齐</div>
       <div class="config-item-content">
         <div class="icon" title="左对齐" @click="v.textAlign = 'left'">
           <i class="iconfont icon-align-left" :class="when(v.textAlign === 'left')" />
@@ -48,7 +80,7 @@
     </div>
 
     <div class="config-item">
-      <div class="config-item-header">文本颜色</div>
+      <div class="config-item-header">颜色</div>
       <div class="config-item-content">
         <div class="icon" title="文字颜色" @click="showColor=!showColor">
           <i class="iconfont icon-bg-colors" :style="{ color: v.color }" />
@@ -141,63 +173,14 @@ export default {
     clip-path: polygon(-10% -10%, 110% -10%, 110% 110%, -10% 110%);
   }
 }
-
-.config-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  position: relative;
-  min-height: 48px;
-  padding: 0 10px;
-  border: solid 1px #eee;
-  background: #f6f6f6;
-
-  & + & {
-    margin-top: 16px;
-  }
-
-  .config-item-header {
-    height: auto;
-    flex-shrink: 0;
-  }
-  .config-item-content {
-    display: flex;
-
-    .el-input,
-    .el-input-number {
-      max-width: 200px;
-      height: 34px;
-      line-height: 34px;
-      background: white;
-
-      /deep/ .el-input__inner {
-        height: 34px;
-        line-height: 34px;
-      }
-      /deep/ .el-input-number__increase,
-      /deep/ .el-input-number__decrease {
-        width: 30px;
-        height: 50%;
-        border-radius: 0;
-      }
-    }
-  }
+.el-slider.letter-spacing-slider,
+.el-slider.line-height-slider {
+  width: 170px !important;
 }
-.vc-chrome {
-  box-shadow: 0 4px 6px 0 rgb(240,240,240);
-  border: solid 1px #e6e8eb;
-  border-radius: 1px;
-
-  .vc-chrome-saturation-wrap {
-    border-radius: 0;
-  }
-}
-.color-picker-mask {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+.letter-spacing-slider-des,
+.line-height-slider-des {
+  margin-left: 10px;
+  width: 20px;
+  text-align: right;
 }
 </style>
