@@ -61,37 +61,54 @@ export default {
     height: calc(100% + 2px);
     border: solid 2px transparent;
     z-index: 1;
+    transition: .1s;
     // todo refactor
     pointer-events: none;
 
     .point {
-      display: none;
       position: absolute;
-      width: 16px;
-      height: 16px;
-      border: solid 2px #a1caff;
+      width: 0;
+      height: 0;
+      border: solid 2px transparent;
       border-radius: 50%;
       background: white;
+      transition: .1s ease-out;
 
       &.left {
-        left: -8px;
+        left: 0;
       }
       &.right {
-        right: -8px;
+        right: 0;
       }
       &.top {
-        top: -8px;
+        top: 0;
       }
       &.bottom {
-        bottom: -10px;
+        bottom: 0;
       }
     }
   }
   &.active {
     & > .outline {
       border: solid 2px #a1caff;
+
       .point {
-        display: block;
+        width: 16px;
+        height: 16px;
+        border: solid 2px #a1caff;
+
+        &.left {
+          left: -8px;
+        }
+        &.right {
+          right: -8px;
+        }
+        &.top {
+          top: -8px;
+        }
+        &.bottom {
+          bottom: -10px;
+        }
       }
     }
   }
