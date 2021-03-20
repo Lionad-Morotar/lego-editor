@@ -17,14 +17,12 @@ import Props from '../props'
 import FormHeader from './form-header'
 import Compare from './compare'
 import AddRemoveCompare from './panel/add-remove-compare'
-// import ConfigCompares from './panel/config-compares'
 import { zip } from '../utils'
 export default {
   name: 'lego-compare',
   props: {
     compares: Props.custom({
       type: Array,
-      // component: zip(AddRemoveCompare, ConfigCompares),
       component: zip(AddRemoveCompare),
       default: [
         {

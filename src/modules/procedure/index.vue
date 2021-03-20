@@ -32,22 +32,22 @@ export default {
         {
           title: '流程1',
           content: `24小时上门验货\n专人快速鉴定`,
-          image: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/procedure-1-1.png'
+          image: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/procedure-1-1.png'
         },
         {
           title: '流程2',
           content: `咨询考察签订合同专家\n鉴定团队、交易迅速`,
-          image: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/procedure-1-2.png'
+          image: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/procedure-1-2.png'
         },
         {
           title: '流程3',
           content: `全国品牌连锁店铺\n售后有保障`,
-          image: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/procedure-1-3.png'
+          image: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/procedure-1-3.png'
         },
         {
           title: '流程4',
           content: `咨询考察签订合同\n现场转账，快捷`,
-          image: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/procedure-1-4.png'
+          image: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/procedure-1-4.png'
         }
       ]
     })

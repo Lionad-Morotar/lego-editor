@@ -45,7 +45,7 @@ export default {
         description: '流程模块测试',
         name: Procedure.name,
         component: Procedure,
-        cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/procedure-1.png',
+        cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/preview-procedure.png',
         categories: ['流程模块']
       },
       {
@@ -53,7 +53,7 @@ export default {
         description: '对比模块测试',
         name: Compare.name,
         component: Compare,
-        cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/pic.png',
+        cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/preview-compare.png',
         categories: ['对比模块']
       }
     ]
@@ -63,7 +63,7 @@ export default {
         description: '测试模块',
         name: Example.name,
         component: Example,
-        cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/pic.png',
+        cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/preview-example.png',
         categories: [baseType, '测试示例']
       }
     ]

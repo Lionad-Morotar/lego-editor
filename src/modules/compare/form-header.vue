@@ -14,7 +14,10 @@ export default {
       default: {
         text: '服务优势',
         textAlign: 'center',
-        bold: true
+        bold: true,
+        fontSize: 28,
+        color: '#5200d1',
+        letterSpacing: 2
       },
       fallback: true,
       placeholder: '请填写表单名称',
@@ -26,7 +29,10 @@ export default {
       label: '表单副标题',
       default: {
         text: '浩瀚家装和普通家装的对比',
-        textAlign: 'center'
+        textAlign: 'center',
+        fontSize: 14,
+        color: '#888',
+        letterSpacing: 0.5
       },
       fallback: true,
       placeholder: '请填写表单副标题',
@@ -51,15 +57,7 @@ h3,
 h4 {
   display: block;
 }
-h3 {
-  font-size: 28px;
-  color: #5200d1;
-  letter-spacing: 2px;
-}
 h4 {
   padding-top: 15px;
-  font-size: 14px;
-  color: #888;
-  letter-spacing: 0.5px;
 }
 </style>
