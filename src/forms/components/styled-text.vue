@@ -179,8 +179,9 @@ export default {
 }
 .letter-spacing-slider-des,
 .line-height-slider-des {
-  margin-left: 10px;
+  margin-right: 5px;
   width: 20px;
   text-align: right;
+  font-size: 12px;
 }
 </style>

@@ -1,3 +1,4 @@
+import clonedeep from 'lodash.clonedeep'
 import Props from '@/forms/props'
 
 /**
@@ -12,6 +13,7 @@ import Props from '@/forms/props'
  * }
  */
 const META_KEY = 'meta'
+const LAYOUT_KEY = 'layout'
 
 /**
  * Module 用来承接模块的公用方法和属性
@@ -31,7 +33,7 @@ export default function Module (inits, initialData = {}) {
   const { title, description, name, component } = inits
   // TODO refactor 初始化方法
   const { meta = {}, ...rest } = initialData
-  const hasInitialData = !!meta.title
+  const hasInitialData = !!meta.title || Object.keys(rest).length > 0
 
   // console.log('initialData: ', initialData)
 
@@ -47,19 +49,19 @@ export default function Module (inits, initialData = {}) {
   this.$outlines = []
   this.name = meta.name || name
   this.component = meta.component || component
-  this.props = hasInitialData ? rest : this.initProps()
-  Object.entries(this.props).map(([k, v]) => (this.data[k] = v))
+  this.props = Object.assign(this.initProps(), hasInitialData ? rest : {})
   this.propsConfig = Module.propsMap[this.name]
 
-  Module.instanceList.push(this)
+  /* 布局和渲染相关属性 */
+  this.layout = this.props[LAYOUT_KEY]
 
-  // console.log('initialData: ', this.props)
+  Module.instanceList.push(this)
 }
 
 /* 克隆单个模块 */
 Module.prototype.clone = function () {
   const clonedProps = {
-    ...this.props,
+    ...clonedeep(this.props),
     [META_KEY]: this.getMetaData()
   }
   delete clonedProps.meta.uuid
@@ -174,15 +176,18 @@ Module.prototype.initProps = function () {
   const name = this.component.name
   const propsConfig = Module.propsMap[name]
   const injectedMetaProps = {
-    [META_KEY]: this.getMetaData()
+    [META_KEY]: this.getMetaData(),
+    [LAYOUT_KEY]: { auto: true, top: 0, left: 0, width: 0, height: 0 }
   }
-  return Object.entries(propsConfig).reduce((h, [k, v]) => {
+  const props = Object.entries(propsConfig).reduce((h, [k, v]) => {
     const isPassValue = v.config?.pass
     if (!isPassValue) {
       h[k] = Props.genDefaults(v)
     }
     return h
   }, injectedMetaProps)
+  Object.entries(props).map(([k, v]) => (this.data[k] = v))
+  return props
 }
 
 /***

@@ -3,7 +3,9 @@ import Module from '../../models/module'
 const state = {
   modules: [],
   selected: null,
-  selectedOutline: null
+  selectedOutline: null,
+  // 记录某个模块连续复制了几次（以计算复制后的模块在Y方向上的偏移）
+  cloneCombo: 0
 }
 
 const mutations = {
@@ -58,7 +60,8 @@ const actions = {
   UPDATE_MODULES ({ commit }, newList) {
     commit('UPDATE_MODULES', newList)
   },
-  SELECT_MODULE ({ commit }, module) {
+  SELECT_MODULE ({ commit, state }, module) {
+    state.cloneCombo = 0
     commit('SELECT_MODULE', module)
     commit('SELECT_OUTLINE', module.$outlines[0])
   },
@@ -84,6 +87,9 @@ const actions = {
   CLONE_MODULE ({ commit, state }, module) {
     const targetModule = module || state.selected
     const cloned = targetModule.clone()
+    if (!cloned.props.layout.auto) {
+      cloned.props.layout.top += (++state.cloneCombo * cloned.props.layout.height)
+    }
     const targetIDX = state.modules.findIndex(x => x === targetModule)
     commit('ADD_MODULE', {
       instance: cloned,

@@ -39,6 +39,7 @@ const DS = {
  */
 const genStyles = (val = {}) => {
   const {
+    layout,
     fontSize,
     lineHeight,
     letterSpacing,
@@ -69,6 +70,20 @@ const genStyles = (val = {}) => {
   /* image */
   if (objectFit) res.objectFit = objectFit
   if (objectPosition) res.objectPosition = objectPosition
+
+  /* layout */
+  if (layout) {
+    res.position = layout.auto ? 'relative' : 'absolute'
+    if (!layout.auto) {
+      res.width = layout.width ? (layout.width + 'px') : 'auto'
+      res.height = layout.height ? (layout.height + 'px') : 'auto'
+      const directions = ['top', 'bottom', 'left', 'right']
+      directions.forEach(k => {
+        if (layout[k]) res[k] = layout[k] + 'px'
+      })
+      res.zIndex = 1
+    }
+  }
 
   /* clean useless */
   if (res.textDecoration.length) {
@@ -205,17 +220,6 @@ const Props = {
       pass: true
     })
   }
-
-  // 用于分发数组依赖项或对象依赖项的一部分
-  // part(config) {
-  //   return new Props(
-  //     {
-  //       type: config.type || [String, Number, Object],
-  //       default: null,
-  //     },
-  //     config,
-  //   )
-  // },
 }
 
 /**

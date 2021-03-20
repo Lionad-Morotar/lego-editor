@@ -3,6 +3,7 @@
     class="box-outline"
     :class="isActive ? 'active' : ''"
     @click.stop="selectElement"
+    @mousedown="checkDraggable"
   >
     <slot />
     <div class="outline">
@@ -21,6 +22,14 @@ export default {
   name: 'box-outline',
   inject: ['model'],
   props: ['props'],
+  data () {
+    return {
+      // 记录当前点击周期内是否移动了元素位置
+      moved: false,
+      anchor: { x: 0, y: 0 },
+      oldXY: { x: 0, y: 0 }
+    }
+  },
   computed: {
     ...mapState('screen', {
       selectedOutline: state => state.selectedOutline
@@ -41,8 +50,46 @@ export default {
       'SELECT_OUTLINE'
     ]),
     selectElement () {
-      this.SELECT_MODULE(this.curModel)
-      this.SELECT_OUTLINE(this)
+      if (!this.moved) {
+        this.SELECT_MODULE(this.curModel)
+        this.SELECT_OUTLINE(this)
+      }
+    },
+    // 自由布局的组件拖拽时不使用 vue-draggle 交换位置，
+    // 而是改变 top，left 的值
+    checkDraggable (e) {
+      const draggable = this.curModel.layout.auto
+      if (!draggable) {
+        const target = e.target
+        this.initElementWH(target)
+
+        this.anchor = { x: e.x, y: e.y }
+        this.oldXY = {
+          x: this.curModel.layout.left,
+          y: this.curModel.layout.top
+        }
+        document.body.addEventListener('mousemove', this.calcMove)
+        document.body.addEventListener('mouseup', () => {
+          document.body.removeEventListener('mousemove', this.calcMove)
+          setTimeout(() => {
+            this.moved = false
+          })
+        })
+
+        e.stopPropagation()
+        e.preventDefault()
+      }
+    },
+    initElementWH (target) {
+      this.curModel.layout.width = target.offsetWidth
+      this.curModel.layout.height = target.offsetHeight
+    },
+    calcMove (newPosition) {
+      this.moved = true
+      const offsetX = newPosition.x - this.anchor.x
+      const offsetY = newPosition.y - this.anchor.y
+      this.curModel.layout.top = this.oldXY.y + offsetY
+      this.curModel.layout.left = this.oldXY.x + offsetX
     }
   }
 }
@@ -53,15 +100,22 @@ export default {
   position: relative;
   // display: flex;
 
+  &:hover {
+    .outline {
+      border: solid 1px #a1caff88;
+      transition: none;
+    }
+  }
+
   .outline {
     position: absolute;
     left: -2px;
     top: -2px;
     width: calc(100% + 4px);
     height: calc(100% + 2px);
-    border: solid 2px transparent;
+    border: solid 0 #a1caff;
     z-index: 1;
-    transition: .1s;
+    transition: none;
     // todo refactor
     pointer-events: none;
 
@@ -69,10 +123,12 @@ export default {
       position: absolute;
       width: 0;
       height: 0;
-      border: solid 2px transparent;
+      border: solid 0 #a1caff;
       border-radius: 50%;
       background: white;
       transition: .1s ease-out;
+      // TODO 错开入场和出场动画
+      // transition-delay: .1s;
 
       &.left {
         left: 0;
@@ -91,6 +147,7 @@ export default {
   &.active {
     & > .outline {
       border: solid 2px #a1caff;
+      transition: .1s;
 
       .point {
         width: 16px;

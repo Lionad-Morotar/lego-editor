@@ -8,8 +8,12 @@
           <div
             v-for="m in modules"
             class="module-block"
-            :class="selected === m ? 'selected' : ''"
+            :class="[
+              selected === m ? 'selected' : '',
+              m.layout.auto ? '' : 'free'
+            ]"
             :key="m.uuid"
+            :style="genStyles(m)"
             @click.stop="selectModule(m)">
               <!-- 每个模块都附带一左一右两个 padding block，将剩余的空间填充满 -->
               <!-- todo refactor 拖拽的时候会带影子 -->
@@ -26,6 +30,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import Module from '@/models/module'
+import Props from '@/forms/props'
 import Draggable from 'vuedraggable'
 import Instance from './instance'
 export default {
@@ -67,11 +72,30 @@ export default {
       })
       this.ADD_MODULE({
         inits: this.plugins.find(x => x.title === '文本区域')
-        // inits: this.plugins.find(x => x.title === '流程模块')
+      })
+      this.ADD_MODULE({
+        inits: this.plugins.find(x => x.title === '文本区域')
+      })
+      this.ADD_MODULE({
+        inits: this.plugins.find(x => x.title === '基础文本'),
+        initialData: {
+          layout: {
+            auto: false,
+            left: 100,
+            top: 250
+          },
+          text: Object.assign(Props.text({}).default, {
+            text: '自由布局文本',
+            fontSize: 26,
+            letterSpacing: 3,
+            lineHeight: 1.8,
+            bold: true
+          })
+        }
       })
     }, 200)
 
-    // 测试组件
+    // ! 勿删 测试组件，方便开发环境调试
     // setTimeout(() => {
     //   this.ADD_MODULE({
     //     inits: this.plugins[this.plugins.length - 1]
@@ -96,6 +120,13 @@ export default {
     },
     unselectedModule () {
       this.UNSELECTED()
+    },
+    genStyles (m) {
+      return Object.assign({
+        ...Props.genStyles({ layout: m.layout }),
+        willChange: 'auto',
+        transition: 'none'
+      })
     }
   }
 }
@@ -115,6 +146,7 @@ export default {
   }
 }
 .page {
+  position: relative;
   margin: 0 auto;
   width: 375px;
   min-height: 655px;
@@ -127,9 +159,16 @@ export default {
   display: flex;
   cursor: pointer;
 
+  &.free > .padding {
+    display: none;
+  }
+
   // todo refactor
   & > *:nth-child(2) {
     width: 375px;
+  }
+  &.free > *:nth-child(2) {
+    width: unset;
   }
 
   &.selected {
@@ -156,7 +195,7 @@ export default {
     width: 375px;
   }
 }
-.ghost {
+.ghost:not(.selected) {
   outline: dashed 3px #0058ff;
   opacity: .68;
   z-index: 999;
