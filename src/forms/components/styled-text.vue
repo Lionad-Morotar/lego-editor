@@ -86,7 +86,7 @@
           <i class="iconfont icon-bg-colors" :style="{ color: v.color }" />
         </div>
       </div>
-      <div v-if="showColor" class="color-picker-mask" @click="showColor=false" />
+      <div v-if="showColor" class="color-picker-mask" @click="showColor=false" @mousewheel="showColor=false" />
       <chrome-picker v-model="color" :class="when(showColor)" />
     </div>
   </div>
