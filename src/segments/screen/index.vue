@@ -25,6 +25,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import Module from '@/models/module'
 import Draggable from 'vuedraggable'
 import Instance from './instance'
 export default {
@@ -46,7 +47,8 @@ export default {
         return this.modules
       },
       set (newVal) {
-        this.UPDATE_MODULES(newVal)
+        // 一个临时的解决 newVal 中存在 inits 的方法
+        this.UPDATE_MODULES(newVal.filter(x => x instanceof Module))
       }
     },
     dragOptions () {
