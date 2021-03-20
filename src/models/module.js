@@ -1,5 +1,4 @@
-// TODO refactor with webpack.resolver
-import Props from '../forms/props'
+import Props from '@/forms/props'
 
 /**
  * TYPE
@@ -37,6 +36,7 @@ export default function Module (inits, initialData = {}) {
   // console.log('initialData: ', initialData)
 
   /* 模块属性 */
+  this.inits = inits
   this.uuid = meta.uuid || String(+new Date()) + '_' + String(Math.random()).slice(-6)
   this.title = meta.title || title
   this.description = meta.description || description
@@ -54,6 +54,16 @@ export default function Module (inits, initialData = {}) {
   Module.instanceList.push(this)
 
   // console.log('initialData: ', this.props)
+}
+
+/* 克隆单个模块 */
+Module.prototype.clone = function () {
+  const clonedProps = {
+    ...this.props,
+    [META_KEY]: this.getMetaData()
+  }
+  delete clonedProps.meta.uuid
+  return new Module(this.inits, { ...clonedProps })
 }
 
 /* 保存实例、保存实例与 uuid 的映射关系 */

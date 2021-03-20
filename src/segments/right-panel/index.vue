@@ -7,15 +7,20 @@
         <i class="el-icon el-icon-arrow-down" />
       </div>
       <div class="content">
-        <el-button class="action-button" type="text" :disabled="isFirst" @click="handleMoveUp"
-          >上移模块</el-button
-        >
-        <el-button class="action-button" type="text" :disabled="isLast" @click="handleMoveDown"
-          >下移模块</el-button
-        >
-        <el-button class="action-button" type="text" @click="deleteModule"
-          >删除模块</el-button
-        >
+        <div class="icons-group">
+          <div class="icon" title="上移模块" :class="isFirst && 'disabled'" @click="handleMoveUp">
+            <i class="iconfont icon-arrowup" />
+          </div>
+          <div class="icon" title="下移模块" :class="isLast && 'disabled'" @click="handleMoveDown">
+            <i class="iconfont icon-arrowdown" />
+          </div>
+          <div class="icon" title="复制模块" @click="cloneModule">
+            <i class="iconfont icon-file-copy" />
+          </div>
+          <div class="icon" title="删除模块" @click="deleteModule">
+            <i class="iconfont icon-delete" />
+          </div>
+        </div>
       </div>
     </div>
 
@@ -63,8 +68,14 @@ export default {
     }
   },
   methods: {
-    ...mapActions('screen', ['DELETE_SELECTED_MODULE', 'MOVE_MODULE']),
-    // 删除当前屏幕中选中的模块
+    ...mapActions('screen', [
+      'DELETE_SELECTED_MODULE',
+      'CLONE_MODULE',
+      'MOVE_MODULE'
+    ]),
+    cloneModule () {
+      this.CLONE_MODULE()
+    },
     deleteModule () {
       this.DELETE_SELECTED_MODULE()
     },
@@ -109,31 +120,39 @@ export default {
       flex-direction: column;
       align-items: center;
       padding: 25px 0;
+    }
+  }
+}
+.icons-group {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  height: 48px;
+  background: #f9f9f9;
+  border: solid 1px #eee;
+  border-radius: 3px;
 
-      .action-button {
-        margin: 25px 0 0 0;
-        padding: 0;
-        width: 180px;
-        height: 40px;
-        line-height: 40px;
-        color: #444;
-        border: solid 1px #eee;
-        border-radius: 20px;
-        transition: 0.25s;
-        &:first-child {
-          margin-top: 0;
-        }
-        &:hover {
-          color: #0058ff;
-        }
-        &:active {
-          background: rgba(0, 88, 255, 0.03);
-        }
-        &:disabled {
-          color: #999;
-          pointer-events: none;
-        }
-      }
+  .icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2em;
+    height: 2em;
+    border: solid 1px #eee;
+    border-radius: 50%;
+    background: white;
+    cursor: pointer;
+    transition: .25s;
+
+    &:hover {
+      color: #0058fe;
+    }
+    &.disabled {
+      background: transparent;
+      border-color: transparent;
+      color: #bbb;
+      pointer-events: none;
     }
   }
 }

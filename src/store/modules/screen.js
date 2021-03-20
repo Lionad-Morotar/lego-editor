@@ -81,6 +81,15 @@ const actions = {
       })
     }
   },
+  CLONE_MODULE ({ commit, state }, module) {
+    const targetModule = module || state.selected
+    const cloned = targetModule.clone()
+    const targetIDX = state.modules.findIndex(x => x === targetModule)
+    commit('ADD_MODULE', {
+      instance: cloned,
+      idx: targetIDX + 1
+    })
+  },
   SELECT_OUTLINE ({ commit, state }, target) {
     if (state.selectedOutline !== target) {
       commit('SELECT_OUTLINE', target)
