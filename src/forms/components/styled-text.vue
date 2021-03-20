@@ -3,7 +3,14 @@
     <div class="config-item">
       <div class="config-item-header">内容</div>
       <div class="config-item-content">
-        <el-input class="config-item-input" v-bind="$attrs" v-model="v.text" />
+        <el-input v-model="v.text" />
+      </div>
+    </div>
+
+    <div class="config-item">
+      <div class="config-item-header">字体大小</div>
+      <div class="config-item-content">
+        <el-input-number v-model="v.fontSize" controls-position="right" :min="12" :max="99" />
       </div>
     </div>
 
@@ -156,15 +163,25 @@ export default {
   }
   .config-item-content {
     display: flex;
-  }
-}
-.config-item-input {
-  height: 34px;
-  line-height: 34px;
 
-  /deep/ .el-input__inner {
-    height: 34px;
-    line-height: 34px;
+    .el-input,
+    .el-input-number {
+      max-width: 200px;
+      height: 34px;
+      line-height: 34px;
+      background: white;
+
+      /deep/ .el-input__inner {
+        height: 34px;
+        line-height: 34px;
+      }
+      /deep/ .el-input-number__increase,
+      /deep/ .el-input-number__decrease {
+        width: 30px;
+        height: 50%;
+        border-radius: 0;
+      }
+    }
   }
 }
 .vc-chrome {

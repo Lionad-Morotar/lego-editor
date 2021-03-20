@@ -13,6 +13,7 @@ const DS = {
   get text () {
     return {
       text: '',
+      fontSize: 14,
       color: '#333',
       textAlign: 'left',
       bold: false,
@@ -36,6 +37,7 @@ const DS = {
  */
 const genStyles = (val = {}) => {
   const {
+    fontSize,
     color,
     textAlign,
     bold,
@@ -50,6 +52,7 @@ const genStyles = (val = {}) => {
   }
 
   /* text */
+  if (fontSize) res.fontSize = fontSize + 'px'
   if (color) res.color = color
   if (textAlign) res.textAlign = textAlign
   if (bold) res.fontWeight = 'bold'

@@ -10,7 +10,9 @@ export default {
     text: Props.text({
       label: '文本内容',
       default: {
-        text: '一行文本'
+        text: '文本内容',
+        fontSize: 18,
+        textAlign: 'center'
       }
     })
   },
