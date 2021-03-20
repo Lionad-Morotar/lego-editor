@@ -66,20 +66,15 @@ export default {
         this.selected.$outlines[0] === this.selectedOutline
       )
     },
+    isFreeElement () {
+      return !this.selected.layout.auto
+    },
     disableMoveUp () {
-      if (!this.selected.layout.auto) {
-        return true
-      } else {
-        return this.selected === this.modules.find(x => x.layout.auto)
-      }
+      return this.isFreeElement || this.selected === this.modules.find(x => x.layout.auto)
     },
     disableMoveDown () {
-      if (!this.selected.layout.auto) {
-        return true
-      } else {
-        const reversed = [].concat(this.modules).reverse()
-        return this.selected === reversed.find(x => x.layout.auto)
-      }
+      const reversed = [].concat(this.modules).reverse()
+      return this.isFreeElement || this.selected === reversed.find(x => x.layout.auto)
     }
   },
   watch: {
