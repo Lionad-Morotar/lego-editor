@@ -79,7 +79,9 @@ const genStyles = (val = {}) => {
       res.height = layout.height ? (layout.height + 'px') : 'auto'
       const directions = ['top', 'bottom', 'left', 'right']
       directions.forEach(k => {
-        if (layout[k]) res[k] = layout[k] + 'px'
+        if (layout[k] != null) {
+          res[k] = layout[k] ? (layout[k] + 'px') : 0
+        }
       })
       res.zIndex = 1
     }

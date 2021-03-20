@@ -76,9 +76,15 @@ export default {
   watch: {
     'selected.layout.auto': {
       handler (isAuto) {
-        if (isAuto) {
-          this.selected.layout.top = 0
-          this.selected.layout.left = 0
+        if (isAuto != null && isAuto) {
+          const target = this.selected.$instance.$el
+          const $parent = target.offsetParent
+          if (!this.selected.layout.top) {
+            this.selected.layout.top = $parent.offsetTop
+          }
+          if (!this.selected.layout.left) {
+            this.selected.layout.left = $parent.offsetLeft
+          }
         }
       }
     }

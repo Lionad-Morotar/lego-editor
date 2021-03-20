@@ -156,7 +156,11 @@ export default {
   cursor: pointer;
 
   &.free {
-    transition: none;
+    will-change: auto;
+
+    &[draggable="true"] {
+      transition: none !important;
+    }
     & > .padding {
       display: none;
     }
