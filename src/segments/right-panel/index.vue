@@ -73,6 +73,16 @@ export default {
       return this.selected === this.modules[this.modules.length - 1]
     }
   },
+  watch: {
+    'selected.layout.auto': {
+      handler (isAuto) {
+        if (isAuto) {
+          this.selected.layout.top = 0
+          this.selected.layout.left = 0
+        }
+      }
+    }
+  },
   methods: {
     ...mapActions('screen', [
       'DELETE_SELECTED_MODULE',

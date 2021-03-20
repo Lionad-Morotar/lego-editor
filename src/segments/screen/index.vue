@@ -6,14 +6,14 @@
         v-model="draggableModules">
         <transition-group type="transition" :name="'flip-list'">
           <div
-            v-for="m in modules"
+            v-for="(m, idx) in modules"
             class="module-block"
             :class="[
               selected === m ? 'selected' : '',
               m.layout.auto ? '' : 'free'
             ]"
             :key="m.uuid"
-            :style="genStyles(m)"
+            :style="styles[idx]"
             @click.stop="selectModule(m)">
               <!-- 每个模块都附带一左一右两个 padding block，将剩余的空间填充满 -->
               <!-- todo refactor 拖拽的时候会带影子 -->
@@ -62,6 +62,9 @@ export default {
         group: 'installed-moudle',
         ghostClass: 'ghost'
       }
+    },
+    styles () {
+      return this.modules.map(m => Props.genStyles({ layout: m.layout }))
     }
   },
   created () {
@@ -120,13 +123,6 @@ export default {
     },
     unselectedModule () {
       this.UNSELECTED()
-    },
-    genStyles (m) {
-      return Object.assign({
-        ...Props.genStyles({ layout: m.layout }),
-        willChange: 'auto',
-        transition: 'none'
-      })
     }
   }
 }
@@ -159,8 +155,11 @@ export default {
   display: flex;
   cursor: pointer;
 
-  &.free > .padding {
-    display: none;
+  &.free {
+    transition: none;
+    & > .padding {
+      display: none;
+    }
   }
 
   // todo refactor
