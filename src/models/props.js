@@ -1,4 +1,4 @@
-import QuickForm from './index'
+import QuickForm from '@/forms'
 
 const merge = (...args) => Object.assign(...args)
 

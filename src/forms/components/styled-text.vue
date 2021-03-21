@@ -94,7 +94,7 @@
 
 <script>
 import { Chrome } from 'vue-color'
-import Props from '../props'
+import Props from '@/models/props'
 export default {
   name: 'quick-form-styled-text',
   props: ['value'],

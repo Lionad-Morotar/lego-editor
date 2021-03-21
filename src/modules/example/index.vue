@@ -30,11 +30,9 @@
 </template>
 
 <script>
-/* eslint-disable */
-import Props from '../props'
+import Props from '@/models/props'
 import ConfigNumberWithCustomPanel from './panel/config-number-with-custom-panel'
 import TestComponent from './test-component.vue'
-
 export default {
   name: 'lego-example',
   props: {
@@ -62,7 +60,7 @@ export default {
         text: '这是一行带样式的文本，可以调整加粗、斜体等常见样式',
         bold: true,
         italic: true
-      },
+      }
       // 如果不需要指定默认的样式，也可以这样设置：
       // default: '这是一行简单的文本，点击可查看数据结构'
     }),
@@ -74,7 +72,7 @@ export default {
       // @see '@/forms/readme'
       // @see '@/forms/components/example'
       component: ConfigNumberWithCustomPanel
-    }),
+    })
 
   },
   methods: {

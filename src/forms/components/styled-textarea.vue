@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import Props from '../props'
+import Props from '@/models/props'
 import StyledText from './styled-text'
 export default {
   name: 'quick-form-styled-textarea',

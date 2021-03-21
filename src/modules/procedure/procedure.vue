@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import Props from '@/modules/props'
+import Props from '@/models/props'
 import ConfigProcedure from './panel/config-procedure'
 export default {
   props: {

@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import Forms from '../../forms'
+import Forms from '@/forms'
 export default {
   props: ['value', 'props'],
   data () {

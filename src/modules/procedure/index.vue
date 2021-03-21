@@ -16,12 +16,12 @@
 <script>
 /* eslint-disable */
 // TODO  48:20  error  Strings must use singlequote quotes
-import Props from '../props'
+import Props from '@/models/props'
 import ProcedureHeader from './procedure-header'
 import Procedure from './procedure'
 import ConfigCounts from './panel/config-counts'
 import ConfigProcedures from './panel/config-procedures'
-import { zip } from '../utils'
+import { zip } from '@/modules/utils'
 export default {
   name: 'lego-procedure',
   props: {

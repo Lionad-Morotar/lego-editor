@@ -30,7 +30,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import Module from '@/models/module'
-import Props from '@/forms/props'
+import Props from '@/models/props'
 import Draggable from 'vuedraggable'
 import Instance from './instance'
 export default {

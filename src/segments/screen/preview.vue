@@ -10,7 +10,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import Props from '@/forms/props'
+import Props from '@/models/props'
 import TestData from '@/modules/test/example-data'
 import Instance from './instance'
 export default {

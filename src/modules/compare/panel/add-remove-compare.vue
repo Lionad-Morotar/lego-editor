@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import Props from '../../props'
+import Props from '@/models/props'
 export default {
   props: ['value', 'props'],
   data () {

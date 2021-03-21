@@ -24,7 +24,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import Props from '@/forms/props'
+import Props from '@/models/props'
 export default {
   components: {
     ConfigItem: {

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Module from '@/models/module'
-import Props from '@/forms/props'
+import Props from '@/models/props'
 import ScreenElement from './index.vue'
 
 /**
@@ -10,7 +10,7 @@ export const installElement = (newModule, config = {}) => {
   const {
     // 是否要收集模块的依赖
     gatherProps = false,
-    // 是否需要把 Props 规范（@/forms/props.js）转换成 Vue Props 规范
+    // 是否需要把 Props 规范（@/models/props.js）转换成 Vue Props 规范
     standardizeProp = true,
     // 是否包裹一层高亮选框
     outline = false,

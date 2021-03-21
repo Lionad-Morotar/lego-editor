@@ -17,7 +17,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import Module from '../../../models/module'
+import Module from '@/models/module'
 export default {
   name: 'box-outline',
   inject: ['model'],

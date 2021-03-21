@@ -1,5 +1,5 @@
 import clonedeep from 'lodash.clonedeep'
-import Props from '@/forms/props'
+import Props from '@/models/props'
 
 /**
  * TYPE

@@ -13,11 +13,11 @@
 </template>
 
 <script>
-import Props from '../props'
+import Props from '@/models/props'
 import FormHeader from './form-header'
 import Compare from './compare'
 import AddRemoveCompare from './panel/add-remove-compare'
-import { zip } from '../utils'
+import { zip } from '@/modules/utils'
 export default {
   name: 'lego-compare',
   props: {

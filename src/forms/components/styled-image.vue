@@ -59,7 +59,7 @@
 
 <script>
 import debounce from 'lodash.debounce'
-import Props from '../props'
+import Props from '@/models/props'
 export default {
   name: 'quick-form-styled-image',
   props: ['value'],
