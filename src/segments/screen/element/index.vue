@@ -13,8 +13,10 @@ export default {
     'outline',
     // 是否捕获点击以阻止传播
     'captureClick',
-    // 透传的属性
-    'pass'
+    // 透传给组件属性
+    'pass',
+    // 额外的渲染属性
+    'extras'
   ],
   computed: {
     curModel () {
@@ -63,6 +65,7 @@ export default {
     const cmptWithOutline = !outline
       ? cmptWithCaptureClick
       : h(Outline, {
+        ...this.extras,
         props: {
           props: component.props
         }

@@ -101,7 +101,10 @@ export default {
 <style lang="scss" scoped>
 .box-outline {
   position: relative;
-  // display: flex;
+
+  &.inline {
+    display: inline-block;
+  }
 
   &:hover {
     .outline {

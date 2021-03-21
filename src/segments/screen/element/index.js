@@ -39,7 +39,8 @@ export const installElement = (newModule, config = {}) => {
               pass: { ...this.$attrs },
               component: v,
               captureClick,
-              outline
+              outline,
+              extras: v.inline ? { class: 'inline' } : {}
             }
           })
         }
