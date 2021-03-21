@@ -81,11 +81,16 @@ export default {
       }
     },
     initElementWH (target) {
-      const $parent = target.offsetParent.offsetParent
-      this.curModel.layout.width = target.offsetWidth
-      this.curModel.layout.height = target.offsetHeight
-      this.curModel.layout.top = $parent.offsetTop
-      this.curModel.layout.left = $parent.offsetLeft
+      const isSelectSubOutline = target.__vue__.curModel
+      const $moduleElem = isSelectSubOutline
+        ? target.__vue__.curModel.$instance.$el
+        : target.offsetParent.offsetParent
+      if (!isSelectSubOutline) {
+        this.curModel.layout.width = $moduleElem.offsetWidth
+        this.curModel.layout.height = $moduleElem.offsetHeight
+        this.curModel.layout.top = $moduleElem.offsetTop
+        this.curModel.layout.left = $moduleElem.offsetLeft
+      }
     },
     calcMove (newPosition) {
       this.moved = true
@@ -104,6 +109,7 @@ export default {
 
   &.inline {
     display: inline-block;
+    width: unset;
   }
 
   &:hover {
