@@ -1,6 +1,6 @@
 <template>
   <div>
-    <slot name="text">
+    <slot name="text" v-if="display('text')">
       <div class="config-item">
         <div class="config-item-header">内容</div>
         <div class="config-item-content">
@@ -9,14 +9,14 @@
       </div>
     </slot>
 
-    <div class="config-item">
+    <div class="config-item" v-if="display('fontSize')">
       <div class="config-item-header">字体大小</div>
       <div class="config-item-content">
         <el-input-number v-model="v.fontSize" controls-position="right" :min="12" :max="99" />
       </div>
     </div>
 
-    <div class="config-item">
+    <div class="config-item" v-if="display('letterSpacing')">
       <div class="config-item-header">字距</div>
       <div class="config-item-content">
         <el-slider
@@ -31,7 +31,7 @@
       </div>
     </div>
 
-    <div class="config-item">
+    <div class="config-item" v-if="display('lineHeight')">
       <div class="config-item-header">行高</div>
       <div class="config-item-content">
         <el-slider
@@ -46,7 +46,7 @@
       </div>
     </div>
 
-    <div class="config-item">
+    <div class="config-item" v-if="display('styles')">
       <div class="config-item-header">样式</div>
       <div class="config-item-content">
         <div class="icon" title="加粗" @click="v.bold = !v.bold">
@@ -64,7 +64,7 @@
       </div>
     </div>
 
-    <div class="config-item">
+    <div class="config-item" v-if="display('align')">
       <div class="config-item-header">对齐</div>
       <div class="config-item-content">
         <div class="icon" title="左对齐" @click="v.textAlign = 'left'">
@@ -79,7 +79,7 @@
       </div>
     </div>
 
-    <div class="config-item">
+    <div class="config-item" v-if="display('color')">
       <div class="config-item-header">颜色</div>
       <div class="config-item-content">
         <div class="icon" title="文字颜色" @click="showColor=!showColor">
@@ -97,7 +97,7 @@ import { Chrome } from 'vue-color'
 import Props from '@/models/props'
 export default {
   name: 'quick-form-styled-text',
-  props: ['value'],
+  props: ['value', 'disable'],
   model: {
     prop: 'value',
     event: 'change'
@@ -125,6 +125,9 @@ export default {
   methods: {
     when (valid) {
       return valid ? 'active' : ''
+    },
+    display (key) {
+      return !(this.disable || []).includes(key)
     }
   },
   components: {

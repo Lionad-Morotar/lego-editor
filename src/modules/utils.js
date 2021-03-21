@@ -26,3 +26,16 @@ export function zip (...components) {
     }
   }
 }
+
+/**
+ * 透传参数的高阶组件
+ */
+export function pass (component, passed = {}) {
+  return {
+    functional: true,
+    render (h, context) {
+      const props = { ...context.data.props, ...passed }
+      return h(component, { ...context.data, props })
+    }
+  }
+}
