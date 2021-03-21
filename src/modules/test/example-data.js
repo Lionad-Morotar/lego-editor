@@ -1,17 +1,23 @@
 export default [
   {
     meta: {
-      uuid: '1616260418892_477467',
-      title: '基础文本',
-      description: '文本组件，可以调节字体大小，颜色等样式',
+      uuid: '1616322482279_333949',
+      title: '单行文本',
+      description: '基础单行文本模块，可以调节字体大小，颜色等样式',
       name: 'lego-text'
     },
     layout: {
       auto: true,
+      paddingTop: 0,
+      paddingBottom: 0,
+      paddingLeft: 0,
+      paddingRight: 0,
       top: 0,
       left: 0,
       width: 0,
-      height: 0
+      height: 0,
+      radius: 0,
+      bgColor: ''
     },
     text: {
       text: '文本内容',
@@ -28,17 +34,23 @@ export default [
   },
   {
     meta: {
-      uuid: '1616260418892_156735',
+      uuid: '1616322482279_472097',
       title: '文本区域',
-      description: '文本区域，可看作可以换行的文本组件',
+      description: '基础文本区域',
       name: 'lego-textarea'
     },
     layout: {
       auto: true,
+      paddingTop: 0,
+      paddingBottom: 0,
+      paddingLeft: 0,
+      paddingRight: 0,
       top: 0,
       left: 0,
       width: 0,
-      height: 0
+      height: 0,
+      radius: 0,
+      bgColor: ''
     },
     text: {
       text: 'Officia fugiat cillum officia ullamco voluptate tempor pariatur irure cupidatat nisi incididunt proident irure. Voluptate cillum ullamco ea occaecat veniam ullamco reprehenderit labore adipisicing sint ea.',
@@ -55,24 +67,30 @@ export default [
   },
   {
     meta: {
-      uuid: '1616260418892_182623',
-      title: '文本区域',
-      description: '文本区域，可看作可以换行的文本组件',
-      name: 'lego-textarea'
+      uuid: '1616322482279_104025',
+      title: '按钮模块',
+      description: '基础按钮模块',
+      name: 'lego-button'
     },
     layout: {
-      auto: true,
-      top: 0,
-      left: 0,
-      width: 0,
-      height: 0
+      auto: false,
+      paddingTop: 12,
+      paddingBottom: 12,
+      paddingLeft: 1,
+      paddingRight: 20,
+      top: 18,
+      left: 21,
+      width: 100,
+      height: 0,
+      radius: 30,
+      bgColor: '#DCB8B8FF'
     },
-    text: {
-      text: 'Officia fugiat cillum officia ullamco voluptate tempor pariatur irure cupidatat nisi incididunt proident irure. Voluptate cillum ullamco ea occaecat veniam ullamco reprehenderit labore adipisicing sint ea.',
-      fontSize: 12,
-      lineHeight: 1.6,
+    label: {
+      text: '点击1234',
+      fontSize: 14,
+      lineHeight: 1,
       letterSpacing: 0,
-      color: '#666',
+      color: '#333',
       textAlign: 'left',
       bold: false,
       italic: false,
@@ -82,17 +100,23 @@ export default [
   },
   {
     meta: {
-      uuid: '1616260418893_658098',
-      title: '基础文本',
-      description: '文本组件，可以调节字体大小，颜色等样式',
+      uuid: '1616322482280_237912',
+      title: '单行文本',
+      description: '基础单行文本模块，可以调节字体大小，颜色等样式',
       name: 'lego-text'
     },
     layout: {
       auto: false,
-      left: 340,
-      top: 268,
+      paddingTop: 0,
+      paddingBottom: 0,
+      paddingLeft: 0,
+      paddingRight: 0,
+      top: 35,
+      left: 176,
       width: 174,
-      height: 46
+      height: 0,
+      radius: 0,
+      bgColor: ''
     },
     text: {
       text: '自由布局文本',

@@ -88,13 +88,12 @@ export default {
       this.ADD_MODULE({
         inits: this.plugins.find(x => x.title === '单行文本'),
         initialData: {
-          layout: {
+          layout: Object.assign(Props.DS.layout, {
             auto: false,
             left: 106,
-            // top: 100
             top: 260
-          },
-          text: Object.assign(Props.text({}).default, {
+          }),
+          text: Object.assign(Props.DS.text, {
             text: '自由布局文本',
             fontSize: 26,
             letterSpacing: 3,
