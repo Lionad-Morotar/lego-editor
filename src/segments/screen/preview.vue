@@ -25,7 +25,7 @@ export default {
       modules: state => state.modules
     }),
     styles () {
-      return this.modules.map(m => Props.genStyles({ layout: m.props.layout }))
+      return this.modules.map(m => Props.genStyles(m.props.layout, { onlyTranslate: true }))
     }
   },
   mounted () {

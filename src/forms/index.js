@@ -4,6 +4,7 @@ import BaseNumber from './components/base-number'
 import StyledText from './components/styled-text'
 import StyledTextarea from './components/styled-textarea'
 import StyledImage from './components/styled-image'
+import Layout from './components/layout'
 
 /**
  * 约定
@@ -23,5 +24,6 @@ export default {
   BaseNumber,
   StyledText,
   StyledTextarea,
-  StyledImage
+  StyledImage,
+  Layout
 }

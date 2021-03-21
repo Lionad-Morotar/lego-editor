@@ -64,28 +64,35 @@ export default {
       }
     },
     styles () {
-      return this.modules.map(m => Props.genStyles({ layout: m.layout }))
+      return this.modules.map(m => Props.genStyles(m.layout, { onlyTranslate: true }))
     }
   },
   created () {
     this.modules.length = 0
     setTimeout(() => {
       this.ADD_MODULE({
-        inits: this.plugins.find(x => x.title === '基础文本')
+        inits: this.plugins.find(x => x.title === '单行文本')
       })
       this.ADD_MODULE({
         inits: this.plugins.find(x => x.title === '文本区域')
       })
       this.ADD_MODULE({
-        inits: this.plugins.find(x => x.title === '文本区域')
+        inits: this.plugins.find(x => x.title === '按钮模块')
       })
+      // this.ADD_MODULE({
+      //   inits: this.plugins.find(x => x.title === '流程模块')
+      // })
+      // this.ADD_MODULE({
+      //   inits: this.plugins.find(x => x.title === '对比模块')
+      // })
       this.ADD_MODULE({
-        inits: this.plugins.find(x => x.title === '基础文本'),
+        inits: this.plugins.find(x => x.title === '单行文本'),
         initialData: {
           layout: {
             auto: false,
-            left: 100,
-            top: 250
+            left: 106,
+            // top: 100
+            top: 260
           },
           text: Object.assign(Props.text({}).default, {
             text: '自由布局文本',
@@ -96,6 +103,11 @@ export default {
           })
         }
       })
+      // Array(20).fill('').map(_ => {
+      //   this.ADD_MODULE({
+      //     inits: this.plugins.find(x => x.title === '文本区域')
+      //   })
+      // })
     }, 200)
 
     // ! 勿删 测试组件，方便开发环境调试

@@ -12,8 +12,8 @@ import Props from '@/models/props'
  *  [`META_KEY`]: this.getMetaData()
  * }
  */
-const META_KEY = 'meta'
-const LAYOUT_KEY = 'layout'
+export const META_KEY = 'meta'
+export const LAYOUT_KEY = 'layout'
 
 /**
  * Module 用来承接模块的公用方法和属性
@@ -177,7 +177,7 @@ Module.prototype.initProps = function () {
   const propsConfig = Module.propsMap[name]
   const injectedMetaProps = {
     [META_KEY]: this.getMetaData(),
-    [LAYOUT_KEY]: { auto: true, top: 0, left: 0, width: 0, height: 0 }
+    [LAYOUT_KEY]: Props.layout({}).default
   }
   const props = Object.entries(propsConfig).reduce((h, [k, v]) => {
     const isPassValue = v.config?.pass

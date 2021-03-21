@@ -19,30 +19,34 @@
     <div class="config-item" v-if="display('letterSpacing')">
       <div class="config-item-header">字距</div>
       <div class="config-item-content">
-        <el-slider
-          class="letter-spacing-slider"
-          v-model="v.letterSpacing"
-          :show-tooltip="false"
-          :min="-3"
-          :max="3"
-          :step="0.1"
-        />
-        <span class="letter-spacing-slider-des">{{v.letterSpacing}}</span>
+        <div class="slider-con">
+          <el-slider
+            class="slider"
+            v-model="v.letterSpacing"
+            :show-tooltip="false"
+            :min="-3"
+            :max="3"
+            :step="0.1"
+          />
+          <span class="slider-des">{{v.letterSpacing}}</span>
+        </div>
       </div>
     </div>
 
     <div class="config-item" v-if="display('lineHeight')">
       <div class="config-item-header">行高</div>
       <div class="config-item-content">
-        <el-slider
-          class="line-height-slider"
-          v-model="v.lineHeight"
-          :show-tooltip="false"
-          :min="1"
-          :max="3"
-          :step="0.1"
-        />
-        <span class="line-height-slider-des">{{v.lineHeight}}</span>
+        <div class="slider-con">
+          <el-slider
+            class="slider"
+            v-model="v.lineHeight"
+            :show-tooltip="false"
+            :min="1"
+            :max="3"
+            :step="0.1"
+          />
+          <span class="slider-des">{{v.lineHeight}}</span>
+        </div>
       </div>
     </div>
 
@@ -86,7 +90,7 @@
           <i class="iconfont icon-bg-colors" :style="{ color: v.color }" />
         </div>
       </div>
-      <div v-if="showColor" class="color-picker-mask" @click="showColor=false" @mousewheel="showColor=false" />
+      <div v-if="showColor" class="fullscreen-mask" @click="showColor=false" @mousewheel="showColor=false" />
       <chrome-picker v-model="color" :class="when(showColor)" />
     </div>
   </div>
@@ -175,16 +179,5 @@ export default {
   &.active {
     clip-path: polygon(-10% -10%, 110% -10%, 110% 110%, -10% 110%);
   }
-}
-.el-slider.letter-spacing-slider,
-.el-slider.line-height-slider {
-  width: 170px !important;
-}
-.letter-spacing-slider-des,
-.line-height-slider-des {
-  margin-right: 5px;
-  width: 20px;
-  text-align: right;
-  font-size: 12px;
 }
 </style>

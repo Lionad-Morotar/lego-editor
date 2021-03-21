@@ -1,4 +1,4 @@
-import QuickForm from '@/forms'
+import Forms from '@/forms'
 
 const merge = (...args) => Object.assign(...args)
 
@@ -10,6 +10,21 @@ const merge = (...args) => Object.assign(...args)
  * DS.text === DS.text // 结果为 false
  */
 const DS = {
+  get layout () {
+    return {
+      auto: true,
+      paddingTop: 0,
+      paddingBottom: 0,
+      paddingLeft: 0,
+      paddingRight: 0,
+      top: 0,
+      left: 0,
+      width: 0,
+      height: 0,
+      radius: 0,
+      bgColor: ''
+    }
+  },
   get text () {
     return {
       text: '',
@@ -37,9 +52,25 @@ const DS = {
  * 生成精简的样式对象
  * @todo refactor CSS 多值合并
  */
-const genStyles = (val = {}) => {
+const genStyles = (val = {}, options = {}) => {
   const {
-    layout,
+    onlyTranslate = false,
+    removeTranslate = false
+  } = options
+  const {
+    // layout
+    auto,
+    paddingTop,
+    paddingBottom,
+    paddingLeft,
+    paddingRight,
+    top,
+    left,
+    width,
+    height,
+    radius,
+    bgColor,
+    // text
     fontSize,
     lineHeight,
     letterSpacing,
@@ -49,12 +80,33 @@ const genStyles = (val = {}) => {
     italic,
     underLine,
     strikeThrough,
+    // image
     objectFit,
     objectPosition
   } = val
-  const res = {
+  let res = {
     textDecoration: []
   }
+
+  // console.log(val)
+
+  /* layout */
+  if (auto != null) {
+    res.position = auto ? 'relative' : 'absolute'
+    if (!auto) {
+      res.width = width ? (width + 'px') : 'auto'
+      res.height = height ? (height + 'px') : 'auto'
+      if (top != null) res.top = top ? (top + 'px') : 0
+      if (left != null) res.left = left ? (left + 'px') : 0
+      if (bgColor) res.background = bgColor
+      res.zIndex = 1
+    }
+  }
+  if (paddingTop) res.paddingTop = paddingTop + 'px'
+  if (paddingBottom) res.paddingBottom = paddingBottom + 'px'
+  if (paddingLeft) res.paddingLeft = paddingLeft + 'px'
+  if (paddingRight) res.paddingRight = paddingRight + 'px'
+  if (radius) res.borderRadius = radius + 'px'
 
   /* text */
   if (fontSize) res.fontSize = fontSize + 'px'
@@ -71,27 +123,25 @@ const genStyles = (val = {}) => {
   if (objectFit) res.objectFit = objectFit
   if (objectPosition) res.objectPosition = objectPosition
 
-  /* layout */
-  if (layout) {
-    res.position = layout.auto ? 'relative' : 'absolute'
-    if (!layout.auto) {
-      res.width = layout.width ? (layout.width + 'px') : 'auto'
-      res.height = layout.height ? (layout.height + 'px') : 'auto'
-      const directions = ['top', 'bottom', 'left', 'right']
-      directions.forEach(k => {
-        if (layout[k] != null) {
-          res[k] = layout[k] ? (layout[k] + 'px') : 0
-        }
-      })
-      res.zIndex = 1
-    }
-  }
-
   /* clean useless */
   if (res.textDecoration.length) {
     res.textDecoration = res.textDecoration.join(' ')
   } else {
     delete res.textDecoration
+  }
+  if (onlyTranslate) {
+    res = {
+      position: res.position,
+      width: res.width,
+      height: res.height,
+      top: res.top,
+      left: res.left
+    }
+  }
+  if (removeTranslate) {
+    delete res.position
+    delete res.top
+    delete res.left
   }
 
   return res
@@ -140,7 +190,7 @@ const Props = {
     return new Prop(
       {
         type: String,
-        component: QuickForm.BaseText
+        component: Forms.BaseText
       },
       config
     )
@@ -150,7 +200,7 @@ const Props = {
     return new Prop(
       {
         type: Number,
-        component: QuickForm.BaseNumber
+        component: Forms.BaseNumber
       },
       config
     )
@@ -171,14 +221,14 @@ const Props = {
         type: Object,
         default: defaultVal,
         _valueKey: 'text',
-        component: QuickForm.StyledText
+        component: Forms.StyledText
       },
       config
     )
   },
   textarea (config) {
     return Props.text({
-      component: QuickForm.StyledTextarea,
+      component: Forms.StyledTextarea,
       ...config
     })
   },
@@ -194,7 +244,19 @@ const Props = {
         type: Object,
         default: defaultVal,
         _valueKey: 'url',
-        component: QuickForm.StyledImage
+        component: Forms.StyledImage
+      },
+      config
+    )
+  },
+
+  // 布局属性
+  layout (config) {
+    const defaultVal = merge(DS.layout, config.default)
+    return new Prop(
+      {
+        default: defaultVal,
+        component: Forms.Layout
       },
       config
     )

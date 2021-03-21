@@ -61,7 +61,8 @@ export const installElement = (newModule, config = {}) => {
           component: newModule.component,
           // 模块本身的高亮选框不需要触发防点击
           captureClick: false,
-          outline
+          outline,
+          extras: newModule.component.inline ? { class: 'inline' } : {}
         }
       })
     }

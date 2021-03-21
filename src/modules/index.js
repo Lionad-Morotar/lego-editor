@@ -1,12 +1,13 @@
 import clone from 'lodash.clonedeep'
 
 import { ModuleTypeEnums } from '@/constant'
-/* 基础组件 */
+/* 基础模块 */
 import Example from './example'
 import Text from './text'
 import Textarea from './textarea'
 import Image from './image'
-/* 高级组件 */
+import Button from './button'
+/* 高级模块 */
 import Compare from './compare'
 import Procedure from './procedure'
 
@@ -18,30 +19,40 @@ const baseType = ModuleTypeEnums.BASE
 export default {
   getDefaultModuleList () {
     const moduleList = [
+      /* 基础模块 */
       {
-        title: '基础文本',
-        description: '文本组件，可以调节字体大小，颜色等样式',
+        title: '单行文本',
+        description: '基础单行文本模块，可以调节字体大小，颜色等样式',
         name: Text.name,
         component: Text,
         cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/preview-basic-text.png',
-        categories: [baseType, '文字模块']
+        categories: [baseType, '基础布局']
       },
       {
         title: '文本区域',
-        description: '文本区域，可看作可以换行的文本组件',
+        description: '基础文本区域',
         name: Textarea.name,
         component: Textarea,
         cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/preview-basic-textarea.png',
-        categories: [baseType, '文字模块']
+        categories: [baseType, '基础布局']
       },
       {
-        title: '基础图片',
-        description: '基础图片测试',
+        title: '图片模块',
+        description: '基础图片模块',
         name: Image.name,
         component: Image,
         cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/pic.png',
-        categories: [baseType, '图片模块']
+        categories: [baseType, '基础布局']
       },
+      {
+        title: '按钮模块',
+        description: '基础按钮模块',
+        name: Button.name,
+        component: Button,
+        cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/pic.png',
+        categories: [baseType, '基础布局']
+      },
+      /* 高级模块 */
       {
         title: '流程模块',
         description: '流程模块测试',

@@ -87,7 +87,7 @@ export default {
         : target.offsetParent.offsetParent
       if (!isSelectSubOutline) {
         this.curModel.layout.width = $moduleElem.offsetWidth
-        this.curModel.layout.height = $moduleElem.offsetHeight
+        // this.curModel.layout.height = $moduleElem.offsetHeight
         this.curModel.layout.top = $moduleElem.offsetTop
         this.curModel.layout.left = $moduleElem.offsetLeft
       }
