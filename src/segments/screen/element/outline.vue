@@ -82,8 +82,8 @@ export default {
     },
     initElementWH (target) {
       const $parent = target.offsetParent.offsetParent
-      this.curModel.layout.width = target.offsetWidth
-      this.curModel.layout.height = target.offsetHeight
+      // this.curModel.layout.width = target.offsetWidth
+      // this.curModel.layout.height = target.offsetHeight
       this.curModel.layout.top = $parent.offsetTop
       this.curModel.layout.left = $parent.offsetLeft
     },
