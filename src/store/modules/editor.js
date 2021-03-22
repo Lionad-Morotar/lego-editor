@@ -65,7 +65,7 @@ const actions = {
   CLEAR_MODULE ({ commit }) {
     commit('CLEAR_MODULE')
   },
-  REINSTALL_MODULES ({ commit, state, rootState, dispatch }, payloads) {
+  REINSTALL_MODULES ({ commit, state, rootState, dispatch }, isPreview) {
     // FIXME 非标操作
     rootState.screen.modules.length = 0
     commit('CLEAR_MODULE')
@@ -73,7 +73,7 @@ const actions = {
       modules: {
         moduleList: [...state.moduleSets]
       },
-      ...payloads
+      isPreview
     })
   },
   INSTALL_MODULES ({ commit, state, getters }, { modules = {}, isPreview = false }) {
@@ -82,6 +82,7 @@ const actions = {
       moduleList = []
     } = modules
 
+    console.log('isPreview: ', isPreview)
     const install = isPreview ? installElement : installEditableElement
     const installs = mlist => mlist.map(newModule => {
       if (utils.validInitModuleData(newModule)) {
@@ -105,9 +106,9 @@ const actions = {
   },
   TOGGLE_ISPREVIEW ({ commit, state, dispatch }) {
     const nextPreviewState = !state.isPreview
-    commit('TOGGLE_ISPREVIEW', nextPreviewState)
     // FIXME reinstall 之后，选中示例模块的高亮框示例，右侧动态面板绑定的值失效的问题
     dispatch('REINSTALL_MODULES', nextPreviewState)
+    commit('TOGGLE_ISPREVIEW', nextPreviewState)
   },
   SELECT_MODULE_CATEGORY ({ commit }, value) {
     commit('SELECT_MODULE_CATEGORY', value)
