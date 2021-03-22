@@ -20,10 +20,13 @@
 </template>
 
 <script>
+import clonedeep from 'lodash.clonedeep'
 import { mapState, mapActions } from 'vuex'
+import Module from '@/models/module'
 export default {
   computed: {
     ...mapState('editor', {
+      installedModules: state => state.modules,
       isPreview: state => state.isPreview
     }),
     ...mapState('screen', {
@@ -32,13 +35,32 @@ export default {
   },
   methods: {
     ...mapActions('editor', [
-      'TOGGLE_ISPREVIEW'
+      'TOGGLE_ISPREVIEW',
+      'INSTALL_MODULES',
+      'REINSTALL_MODULES'
+    ]),
+    ...mapActions('screen', [
+      'ADD_MODULE',
+      'CLEAR_MODULES'
     ]),
     save () {
       console.log(this.modules.map(x => x.genStore()))
     },
     togglePreview () {
+      const datas = clonedeep(this.modules.map(x => x.genStore()))
+      Module.clearCache()
+      this.CLEAR_MODULES()
       this.TOGGLE_ISPREVIEW()
+      datas.map((x, idx) => {
+        const target = this.installedModules.find(y => y.name === x.meta.name)
+        if (target) {
+          datas[idx].meta.component = target.component
+          this.ADD_MODULE({
+            inits: target,
+            initialData: x
+          })
+        }
+      })
     }
   }
 }

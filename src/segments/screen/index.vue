@@ -44,6 +44,7 @@ export default {
     }),
     ...mapState('screen', {
       modules: state => state.modules,
+      previewModules: state => state.previewModules,
       selected: state => state.selected,
       selectedOutline: state => state.selectedOutline
     }),
@@ -68,53 +69,54 @@ export default {
     }
   },
   created () {
-    this.modules.length = 0
-    setTimeout(() => {
-      this.ADD_MODULE({
-        inits: this.plugins.find(x => x.title === '单行文本')
-      })
-      this.ADD_MODULE({
-        inits: this.plugins.find(x => x.title === '文本区域')
-      })
-      this.ADD_MODULE({
-        inits: this.plugins.find(x => x.title === '按钮模块')
-      })
-      // this.ADD_MODULE({
-      //   inits: this.plugins.find(x => x.title === '流程模块')
-      // })
-      // this.ADD_MODULE({
-      //   inits: this.plugins.find(x => x.title === '对比模块')
-      // })
-      this.ADD_MODULE({
-        inits: this.plugins.find(x => x.title === '单行文本'),
-        initialData: {
-          layout: Object.assign(Props.DS.layout, {
-            auto: false,
-            left: 106,
-            top: 260
-          }),
-          text: Object.assign(Props.DS.text, {
-            text: '自由布局文本',
-            fontSize: 26,
-            letterSpacing: 3,
-            lineHeight: 1.8,
-            bold: true
-          })
-        }
-      })
-      // Array(20).fill('').map(_ => {
+    if (this.modules.length === 0) {
+      /* 以下代码供开发环境调试用 */
+      // this.modules.length = 0
+      setTimeout(() => {
+        // this.ADD_MODULE({
+        //   inits: this.plugins.find(x => x.title === '单行文本')
+        // })
+        // this.ADD_MODULE({
+        //   inits: this.plugins.find(x => x.title === '文本区域')
+        // })
+        // this.ADD_MODULE({
+        //   inits: this.plugins.find(x => x.title === '按钮模块')
+        // })
+        // this.ADD_MODULE({
+        //   inits: this.plugins.find(x => x.title === '流程模块')
+        // })
+        // this.ADD_MODULE({
+        //   inits: this.plugins.find(x => x.title === '对比模块')
+        // })
+        this.ADD_MODULE({
+          inits: this.plugins.find(x => x.title === '单行文本'),
+          initialData: {
+            layout: Object.assign(Props.DS.layout, {
+              auto: false,
+              left: 106,
+              top: 260
+            }),
+            text: Object.assign(Props.DS.text, {
+              text: '自由布局文本',
+              fontSize: 26,
+              letterSpacing: 3,
+              lineHeight: 1.8,
+              bold: true
+            })
+          }
+        })
+        // Array(20).fill('').map(_ => {
+        //   this.ADD_MODULE({
+        //     inits: this.plugins.find(x => x.title === '文本区域')
+        //   })
+        // })
+      }, 200)
+      // setTimeout(() => {
       //   this.ADD_MODULE({
-      //     inits: this.plugins.find(x => x.title === '文本区域')
+      //     inits: this.plugins[this.plugins.length - 1]
       //   })
-      // })
-    }, 200)
-
-    // ! 勿删 测试组件，方便开发环境调试
-    // setTimeout(() => {
-    //   this.ADD_MODULE({
-    //     inits: this.plugins[this.plugins.length - 1]
-    //   })
-    // }, 200)
+      // }, 200)
+    }
   },
   methods: {
     ...mapActions('screen', [

@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import clone from 'lodash.clonedeep'
 import Module from '@/models/module'
 import Props from '@/models/props'
 import ScreenElement from './index.vue'
@@ -7,6 +8,7 @@ import ScreenElement from './index.vue'
  * 安装模块
  */
 export const installElement = (newModule, config = {}) => {
+  const newModuleCopy = clone(newModule)
   const {
     // 是否要收集模块的依赖
     gatherProps = false,
@@ -19,28 +21,29 @@ export const installElement = (newModule, config = {}) => {
   } = config
 
   if (gatherProps) {
-    Module.gatherProps(newModule.name, newModule.component)
+    Module.gatherProps(newModuleCopy.name, newModuleCopy.component)
   }
 
   /* 处理子组件（当前约定只有单层的父子关系） */
 
-  const hasComponents = newModule.component.components
+  const hasComponents = newModuleCopy.component.components
   if (hasComponents) {
-    newModule.component.components = Object.entries(
+    newModuleCopy.component.components = Object.entries(
       hasComponents
     ).reduce((h, [k, v]) => {
+      const copy = clone(v)
       if (standardizeProp) {
-        v.props = Props.genVueProps(v.props)
+        copy.props = Props.genVueProps(copy.props)
       }
       h[k] = {
         render (h) {
           return h(ScreenElement, {
             props: {
               pass: { ...this.$attrs },
-              component: v,
+              component: copy,
               captureClick,
               outline,
-              extras: v.inline ? { class: 'inline' } : {}
+              extras: copy.inline ? { class: 'inline' } : {}
             }
           })
         }
@@ -52,23 +55,23 @@ export const installElement = (newModule, config = {}) => {
   /* 处理父组件 */
 
   if (standardizeProp) {
-    newModule.component.props = Props.genVueProps(newModule.component.props)
+    newModuleCopy.component.props = Props.genVueProps(newModuleCopy.component.props)
   }
-  Vue.component(newModule.name, {
+  Vue.component(newModuleCopy.name, {
     render (h) {
       return h(ScreenElement, {
         props: {
-          component: newModule.component,
+          component: newModuleCopy.component,
           // 模块本身的高亮选框不需要触发防点击
           captureClick: false,
           outline,
-          extras: newModule.component.inline ? { class: 'inline' } : {}
+          extras: newModuleCopy.component.inline ? { class: 'inline' } : {}
         }
       })
     }
   })
 
-  return newModule
+  return newModuleCopy
 }
 
 /**

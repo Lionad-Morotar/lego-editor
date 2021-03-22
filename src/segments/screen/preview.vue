@@ -9,57 +9,20 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState } from 'vuex'
 import Props from '@/models/props'
-import TestData from '@/modules/test/example-data'
 import Instance from './instance'
 export default {
   components: {
     Instance
   },
   computed: {
-    ...mapState('editor', {
-      installedModules: state => state.modules
-    }),
     ...mapState('screen', {
       modules: state => state.modules
     }),
     styles () {
       return this.modules.map(m => Props.genStyles(m.props.layout, { onlyTranslate: true }))
     }
-  },
-  mounted () {
-    const datas = TestData
-    const findInits = datas.map((x, idx) => {
-      const targetModule = this.installedModules.find(y => y.name === x.meta.name)
-      if (targetModule) {
-        datas[idx].meta.component = targetModule.component
-        return targetModule
-      } else {
-        /* Do not delete these console logs Start */
-        console.log('data: ', x)
-        console.log('installedModules: ', this.installedModules)
-        /* Do not delete these console logs End */
-        throw new Error('[ERR] invalid modules or datas')
-      }
-    })
-    console.log(datas)
-    findInits.map((inits, idx) => {
-      this.ADD_MODULE({
-        inits,
-        initialData: datas[idx]
-      })
-    })
-  },
-  methods: {
-    ...mapActions('editor', [
-      'INSTALL_MODULES',
-      'CLEAR_MODULE',
-      'REINSTALL_MODULES'
-    ]),
-    ...mapActions('screen', [
-      'ADD_MODULE'
-    ])
   }
 }
 </script>

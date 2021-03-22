@@ -71,6 +71,14 @@ Module.prototype.clone = function () {
 /* 保存实例、保存实例与 uuid 的映射关系 */
 Module.instanceList = []
 Module.instanceMap = {}
+Module.clearCache = () => {
+  Module.instanceList.map(x => {
+    delete x.$instance
+    while (x.$outlines.length) x.$outlines.pop()
+  })
+  Module.instanceList = []
+  Module.instanceMap = {}
+}
 
 // 通过 uuid 获取实例
 Module.getModel = function (uuid) {
@@ -88,8 +96,8 @@ Module.getModel = function (uuid) {
  * @param {VueInstance} instance 模块的 Vue 实例
  */
 Module.prototype.bindInstance = function (instance) {
-  if (this.$instance && console?.warn) {
-    console.warn('[WARN] bindInstance twice')
+  if (this.$instance) {
+    console.warn && console.warn('[WARN] bindInstance twice')
   }
   this.$instance = instance
 }

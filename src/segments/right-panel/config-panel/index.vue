@@ -81,6 +81,7 @@ export default {
       return this.selectedOutline?.props || {}
     },
     configEntries () {
+      console.log(this.config)
       return Object.entries(
         Object.entries(this.config).reduce((h, [k, v]) => {
           if (v instanceof Props.Prop && v.config.component) {

@@ -66,8 +66,6 @@ const actions = {
     commit('CLEAR_MODULE')
   },
   REINSTALL_MODULES ({ commit, state, rootState, dispatch }, isPreview) {
-    // FIXME 非标操作
-    rootState.screen.modules.length = 0
     commit('CLEAR_MODULE')
     dispatch('INSTALL_MODULES', {
       modules: {
@@ -82,7 +80,7 @@ const actions = {
       moduleList = []
     } = modules
 
-    console.log('isPreview: ', isPreview)
+    // console.log('isPreview: ', isPreview)
     const install = isPreview ? installElement : installEditableElement
     const installs = mlist => mlist.map(newModule => {
       if (utils.validInitModuleData(newModule)) {

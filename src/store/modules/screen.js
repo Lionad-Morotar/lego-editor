@@ -15,6 +15,9 @@ const mutations = {
   UPDATE_MODULES (state, newList) {
     state.modules = newList
   },
+  CLEAR_MODULES (state) {
+    state.modules.length = 0
+  },
   SELECT_MODULE (state, module) {
     state.selected = module
   },
@@ -59,6 +62,9 @@ const actions = {
   },
   UPDATE_MODULES ({ commit }, newList) {
     commit('UPDATE_MODULES', newList)
+  },
+  CLEAR_MODULES ({ commit }) {
+    commit('CLEAR_MODULES')
   },
   SELECT_MODULE ({ commit, state }, module) {
     state.cloneCombo = 0
