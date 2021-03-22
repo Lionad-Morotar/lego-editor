@@ -1,6 +1,6 @@
 import { ModuleTypeEnums } from '@/constant'
 import utils from '@/utils'
-import { installEditableElement, installElement } from '@/segments/screen/element'
+import { installEditableElement, installElement } from '@/segments/element'
 
 const state = {
   // 已注册的模块，用于左侧面板展示、点击选择或拖拽用

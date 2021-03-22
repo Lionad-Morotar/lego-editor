@@ -1,4 +1,5 @@
 <script>
+// instance 只用作绑定 Model/Module。渲染相关逻辑请移至 ./element
 export default {
   props: ['module', 'bindModule'],
   provide () {
@@ -26,9 +27,7 @@ export default {
     // 注意，这里用 name 而不直接用 module.component，
     // 因为实际安装的模块可能是 module.component 包了其它功能的新组件，
     // 但注册模块时，无论包了多少层组件，新组件名称统一沿用 module.component.name
-    return h(name, {
-      key: uuid
-    })
+    return h(name, { key: uuid })
   }
 }
 </script>
