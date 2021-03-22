@@ -1,5 +1,4 @@
 <script>
-// instance 只用作渲染，请勿在此增加事件处理如鼠标捕获之类的逻辑
 export default {
   props: ['module', 'bindModule'],
   provide () {
