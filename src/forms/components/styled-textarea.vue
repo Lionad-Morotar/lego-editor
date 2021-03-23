@@ -12,7 +12,6 @@
 import Props from '@/models/props'
 import StyledText from './styled-text'
 export default {
-  name: 'quick-form-styled-textarea',
   props: ['value'],
   model: {
     prop: 'value',

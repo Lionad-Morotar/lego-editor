@@ -6,7 +6,6 @@
 
 <script>
 export default {
-  name: 'quick-form-base-text',
   props: ['value'],
   model: {
     prop: 'value',

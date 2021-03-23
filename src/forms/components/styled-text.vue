@@ -19,34 +19,24 @@
     <div class="config-item" v-if="display('letterSpacing')">
       <div class="config-item-header">字距</div>
       <div class="config-item-content">
-        <div class="slider-con">
-          <el-slider
-            class="slider"
-            v-model="v.letterSpacing"
-            :show-tooltip="false"
-            :min="-3"
-            :max="3"
-            :step="0.1"
-          />
-          <span class="slider-des">{{v.letterSpacing}}</span>
-        </div>
+        <base-slider
+          v-model="v.letterSpacing"
+          :min="-3"
+          :max="3"
+          :step="0.1"
+        />
       </div>
     </div>
 
     <div class="config-item" v-if="display('lineHeight')">
       <div class="config-item-header">行高</div>
       <div class="config-item-content">
-        <div class="slider-con">
-          <el-slider
-            class="slider"
-            v-model="v.lineHeight"
-            :show-tooltip="false"
-            :min="1"
-            :max="3"
-            :step="0.1"
-          />
-          <span class="slider-des">{{v.lineHeight}}</span>
-        </div>
+        <base-slider
+          v-model="v.lineHeight"
+          :min="1"
+          :max="3"
+          :step="0.1"
+        />
       </div>
     </div>
 
@@ -99,8 +89,8 @@
 <script>
 import { Chrome } from 'vue-color'
 import Props from '@/models/props'
+import BaseSlider from './base-slider'
 export default {
-  name: 'quick-form-styled-text',
   props: ['value', 'disable'],
   model: {
     prop: 'value',
@@ -135,7 +125,8 @@ export default {
     }
   },
   components: {
-    ChromePicker: Chrome
+    ChromePicker: Chrome,
+    BaseSlider
   }
 }
 </script>

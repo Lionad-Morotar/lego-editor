@@ -15,36 +15,26 @@
             <i class="iconfont" :class="[icon.icon, when(editiPaddingKey === icon.key) && 'active']" />
           </div>
         </template>
-        <!-- todo individual component -->
-        <div class="slider-con" v-if="editiPaddingKey">
-          <div style="width:100%" />
-          <el-slider
-            v-model="v[editiPaddingKey]"
-            class="slider"
-            :show-tooltip="false"
-            :min="0"
-            :max="30"
-            :step="1"
-          />
-          <span class="slider-des">{{v[editiPaddingKey]}}</span>
-        </div>
+        <base-slider
+          v-if="editiPaddingKey"
+          v-model="v[editiPaddingKey]"
+          :min="0"
+          :max="30"
+          :step="1"
+        />
       </div>
     </div>
 
     <div class="config-item" v-if="display('radius')">
       <div class="config-item-header">圆角</div>
       <div class="config-item-content">
-        <div class="slider-con">
-          <el-slider
-            class="slider"
-            v-model="v.radius"
-            :show-tooltip="false"
-            :min="0"
-            :max="maxRadius"
-            :step="1"
-          />
-          <span class="slider-des">{{v.radius}}</span>
-        </div>
+        <base-slider
+          v-if="editiPaddingKey"
+          v-model="v.radius"
+          :min="0"
+          :max="maxRadius"
+          :step="1"
+        />
       </div>
     </div>
 
@@ -64,6 +54,7 @@
 <script>
 import { Chrome } from 'vue-color'
 import Props from '@/models/props'
+import BaseSlider from './base-slider'
 export default {
   props: ['value', 'disable'],
   model: {
@@ -117,7 +108,8 @@ export default {
     }
   },
   components: {
-    ChromePicker: Chrome
+    ChromePicker: Chrome,
+    BaseSlider
   }
 }
 </script>

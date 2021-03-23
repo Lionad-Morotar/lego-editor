@@ -47,6 +47,7 @@
         width: 24px;
         height: 50%;
         line-height: 15px;
+        border-color: #eee;
         border-radius: 0;
       }
     }
@@ -76,27 +77,6 @@
   transform: scale(0.9);
   transform-origin: right;
   cursor: pointer;
-}
-.slider-con {
-  display: flex;
-  justify-content: flex-end;
-  flex-wrap: wrap;
-  gap: 5px;
-  height: 30px;
-
-  .slider {
-    width: 170px !important;
-    .el-slider__runway {
-      margin: 10px 0;
-    }
-  }
-  .slider-des {
-    margin-right: 5px;
-    width: 20px;
-    line-height: 26px;
-    text-align: right;
-    font-size: 12px;
-  }
 }
 .vc-chrome {
   box-shadow: 0 4px 6px 0 rgb(240,240,240);
