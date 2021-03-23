@@ -76,6 +76,12 @@
 
 /* Transition */
 
+.fade-fast-enter-active, .fade-fast-leave-active {
+  transition: opacity .1s;
+}
+.fade-fast-enter, .fade-fast-leave-to {
+  opacity: 0;
+}
 .fade-enter-active, .fade-leave-active {
   transition: opacity .25s;
 }

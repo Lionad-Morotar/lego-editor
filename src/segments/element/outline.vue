@@ -1,7 +1,7 @@
 <template>
   <div
     class="box-outline"
-    :class="isActive ? 'active' : ''"
+    :class="[isActive && 'active', propsChangingTick && 'props-changing']"
     @click.capture="selectElement"
     @click.stop="_ => _"
     @mousedown="checkDraggable"
@@ -28,6 +28,7 @@ export default {
     return {
       // 记录当前点击周期内是否移动了元素位置
       moving: false,
+      propsChangingTick: null,
       anchor: { x: 0, y: 0 },
       oldXY: { x: 0, y: 0 }
     }
@@ -40,6 +41,9 @@ export default {
     curModel () {
       return Module.getModel(this.model)
     },
+    curProps () {
+      return this.curModel.props
+    },
     isSelected () {
       return this.selected === this.curModel
     },
@@ -47,8 +51,18 @@ export default {
       return this.selectedOutline === this
     }
   },
-  mounted () {
-    // console.log(this.$attrs, this.$props)
+  watch: {
+    curProps: {
+      deep: true,
+      handler () {
+        if (this.propsChangingTick) {
+          clearTimeout(this.propsChangingTick)
+        }
+        this.propsChangingTick = setTimeout(() => {
+          this.propsChangingTick = null
+        }, 300)
+      }
+    }
   },
   methods: {
     ...mapActions('screen', [
@@ -176,6 +190,11 @@ export default {
           bottom: -10px;
         }
       }
+    }
+  }
+  &.props-changing {
+    .outline {
+      opacity: 0;
     }
   }
 

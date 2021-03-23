@@ -3,7 +3,7 @@
     <div class="config-item" v-if="display('padding')">
       <div class="config-item-header">内边距</div>
       <div class="config-item-content">
-        <transition name="fade">
+        <transition name="fade-fast">
           <span class="close-tip" v-if="editiPaddingKey" @click="editPadding('')">关闭</span>
         </transition>
         <template v-for="icon in options.paddingIcons">
