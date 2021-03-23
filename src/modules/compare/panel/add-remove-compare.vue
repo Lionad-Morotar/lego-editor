@@ -49,7 +49,10 @@ export default {
         left: {
           title: '浩瀚家装',
           description: Props.merge(Props.DS.text, {
-            text: '免费出效果图，提前看到家的样子'
+            text: '免费出效果图，提前看到家的样子',
+            color: '#333',
+            fontSize: 12,
+            lineHeight: 1.5
           }),
           url: Props.merge(Props.DS.image, {
             url:
@@ -59,7 +62,10 @@ export default {
         right: {
           title: '普通家装',
           description: Props.merge(Props.DS.text, {
-            text: '没效果图，看个鬼鬼啊'
+            text: '没效果图，看个鬼鬼啊',
+            color: '#333',
+            fontSize: 12,
+            lineHeight: 1.5
           }),
           url: Props.merge(Props.DS.image, {
             url:

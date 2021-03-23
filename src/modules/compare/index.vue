@@ -29,7 +29,12 @@ export default {
           left: {
             title: '浩瀚家装',
             description: Props.text({
-              default: '一站式购齐，风格统一'
+              default: {
+                text: '一站式购齐，风格统一',
+                color: '#333',
+                fontSize: 12,
+                lineHeight: 1.5
+              }
             }),
             url: Props.image({
               default:
@@ -39,7 +44,12 @@ export default {
           right: {
             title: '普通家装',
             description: Props.text({
-              default: '东拼西凑，材料来源未知，存在一定的安全隐患'
+              default: {
+                text: '东拼西凑，材料来源未知，存在一定的安全隐患',
+                color: '#333',
+                fontSize: 12,
+                lineHeight: 1.5
+              }
             }),
             url: Props.image({
               default:
@@ -51,7 +61,12 @@ export default {
           left: {
             title: '浩瀚家装',
             description: Props.text({
-              default: '免费出效果图，提前看到家的样子'
+              default: {
+                text: '免费出效果图，提前看到家的样子',
+                color: '#333',
+                fontSize: 12,
+                lineHeight: 1.5
+              }
             }),
             url: Props.image({
               default:
@@ -61,7 +76,12 @@ export default {
           right: {
             title: '普通家装',
             description: Props.text({
-              default: '没效果图，看个鬼鬼啊'
+              default: {
+                text: '没效果图，看个鬼鬼啊',
+                color: '#333',
+                fontSize: 12,
+                lineHeight: 1.5
+              }
             }),
             url: Props.image({
               default:

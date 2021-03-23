@@ -62,6 +62,7 @@ export default {
 <style lang="scss">
 .lego-procedure {
   padding: 24px 16px;
+  background: white;
 
   .container {
     margin-top: 24px;

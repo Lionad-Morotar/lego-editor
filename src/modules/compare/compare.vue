@@ -58,8 +58,9 @@ export default {
 }
 .compare {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: flex-start;
+  gap: 1.5em;
   position: relative;
   margin: auto;
   padding: 20px 12px 10px 12px;
@@ -173,9 +174,7 @@ export default {
   }
   .description {
     min-height: 2em;
-    font-size: 12px;
-    color: #333;
-    line-height: 1.5em;
+    word-break: break-all;
   }
 }
 </style>
