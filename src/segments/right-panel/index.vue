@@ -75,6 +75,9 @@ export default {
     disableMoveDown () {
       const reversed = [].concat(this.modules).reverse()
       return this.isFreeElement || this.selected === reversed.find(x => x.layout.auto)
+    },
+    curIDX () {
+      return this.modules.findIndex(x => x === this.selected)
     }
   },
   watch: {
@@ -105,12 +108,21 @@ export default {
     deleteModule () {
       this.DELETE_SELECTED_MODULE()
     },
-    // FIXME 移动时需要忽略自由布局元素
     handleMoveUp () {
-      this.MOVE_MODULE(-1)
+      for (let i = this.curIDX - 1; i >= 0; i--) {
+        if (this.modules[i].layout.auto) {
+          this.MOVE_MODULE(i - this.curIDX)
+          return
+        }
+      }
     },
     handleMoveDown () {
-      this.MOVE_MODULE(1)
+      for (let i = this.curIDX + 1; i < this.modules.length; i++) {
+        if (this.modules[i].layout.auto) {
+          this.MOVE_MODULE(i - this.curIDX)
+          return
+        }
+      }
     }
   }
 }
