@@ -6,15 +6,29 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 export default {
   name: 'module-selector',
   props: ['inits'],
+  computed: {
+    ...mapState('screen', {
+      modules: state => state.modules
+    })
+  },
   methods: {
     ...mapActions('screen', ['ADD_MODULE']),
     addToScreen () {
       this.ADD_MODULE({
         inits: this.inits
+      })
+      this.$nextTick(() => {
+        const $el = this.modules[this.modules.length - 1].$instance.$el
+        const $parent = this.$utils.findParentByClass($el, 'module-block')
+        if ($parent.scrollIntoViewIfNeeded) {
+          $parent.scrollIntoViewIfNeeded()
+        } else if ($parent.scrollIntoView) {
+          $parent.scrollIntoView()
+        }
       })
     }
   }

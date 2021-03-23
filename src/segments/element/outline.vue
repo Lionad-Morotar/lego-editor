@@ -19,7 +19,6 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import Module from '@/models/module'
-import Utils from '@/utils'
 export default {
   name: 'box-outline',
   inject: ['model'],
@@ -97,7 +96,7 @@ export default {
       }
     },
     initElementWH (target) {
-      const $moduleElem = Utils.findParentByClass(target, 'module-block')
+      const $moduleElem = this.$utils.findParentByClass(target, 'module-block')
       this.curModel.layout.width = $moduleElem.offsetWidth
       // this.curModel.layout.height = $moduleElem.offsetHeight
       this.curModel.layout.top = $moduleElem.offsetTop

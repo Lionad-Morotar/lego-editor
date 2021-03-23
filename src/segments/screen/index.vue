@@ -157,6 +157,7 @@ export default {
   height: 100%;
   overflow: hidden scroll;
   user-select: none;
+  scroll-behavior: smooth;
 
   &::-webkit-scrollbar,
   &::-webkit-scrollbar-track {
