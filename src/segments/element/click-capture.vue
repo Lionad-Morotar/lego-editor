@@ -1,18 +1,31 @@
-<template>
-  <!-- 感觉没必要再包这层，直接用 CSS 解决其实也行儿 -->
-  <div class="click-capture" @click.capture.stop="_ => _">
-    <slot />
-  </div>
-</template>
-
 <script>
-export default {}
+// 也许应该叫 native-events-capture ???
+export default {
+  render (h) {
+    return h('div', {
+      class: ['click-capture'],
+      on: {
+        '!click': e => {
+          const clickOnChildComponents = e.path.reduce((h, c) => {
+            return h + ([...(c.classList || [])].includes('click-capture') ? 1 : 0)
+          }, 0) > 1
+          if (!clickOnChildComponents) {
+            e.stopPropagation()
+          }
+        }
+      }
+    }, [this.$slots.default])
+  }
+}
 </script>
 
 <style lang="scss" scoped>
 .click-capture {
   position: relative;
-  pointer-events: none;
+
+  .click-capture > *:first-child {
+    pointer-events: none;
+  }
 
   & > *:first-child {
     width: 100%;

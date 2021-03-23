@@ -2,7 +2,8 @@
   <div
     class="box-outline"
     :class="isActive ? 'active' : ''"
-    @click.stop="selectElement"
+    @click.capture="selectElement"
+    @click.stop="_ => _"
     @mousedown="checkDraggable"
   >
     <slot />
@@ -50,7 +51,7 @@ export default {
       'SELECT_OUTLINE'
     ]),
     selectElement () {
-      if (!this.moved) {
+      if (!this.moved && !this.isActive) {
         this.SELECT_MODULE(this.curModel)
         this.SELECT_OUTLINE(this)
       }
@@ -76,7 +77,7 @@ export default {
           })
         })
 
-        e.stopPropagation()
+        // e.stopPropagation()
         e.preventDefault()
       }
     },
@@ -86,10 +87,10 @@ export default {
         ? target.__vue__.curModel.$instance.$el
         : target.offsetParent.offsetParent
       if (!isSelectSubOutline) {
-        this.curModel.layout.width = $moduleElem.offsetWidth
+        // this.curModel.layout.width = $moduleElem.offsetWidth
         // this.curModel.layout.height = $moduleElem.offsetHeight
-        this.curModel.layout.top = $moduleElem.offsetTop
-        this.curModel.layout.left = $moduleElem.offsetLeft
+        // this.curModel.layout.top = $moduleElem.offsetTop
+        // this.curModel.layout.left = $moduleElem.offsetLeft
       }
     },
     calcMove (newPosition) {

@@ -73,15 +73,15 @@ export default {
       /* 以下代码供开发环境调试用 */
       // this.modules.length = 0
       setTimeout(() => {
-        // this.ADD_MODULE({
-        //   inits: this.plugins.find(x => x.title === '单行文本')
-        // })
-        // this.ADD_MODULE({
-        //   inits: this.plugins.find(x => x.title === '文本区域')
-        // })
-        // this.ADD_MODULE({
-        //   inits: this.plugins.find(x => x.title === '按钮模块')
-        // })
+        this.ADD_MODULE({
+          inits: this.plugins.find(x => x.title === '单行文本')
+        })
+        this.ADD_MODULE({
+          inits: this.plugins.find(x => x.title === '文本区域')
+        })
+        this.ADD_MODULE({
+          inits: this.plugins.find(x => x.title === '按钮模块')
+        })
         // this.ADD_MODULE({
         //   inits: this.plugins.find(x => x.title === '流程模块')
         // })
@@ -105,11 +105,6 @@ export default {
             })
           }
         })
-        // Array(20).fill('').map(_ => {
-        //   this.ADD_MODULE({
-        //     inits: this.plugins.find(x => x.title === '文本区域')
-        //   })
-        // })
       }, 200)
       // setTimeout(() => {
       //   this.ADD_MODULE({

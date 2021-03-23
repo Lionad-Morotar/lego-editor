@@ -62,8 +62,7 @@ export const installElement = (newModule, config = {}) => {
       return h(ScreenElement, {
         props: {
           component: newModuleCopy.component,
-          // 模块本身的高亮选框不需要触发防点击
-          captureClick: false,
+          captureClick,
           outline,
           extras: newModuleCopy.component.inline ? { class: 'inline' } : {}
         }

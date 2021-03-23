@@ -1,13 +1,8 @@
-<template>
-  <div class="lego-button" :style="styles">
-    <button-label />
-  </div>
-</template>
-
 <script>
 import Props from '@/models/props'
 import { pass } from '@/modules/utils'
 import Forms from '@/forms'
+
 export default {
   name: 'lego-button',
   inline: true,
@@ -31,31 +26,47 @@ export default {
       return Props.genStyles(this.layout, { removeTranslate: true })
     }
   },
+  methods: {
+    handleClick () {
+      console.log('!!!!1111')
+    }
+  },
+  render () {
+    return (
+      <div class="lego-button" style={this.styles} onClick={this.handleClick}>
+        <button-label />
+      </div>
+    )
+  },
   components: {
-    ButtonLabel: {
-      inline: true,
-      props: {
-        label: Props.text({
-          label: '按钮文本',
-          default: {
-            text: '点击',
-            fontSize: 14
-          },
-          component: pass(Forms.StyledText, {
-            disable: ['align']
-          })
+    ButtonLabel: ButtonLabel()
+  }
+}
+
+function ButtonLabel () {
+  return {
+    inline: true,
+    props: {
+      label: Props.text({
+        label: '按钮文本',
+        default: {
+          text: '点击',
+          fontSize: 14
+        },
+        component: pass(Forms.StyledText, {
+          disable: ['align']
         })
-      },
-      computed: {
-        styles () {
-          return Props.genStyles(this.$props.label)
-        }
-      },
-      render () {
-        return (
-          <span style={this.styles}>{this.$props.label.text}</span>
-        )
+      })
+    },
+    computed: {
+      styles () {
+        return Props.genStyles(this.$props.label)
       }
+    },
+    render () {
+      return (
+        <span style={this.styles}>{this.$props.label.text}</span>
+      )
     }
   }
 }
