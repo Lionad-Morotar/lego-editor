@@ -1,35 +1,61 @@
 <template>
   <div>
     <div class="config-item" v-if="display('padding')">
-      <div class="config-item-header">内边距</div>
+      <div class="config-item-header">边距</div>
       <div class="config-item-content">
         <transition name="fade-fast">
-          <span class="close-tip" v-if="editiPaddingKey" @click="editPadding('')">关闭</span>
+          <span class="close-tip" v-if="editPaddingKey" @click="editPadding('')">关闭</span>
         </transition>
         <template v-for="icon in options.paddingIcons">
           <div
             class="icon"
             :title="icon.title"
-            :key="icon.key"
+            :key="icon.icon"
             @click="editPadding(icon.key)">
-            <i class="iconfont" :class="[icon.icon, when(editiPaddingKey === icon.key) && 'active']" />
+            <i class="iconfont" :class="[icon.icon, when(editPaddingKey === icon.key) && 'active']" />
           </div>
         </template>
         <base-slider
-          v-if="editiPaddingKey"
-          v-model="v[editiPaddingKey]"
+          v-if="editPaddingKey"
+          v-model="v.padding[editPaddingKey]"
+          :min="0"
+          :max="30"
+          :step="1"
+          :key="editPaddingKey"
+        />
+      </div>
+    </div>
+
+    <!-- <div class="config-item" v-if="display('padding')">
+      <div class="config-item-header">边框</div>
+      <div class="config-item-content">
+        <transition name="fade-fast">
+          <span class="close-tip" v-if="editBorderKey" @click="editBorder('')">关闭</span>
+        </transition>
+        <template v-for="icon in options.borderIcons">
+          <div
+            class="icon"
+            :title="icon.title"
+            :key="icon.key"
+            @click="editBorder(icon.key)">
+            <i class="iconfont" :class="[icon.icon, when(editBorderKey === icon.key) && 'active']" />
+          </div>
+        </template>
+        <base-slider
+          v-if="editBorderKey"
+          v-model="v[editBorderKey]"
           :min="0"
           :max="30"
           :step="1"
         />
       </div>
-    </div>
+    </div> -->
 
     <div class="config-item" v-if="display('radius')">
       <div class="config-item-header">圆角</div>
       <div class="config-item-content">
         <base-slider
-          v-if="editiPaddingKey"
+          v-if="editPaddingKey"
           v-model="v.radius"
           :min="0"
           :max="maxRadius"
@@ -68,13 +94,20 @@ export default {
       },
       bgColor: this.value.bgColor || Props.DS.layout.bgColor,
       showColor: false,
-      editiPaddingKey: '',
+      editPaddingKey: '',
+      editBorderKey: '',
       options: {
         paddingIcons: [
-          { title: '上边距', icon: 'icon-border-top', key: 'paddingTop' },
-          { title: '下边距', icon: 'icon-border-bottom', key: 'paddingBottom' },
-          { title: '左边距', icon: 'icon-border-left', key: 'paddingLeft' },
-          { title: '右边距', icon: 'icon-border-right', key: 'paddingRight' }
+          { title: '上边距', icon: 'icon-border-top', key: '0' },
+          { title: '下边距', icon: 'icon-border-bottom', key: '2' },
+          { title: '左边距', icon: 'icon-border-left', key: '3' },
+          { title: '右边距', icon: 'icon-border-right', key: '1' }
+        ],
+        borderIcons: [
+          { title: '上边框', icon: 'icon-border-top', key: 'borderTop' },
+          { title: '下边框', icon: 'icon-border-bottom', key: 'borderBottom' },
+          { title: '左边框', icon: 'icon-border-left', key: 'borderLeft' },
+          { title: '右边框', icon: 'icon-border-right', key: 'borderRight' }
         ]
       }
     }
@@ -104,7 +137,10 @@ export default {
       return !(this.disable || []).includes(key)
     },
     editPadding (key) {
-      this.editiPaddingKey = key
+      this.editPaddingKey = key
+    },
+    editBorder (key) {
+      this.editBorderKey = key
     }
   },
   components: {

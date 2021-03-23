@@ -10,13 +10,17 @@ export default {
     layout: Props.layout({
       default: {
         auto: false,
-        paddingTop: 12,
-        paddingBottom: 12,
-        paddingLeft: 20,
-        paddingRight: 20,
+        padding: [12, 20, 12, 20],
         left: 150,
         top: 150,
         width: 100,
+        // border: {
+        //   left: {
+        //     width: 1,
+        //     type: 'solid'
+        //   },
+        //   color:
+        // },
         radius: 4
       }
     })
@@ -78,7 +82,6 @@ function ButtonLabel () {
   box-sizing: border-box;
   margin: 0;
   outline: none;
-  border: 1px solid #999;
   background: #fff;
   -webkit-appearance: none;
   font-size: 14px;

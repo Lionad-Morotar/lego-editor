@@ -13,10 +13,7 @@ const DS = {
   get layout () {
     return {
       auto: true,
-      paddingTop: 0,
-      paddingBottom: 0,
-      paddingLeft: 0,
-      paddingRight: 0,
+      padding: [0, 0, 0, 0],
       top: 0,
       left: 0,
       width: 0,
@@ -60,10 +57,7 @@ const genStyles = (val = {}, options = {}) => {
   const {
     // layout
     auto,
-    paddingTop,
-    paddingBottom,
-    paddingLeft,
-    paddingRight,
+    padding,
     top,
     left,
     width,
@@ -102,10 +96,9 @@ const genStyles = (val = {}, options = {}) => {
       res.zIndex = 1
     }
   }
-  if (paddingTop) res.paddingTop = paddingTop + 'px'
-  if (paddingBottom) res.paddingBottom = paddingBottom + 'px'
-  if (paddingLeft) res.paddingLeft = paddingLeft + 'px'
-  if (paddingRight) res.paddingRight = paddingRight + 'px'
+  if (padding != null) {
+    res.padding = padding.map(x => x + 'px').join(' ')
+  }
   if (radius) res.borderRadius = radius + 'px'
 
   /* text */
