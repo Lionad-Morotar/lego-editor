@@ -7,3 +7,4 @@
 * functional components
 * 删除所有校验相关内容
 * zIndex 层级管理
+* 图片加载失败的处理

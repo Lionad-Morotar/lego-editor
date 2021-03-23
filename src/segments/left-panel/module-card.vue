@@ -1,7 +1,7 @@
 <template>
   <div class="module-selector" @click="addToScreen">
     <div class="title">{{ inits.title }}</div>
-    <img class="cover" :src="inits.cover" />
+    <img class="cover" :alt="inits.title" :src="inits.cover" />
   </div>
 </template>
 
@@ -40,6 +40,8 @@ export default {
   .cover {
     width: 210px;
     height: auto;
+    min-height: 62px;
+    background: #f2f2f2;
     box-shadow: 0 0 3px 0 transparent;
     transition: .25s, box-shadow .15s;
     will-change: scale;
