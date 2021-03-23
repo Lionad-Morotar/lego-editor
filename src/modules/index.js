@@ -49,7 +49,7 @@ export default {
         description: '基础按钮模块',
         name: Button.name,
         component: Button,
-        cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/pic.png',
+        cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/preview-basic-button.png',
         categories: [baseType, '基础布局']
       },
       /* 高级模块 */

@@ -80,7 +80,21 @@ export default {
           inits: this.plugins.find(x => x.title === '文本区域')
         })
         this.ADD_MODULE({
-          inits: this.plugins.find(x => x.title === '按钮模块')
+          inits: this.plugins.find(x => x.title === '按钮模块'),
+          initialData: {
+            layout: Object.assign(Props.DS.layout, {
+              auto: false,
+              left: 150,
+              top: 150,
+              padding: [15, 15, 15, 15],
+              width: 100,
+              height: 50,
+              border: [1, 2, 5, 2],
+              borderStyle: 'solid',
+              borderColor: '#999',
+              radius: 30
+            })
+          }
         })
         // this.ADD_MODULE({
         //   inits: this.plugins.find(x => x.title === '流程模块')

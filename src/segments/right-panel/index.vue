@@ -105,6 +105,7 @@ export default {
     deleteModule () {
       this.DELETE_SELECTED_MODULE()
     },
+    // FIXME 移动时需要忽略自由布局元素
     handleMoveUp () {
       this.MOVE_MODULE(-1)
     },

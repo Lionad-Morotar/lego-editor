@@ -9,11 +9,7 @@ export default {
   props: {
     layout: Props.layout({
       default: {
-        auto: false,
         padding: [12, 20, 12, 20],
-        left: 150,
-        top: 150,
-        width: 100,
         border: [1, 2, 5, 2],
         borderStyle: 'solid',
         borderColor: '#999',
