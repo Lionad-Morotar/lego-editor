@@ -186,6 +186,11 @@ export default {
     &[draggable="true"] {
       transition: none !important;
     }
+    &.flip-list-move {
+      /deep/ .outline {
+        transition: none !important;
+      }
+    }
     & > .padding {
       display: none;
     }
