@@ -42,36 +42,52 @@
       </div>
     </div>
 
-    <!-- <div class="config-item" v-if="display('padding')">
+    <div class="config-item" v-if="display('border')">
       <div class="config-item-header">边框</div>
       <div class="config-item-content">
         <transition name="fade-fast">
           <span class="close-tip" v-if="editBorderKey" @click="editBorder('')">关闭</span>
         </transition>
+        <div
+          class="icon"
+          title="所有边框"
+          @click="editBorder('all')">
+          <i class="iconfont icon-border-outer" :class="[when(editBorderKey === 'all') && 'active']" />
+        </div>
         <template v-for="icon in options.borderIcons">
           <div
             class="icon"
             :title="icon.title"
-            :key="icon.key"
+            :key="icon.icon"
             @click="editBorder(icon.key)">
             <i class="iconfont" :class="[icon.icon, when(editBorderKey === icon.key) && 'active']" />
           </div>
         </template>
-        <base-slider
-          v-if="editBorderKey"
-          v-model="v[editBorderKey]"
-          :min="0"
-          :max="30"
-          :step="1"
-        />
+        <template v-if="editBorderKey">
+          <base-slider
+            v-if="editBorderKey === 'all'"
+            v-model="borderAll"
+            :min="0"
+            :max="10"
+            :step="1"
+            :key="'all'"
+          />
+          <base-slider
+            v-else
+            v-model="v.border[editBorderKey]"
+            :min="0"
+            :max="10"
+            :step="1"
+            :key="editBorderKey"
+          />
+        </template>
       </div>
-    </div> -->
+    </div>
 
     <div class="config-item" v-if="display('radius')">
       <div class="config-item-header">圆角</div>
       <div class="config-item-content">
         <base-slider
-          v-if="editPaddingKey"
           v-model="v.radius"
           :min="0"
           :max="maxRadius"
@@ -109,6 +125,7 @@ export default {
         ...(this.value || Props.DS.layout)
       },
       paddingAll: 0,
+      borderAll: 0,
       bgColor: this.value.bgColor || Props.DS.layout.bgColor,
       showColor: false,
       editPaddingKey: '',
@@ -121,10 +138,10 @@ export default {
           { title: '右边距', icon: 'icon-border-right', key: '1' }
         ],
         borderIcons: [
-          { title: '上边框', icon: 'icon-border-top', key: 'borderTop' },
-          { title: '下边框', icon: 'icon-border-bottom', key: 'borderBottom' },
-          { title: '左边框', icon: 'icon-border-left', key: 'borderLeft' },
-          { title: '右边框', icon: 'icon-border-right', key: 'borderRight' }
+          { title: '上边框', icon: 'icon-border-top', key: '0' },
+          { title: '下边框', icon: 'icon-border-bottom', key: '2' },
+          { title: '左边框', icon: 'icon-border-left', key: '3' },
+          { title: '右边框', icon: 'icon-border-right', key: '1' }
         ]
       }
     }
@@ -144,6 +161,9 @@ export default {
     },
     paddingAll (newValue) {
       this.v.padding = Array(4).fill(newValue)
+    },
+    borderAll (newValue) {
+      this.v.border = Array(4).fill(newValue)
     },
     bgColor (newValue) {
       this.v.bgColor = newValue.hex8

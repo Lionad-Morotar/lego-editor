@@ -1,6 +1,7 @@
 import Forms from '@/forms'
 
 const merge = (...args) => Object.assign(...args)
+const notEmpty = val => val != null
 
 /**
  * DS 定义了模块的数据与模块样式以怎样的形式聚合
@@ -18,6 +19,9 @@ const DS = {
       left: 0,
       width: 0,
       height: 0,
+      border: [0, 0, 0, 0],
+      borderStyle: 'solid',
+      borderColor: 'black',
       radius: 0,
       bgColor: ''
     }
@@ -62,6 +66,9 @@ const genStyles = (val = {}, options = {}) => {
     left,
     width,
     height,
+    border,
+    borderStyle,
+    borderColor,
     radius,
     bgColor,
     // text
@@ -85,21 +92,28 @@ const genStyles = (val = {}, options = {}) => {
   // console.log(val)
 
   /* layout */
-  if (auto != null) {
+  if (notEmpty(auto)) {
     res.position = auto ? 'relative' : 'absolute'
     if (!auto) {
       res.width = width ? (width + 'px') : 'auto'
       res.height = height ? (height + 'px') : 'auto'
-      if (top != null) res.top = top ? (top + 'px') : 0
-      if (left != null) res.left = left ? (left + 'px') : 0
+      if (notEmpty(top)) res.top = top ? (top + 'px') : 0
+      if (notEmpty(left)) res.left = left ? (left + 'px') : 0
       if (bgColor) res.background = bgColor
       res.zIndex = 1
     }
   }
-  if (padding != null) {
+  if (notEmpty(padding)) {
     res.padding = padding.map(x => x + 'px').join(' ')
   }
-  if (radius) res.borderRadius = radius + 'px'
+  if (notEmpty(border)) {
+    const direcs = ['Top', 'Right', 'Bottom', 'Left']
+    border.map((borderVal, idx) => {
+      const key = 'border' + direcs[idx]
+      res[key] = [borderStyle, borderVal + 'px', borderColor].join(' ')
+    })
+  }
+  if (notEmpty(radius)) res.borderRadius = radius + 'px'
 
   /* text */
   if (fontSize) res.fontSize = fontSize + 'px'

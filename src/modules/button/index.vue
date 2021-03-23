@@ -14,14 +14,10 @@ export default {
         left: 150,
         top: 150,
         width: 100,
-        // border: {
-        //   left: {
-        //     width: 1,
-        //     type: 'solid'
-        //   },
-        //   color:
-        // },
-        radius: 4
+        border: [1, 2, 5, 2],
+        borderStyle: 'solid',
+        borderColor: '#999',
+        radius: 30
       }
     })
   },
@@ -32,7 +28,7 @@ export default {
   },
   methods: {
     handleClick () {
-      console.log('!!!!1111')
+      alert('点击了按钮')
     }
   },
   render () {
