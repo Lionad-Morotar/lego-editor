@@ -6,6 +6,12 @@
         <transition name="fade-fast">
           <span class="close-tip" v-if="editPaddingKey" @click="editPadding('')">关闭</span>
         </transition>
+        <div
+          class="icon"
+          title="所有边距"
+          @click="editPadding('all')">
+          <i class="iconfont icon-border-outer" :class="[when(editPaddingKey === 'all') && 'active']" />
+        </div>
         <template v-for="icon in options.paddingIcons">
           <div
             class="icon"
@@ -15,14 +21,24 @@
             <i class="iconfont" :class="[icon.icon, when(editPaddingKey === icon.key) && 'active']" />
           </div>
         </template>
-        <base-slider
-          v-if="editPaddingKey"
-          v-model="v.padding[editPaddingKey]"
-          :min="0"
-          :max="30"
-          :step="1"
-          :key="editPaddingKey"
-        />
+        <template v-if="editPaddingKey">
+          <base-slider
+            v-if="editPaddingKey === 'all'"
+            v-model="paddingAll"
+            :min="0"
+            :max="30"
+            :step="1"
+            :key="'all'"
+          />
+          <base-slider
+            v-else
+            v-model="v.padding[editPaddingKey]"
+            :min="0"
+            :max="30"
+            :step="1"
+            :key="editPaddingKey"
+          />
+        </template>
       </div>
     </div>
 
@@ -92,6 +108,7 @@ export default {
       v: {
         ...(this.value || Props.DS.layout)
       },
+      paddingAll: 0,
       bgColor: this.value.bgColor || Props.DS.layout.bgColor,
       showColor: false,
       editPaddingKey: '',
@@ -124,6 +141,9 @@ export default {
       handler (newValue) {
         this.$emit('change', newValue)
       }
+    },
+    paddingAll (newValue) {
+      this.v.padding = Array(4).fill(newValue)
     },
     bgColor (newValue) {
       this.v.bgColor = newValue.hex8

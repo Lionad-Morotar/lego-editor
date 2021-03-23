@@ -29,6 +29,8 @@ export default {
 
   & > *:first-child {
     width: 100%;
+    // transition: .1s ease-out;
+    // will-change: auto;
   }
 }
 </style>
