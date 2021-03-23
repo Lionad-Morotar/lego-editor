@@ -19,6 +19,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import Module from '@/models/module'
+import Utils from '@/utils'
 export default {
   name: 'box-outline',
   inject: ['model'],
@@ -26,17 +27,21 @@ export default {
   data () {
     return {
       // 记录当前点击周期内是否移动了元素位置
-      moved: false,
+      moving: false,
       anchor: { x: 0, y: 0 },
       oldXY: { x: 0, y: 0 }
     }
   },
   computed: {
     ...mapState('screen', {
+      selected: state => state.selected,
       selectedOutline: state => state.selectedOutline
     }),
     curModel () {
       return Module.getModel(this.model)
+    },
+    isSelected () {
+      return this.selected === this.curModel
     },
     isActive () {
       return this.selectedOutline === this
@@ -51,18 +56,15 @@ export default {
       'SELECT_OUTLINE'
     ]),
     selectElement () {
-      if (!this.moved && !this.isActive) {
+      if (!this.moving && !this.isActive) {
         this.SELECT_MODULE(this.curModel)
         this.SELECT_OUTLINE(this)
       }
     },
-    // 自由布局的组件拖拽时不使用 vue-draggle 交换位置，
-    // 而是改变 top，left 的值
     checkDraggable (e) {
       const draggable = this.curModel.layout.auto
       if (!draggable) {
-        const target = e.target
-        this.initElementWH(target)
+        this.initElementWH(e.target)
 
         this.anchor = { x: e.x, y: e.y }
         this.oldXY = {
@@ -73,28 +75,22 @@ export default {
         document.body.addEventListener('mouseup', () => {
           document.body.removeEventListener('mousemove', this.calcMove)
           setTimeout(() => {
-            this.moved = false
+            this.moving = false
           })
         })
-
-        // e.stopPropagation()
+        // 自由布局的组件拖拽时不使用 vue-draggle 交换位置
         e.preventDefault()
       }
     },
     initElementWH (target) {
-      const isSelectSubOutline = target.__vue__.curModel
-      const $moduleElem = isSelectSubOutline
-        ? target.__vue__.curModel.$instance.$el
-        : target.offsetParent.offsetParent
-      if (!isSelectSubOutline) {
-        // this.curModel.layout.width = $moduleElem.offsetWidth
-        // this.curModel.layout.height = $moduleElem.offsetHeight
-        // this.curModel.layout.top = $moduleElem.offsetTop
-        // this.curModel.layout.left = $moduleElem.offsetLeft
-      }
+      const $moduleElem = Utils.findParentByClass(target, 'module-block')
+      this.curModel.layout.width = $moduleElem.offsetWidth
+      // this.curModel.layout.height = $moduleElem.offsetHeight
+      this.curModel.layout.top = $moduleElem.offsetTop
+      this.curModel.layout.left = $moduleElem.offsetLeft
     },
     calcMove (newPosition) {
-      this.moved = true
+      this.moving = true
       const offsetX = newPosition.x - this.anchor.x
       const offsetY = newPosition.y - this.anchor.y
       this.curModel.layout.top = this.oldXY.y + offsetY

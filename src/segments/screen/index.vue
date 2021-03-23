@@ -162,9 +162,11 @@ export default {
   position: relative;
   display: flex;
   cursor: pointer;
+  z-index: 1;
 
   &.free {
     will-change: auto;
+    z-index: 10;
 
     &[draggable="true"] {
       transition: none !important;
@@ -183,6 +185,8 @@ export default {
   }
 
   &.selected {
+    z-index: 2;
+
     .padding {
       background: #e6e8eb;
     }
