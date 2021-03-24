@@ -8,6 +8,7 @@ export default {
   inline: true,
   props: {
     layout: Props.layout({
+      label: '模块样式',
       default: {
         padding: [12, 20, 12, 20],
         border: [1, 2, 5, 2],

@@ -7,6 +7,9 @@ import Props from '@/models/props'
 export default {
   name: 'lego-textarea',
   props: {
+    layout: Props.layout({
+      label: '模块样式'
+    }),
     text: Props.textarea({
       label: '文本内容',
       default: {
@@ -19,7 +22,10 @@ export default {
   },
   computed: {
     styles () {
-      return Props.genStyles(this.text)
+      return {
+        ...Props.genStyles(this.layout),
+        ...Props.genStyles(this.text)
+      }
     }
   }
 }
