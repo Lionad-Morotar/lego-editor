@@ -1,6 +1,8 @@
 import Module from '@/models/module'
 
 const state = {
+  // 记录是否正在拖拽模块
+  moving: false,
   modules: [],
   selected: null,
   selectedOutline: null,
@@ -9,6 +11,9 @@ const state = {
 }
 
 const mutations = {
+  SET_MOVING (state, newVal) {
+    state.moving = newVal
+  },
   ADD_MODULE (state, { instance, idx }) {
     state.modules.splice(idx, 0, instance)
   },

@@ -1,6 +1,6 @@
 <template>
   <div class="screen" @click="unselectedModule">
-    <div class="page">
+    <div class="page" :class="[moving && 'moving']">
       <draggable
         v-bind="dragOptions"
         v-model="draggableModules">
@@ -43,6 +43,7 @@ export default {
       plugins: state => state.modules
     }),
     ...mapState('screen', {
+      moving: state => state.moving,
       modules: state => state.modules,
       previewModules: state => state.previewModules,
       selected: state => state.selected,
@@ -205,6 +206,12 @@ export default {
   // 白色先写死，后期背景色可能会作为页面的属性
   background: white;
   box-shadow: 0 0 7px 1px #ddd;
+
+  &.moving {
+    .outline {
+      opacity: 0;
+    }
+  }
 }
 .module-block {
   position: relative;

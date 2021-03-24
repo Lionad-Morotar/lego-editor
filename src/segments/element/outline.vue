@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapMutations, mapState, mapActions } from 'vuex'
 import Module from '@/models/module'
 export default {
   name: 'box-outline',
@@ -25,8 +25,6 @@ export default {
   props: ['props'],
   data () {
     return {
-      // 记录当前点击周期内是否移动了元素位置
-      moving: false,
       propsChangingTick: null,
       anchor: { x: 0, y: 0 },
       oldXY: { x: 0, y: 0 }
@@ -34,6 +32,7 @@ export default {
   },
   computed: {
     ...mapState('screen', {
+      moving: state => state.moving,
       selected: state => state.selected,
       selectedOutline: state => state.selectedOutline
     }),
@@ -64,6 +63,9 @@ export default {
     }
   },
   methods: {
+    ...mapMutations('screen', [
+      'SET_MOVING'
+    ]),
     ...mapActions('screen', [
       'SELECT_MODULE',
       'SELECT_OUTLINE'
@@ -88,7 +90,7 @@ export default {
         document.body.addEventListener('mouseup', () => {
           document.body.removeEventListener('mousemove', this.calcMove)
           setTimeout(() => {
-            this.moving = false
+            this.SET_MOVING(false)
           })
         })
         // 自由布局的组件拖拽时不使用 vue-draggle 交换位置
@@ -103,7 +105,7 @@ export default {
       this.curModel.layout.left = $moduleElem.offsetLeft
     },
     calcMove (newPosition) {
-      this.moving = true
+      this.SET_MOVING(true)
       const offsetX = newPosition.x - this.anchor.x
       const offsetY = newPosition.y - this.anchor.y
       this.curModel.layout.top = this.oldXY.y + offsetY
