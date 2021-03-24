@@ -99,7 +99,6 @@ const genStyles = (val = {}, options = {}) => {
       res.height = height ? (height + 'px') : 'auto'
       if (notEmpty(top)) res.top = top ? (top + 'px') : 0
       if (notEmpty(left)) res.left = left ? (left + 'px') : 0
-      if (bgColor) res.background = bgColor
       res.zIndex = 1
     }
   }
@@ -113,6 +112,7 @@ const genStyles = (val = {}, options = {}) => {
       res[key] = [borderStyle, borderVal + 'px', borderColor].join(' ')
     })
   }
+  if (notEmpty(bgColor)) res.background = bgColor
   if (notEmpty(radius)) res.borderRadius = radius + 'px'
 
   /* text */
