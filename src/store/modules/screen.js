@@ -4,7 +4,7 @@ const state = {
   modules: [],
   selected: null,
   selectedOutline: null,
-  // 记录某个模块连续复制了几次（以计算复制后的模块在Y方向上的偏移）
+  // 记录某个模块连续复制了几次（以计算复制后的模块在Y轴方向上的偏移）
   cloneCombo: 0
 }
 
