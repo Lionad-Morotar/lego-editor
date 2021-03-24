@@ -151,9 +151,11 @@ export default {
       this.SELECT_MODULE(targetModule)
     },
     selectPrev () {
+      const reversed = [].concat(this.modules).reverse()
+      const curReversedIDX = reversed.findIndex(x => x === this.selected)
       const targetModule = this.selected
-        ? this.modules.find((x, idx) => idx < this.curIDX && x.layout.auto)
-        : [].concat(this.modules).reverse().find(x => x.layout.auto)
+        ? reversed.find((x, idx) => idx > curReversedIDX && x.layout.auto)
+        : reversed.find(x => x.layout.auto)
       targetModule && this.selectModule(targetModule)
     },
     selectNext () {
