@@ -47,7 +47,7 @@ export default {
       return this.selected === this.curModel
     },
     isActive () {
-      return this.selectedOutline && this.selectedOutline === this
+      return this.selectedOutline === this
     }
   },
   watch: {
@@ -61,7 +61,7 @@ export default {
           }
           this.propsChangingTick = setTimeout(() => {
             this.propsChangingTick = null
-          }, 300)
+          }, 250)
         }
       }
     }
@@ -78,6 +78,7 @@ export default {
       if (!this.moving && !this.isActive) {
         this.lockPropsChangingTick = true
         this.SELECT_MODULE(this.curModel)
+        this.SELECT_OUTLINE(this)
         this.$nextTick(() => (this.lockPropsChangingTick = false))
       }
     },
