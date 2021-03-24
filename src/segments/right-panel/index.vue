@@ -8,16 +8,16 @@
       </div>
       <div class="content">
         <div class="icons-group">
-          <div class="icon" title="上移模块" :class="disableMoveUp && 'disabled'" @click="handleMoveUp">
+          <div class="icon" title="上移模块（Ctrl+Up）" :class="disableMoveUp && 'disabled'" @click="handleMoveUp">
             <i class="iconfont icon-arrowup" />
           </div>
-          <div class="icon" title="下移模块" :class="disableMoveDown && 'disabled'" @click="handleMoveDown">
+          <div class="icon" title="下移模块（Ctrl+Down）" :class="disableMoveDown && 'disabled'" @click="handleMoveDown">
             <i class="iconfont icon-arrowdown" />
           </div>
           <div class="icon" title="复制模块" @click="cloneModule">
             <i class="iconfont icon-file-copy" />
           </div>
-          <div class="icon" title="删除模块" @click="deleteModule">
+          <div class="icon" title="删除模块（Delete）" @click="deleteModule">
             <i class="iconfont icon-delete" />
           </div>
         </div>
@@ -67,7 +67,7 @@ export default {
       )
     },
     isFreeElement () {
-      return !this.selected.layout.auto
+      return this.selected && !this.selected.layout.auto
     },
     disableMoveUp () {
       return this.isFreeElement || this.selected === this.modules.find(x => x.layout.auto)
@@ -95,6 +95,11 @@ export default {
         }
       }
     }
+  },
+  mounted () {
+    this.$keyboards.watch('ctrl+up', !this.disableMoveUp && this.handleMoveUp)
+    this.$keyboards.watch('ctrl+down', !this.disableMoveDown && this.handleMoveDown)
+    this.$keyboards.watch('del', this.deleteModule)
   },
   methods: {
     ...mapActions('screen', [

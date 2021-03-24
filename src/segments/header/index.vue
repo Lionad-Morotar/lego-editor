@@ -33,6 +33,9 @@ export default {
       modules: state => state.modules
     })
   },
+  mounted () {
+    this.$keyboards.watch('ctrl+s', this.save)
+  },
   methods: {
     ...mapActions('editor', [
       'TOGGLE_ISPREVIEW',

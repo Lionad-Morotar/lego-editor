@@ -66,6 +66,9 @@ export default {
     },
     styles () {
       return this.modules.map(m => Props.genStyles(m.layout, { onlyTranslate: true }))
+    },
+    curIDX () {
+      return this.modules.findIndex(x => x === this.selected)
     }
   },
   created () {
@@ -127,6 +130,12 @@ export default {
       // }, 200)
     }
   },
+  mounted () {
+    this.$keyboards.watch('up', this.selectPrev)
+    this.$keyboards.watch('down', this.selectNext)
+    this.$keyboards.watch('tab', this.selectAnyNext)
+    this.$keyboards.watch('shift+tab', this.selectAnyPrev)
+  },
   methods: {
     ...mapActions('screen', [
       'ADD_MODULE',
@@ -142,6 +151,30 @@ export default {
     },
     selectModule (targetModule) {
       this.SELECT_MODULE(targetModule)
+    },
+    selectPrev () {
+      const targetModule = this.selected
+        ? this.modules.find((x, idx) => idx < this.curIDX && x.layout.auto)
+        : [].concat(this.modules).reverse().find(x => x.layout.auto)
+      targetModule && this.selectModule(targetModule)
+    },
+    selectNext () {
+      const targetModule = this.selected
+        ? this.modules.find((x, idx) => idx > this.curIDX && x.layout.auto)
+        : this.modules.find(x => x.layout.auto)
+      targetModule && this.selectModule(targetModule)
+    },
+    selectAnyPrev () {
+      const targetModule = this.selected
+        ? this.modules.find((_, idx) => idx > this.curIDX)
+        : this.modules[this.modules.length - 1]
+      targetModule && this.selectModule(targetModule)
+    },
+    selectAnyNext () {
+      const targetModule = this.selected
+        ? this.modules.find((_, idx) => idx > this.curIDX)
+        : this.modules[0]
+      targetModule && this.selectModule(targetModule)
     },
     unselectedModule () {
       this.UNSELECTED()
