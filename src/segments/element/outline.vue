@@ -25,6 +25,7 @@ export default {
   props: ['props'],
   data () {
     return {
+      lockPropsChangingTick: false,
       propsChangingTick: null,
       anchor: { x: 0, y: 0 },
       oldXY: { x: 0, y: 0 }
@@ -46,19 +47,22 @@ export default {
       return this.selected === this.curModel
     },
     isActive () {
-      return this.selectedOutline === this
+      return this.selectedOutline && this.selectedOutline === this
     }
   },
   watch: {
     curProps: {
       deep: true,
       handler () {
-        if (this.propsChangingTick) {
-          clearTimeout(this.propsChangingTick)
+        if (!this.lockPropsChangingTick) {
+          if (this.propsChangingTick) {
+            // TODO perf by sum time
+            clearTimeout(this.propsChangingTick)
+          }
+          this.propsChangingTick = setTimeout(() => {
+            this.propsChangingTick = null
+          }, 300)
         }
-        this.propsChangingTick = setTimeout(() => {
-          this.propsChangingTick = null
-        }, 300)
       }
     }
   },
@@ -72,13 +76,14 @@ export default {
     ]),
     selectElement () {
       if (!this.moving && !this.isActive) {
+        this.lockPropsChangingTick = true
         this.SELECT_MODULE(this.curModel)
-        this.SELECT_OUTLINE(this)
+        this.$nextTick(() => (this.lockPropsChangingTick = false))
       }
     },
     checkDraggable (e) {
-      const draggable = this.curModel.layout.auto
-      if (!draggable) {
+      const isFree = !this.curModel.layout.auto
+      if (isFree) {
         this.initElementWH(e.target)
 
         this.anchor = { x: e.x, y: e.y }
@@ -89,20 +94,20 @@ export default {
         document.body.addEventListener('mousemove', this.calcMove)
         document.body.addEventListener('mouseup', () => {
           document.body.removeEventListener('mousemove', this.calcMove)
-          setTimeout(() => {
-            this.SET_MOVING(false)
-          })
+          this.$nextTick(() => this.SET_MOVING(false))
         })
         // 自由布局的组件拖拽时不使用 vue-draggle 交换位置
         e.preventDefault()
       }
     },
     initElementWH (target) {
+      this.lockPropsChangingTick = true
       const $moduleElem = this.$utils.findParentByClass(target, 'module-block')
       this.curModel.layout.width = $moduleElem.offsetWidth
       // this.curModel.layout.height = $moduleElem.offsetHeight
       this.curModel.layout.top = $moduleElem.offsetTop
       this.curModel.layout.left = $moduleElem.offsetLeft
+      this.$nextTick(() => (this.lockPropsChangingTick = false))
     },
     calcMove (newPosition) {
       this.SET_MOVING(true)
