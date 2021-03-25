@@ -6,6 +6,7 @@ import Forms from '@/forms'
 export default {
   name: 'lego-button',
   inline: true,
+  resizable: true,
   props: {
     layout: Props.layout({
       label: '模块样式',

@@ -4,14 +4,20 @@
     :class="[isActive && 'active', propsChangingTick && 'props-changing']"
     @click.capture="selectElement"
     @click.stop="_ => _"
-    @mousedown="checkDraggable"
-  >
+    @mousedown="checkDraggable">
     <slot />
+    <!-- 也许不应该用 DOM ？ -->
     <div class="outline">
-      <div class="point left top" />
-      <div class="point left bottom" />
-      <div class="point right top" />
-      <div class="point right bottom" />
+      <div class="point scaler left top" />
+      <div class="point scaler left bottom" />
+      <div class="point scaler right top" />
+      <div class="point scaler right bottom" />
+      <template v-if="showResizer">
+        <div class="point resizer top" />
+        <div class="point resizer left" />
+        <div class="point resizer right" />
+        <div class="point resizer bottom" />
+      </template>
     </div>
   </div>
 </template>
@@ -48,6 +54,12 @@ export default {
     },
     isActive () {
       return this.selectedOutline === this
+    },
+    showResizer () {
+      const resizable = this.curModel.component.resizable
+      // 目前只有最外层边框支持显示抓手
+      const isTopOutline = this === this.curModel.$outlines[0]
+      return resizable && isTopOutline
     }
   },
   watch: {
@@ -154,23 +166,47 @@ export default {
       width: 0;
       height: 0;
       border: solid 0 #a1caff;
-      border-radius: 50%;
       background: white;
       transition: .1s ease-out;
       // TODO 错开入场和出场动画
       // transition-delay: .1s;
 
-      &.left {
-        left: 0;
+      &.scaler {
+        border-radius: 50%;
+
+        &.left {
+          left: 0;
+        }
+        &.right {
+          right: 0;
+        }
+        &.top {
+          top: 0;
+        }
+        &.bottom {
+          bottom: 0;
+        }
       }
-      &.right {
-        right: 0;
-      }
-      &.top {
-        top: 0;
-      }
-      &.bottom {
-        bottom: 0;
+
+      &.resizer {
+        // transition-delay: .1s;
+
+        &.left {
+          left: -5px;
+          top: calc(50% - 4px);
+        }
+        &.right {
+          right: -5px;
+          top: calc(50% - 4px);
+        }
+        &.top {
+          top: -5px;
+          left: calc(50% - 4px);
+        }
+        &.bottom {
+          bottom: -5px;
+          left: calc(50% - 4px);
+        }
       }
     }
   }
@@ -180,28 +216,50 @@ export default {
       transition: .1s;
 
       .point {
-        width: 16px;
-        height: 16px;
-        border: solid 2px #a1caff;
+        width: 12px;
+        height: 12px;
 
-        &.left {
-          left: -8px;
+        &.scaler {
+          border: solid 1px #a1caff;
+
+          &.left {
+            left: -6px;
+          }
+          &.right {
+            right: -6px;
+          }
+          &.top {
+            top: -6px;
+          }
+          &.bottom {
+            bottom: -8px;
+          }
         }
-        &.right {
-          right: -8px;
+        &.resizer {
+          border: solid 1px #a1caff;
+          transition-delay: 0s;
+
+          &.top,
+          &.bottom {
+            width: 12px;
+            height: 8px;
+          }
+          &.left,
+          &.right {
+            width: 8px;
+            height: 12px;
+          }
         }
-        &.top {
-          top: -8px;
-        }
-        &.bottom {
-          bottom: -10px;
-        }
+
       }
     }
   }
   &.props-changing {
     .outline {
-      opacity: 0;
+      // 这里用动画太卡了，因为节点过多，暂时去掉动画
+      // 或者再用一个 tick 记动画时间做优化
+      display: none;
+      // opacity: 0;
     }
   }
 
