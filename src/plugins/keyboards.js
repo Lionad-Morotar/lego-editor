@@ -53,7 +53,7 @@ const record = k => (unTrigger[k] = true)
 const clear = k => (unTrigger[k] = false)
 
 function keydown (e) {
-  console.log(e.key)
+  // console.log(e.key)
   if (inList(e.key)) {
     record(e.key)
     const curKeys = getCombines()

@@ -10,6 +10,7 @@ import DefaultModule from '@/modules'
 import store from './store'
 import utils from './utils'
 import KeyboardListener from '@/plugins/keyboards'
+import Gesture from '@/plugins/gesture'
 import './styles/index.scss'
 
 Vue.use(Element)
@@ -17,6 +18,7 @@ Vue.prototype.$utils = utils
 // ! https://github.com/Thunberg087/vue-fragment/issues/62
 Vue.use(Fragment.Plugin)
 Vue.use(KeyboardListener)
+Vue.use(Gesture)
 
 const LegoEditor = new Vue({
   name: 'lego-editor',
