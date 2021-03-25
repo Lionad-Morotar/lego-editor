@@ -68,74 +68,70 @@ export default {
       default: 1000 / 30
     },
     // 事件钩子，由外部传入的事件处理函数
-    eventInvoke: {
+    invoke: {
       type: Function,
       default: () => {}
     }
   },
   data () {
     return {
-      touchstartTime: 0,
-      touchendTime: 0,
-      touchstartCoord: {},
-      touchendCoord: {},
+      touchStartTime: 0,
+      touchEndTime: 0,
+      touchStartCoord: {},
+      touchEndCoord: {},
+      moveCoord: {},
       wheelOffset: 0,
       mouseEnterTime: null,
       mouseLeaveTime: null,
       hoverTick: null,
       lastTouchendTime: 0,
-      lastTouchstartTime: 0,
-      lastTouchstartCoord: {},
-      lastTouchendCoord: {},
+      lastTouchStartTime: 0,
+      lastTouchStartCoord: {},
+      lastTouchEndCoord: {},
+      lastMoveCoord: {},
       lastWheelOffset: 0,
-      shouldInit: null,
       $ele: null,
       events: {
-        listens: []
+        listens: [],
+        moves: []
+      },
+      eventInvoke: e => {
+        this.$emit(e.type, e)
+        this.invoke(e)
       }
     }
   },
   computed: {
-    timeInterval () {
-      return this.touchendTime - this.touchstartTime
+    touchTimeInterval () {
+      return this.touchEndTime - this.touchStartTime
     },
-    pageXOffset () {
-      return this.touchendCoord.pageX - this.touchstartCoord.pageX
+    touchXOffset () {
+      return this.touchEndCoord.pageX - this.touchStartCoord.pageX
     },
-    pageXOffsetAbs () {
-      return Math.abs(this.pageXOffset)
+    touchXOffsetABS () {
+      return Math.abs(this.touchXOffset)
     },
-    pageYOffset () {
-      return this.touchendCoord.pageY - this.touchstartCoord.pageY
+    touchYOffset () {
+      return this.touchEndCoord.pageY - this.touchStartCoord.pageY
     },
-    pageYOffsetAbs () {
-      return Math.abs(this.pageYOffset)
+    touchYOffsetABS () {
+      return Math.abs(this.touchYOffset)
     },
-    lastTimeInterval () {
-      return this.lastTouchendTime - this.lastTouchstartTime
+    moveXOffset () {
+      return this.moveCoord.pageX - this.touchStartCoord.pageX
     },
-    lastPageXOffset () {
-      return this.touchendCoord.pageX - this.touchstartCoord.pageX
+    moveYOffset () {
+      return this.moveCoord.pageY - this.touchStartCoord.pageY
     },
-    lastPageYOffset () {
-      return this.touchendCoord.pageY - this.touchstartCoord.pageY
-    },
-    deltaTime () {
-      return this.touchendTime - this.lastTouchstartTim
-    },
-    mouseHoverTime () {
+    hoverTime () {
       return this.mouseLeaveTime - this.mouseEnterTime
     }
   },
   render () {
     return this.$slots.default
   },
-  /* 绑定事件 */
   mounted () {
-    // TODO refactor watch 以支持动态绑定
-    this.shouldInit = Object.keys(this.$props).find(x => gestures.includes(x) && this[x])
-    if (!this.shouldInit) return
-
+    // TODO watch 以支持动态绑定
     this.calcEventsName()
     this.$ele = this.$slots.default[0].elm
 
@@ -143,18 +139,15 @@ export default {
       this.$ele.addEventListener(x, this.getEvent(x))
     })
   },
-  /* 组件注销时清理事件 */
   beforeDestroy () {
-    if (!this.shouldInit) return
-
     this.events.listens.map(x => {
       this.$ele.removeEventListener(x, this.getEvent(x))
     })
   },
   methods: {
 
-    // 获得由 DOM 事件名字到 Gesture 示例方法名称的映射
-    // 如 tapMove 和 mouseMove 都使用 Gesture 的 onMoveMove 方法监听
+    // 获得由 DOM 事件名到 Gesture 示例方法名的映射
+    // 如 tapMove 和 mouseMove 都使用 onMoveMove 方法进行监听
     getEvent (name) {
       return this[eventNameRemap[name]]
     },
@@ -162,7 +155,6 @@ export default {
     /* Enter Events */
 
     onMouseEnter (e) {
-      console.log(e)
       if (!this.mouseEnterTime && !this.mouseLeaveTime) {
         this.recordEnter(e)
       }
@@ -171,6 +163,7 @@ export default {
     recordEnter (e) {
       this.mouseEnterTime = e.timeStamp
       // 如果 Hover 时间到了，那么直接触发 Hover 事件，不需要再监听 MouseLeave
+      // TODO refactor
       this.hoverTick = setTimeout(() => {
         this.recordLeave({
           timeStamp: +new Date() + Infinity
@@ -199,18 +192,26 @@ export default {
       this.eventInvoke(e)
     },
     recordDown (e) {
-      this.lastTouchstartTime = this.touchstartTime
-      this.touchstartTime = e.timeStamp
+      this.lastTouchStartTime = this.touchStartTime
+      this.touchStartTime = e.timeStamp
       const touch = e.touches ? e.touches[0] : e
-      this.lastTouchstartCoord = this.touchstartCoord
-      this.touchstartCoord = {
+      this.lastTouchStartCoord = this.touchStartCoord
+      this.touchStartCoord = {
         pageX: touch.pageX,
         pageY: touch.pageY
       }
     },
     triggerMove () {
       this.events.moves.map(x => {
-        this.$ele.addEventListener(x, this.getEvent(x))
+        document.body.addEventListener(x, this.getEvent(x))
+      })
+      const upEvents = this.isMobile ? ['touchend', 'touchcancel'] : ['mouseup']
+      upEvents.map(x => {
+        const clean = () => {
+          document.body.removeEventListener(x, clean)
+          this.unTriggerMove()
+        }
+        document.body.addEventListener(x, clean)
       })
     },
 
@@ -223,35 +224,46 @@ export default {
       this.eventInvoke(e)
     },
     recordUp (e) {
-      this.lastTouchendTime = this.touchendTime
-      this.touchendTime = e.timeStamp
+      this.lastTouchendTime = this.touchEndTime
+      this.touchEndTime = e.timeStamp
       const touch = e.changedTouches ? e.changedTouches[0] : e
-      this.lastTouchendCoord = this.touchendCoord
-      this.touchendCoord = {
+      this.lastTouchEndCoord = this.touchEndCoord
+      this.touchEndCoord = {
         pageX: touch.pageX,
         pageY: touch.pageY
       }
     },
     unTriggerMove () {
       this.events.moves.map(x => {
-        this.$ele.removeEventListener(x, this.getEvent(x))
+        document.body.removeEventListener(x, this.getEvent(x))
       })
     },
 
     /* Move Events */
 
     onMouseMove (e) {
+      this.recordMove(e)
       this.eventInvoke(e)
+    },
+    recordMove (e) {
+      const touch = e.changedTouches ? e.changedTouches[0] : e
+      this.lastMoveCoord = this.moveCoord
+      this.moveCoord = {
+        pageX: touch.pageX,
+        pageY: touch.pageY
+      }
+      this.$emit('move', {
+        offsetX: this.moveXOffset,
+        offsetY: this.moveYOffset
+      })
     },
 
     /* Mouse Wheel Events */
 
     onMouseWheel (e) {
       this.lastWheelOffset = this.wheelOffset
-
       const offset = e.wheelDelta && e.deltaY ? e.wheelDelta * -1 : event.deltaY
       this.wheelOffset = offset
-
       this.calcGestures()
       this.eventInvoke(e)
     },
@@ -275,54 +287,63 @@ export default {
 
         // 触发条件
         const judgement = {
-          hover: () => this.mouseHoverTime >= hoverTime,
+          hover: () => this.hoverTime >= hoverTime,
           hoverOut: () => true,
           tap: () => {
-            const inTime = this.timeInterval < tapTimeInterval
-            const inRange = this.pageXOffset ** 2 < tapOffsetThresholdSquared
+            const inTime = this.touchTimeInterval < tapTimeInterval
+            const inRange = this.touchXOffset ** 2 < tapOffsetThresholdSquared
             return inTime && inRange
           },
           swipeUp: () => {
             const calcMouse =
-              this.timeInterval < tapTimeInterval &&
-              this.pageYOffsetAbs > this.pageXOffsetAbs &&
-              this.pageYOffset > swipeOffsetThreshold
+              this.touchTimeInterval < tapTimeInterval &&
+              this.touchYOffsetABS > this.touchXOffsetABS &&
+              this.touchYOffset > swipeOffsetThreshold
             const calcMouseWheel = this.wheelOffset < 0
             return calcMouse || calcMouseWheel
           },
           swipeDown: () => {
             const calcMouse =
-              this.timeInterval < tapTimeInterval &&
-              this.pageYOffsetAbs > this.pageXOffsetAbs &&
-              this.pageYOffset < swipeOffsetThreshold
+              this.touchTimeInterval < tapTimeInterval &&
+              this.touchYOffsetABS > this.touchXOffsetABS &&
+              this.touchYOffset < swipeOffsetThreshold
             const calcMouseWheel = this.wheelOffset > 0
             return calcMouse || calcMouseWheel
           }
         }
 
+        // const canRelease = gestures.map(x => judgement[x] && judgement[x]())
+        // gestures.forEach((x, xi) => {
+        //   if (canRelease[xi]) {
+        //     this.$emit(x)
+        //   }
+        // })
         gestures.find(x => {
           const canRelease = this[x] && judgement[x] && judgement[x]()
           const release = () => this[x]()
 
-          canRelease && release()
+          if (canRelease) {
+            release()
+            this.reset()
+          }
         })
-
-        this.reset()
       }
     })(),
 
     reset () {
-      this.touchstartTime = null
-      this.touchendTime = null
-      this.touchstartCoord = {}
-      this.touchendCoord = {}
+      this.touchStartTime = null
+      this.touchEndTime = null
+      this.touchStartCoord = {}
+      this.touchEndCoord = {}
+      this.moveCoord = {}
       this.wheelOffset = 0
       this.mouseEnterTime = null
       this.mouseLeaveTime = null
       this.lastTouchendTime = null
-      this.lastTouchstartTime = null
-      this.lastTouchstartCoord = {}
-      this.lastTouchendCoord = {}
+      this.lastTouchStartTime = null
+      this.lastTouchStartCoord = {}
+      this.lastTouchEndCoord = {}
+      this.lastMoveCoord = {}
       this.lastWheelOffset = 0
     },
 

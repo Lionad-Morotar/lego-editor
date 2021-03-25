@@ -100,6 +100,7 @@ export default {
             })
           }
         })
+        setTimeout(() => this.SELECT_MODULE(this.modules[2]), 100)
         // this.ADD_MODULE({
         //   inits: this.plugins.find(x => x.title === '流程模块')
         // })

@@ -1,4 +1,5 @@
 <template>
+  <!-- TODO 迁移到 Gesture  -->
   <div
     class="box-outline"
     :class="[isActive && 'active', propsChangingTick && 'props-changing']"
@@ -8,15 +9,30 @@
     <slot />
     <!-- 也许不应该用 DOM ？ -->
     <div class="outline">
-      <div class="point scaler left top" />
-      <div class="point scaler left bottom" />
-      <div class="point scaler right top" />
-      <div class="point scaler right bottom" />
+      <div
+        v-for="r in [
+          'point scaler left top',
+          'point scaler left bottom',
+          'point scaler right top',
+          'point scaler right bottom'
+        ]"
+        :class="r"
+        :key="r"
+      />
       <template v-if="showResizer">
-        <div class="point resizer top" />
-        <div class="point resizer left" />
-        <div class="point resizer right" />
-        <div class="point resizer bottom" />
+        <Gesture
+          v-for="r in [
+            'point resizer top',
+            'point resizer left',
+            'point resizer right',
+            'point resizer bottom'
+          ]"
+          :invoke="stopEvent"
+          :key="r"
+          @mousedown="setAnchor"
+          @move="setPositionByOffset">
+          <div :class="r" />
+        </Gesture>
       </template>
     </div>
   </div>
@@ -86,6 +102,9 @@ export default {
       'SELECT_MODULE',
       'SELECT_OUTLINE'
     ]),
+
+    /* Module Functions */
+
     selectElement () {
       if (!this.moving && !this.isActive) {
         this.lockPropsChangingTick = true
@@ -98,19 +117,23 @@ export default {
       const isFree = !this.curModel.layout.auto
       if (isFree) {
         this.initElementWH(e.target)
-
-        this.anchor = { x: e.x, y: e.y }
-        this.oldXY = {
-          x: this.curModel.layout.left,
-          y: this.curModel.layout.top
-        }
+        this.setAnchor(e)
         document.body.addEventListener('mousemove', this.calcMove)
-        document.body.addEventListener('mouseup', () => {
+        const clean = () => {
           document.body.removeEventListener('mousemove', this.calcMove)
+          document.body.removeEventListener('mouseup', clean)
           this.$nextTick(() => this.SET_MOVING(false))
-        })
+        }
+        document.body.addEventListener('mouseup', clean)
         // 自由布局的组件拖拽时不使用 vue-draggle 交换位置
         e.preventDefault()
+      }
+    },
+    setAnchor (e) {
+      this.anchor = { x: e.x, y: e.y }
+      this.oldXY = {
+        x: this.curModel.layout.left,
+        y: this.curModel.layout.top
       }
     },
     initElementWH (target) {
@@ -124,10 +147,26 @@ export default {
     },
     calcMove (newPosition) {
       this.SET_MOVING(true)
+      this.setPositionByOffset(this.calcOffset(newPosition))
+    },
+    calcOffset (newPosition) {
       const offsetX = newPosition.x - this.anchor.x
       const offsetY = newPosition.y - this.anchor.y
+      return { offsetX, offsetY }
+    },
+    setPositionByOffset ({ offsetX, offsetY }) {
       this.curModel.layout.top = this.oldXY.y + offsetY
       this.curModel.layout.left = this.oldXY.x + offsetX
+    },
+
+    /* Resizer Functions */
+
+    test (offset) {
+      console.log(offset)
+    },
+    stopEvent (e) {
+      e.stopPropagation()
+      e.preventDefault()
     }
   }
 }
@@ -136,6 +175,7 @@ export default {
 <style lang="scss" scoped>
 .box-outline {
   position: relative;
+  z-index: 1;
 
   &.inline {
     display: inline-block;
@@ -156,10 +196,8 @@ export default {
     width: calc(100% + 4px);
     height: calc(100% + 2px);
     border: solid 0 #a1caff;
-    z-index: 1;
+    z-index: -1;
     transition: none;
-    // todo refactor
-    pointer-events: none;
 
     .point {
       position: absolute;
@@ -173,6 +211,8 @@ export default {
 
       &.scaler {
         border-radius: 50%;
+        // 暂时隐藏 scaler
+        display: none;
 
         &.left {
           left: 0;
@@ -189,23 +229,27 @@ export default {
       }
 
       &.resizer {
-        // transition-delay: .1s;
+        transition-delay: .1s;
 
         &.left {
           left: -5px;
           top: calc(50% - 4px);
+          cursor: w-resize;
         }
         &.right {
           right: -5px;
           top: calc(50% - 4px);
+          cursor: e-resize;
         }
         &.top {
           top: -5px;
           left: calc(50% - 4px);
+          cursor: n-resize;
         }
         &.bottom {
-          bottom: -5px;
+          bottom: -7px;
           left: calc(50% - 4px);
+          cursor: s-resize;
         }
       }
     }
