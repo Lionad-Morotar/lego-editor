@@ -43,10 +43,10 @@
     <div class="config-item" v-if="display('styles')">
       <div class="config-item-header">样式</div>
       <div class="config-item-content">
-        <div class="icon" title="加粗" @click="v.bold = !v.bold">
+        <div class="icon" title="加粗（Ctrl+B）" @click="v.bold = !v.bold">
           <i class="iconfont icon-bold" :class="when(v.bold)" />
         </div>
-        <div class="icon" title="斜体" @click="v.italic = !v.italic">
+        <div class="icon" title="斜体（Ctrl+I）" @click="v.italic = !v.italic">
           <i class="iconfont icon-italic" :class="when(v.italic)" />
         </div>
         <div class="icon" title="中划线" @click="v.strikeThrough = !v.strikeThrough">
@@ -76,7 +76,7 @@
     <div class="config-item" v-if="display('color')">
       <div class="config-item-header">颜色</div>
       <div class="config-item-content">
-        <div class="icon" title="文字颜色" @click="showColor=!showColor">
+        <div class="icon" title="文字颜色（Ctrl+C）" @click="showColor=!showColor">
           <i class="iconfont icon-bg-colors" :style="{ color: v.color }" />
         </div>
       </div>
@@ -115,6 +115,12 @@ export default {
     color (newValue) {
       this.v.color = newValue.hex8
     }
+  },
+  mounted () {
+    this.$keyboards.watch('ctrl+b', () => (this.v.bold = !this.v.bold))
+    this.$keyboards.watch('ctrl+i', () => (this.v.italic = !this.v.italic))
+    this.$keyboards.watch('ctrl+c', () => (this.showColor = !this.showColor))
+    this.$keyboards.watch('esc', () => (this.showColor = false))
   },
   methods: {
     when (valid) {

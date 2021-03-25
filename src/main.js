@@ -9,12 +9,14 @@ import Editor from './index.vue'
 import DefaultModule from '@/modules'
 import store from './store'
 import utils from './utils'
+import KeyboardListener from '@/plugins/keyboards'
 import './styles/index.scss'
 
 Vue.use(Element)
 Vue.prototype.$utils = utils
 // ! https://github.com/Thunberg087/vue-fragment/issues/62
 Vue.use(Fragment.Plugin)
+Vue.use(KeyboardListener)
 
 const LegoEditor = new Vue({
   name: 'lego-editor',

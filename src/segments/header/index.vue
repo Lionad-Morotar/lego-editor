@@ -6,9 +6,7 @@
     <div class="center">
       <el-button disabled type="text" icon="el-icon-back">上一步</el-button>
       <el-button disabled type="text" icon="el-icon-right">下一步</el-button>
-      <el-button type="text" icon="el-icon-upload2" @click="save"
-        >保 存</el-button
-      >
+      <el-button title="保存（Ctrl+S）" type="text" icon="el-icon-upload2" @click="save">保 存</el-button>
     </div>
     <div class="right">
       <el-button type="text" icon="el-icon-view" @click="togglePreview">{{
@@ -32,6 +30,9 @@ export default {
     ...mapState('screen', {
       modules: state => state.modules
     })
+  },
+  mounted () {
+    this.$keyboards.watch('ctrl+s', this.save)
   },
   methods: {
     ...mapActions('editor', [

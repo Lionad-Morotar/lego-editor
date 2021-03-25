@@ -1,6 +1,6 @@
 <template>
   <div class="screen" @click="unselectedModule">
-    <div class="page">
+    <div class="page" :class="[moving && 'moving']">
       <draggable
         v-bind="dragOptions"
         v-model="draggableModules">
@@ -43,6 +43,7 @@ export default {
       plugins: state => state.modules
     }),
     ...mapState('screen', {
+      moving: state => state.moving,
       modules: state => state.modules,
       previewModules: state => state.previewModules,
       selected: state => state.selected,
@@ -66,6 +67,9 @@ export default {
     },
     styles () {
       return this.modules.map(m => Props.genStyles(m.layout, { onlyTranslate: true }))
+    },
+    curIDX () {
+      return this.modules.findIndex(x => x === this.selected)
     }
   },
   created () {
@@ -127,6 +131,10 @@ export default {
       // }, 200)
     }
   },
+  mounted () {
+    this.$keyboards.watch('up', this.selectPrev)
+    this.$keyboards.watch('down', this.selectNext)
+  },
   methods: {
     ...mapActions('screen', [
       'ADD_MODULE',
@@ -143,6 +151,32 @@ export default {
     selectModule (targetModule) {
       this.SELECT_MODULE(targetModule)
     },
+    selectPrev () {
+      const reversed = [].concat(this.modules).reverse()
+      const curReversedIDX = reversed.findIndex(x => x === this.selected)
+      const targetModule = this.selected
+        ? reversed.find((x, idx) => idx > curReversedIDX && x.layout.auto)
+        : reversed.find(x => x.layout.auto)
+      targetModule && this.selectModule(targetModule)
+    },
+    selectNext () {
+      const targetModule = this.selected
+        ? this.modules.find((x, idx) => idx > this.curIDX && x.layout.auto)
+        : this.modules.find(x => x.layout.auto)
+      targetModule && this.selectModule(targetModule)
+    },
+    // selectAnyPrev () {
+    //   const targetModule = this.selected
+    //     ? this.modules.find((_, idx) => idx > this.curIDX)
+    //     : this.modules[this.modules.length - 1]
+    //   targetModule && this.selectModule(targetModule)
+    // },
+    // selectAnyNext () {
+    //   const targetModule = this.selected
+    //     ? this.modules.find((_, idx) => idx > this.curIDX)
+    //     : this.modules[0]
+    //   targetModule && this.selectModule(targetModule)
+    // },
     unselectedModule () {
       this.UNSELECTED()
     }
@@ -172,6 +206,12 @@ export default {
   // 白色先写死，后期背景色可能会作为页面的属性
   background: white;
   box-shadow: 0 0 7px 1px #ddd;
+
+  &.moving {
+    .outline {
+      opacity: 0;
+    }
+  }
 }
 .module-block {
   position: relative;

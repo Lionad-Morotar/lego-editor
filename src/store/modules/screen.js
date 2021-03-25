@@ -1,14 +1,19 @@
 import Module from '@/models/module'
 
 const state = {
+  // 记录是否正在拖拽模块
+  moving: false,
   modules: [],
   selected: null,
   selectedOutline: null,
-  // 记录某个模块连续复制了几次（以计算复制后的模块在Y方向上的偏移）
+  // 记录某个模块连续复制了几次（以计算复制后的模块在Y轴方向上的偏移）
   cloneCombo: 0
 }
 
 const mutations = {
+  SET_MOVING (state, newVal) {
+    state.moving = newVal
+  },
   ADD_MODULE (state, { instance, idx }) {
     state.modules.splice(idx, 0, instance)
   },
