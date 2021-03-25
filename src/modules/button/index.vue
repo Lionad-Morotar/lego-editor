@@ -6,6 +6,7 @@ import Forms from '@/forms'
 export default {
   name: 'lego-button',
   inline: true,
+  // resizer 是否应该默认就有？
   resizable: true,
   props: {
     layout: Props.layout({

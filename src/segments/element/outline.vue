@@ -27,10 +27,10 @@
             'point resizer right',
             'point resizer bottom'
           ]"
-          :invoke="stopEvent"
           :key="r"
+          :invoke="stopEvent"
           @mousedown="setAnchor"
-          @move="setPositionByOffset">
+          @move="e => calcWH(r.split(' ')[2], e)">
           <div :class="r" />
         </Gesture>
       </template>
@@ -50,7 +50,8 @@ export default {
       lockPropsChangingTick: false,
       propsChangingTick: null,
       anchor: { x: 0, y: 0 },
-      oldXY: { x: 0, y: 0 }
+      oldXY: { x: 0, y: 0 },
+      oldWH: { w: 0, h: 0 }
     }
   },
   computed: {
@@ -116,7 +117,6 @@ export default {
     checkDraggable (e) {
       const isFree = !this.curModel.layout.auto
       if (isFree) {
-        this.initElementWH(e.target)
         this.setAnchor(e)
         document.body.addEventListener('mousemove', this.calcMove)
         const clean = () => {
@@ -130,17 +130,22 @@ export default {
       }
     },
     setAnchor (e) {
+      this.initElementWH(e.target)
       this.anchor = { x: e.x, y: e.y }
       this.oldXY = {
         x: this.curModel.layout.left,
         y: this.curModel.layout.top
+      }
+      this.oldWH = {
+        w: this.curModel.layout.width,
+        h: this.curModel.layout.height
       }
     },
     initElementWH (target) {
       this.lockPropsChangingTick = true
       const $moduleElem = this.$utils.findParentByClass(target, 'module-block')
       this.curModel.layout.width = $moduleElem.offsetWidth
-      // this.curModel.layout.height = $moduleElem.offsetHeight
+      this.curModel.layout.height = $moduleElem.offsetHeight
       this.curModel.layout.top = $moduleElem.offsetTop
       this.curModel.layout.left = $moduleElem.offsetLeft
       this.$nextTick(() => (this.lockPropsChangingTick = false))
@@ -161,8 +166,25 @@ export default {
 
     /* Resizer Functions */
 
-    test (offset) {
-      console.log(offset)
+    calcWH (direction, offset) {
+      const { offsetX, offsetY } = offset
+      const safe = n => Math.max(0, n)
+      switch (direction) {
+        case 'left':
+          this.curModel.layout.left = this.oldXY.x + offsetX
+          this.curModel.layout.width = safe(this.oldWH.w - offsetX)
+          break
+        case 'right':
+          this.curModel.layout.width = safe(this.oldWH.w + offsetX)
+          break
+        case 'top':
+          this.curModel.layout.top = this.oldXY.y + offsetY
+          this.curModel.layout.height = safe(this.oldWH.h - offsetY)
+          break
+        case 'bottom':
+          this.curModel.layout.height = safe(this.oldWH.h + offsetY)
+          break
+      }
     },
     stopEvent (e) {
       e.stopPropagation()
@@ -228,6 +250,7 @@ export default {
         }
       }
 
+      // TODO 加大热区
       &.resizer {
         transition-delay: .1s;
 
@@ -251,6 +274,10 @@ export default {
           left: calc(50% - 4px);
           cursor: s-resize;
         }
+      }
+
+      &.rotater {
+        transition-delay: .2s;
       }
     }
   }
