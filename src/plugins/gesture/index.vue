@@ -18,6 +18,7 @@ const gestures = [
   'tap',
   // 'longtap',
   // 'doubletap',
+  'move',
   // 'swipe',
   // 'swipeLeft',
   // 'swipeRight',
@@ -162,7 +163,6 @@ export default {
     /* Enter Events */
 
     onMouseEnter (e) {
-      console.log(e)
       if (!this.mouseEnterTime && !this.mouseLeaveTime) {
         this.recordEnter(e)
       }
@@ -210,7 +210,7 @@ export default {
     },
     triggerMove () {
       this.events.moves.map(x => {
-        this.$ele.addEventListener(x, this.getEvent(x))
+        document.body.addEventListener(x, this.getEvent(x))
       })
     },
 
@@ -234,13 +234,14 @@ export default {
     },
     unTriggerMove () {
       this.events.moves.map(x => {
-        this.$ele.removeEventListener(x, this.getEvent(x))
+        document.body.removeEventListener(x, this.getEvent(x))
       })
     },
 
     /* Move Events */
 
     onMouseMove (e) {
+      console.log(e)
       this.eventInvoke(e)
     },
 
