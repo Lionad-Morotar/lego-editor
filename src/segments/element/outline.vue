@@ -30,18 +30,20 @@
           :key="r"
           :invoke="stopEvent"
           @mousedown="calcAnchor"
-          @move="e => calcWH(r.split(' ')[2], e)">
+          @mousemove="(e, p) => calcWH(r.split(' ')[2], p)">
           <div :class="r" />
         </Gesture>
       </template>
-      <Gesture
-        :invoke="stopEvent"
-        @mousedown="calcAnchor"
-        @move="calcRotate">
-        <div class="point" id="rotater">
-          <i class="iconfont icon-reload" />
-        </div>
-      </Gesture>
+      <template v-if="showRotater">
+        <Gesture
+          :invoke="stopEvent"
+          @mousedown="calcAnchor"
+          @mousemove="calcRotate">
+          <div class="point" id="rotater">
+            <i class="iconfont icon-reload" />
+          </div>
+        </Gesture>
+      </template>
     </div>
   </div>
 </template>
@@ -72,17 +74,24 @@ export default {
     curProps () {
       return this.curModel.props
     },
+    curLayout () {
+      return this.curModel.props.layout
+    },
     isSelected () {
       return this.selected === this.curModel
     },
     isActive () {
       return this.selectedOutline === this
     },
+    selectedTopOutline () {
+      return this === this.curModel.$outlines[0]
+    },
     showResizer () {
       const resizable = this.curModel.component.resizable
-      // 目前只有最外层边框支持显示抓手
-      const isTopOutline = this === this.curModel.$outlines[0]
-      return resizable && isTopOutline
+      return resizable && this.selectedTopOutline
+    },
+    showRotater () {
+      return !this.curLayout.auto && this.selectedTopOutline
     }
   },
   watch: {
@@ -121,7 +130,7 @@ export default {
       }
     },
     checkDraggable (e) {
-      const isFree = !this.curModel.layout.auto
+      const isFree = !this.curLayout.auto
       if (isFree) {
         this.calcAnchor(e)
         document.body.addEventListener('mousemove', this.calcMove)
@@ -137,28 +146,37 @@ export default {
     },
     // 把 calcAnchor 移到 Gesture
     calcAnchor (e) {
-      this.initElementWH(e.target)
+      const $target = this.$utils.findParentByClass(e.target, 'module-block')
+      this.initElementWH($target)
       this.anchor.start = { x: e.x, y: e.y }
       this.anchor.offset = {
-        x: this.curModel.layout.left,
-        y: this.curModel.layout.top
+        x: this.curLayout.left,
+        y: this.curLayout.top
       }
       this.anchor.size = {
-        w: this.curModel.layout.width,
-        h: this.curModel.layout.height
+        w: this.curLayout.width,
+        h: this.curLayout.height
       }
+      const $pos = $target.getBoundingClientRect()
       this.anchor.center = {
-        x: this.anchor.offset.x + (this.anchor.size.w / 2),
-        y: this.anchor.offset.y + (this.anchor.size.h / 2)
+        x: $pos.x + (this.anchor.size.w / 2),
+        y: $pos.y + (this.anchor.size.h / 2)
       }
+
+      const [offsetX, offsetY] = [
+        this.anchor.start.x - this.anchor.center.x,
+        this.anchor.start.y - this.anchor.center.y
+      ]
+      // 初始角度即点击位置与模块中心位置的夹角 + 90°（由于 Y 轴正向向下）
+      const initialDegree = (Math.atan2(offsetY, offsetX) / (Math.PI / 180))
+      this.anchor.rotate = initialDegree - this.curLayout.degree
     },
-    initElementWH (target) {
+    initElementWH ($target) {
       this.lockPropsChangingTick = true
-      const $moduleElem = this.$utils.findParentByClass(target, 'module-block')
-      this.curModel.layout.width = $moduleElem.offsetWidth
-      this.curModel.layout.height = $moduleElem.offsetHeight
-      this.curModel.layout.top = $moduleElem.offsetTop
-      this.curModel.layout.left = $moduleElem.offsetLeft
+      this.curLayout.width = $target.offsetWidth
+      this.curLayout.height = $target.offsetHeight
+      this.curLayout.top = $target.offsetTop
+      this.curLayout.left = $target.offsetLeft
       this.$nextTick(() => (this.lockPropsChangingTick = false))
     },
     calcMove (newPosition) {
@@ -171,8 +189,8 @@ export default {
       return { offsetX, offsetY }
     },
     setPositionByOffset ({ offsetX, offsetY }) {
-      this.curModel.layout.top = this.anchor.offset.y + offsetY
-      this.curModel.layout.left = this.anchor.offset.x + offsetX
+      this.curLayout.top = this.anchor.offset.y + offsetY
+      this.curLayout.left = this.anchor.offset.x + offsetX
     },
 
     /* Resizer & Rotater */
@@ -182,23 +200,29 @@ export default {
       const safe = n => Math.max(0, n)
       switch (direction) {
         case 'left':
-          this.curModel.layout.left = this.anchor.offset.x + offsetX
-          this.curModel.layout.width = safe(this.anchor.size.w - offsetX)
+          this.curLayout.left = this.anchor.offset.x + offsetX
+          this.curLayout.width = safe(this.anchor.size.w - offsetX)
           break
         case 'right':
-          this.curModel.layout.width = safe(this.anchor.size.w + offsetX)
+          this.curLayout.width = safe(this.anchor.size.w + offsetX)
           break
         case 'top':
-          this.curModel.layout.top = this.anchor.offset.y + offsetY
-          this.curModel.layout.height = safe(this.anchor.size.h - offsetY)
+          this.curLayout.top = this.anchor.offset.y + offsetY
+          this.curLayout.height = safe(this.anchor.size.h - offsetY)
           break
         case 'bottom':
-          this.curModel.layout.height = safe(this.anchor.size.h + offsetY)
+          this.curLayout.height = safe(this.anchor.size.h + offsetY)
           break
       }
     },
-    calcRotate ({ offsetX, offsetY }) {
-      console.log(offsetX, offsetY)
+    calcRotate (_, { x, y }) {
+      const [offsetX, offsetY] = [
+        x - this.anchor.center.x,
+        y - this.anchor.center.y
+      ]
+      const initial = this.anchor.rotate
+      const degree = (Math.atan2(offsetY, offsetX) / (Math.PI / 180)) - initial
+      this.curLayout.degree = (+degree.toFixed(1)) % 360
     },
     stopEvent (e) {
       e.stopPropagation()
@@ -302,8 +326,12 @@ export default {
         border-radius: 50%;
         background: white;
         box-shadow: 0 1px 2px 1px #666;
-        cursor: pointer;
+        cursor: grab;
         opacity: 0;
+
+        &:active {
+          cursor: grabbing;
+        }
 
         .iconfont {
           color: #666;

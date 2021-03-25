@@ -5,21 +5,22 @@
         v-bind="dragOptions"
         v-model="draggableModules">
         <transition-group type="transition" :name="'flip-list'">
-          <div
-            v-for="(m, idx) in modules"
-            class="module-block"
-            :class="[
-              selected === m ? 'selected' : '',
-              m.layout.auto ? '' : 'free'
-            ]"
-            :key="m.uuid"
-            :style="styles[idx]"
-            @click.stop="selectModule(m)">
-              <!-- 每个模块都附带一左一右两个 padding block，将剩余的空间填充满 -->
-              <!-- todo refactor 拖拽的时候会带影子 -->
-              <div class="padding left" @click="selectTopElement(m)" />
-              <instance :module="m" :bindModule="true" />
-              <div class="padding right" @click="selectTopElement(m)" />
+          <!-- Vue.Draggable 在鼠标事件时会清空行内样式如 transform 导致样式不生效，所以这里额外包一层 DIV -->
+          <div v-for="(m, idx) in modules" :key="m.uuid">
+            <div
+              class="module-block"
+              :class="[
+                selected === m ? 'selected' : '',
+                m.layout.auto ? '' : 'free'
+              ]"
+              :style="styles[idx]"
+              @click.stop="selectModule(m)">
+                <!-- 每个模块都附带一左一右两个 padding block，将剩余的空间填充满 -->
+                <!-- todo refactor 拖拽的时候会带影子 -->
+                <div class="padding left" @click="selectTopElement(m)" />
+                <instance :module="m" :bindModule="true" />
+                <div class="padding right" @click="selectTopElement(m)" />
+            </div>
           </div>
         </transition-group>
       </draggable>
@@ -88,6 +89,7 @@ export default {
           initialData: {
             layout: Object.assign(Props.DS.layout, {
               auto: false,
+              degree: -45,
               left: 150,
               top: 150,
               padding: [15, 15, 15, 15],

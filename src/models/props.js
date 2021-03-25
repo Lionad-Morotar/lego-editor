@@ -14,6 +14,7 @@ const DS = {
   get layout () {
     return {
       auto: true,
+      degree: 0,
       padding: [0, 0, 0, 0],
       top: 0,
       left: 0,
@@ -61,6 +62,7 @@ const genStyles = (val = {}, options = {}) => {
   const {
     // layout
     auto,
+    degree,
     padding,
     top,
     left,
@@ -99,6 +101,7 @@ const genStyles = (val = {}, options = {}) => {
       res.height = height ? (height + 'px') : 'auto'
       if (notEmpty(top)) res.top = top ? (top + 'px') : 0
       if (notEmpty(left)) res.left = left ? (left + 'px') : 0
+      res.transform = `rotate(${degree}deg)`
       res.zIndex = 1
     }
   }
@@ -139,6 +142,7 @@ const genStyles = (val = {}, options = {}) => {
   if (onlyTranslate) {
     res = {
       position: res.position,
+      transform: res.transform,
       width: res.width,
       height: res.height,
       top: res.top,
@@ -146,9 +150,10 @@ const genStyles = (val = {}, options = {}) => {
     }
   }
   if (removeTranslate) {
-    delete res.position
-    delete res.top
-    delete res.left
+    res.position = 'unset'
+    res.top = 'unset'
+    res.left = 'unset'
+    res.transform = 'unset'
   }
 
   return res

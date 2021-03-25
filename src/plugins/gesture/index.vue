@@ -96,7 +96,20 @@ export default {
         moves: []
       },
       eventInvoke: e => {
-        this.$emit(e.type, e)
+        const params = e.type.includes('move')
+          ? {
+            x: e.pageX,
+            y: e.pageY,
+            offsetX: this.moveOffsetX,
+            offsetY: this.moveOffsetY
+          }
+          : {
+            x: e.pageX,
+            y: e.pageY,
+            offsetX: this.touchOffsetX,
+            offsetY: this.touchOffsetY
+          }
+        this.$emit(e.type, e, params)
         this.invoke(e)
       }
     }
@@ -105,22 +118,22 @@ export default {
     touchTimeInterval () {
       return this.touchEndTime - this.touchStartTime
     },
-    touchXOffset () {
+    touchOffsetX () {
       return this.touchEndCoord.pageX - this.touchStartCoord.pageX
     },
-    touchXOffsetABS () {
-      return Math.abs(this.touchXOffset)
+    touchOffsetXABS () {
+      return Math.abs(this.touchOffsetX)
     },
-    touchYOffset () {
+    touchOffsetY () {
       return this.touchEndCoord.pageY - this.touchStartCoord.pageY
     },
-    touchYOffsetABS () {
-      return Math.abs(this.touchYOffset)
+    touchOffsetYABS () {
+      return Math.abs(this.touchOffsetY)
     },
-    moveXOffset () {
+    moveOffsetX () {
       return this.moveCoord.pageX - this.touchStartCoord.pageX
     },
-    moveYOffset () {
+    moveOffsetY () {
       return this.moveCoord.pageY - this.touchStartCoord.pageY
     },
     hoverTime () {
@@ -252,10 +265,6 @@ export default {
         pageX: touch.pageX,
         pageY: touch.pageY
       }
-      this.$emit('move', {
-        offsetX: this.moveXOffset,
-        offsetY: this.moveYOffset
-      })
     },
 
     /* Mouse Wheel Events */
@@ -291,22 +300,22 @@ export default {
           hoverOut: () => true,
           tap: () => {
             const inTime = this.touchTimeInterval < tapTimeInterval
-            const inRange = this.touchXOffset ** 2 < tapOffsetThresholdSquared
+            const inRange = this.touchOffsetX ** 2 < tapOffsetThresholdSquared
             return inTime && inRange
           },
           swipeUp: () => {
             const calcMouse =
               this.touchTimeInterval < tapTimeInterval &&
-              this.touchYOffsetABS > this.touchXOffsetABS &&
-              this.touchYOffset > swipeOffsetThreshold
+              this.touchOffsetYABS > this.touchOffsetXABS &&
+              this.touchOffsetY > swipeOffsetThreshold
             const calcMouseWheel = this.wheelOffset < 0
             return calcMouse || calcMouseWheel
           },
           swipeDown: () => {
             const calcMouse =
               this.touchTimeInterval < tapTimeInterval &&
-              this.touchYOffsetABS > this.touchXOffsetABS &&
-              this.touchYOffset < swipeOffsetThreshold
+              this.touchOffsetYABS > this.touchOffsetXABS &&
+              this.touchOffsetY < swipeOffsetThreshold
             const calcMouseWheel = this.wheelOffset > 0
             return calcMouse || calcMouseWheel
           }
