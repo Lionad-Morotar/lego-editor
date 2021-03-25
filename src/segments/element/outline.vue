@@ -29,10 +29,18 @@
           ]"
           :key="r"
           :invoke="stopEvent"
-          @mousedown="setAnchor"
+          @mousedown="calcAnchor"
           @move="e => calcWH(r.split(' ')[2], e)">
           <div :class="r" />
         </Gesture>
+        <!-- <Gesture
+          :invoke="stopEvent"
+          @mousedown="calcAnchor"
+          @move="e => calcWH(r.split(' ')[2], e)">
+          <div class="point rotater">
+            <i class="iconfont icon-reload" />
+          </div>
+        </Gesture> -->
       </template>
     </div>
   </div>
@@ -49,9 +57,7 @@ export default {
     return {
       lockPropsChangingTick: false,
       propsChangingTick: null,
-      anchor: { x: 0, y: 0 },
-      oldXY: { x: 0, y: 0 },
-      oldWH: { w: 0, h: 0 }
+      anchor: {}
     }
   },
   computed: {
@@ -117,7 +123,7 @@ export default {
     checkDraggable (e) {
       const isFree = !this.curModel.layout.auto
       if (isFree) {
-        this.setAnchor(e)
+        this.calcAnchor(e)
         document.body.addEventListener('mousemove', this.calcMove)
         const clean = () => {
           document.body.removeEventListener('mousemove', this.calcMove)
@@ -129,14 +135,15 @@ export default {
         e.preventDefault()
       }
     },
-    setAnchor (e) {
+    // 把 calcAnchor 移到 Gesture
+    calcAnchor (e) {
       this.initElementWH(e.target)
-      this.anchor = { x: e.x, y: e.y }
-      this.oldXY = {
+      this.anchor.start = { x: e.x, y: e.y }
+      this.anchor.offset = {
         x: this.curModel.layout.left,
         y: this.curModel.layout.top
       }
-      this.oldWH = {
+      this.anchor.size = {
         w: this.curModel.layout.width,
         h: this.curModel.layout.height
       }
@@ -155,13 +162,13 @@ export default {
       this.setPositionByOffset(this.calcOffset(newPosition))
     },
     calcOffset (newPosition) {
-      const offsetX = newPosition.x - this.anchor.x
-      const offsetY = newPosition.y - this.anchor.y
+      const offsetX = newPosition.x - this.anchor.start.x
+      const offsetY = newPosition.y - this.anchor.start.y
       return { offsetX, offsetY }
     },
     setPositionByOffset ({ offsetX, offsetY }) {
-      this.curModel.layout.top = this.oldXY.y + offsetY
-      this.curModel.layout.left = this.oldXY.x + offsetX
+      this.curModel.layout.top = this.anchor.offset.y + offsetY
+      this.curModel.layout.left = this.anchor.offset.x + offsetX
     },
 
     /* Resizer Functions */
@@ -171,18 +178,18 @@ export default {
       const safe = n => Math.max(0, n)
       switch (direction) {
         case 'left':
-          this.curModel.layout.left = this.oldXY.x + offsetX
-          this.curModel.layout.width = safe(this.oldWH.w - offsetX)
+          this.curModel.layout.left = this.anchor.offset.x + offsetX
+          this.curModel.layout.width = safe(this.anchor.size.w - offsetX)
           break
         case 'right':
-          this.curModel.layout.width = safe(this.oldWH.w + offsetX)
+          this.curModel.layout.width = safe(this.anchor.size.w + offsetX)
           break
         case 'top':
-          this.curModel.layout.top = this.oldXY.y + offsetY
-          this.curModel.layout.height = safe(this.oldWH.h - offsetY)
+          this.curModel.layout.top = this.anchor.offset.y + offsetY
+          this.curModel.layout.height = safe(this.anchor.size.h - offsetY)
           break
         case 'bottom':
-          this.curModel.layout.height = safe(this.oldWH.h + offsetY)
+          this.curModel.layout.height = safe(this.anchor.size.h + offsetY)
           break
       }
     },
@@ -206,20 +213,18 @@ export default {
 
   &:hover {
     .outline {
-      border: solid 1px #a1caff88;
-      transition: none;
+      outline: solid 1px #a1caff88;
     }
   }
 
   .outline {
     position: absolute;
-    left: -2px;
-    top: -2px;
-    width: calc(100% + 4px);
-    height: calc(100% + 2px);
-    border: solid 0 #a1caff;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    outline: solid 0 #a1caff;
     z-index: -1;
-    transition: none;
 
     .point {
       position: absolute;
@@ -283,8 +288,7 @@ export default {
   }
   &.active {
     & > .outline {
-      border: solid 2px #a1caff;
-      transition: .1s;
+      outline: solid 2px #a1caff;
 
       .point {
         width: 12px;
