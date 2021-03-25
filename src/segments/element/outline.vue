@@ -19,6 +19,7 @@
         :class="r"
         :key="r"
       />
+      <!-- FIXME 旋转后缩放出现诡异的问题 -->
       <template v-if="showResizer">
         <Gesture
           v-for="r in [
