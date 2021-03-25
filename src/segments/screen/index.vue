@@ -4,25 +4,23 @@
       <draggable
         v-bind="dragOptions"
         v-model="draggableModules">
-        <transition-group type="transition" :name="'flip-list'">
-          <!-- Vue.Draggable 在鼠标事件时会清空行内样式如 transform 导致样式不生效，所以这里额外包一层 DIV -->
-          <div v-for="(m, idx) in modules" :key="m.uuid">
-            <div
-              class="module-block"
-              :class="[
-                selected === m ? 'selected' : '',
-                m.layout.auto ? '' : 'free'
-              ]"
-              :style="styles[idx]"
-              @click.stop="selectModule(m)">
-                <!-- 每个模块都附带一左一右两个 padding block，将剩余的空间填充满 -->
-                <!-- todo refactor 拖拽的时候会带影子 -->
-                <div class="padding left" @click="selectTopElement(m)" />
-                <instance :module="m" :bindModule="true" />
-                <div class="padding right" @click="selectTopElement(m)" />
-            </div>
+        <!-- ? Vue.Draggable 在鼠标事件时会清空行内样式如 transform 导致样式不生效，所以这里额外包一层 DIV -->
+        <div v-for="(m, idx) in modules" :key="m.uuid">
+          <div
+            class="module-block"
+            :class="[
+              selected === m ? 'selected' : '',
+              m.layout.auto ? '' : 'free'
+            ]"
+            :style="styles[idx]"
+            @click.stop="selectModule(m)">
+              <!-- 每个模块都附带一左一右两个 padding block，将剩余的空间填充满 -->
+              <!-- todo refactor 拖拽的时候会带影子 -->
+              <div class="padding left" @click="selectTopElement(m)" />
+              <instance :module="m" :bindModule="true" />
+              <div class="padding right" @click="selectTopElement(m)" />
           </div>
-        </transition-group>
+        </div>
       </draggable>
     </div>
   </div>
@@ -55,7 +53,7 @@ export default {
         return this.modules
       },
       set (newVal) {
-        // 一个临时的解决 newVal 中存在 inits 的方法
+        // 临时解决 newVal 中存在 inits 问题
         this.UPDATE_MODULES(newVal.filter(x => x instanceof Module))
       }
     },
@@ -228,11 +226,6 @@ export default {
 
     &[draggable="true"] {
       transition: none !important;
-    }
-    &.flip-list-move {
-      /deep/ .outline {
-        transition: none !important;
-      }
     }
     & > .padding {
       display: none;

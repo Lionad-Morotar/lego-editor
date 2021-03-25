@@ -23,7 +23,7 @@ export default {
   computed: {
     styles () {
       return {
-        ...Props.genStyles(this.layout),
+        ...Props.genStyles(this.layout, { removeTranslate: true }),
         ...Props.genStyles(this.text)
       }
     }

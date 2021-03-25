@@ -150,10 +150,10 @@ const genStyles = (val = {}, options = {}) => {
     }
   }
   if (removeTranslate) {
-    res.position = 'unset'
-    res.top = 'unset'
-    res.left = 'unset'
-    res.transform = 'unset'
+    delete res.position
+    delete res.top
+    delete res.left
+    delete res.transform
   }
 
   return res
