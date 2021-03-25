@@ -33,15 +33,15 @@
           @move="e => calcWH(r.split(' ')[2], e)">
           <div :class="r" />
         </Gesture>
-        <!-- <Gesture
-          :invoke="stopEvent"
-          @mousedown="calcAnchor"
-          @move="e => calcWH(r.split(' ')[2], e)">
-          <div class="point rotater">
-            <i class="iconfont icon-reload" />
-          </div>
-        </Gesture> -->
       </template>
+      <Gesture
+        :invoke="stopEvent"
+        @mousedown="calcAnchor"
+        @move="calcRotate">
+        <div class="point" id="rotater">
+          <i class="iconfont icon-reload" />
+        </div>
+      </Gesture>
     </div>
   </div>
 </template>
@@ -147,6 +147,10 @@ export default {
         w: this.curModel.layout.width,
         h: this.curModel.layout.height
       }
+      this.anchor.center = {
+        x: this.anchor.offset.x + (this.anchor.size.w / 2),
+        y: this.anchor.offset.y + (this.anchor.size.h / 2)
+      }
     },
     initElementWH (target) {
       this.lockPropsChangingTick = true
@@ -171,7 +175,7 @@ export default {
       this.curModel.layout.left = this.anchor.offset.x + offsetX
     },
 
-    /* Resizer Functions */
+    /* Resizer & Rotater */
 
     calcWH (direction, offset) {
       const { offsetX, offsetY } = offset
@@ -192,6 +196,9 @@ export default {
           this.curModel.layout.height = safe(this.anchor.size.h + offsetY)
           break
       }
+    },
+    calcRotate ({ offsetX, offsetY }) {
+      console.log(offsetX, offsetY)
     },
     stopEvent (e) {
       e.stopPropagation()
@@ -233,8 +240,6 @@ export default {
       border: solid 0 #a1caff;
       background: white;
       transition: .1s ease-out;
-      // TODO 错开入场和出场动画
-      // transition-delay: .1s;
 
       &.scaler {
         border-radius: 50%;
@@ -279,10 +284,31 @@ export default {
           left: calc(50% - 4px);
           cursor: s-resize;
         }
+        & + #rotater {
+          bottom: -32px;
+        }
       }
 
-      &.rotater {
-        transition-delay: .2s;
+      &#rotater {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        left: calc(50% - 7px);
+        bottom: -25px;
+        padding: 2px;
+        width: 12px;
+        height: 12px;
+        line-height: 15px;
+        border-radius: 50%;
+        background: white;
+        box-shadow: 0 1px 2px 1px #666;
+        cursor: pointer;
+        opacity: 0;
+
+        .iconfont {
+          color: #666;
+          font-size: 12px
+        }
       }
     }
   }
@@ -325,16 +351,17 @@ export default {
             height: 12px;
           }
         }
-
+        &#rotater {
+          width: 18px;
+          height: 18px;
+          opacity: 1;
+        }
       }
     }
   }
   &.props-changing {
     .outline {
-      // 这里用动画太卡了，因为节点过多，暂时去掉动画
-      // 或者再用一个 tick 记动画时间做优化
-      display: none;
-      // opacity: 0;
+      opacity: 0;
     }
   }
 
