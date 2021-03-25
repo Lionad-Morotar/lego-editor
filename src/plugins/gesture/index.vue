@@ -18,6 +18,7 @@ const gestures = [
   'tap',
   // 'longtap',
   // 'doubletap',
+  'move',
   // 'swipe',
   // 'swipeLeft',
   // 'swipeRight',
