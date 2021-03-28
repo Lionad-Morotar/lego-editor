@@ -97,15 +97,18 @@ export default {
     isActive () {
       return this.selectedOutline === this
     },
+    isFreeLayout () {
+      return !this.curModel.layout.auto
+    },
     selectedTopOutline () {
       return this === this.curModel.$outlines[0]
     },
     showResizer () {
       const resizable = this.curModel.component.resizable
-      return resizable && this.selectedTopOutline
+      return this.isFreeLayout && resizable && this.selectedTopOutline
     },
     showRotater () {
-      return !this.curLayout.auto && this.selectedTopOutline
+      return this.isFreeLayout && this.selectedTopOutline
     }
   },
   watch: {
