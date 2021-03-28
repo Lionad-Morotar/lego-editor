@@ -106,7 +106,7 @@ export default {
     margin: 10px 0;
     padding: 5px 0px;
     border: solid 1px currentColor;
-    color: #0058ff;
+    color: #409eff;
 
     &::before {
       content:"No. " counter(elalert);

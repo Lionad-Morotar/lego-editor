@@ -83,8 +83,8 @@ export default {
       background: transparent;
       border-bottom: solid 3px transparent;
       &.is-active {
-        color: #0058fe;
-        border-bottom: solid 3px #0058fe;
+        color: #409eff;
+        border-bottom: solid 3px #409eff;
       }
     }
   }

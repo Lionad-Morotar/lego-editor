@@ -19,11 +19,7 @@ export default {
         color: '#5200d1',
         letterSpacing: 2
       },
-      fallback: true,
-      placeholder: '请填写表单名称',
-      required: true,
-      maxlength: 10,
-      showWordLimit: true
+      fallback: true
     }),
     subTitle: Props.text({
       label: '表单副标题',
@@ -34,11 +30,7 @@ export default {
         color: '#888',
         letterSpacing: 0.5
       },
-      fallback: true,
-      placeholder: '请填写表单副标题',
-      required: true,
-      maxlength: 25,
-      showWordLimit: true
+      fallback: true
     })
   },
   computed: {

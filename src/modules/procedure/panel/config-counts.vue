@@ -97,7 +97,7 @@ export default {
         margin-top: 0;
       }
       &:hover {
-        color: #0058ff;
+        color: #409eff;
       }
       &:active {
         background: rgba(0, 88, 255, 0.03);

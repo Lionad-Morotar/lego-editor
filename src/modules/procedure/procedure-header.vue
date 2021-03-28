@@ -12,11 +12,7 @@ export default {
   props: {
     title: Props.string({
       label: '流程名称',
-      default: '回收流程',
-      placeholder: '请填写流程名称',
-      required: true,
-      maxlength: 13,
-      showWordLimit: true
+      default: '回收流程'
     }),
     subTitle: Props.string({
       label: '副标题',

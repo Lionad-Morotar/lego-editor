@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="config-item-segment">
     <!-- 应该跟随模块的宽高变化 min、max -->
     <div class="config-item" v-if="display('padding')">
       <div class="config-item-header">边距</div>
@@ -165,7 +165,7 @@ export default {
   .iconfont {
     font-size: 18px;
     &.active {
-      color: #0058ff;
+      color: #409eff;
       font-weight: bold;
     }
   }

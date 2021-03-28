@@ -271,7 +271,7 @@ export default {
   }
 }
 .ghost:not(.selected) {
-  outline: dashed 3px #0058ff;
+  outline: dashed 3px #409eff;
   opacity: .68;
   z-index: 999;
 }

@@ -190,7 +190,7 @@ export default {
     transition: .25s;
 
     &:hover {
-      color: #0058fe;
+      color: #409eff;
     }
     &.disabled {
       background: transparent;

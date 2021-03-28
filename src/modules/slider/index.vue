@@ -1,8 +1,8 @@
 <template>
   <el-carousel
     class="lego-slider"
-    height="150px"
     arrow="never"
+    :height="'183px'"
     :loop="loop"
     :autoplay="autoplay"
     :interval="interval"
@@ -30,20 +30,24 @@ export default {
       })
     }),
     loop: Props.custom({
-      default: true,
-      component: Loop
+      component: Loop,
+      default: true
     }),
     autoplay: Props.custom({
-      default: false,
-      component: AutoPlay
+      component: AutoPlay,
+      default: false
     }),
     interval: Props.custom({
-      default: 2000,
-      component: AutoPlayInterval
+      component: AutoPlayInterval,
+      default: 2000
     }),
     images: Props.custom({
-      default: [],
-      component: Panel
+      component: Panel,
+      default: [
+        Props.merge(Props.DS.image, {
+          url: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/slider/default.png'
+        })
+      ]
     })
   },
   computed: {

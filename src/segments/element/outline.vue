@@ -264,7 +264,7 @@ export default {
   }
   &:hover {
     .outline {
-      outline: solid 1px #a1caff88;
+      outline: solid 1px #79bbff88;
     }
   }
 
@@ -287,14 +287,14 @@ export default {
     top: 0;
     width: 100%;
     height: 100%;
-    outline: solid 0 #a1caff;
+    outline: solid 0 #79bbff;
     z-index: -1;
 
     .point {
       position: absolute;
       width: 0;
       height: 0;
-      border: solid 0 #a1caff;
+      border: solid 0 #79bbff;
       background: white;
       transition: .1s ease-out;
 
@@ -375,14 +375,14 @@ export default {
   }
   &.active {
     & > .outline {
-      outline: solid 2px #a1caff;
+      outline: solid 2px #79bbff;
 
       .point {
         width: 12px;
         height: 12px;
 
         &.scaler {
-          border: solid 1px #a1caff;
+          border: solid 1px #79bbff;
 
           &.left {
             left: -6px;
@@ -398,7 +398,7 @@ export default {
           }
         }
         &.resizer {
-          border: solid 1px #a1caff;
+          border: solid 1px #79bbff;
           transition-delay: 0s;
 
           &.top,

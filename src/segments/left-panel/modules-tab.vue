@@ -117,12 +117,12 @@ export default {
     cursor: pointer;
 
     &:hover {
-      color: #0058fe;
+      color: #409eff;
     }
     &.active {
-      border-left: 2px #0058fe solid;
+      border-left: 2px #409eff solid;
       background: #f5f8ff;
-      color: #0058fe;
+      color: #409eff;
     }
     .label {
       margin-top: 5px;
@@ -142,6 +142,6 @@ export default {
   }
 }
 .ghost {
-  color: #0058fe;
+  color: #409eff;
 }
 </style>

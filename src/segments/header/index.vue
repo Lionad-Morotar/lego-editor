@@ -130,7 +130,7 @@ export default {
     width: 80px;
     height: 30px;
     line-height: 30px;
-    background: #0058ff;
+    background: #409eff;
     color: white;
     transition: .25s;
 

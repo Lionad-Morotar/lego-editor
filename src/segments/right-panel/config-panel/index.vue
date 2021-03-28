@@ -6,17 +6,15 @@
     </div>
     <div class="content">
       <div class="config-panel">
-        <el-form label-width="80px" label-position="top" @submit.native.prevent>
-          <template v-for="[name, item] in configEntries">
-            <config-item
-              :name="name"
-              :config="item.config"
-              :selected="selected"
-              :selectedOutline="selectedOutline"
-              :key="name"
-            />
-          </template>
-        </el-form>
+        <template v-for="[name, item] in configEntries">
+          <config-item
+            :name="name"
+            :config="item.config"
+            :selected="selected"
+            :selectedOutline="selectedOutline"
+            :key="name"
+          />
+        </template>
       </div>
     </div>
   </div>
@@ -41,34 +39,21 @@ export default {
           ? config.bindProps.bind($child)({ ...selected.props })
           : $child.props[name]
 
-        return h(
-          'el-form-item',
-          {
-            // TODO refactor
-            key: selected.uuid + '_' + selectedOutline._uid,
-            props: {
-              label: config.label,
-              required: config.required,
-              error: selected.propsConfig[name]?.lastError,
-              'inline-message': true
-            }
+        return h(config.component, {
+          key: selected.uuid + '_' + selectedOutline._uid,
+          props: {
+            ...config,
+            config,
+            value: usePassValue ? getPassValue() : value,
+            props: selected.props
           },
-          [
-            h(config.component, {
-              props: {
-                ...config,
-                value: usePassValue ? getPassValue() : value,
-                props: selected.props
-              },
-              attrs: {
-                ...config
-              },
-              on: {
-                change: newVal => !config.bindProps && selected.setProp(name, newVal)
-              }
-            })
-          ]
-        )
+          attrs: {
+            ...config
+          },
+          on: {
+            change: newVal => !config.bindProps && selected.setProp(name, newVal)
+          }
+        })
       }
     }
   },
@@ -99,10 +84,6 @@ export default {
 .config-panel {
   width: 100%;
 
-  .el-form-item + .el-form-item {
-    margin-top: 20px;
-  }
-
   /deep/ .el-input__inner {
     background-color: white;
   }
@@ -123,8 +104,4 @@ export default {
     width: 100%;
   }
 }
-// no :has selector now  ╮(╯▽╰)╭
-// .el-form-item:has(.el-form-item__content:empty) {
-//   display: none;
-// }
 </style>

@@ -44,7 +44,7 @@ export default {
   methods: {
     add () {
       this.v.push(Props.merge(Props.DS.image, {
-        url: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/spark.png'
+        url: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/slider/default.png'
       }))
     },
     subtract () {
@@ -82,7 +82,7 @@ export default {
         margin-top: 0;
       }
       &:hover {
-        color: #0058ff;
+        color: #409eff;
       }
       &:active {
         background: rgba(0, 88, 255, 0.03);

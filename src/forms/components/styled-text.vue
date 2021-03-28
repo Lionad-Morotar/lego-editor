@@ -160,7 +160,7 @@ export default {
   .iconfont {
     font-size: 18px;
     &.active {
-      // color: #0058ff;
+      // color: #409eff;
       font-weight: bold;
     }
   }

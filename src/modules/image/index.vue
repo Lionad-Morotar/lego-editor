@@ -13,8 +13,6 @@ export default {
       label: '图片地址',
       default: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/spark.png',
       fallback: true,
-      required: true,
-      showWordLimit: true,
       validator ({ url }) {
         if (url.length === 0) {
           return '请填写图片链接'
