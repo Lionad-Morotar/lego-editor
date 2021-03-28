@@ -3,6 +3,7 @@ import clone from 'lodash.clonedeep'
 import { ModuleTypeEnums } from '@/constant'
 /* 基础模块 */
 import Slider from './slider'
+import Space from './space'
 import Text from './text'
 import Textarea from './textarea'
 import Image from './image'
@@ -59,6 +60,14 @@ export default {
         name: Button.name,
         component: Button,
         cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/preview-basic-button.png',
+        categories: [baseType, '基础布局']
+      },
+      {
+        title: '空白占位',
+        description: '空白占位模块，可以用来填充自由布局模块的背景',
+        name: Space.name,
+        component: Space,
+        cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/preview-space.png',
         categories: [baseType, '基础布局']
       },
       /* 高级模块 */

@@ -53,8 +53,13 @@ export default {
   position: relative;
   margin: 0 auto;
   width: 375px;
-  min-height: 655px;
+  height: 655px;
   box-shadow: 0 0 7px 1px #ddd;
-  overflow: hidden;
+  overflow: hidden scroll;
+
+  &::-webkit-scrollbar,
+  &::-webkit-scrollbar-track {
+    width: 0;
+  }
 }
 </style>

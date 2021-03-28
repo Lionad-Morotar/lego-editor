@@ -24,7 +24,10 @@
         <div class="config-item" style="margin-top: 16px">
           <div class="config-item-header">自动排版</div>
           <div class="config-item-content">
-            <el-switch v-model="selected.layout.auto" />
+            <el-switch
+              v-model="selected.layout.auto"
+              :disabled="selected.layout.lock"
+            />
           </div>
         </div>
       </div>

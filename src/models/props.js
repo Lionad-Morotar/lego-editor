@@ -23,6 +23,7 @@ const DS = {
   get layout () {
     return {
       auto: true,
+      lock: false,
       degree: 0,
       padding: [0, 0, 0, 0],
       top: 0,
@@ -104,10 +105,10 @@ const genStyles = (val = {}, options = {}) => {
 
   /* layout */
   if (notEmpty(auto)) {
+    res.width = width ? (width + 'px') : 'auto'
+    res.height = height ? (height + 'px') : 'auto'
     res.position = auto ? 'relative' : 'absolute'
     if (!auto) {
-      res.width = width ? (width + 'px') : 'auto'
-      res.height = height ? (height + 'px') : 'auto'
       if (notEmpty(top)) res.top = top ? (top + 'px') : 0
       if (notEmpty(left)) res.left = left ? (left + 'px') : 0
       res.transform = `rotate(${degree}deg)`

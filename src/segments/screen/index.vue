@@ -80,59 +80,63 @@ export default {
         this.ADD_MODULE({
           inits: this.plugins.find(x => x.title === '轮播模块')
         })
-        // this.ADD_MODULE({
-        //   inits: this.plugins.find(x => x.title === '单行文本')
-        // })
-        // this.ADD_MODULE({
-        //   inits: this.plugins.find(x => x.title === '文本区域')
-        // })
-        // this.ADD_MODULE({
-        //   inits: this.plugins.find(x => x.title === '按钮模块'),
-        //   initialData: {
-        //     layout: Object.assign(Props.DS.layout, {
-        //       auto: false,
-        //       degree: -45,
-        //       left: 150,
-        //       top: 150,
-        //       padding: [15, 15, 15, 15],
-        //       width: 100,
-        //       height: 50,
-        //       border: [1, 2, 5, 2],
-        //       borderStyle: 'solid',
-        //       borderColor: '#999',
-        //       radius: 30
-        //     })
-        //   }
-        // })
-        // setTimeout(() => this.SELECT_MODULE(this.modules[2]), 100)
+        this.ADD_MODULE({
+          inits: this.plugins.find(x => x.title === '单行文本')
+        })
+        this.ADD_MODULE({
+          inits: this.plugins.find(x => x.title === '文本区域')
+        })
+        this.ADD_MODULE({
+          inits: this.plugins.find(x => x.title === '按钮模块'),
+          initialData: {
+            layout: Object.assign(Props.DS.layout, {
+              auto: false,
+              degree: -45,
+              left: 150,
+              top: 350,
+              padding: [15, 15, 15, 15],
+              width: 100,
+              height: 50,
+              border: [1, 2, 5, 2],
+              borderStyle: 'solid',
+              borderColor: '#999',
+              radius: 30
+            })
+          }
+        })
+        setTimeout(() => this.SELECT_MODULE(this.modules[3]), 100)
         // this.ADD_MODULE({
         //   inits: this.plugins.find(x => x.title === '流程模块')
         // })
         // this.ADD_MODULE({
         //   inits: this.plugins.find(x => x.title === '对比模块')
         // })
-      //   this.ADD_MODULE({
-      //     inits: this.plugins.find(x => x.title === '单行文本'),
-      //     initialData: {
-      //       layout: Object.assign(Props.DS.layout, {
-      //         auto: false,
-      //         left: 106,
-      //         top: 260
-      //       }),
-      //       text: Object.assign(Props.DS.text, {
-      //         text: '自由布局文本',
-      //         fontSize: 26,
-      //         letterSpacing: 3,
-      //         lineHeight: 1.8,
-      //         bold: true
-      //       })
-      //     }
-      //   })
-      // }, 200)
-      // setTimeout(() => {
-      //   this.ADD_MODULE({
-      //     inits: this.plugins[this.plugins.length - 1]
-      //   })
+        this.ADD_MODULE({
+          inits: this.plugins.find(x => x.title === '单行文本'),
+          initialData: {
+            layout: Object.assign(Props.DS.layout, {
+              auto: false,
+              left: 106,
+              top: 460
+            }),
+            text: Object.assign(Props.DS.text, {
+              text: '自由布局文本',
+              fontSize: 26,
+              letterSpacing: 3,
+              lineHeight: 1.8,
+              bold: true
+            })
+          }
+        })
+        this.ADD_MODULE({
+          inits: this.plugins.find(x => x.title === '空白占位'),
+          initialData: {
+            layout: Object.assign(Props.DS.layout, {
+              lock: true,
+              height: 200
+            })
+          }
+        })
       }, 200)
     }
   },
