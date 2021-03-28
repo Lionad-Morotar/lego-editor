@@ -414,6 +414,9 @@ export default {
   }
   &.props-changing {
     .outline {
+      outline-color: transparent;
+    }
+    .point:not(#rotater) {
       opacity: 0;
     }
   }
