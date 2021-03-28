@@ -2,9 +2,13 @@
   <!-- TODO 迁移到 Gesture  -->
   <div
     class="box-outline"
-    :class="[isActive && 'active', propsChangingTick && 'props-changing']"
+    :class="[
+      isActive && 'active',
+      propsChangingTick && 'props-changing',
+      active.rotater && 'active-rotater'
+    ]"
     @click.capture="selectElement"
-    @click.stop="_ => _"
+    @click.stop="active.rotater = false"
     @mousedown="checkDraggable">
     <slot />
     <!-- 也许不应该用 DOM ？ -->
@@ -35,10 +39,11 @@
           <div :class="r" />
         </Gesture>
       </template>
+      <!-- FIXME Rotater 的动画会导致子模块变模糊 ╮(╯▽╰)╭ -->
       <template v-if="showRotater">
         <Gesture
           :invoke="stopEvent"
-          @mousedown="calcAnchor"
+          @mousedown="activeRotater"
           @mousemove="calcRotate">
           <div class="point" id="rotater">
             <i class="iconfont icon-reload" />
@@ -60,7 +65,10 @@ export default {
     return {
       lockPropsChangingTick: false,
       propsChangingTick: null,
-      anchor: {}
+      anchor: {},
+      active: {
+        rotater: false
+      }
     }
   },
   computed: {
@@ -196,6 +204,10 @@ export default {
 
     /* Resizer & Rotater */
 
+    activeRotater (...args) {
+      this.active.rotater = true
+      this.calcAnchor(...args)
+    },
     calcWH (direction, offset) {
       const { offsetX, offsetY } = offset
       const safe = n => Math.max(0, n)
@@ -242,10 +254,22 @@ export default {
     display: inline-block;
     width: unset;
   }
-
   &:hover {
     .outline {
       outline: solid 1px #a1caff88;
+    }
+  }
+
+  &.active-rotater {
+    & > .outline {
+      &::before {
+        position: absolute;
+        content: '';
+        width: 100vw;
+        height: 100vw;
+        left: -50vw;
+        top: -50vw;
+      }
     }
   }
 

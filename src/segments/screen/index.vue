@@ -5,6 +5,7 @@
         v-bind="dragOptions"
         v-model="draggableModules">
         <!-- ? Vue.Draggable 在鼠标事件时会清空行内样式如 transform 导致样式不生效，所以这里额外包一层 DIV -->
+        <!-- FIXME 模块的 zindex 层级控制 -->
         <div v-for="(m, idx) in modules" :key="m.uuid">
           <div
             class="module-block"
