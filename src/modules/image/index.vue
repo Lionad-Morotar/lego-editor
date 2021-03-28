@@ -11,7 +11,7 @@ export default {
   props: {
     image: Props.image({
       label: '图片地址',
-      default: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/spark.png',
+      default:'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/image/default.png',
       fallback: true,
       validator ({ url }) {
         if (url.length === 0) {
