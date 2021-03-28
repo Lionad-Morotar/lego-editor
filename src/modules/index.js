@@ -27,7 +27,7 @@ export default {
         description: '轮播图',
         name: Slider.name,
         component: Slider,
-        cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/pic.png',
+        cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/preview-slider.png',
         categories: [baseType, '基础布局']
       },
       {
@@ -51,7 +51,7 @@ export default {
         description: '基础图片模块',
         name: Image.name,
         component: Image,
-        cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/pic.png',
+        cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/preview-image.png',
         categories: [baseType, '基础布局']
       },
       {
