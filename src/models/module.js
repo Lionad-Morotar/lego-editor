@@ -130,6 +130,7 @@ Module.prototype.setProp = function (key, value) {
   } else {
     this.props[key] = value
   }
+  // TODO refactor Vue.watch
   /* 校验并将 props 更新到 data */
   const handler = this.propsConfig[key]
   const validate = handler.config?.validator || (() => undefined)

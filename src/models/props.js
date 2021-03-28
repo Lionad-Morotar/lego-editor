@@ -272,7 +272,7 @@ const Props = {
   },
 
   // 布局属性
-  layout (config) {
+  layout (config = {}) {
     const defaultVal = merge(DS.layout, config.default)
     return new Prop(
       {
@@ -291,7 +291,7 @@ const Props = {
   custom (config) {
     return new Prop(
       {
-        type: config?.type || [String, Number, Object, Array, Function] // remove ?
+        type: config?.type || [String, Number, Object, Array, Function, Boolean] // remove ?
       },
       config
     )

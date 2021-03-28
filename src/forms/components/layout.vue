@@ -67,7 +67,7 @@
       </div>
     </div>
 
-    <div class="config-item" v-if="display('color')">
+    <div class="config-item" v-if="display('bgColor')">
       <div class="config-item-header">背景颜色</div>
       <div class="config-item-content">
         <div class="icon" title="文字颜色" @click="showColor=!showColor">

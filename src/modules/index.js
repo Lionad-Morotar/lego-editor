@@ -3,6 +3,7 @@ import clone from 'lodash.clonedeep'
 import { ModuleTypeEnums } from '@/constant'
 /* 基础模块 */
 import Example from './example'
+import Slider from './slider'
 import Text from './text'
 import Textarea from './textarea'
 import Image from './image'
@@ -13,6 +14,7 @@ import Procedure from './procedure'
 
 // todo doc
 // 如果约定有更改，需要同步修改 @/utils/convention 中的约定校验函数
+// 当前没有考虑 SSR
 
 const baseType = ModuleTypeEnums.BASE
 
@@ -20,6 +22,14 @@ export default {
   getDefaultModuleList () {
     const moduleList = [
       /* 基础模块 */
+      {
+        title: '轮播模块',
+        description: '轮播图',
+        name: Slider.name,
+        component: Slider,
+        cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/pic.png',
+        categories: [baseType, '基础布局']
+      },
       {
         title: '单行文本',
         description: '基础单行文本模块，可以调节字体大小，颜色等样式',

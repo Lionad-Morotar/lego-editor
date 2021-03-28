@@ -7,9 +7,7 @@ import Props from '@/models/props'
 export default {
   name: 'lego-textarea',
   props: {
-    layout: Props.layout({
-      label: '模块样式'
-    }),
+    layout: Props.layout(),
     text: Props.textarea({
       label: '文本内容',
       default: {

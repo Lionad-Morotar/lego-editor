@@ -123,4 +123,8 @@ export default {
     width: 100%;
   }
 }
+// no :has selector now  ╮(╯▽╰)╭
+// .el-form-item:has(.el-form-item__content:empty) {
+//   display: none;
+// }
 </style>
