@@ -2,7 +2,6 @@ import clone from 'lodash.clonedeep'
 
 import { ModuleTypeEnums } from '@/constant'
 /* 基础模块 */
-import Example from './example'
 import Slider from './slider'
 import Text from './text'
 import Textarea from './textarea'
@@ -80,18 +79,7 @@ export default {
         categories: ['对比模块']
       }
     ]
-    const exampleModuleList = [
-      {
-        title: '测试模块',
-        description: '测试模块',
-        name: Example.name,
-        component: Example,
-        cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/preview-example.png',
-        categories: [baseType, '测试示例']
-      }
-    ]
     return {
-      exampleModuleList: clone(exampleModuleList),
       moduleList: clone(moduleList)
     }
   }
