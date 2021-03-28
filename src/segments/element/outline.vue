@@ -57,6 +57,9 @@
 <script>
 import { mapMutations, mapState, mapActions } from 'vuex'
 import Module from '@/models/module'
+
+const PropsChangingProtectCount = 1
+
 export default {
   name: 'box-outline',
   inject: ['model'],
@@ -65,6 +68,8 @@ export default {
     return {
       lockPropsChangingTick: false,
       propsChangingTick: null,
+      propsChangingProtectCount: PropsChangingProtectCount,
+      propsChangingProtectCountTick: null,
       anchor: {},
       active: {
         rotater: false
@@ -116,13 +121,27 @@ export default {
       deep: true,
       handler () {
         if (!this.lockPropsChangingTick) {
-          if (this.propsChangingTick) {
-            // TODO perf by sum time
-            clearTimeout(this.propsChangingTick)
+          if (this.propsChangingProtectCount) {
+            this.propsChangingProtectCount -= 1
+            if (this.propsChangingProtectCountTick) {
+              clearTimeout(this.propsChangingProtectCountTick)
+            }
+            this.propsChangingProtectCountTick = setTimeout(() => {
+              this.propsChangingProtectCount = PropsChangingProtectCount
+            }, 300)
+          } else {
+            if (this.propsChangingTick) {
+              // TODO perf by sum time
+              clearTimeout(this.propsChangingTick)
+            }
+            if (this.propsChangingProtectCountTick) {
+              clearTimeout(this.propsChangingProtectCountTick)
+            }
+            this.propsChangingTick = setTimeout(() => {
+              this.propsChangingTick = null
+              this.propsChangingProtectCount = PropsChangingProtectCount
+            }, 300)
           }
-          this.propsChangingTick = setTimeout(() => {
-            this.propsChangingTick = null
-          }, 250)
         }
       }
     }
