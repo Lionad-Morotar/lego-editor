@@ -84,6 +84,9 @@
 import { Chrome } from 'vue-color'
 import Props from '@/models/props'
 import BaseSlider from './base-slider'
+
+const half = n => Math.floor(n / 2)
+
 export default {
   props: ['value', 'disable'],
   data () {
@@ -112,8 +115,8 @@ export default {
   },
   computed: {
     maxRadius () {
-      // todo 根据宽高自动设置圆角最大值
-      return 30
+      const { width, height } = this.value
+      return Math.max(10, Math.min(half(width), half(height)))
     }
   },
   watch: {

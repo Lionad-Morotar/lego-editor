@@ -159,6 +159,9 @@ export default {
         document.body.addEventListener('mouseup', clean)
         // 自由布局的组件拖拽时不使用 vue-draggle 交换位置
         e.preventDefault()
+      } else {
+        const $target = this.$utils.findParentByClass(e.target, 'module-block')
+        this.initElementWH($target)
       }
     },
     // 把 calcAnchor 移到 Gesture
