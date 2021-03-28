@@ -2,6 +2,15 @@ import Forms from '@/forms'
 
 const merge = (...args) => Object.assign(...args)
 const notEmpty = val => val != null
+const log = (function () {
+  let logTick = null
+  return (...args) => {
+    if (logTick) {
+      clearTimeout(logTick)
+    }
+    logTick = setTimeout(() => console.log(...args), 100)
+  }
+})()
 
 /**
  * DS 定义了模块的数据与模块样式以怎样的形式聚合
@@ -347,8 +356,8 @@ function Prop (base, config = {}) {
       // 当依赖值发生变动时，调用此函数以返回一个校验后的值
       // todo 完善逻辑
       // eslint-disable-next-line
-      genData: (newValue, oldValue) => {
-        console.log('value change to : ', newValue)
+      genData: (newValue) => {
+        log('value change to : ', newValue)
         return newValue
       }
     },
