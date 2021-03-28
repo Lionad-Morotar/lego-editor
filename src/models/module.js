@@ -123,7 +123,9 @@ Module.prototype.bindModel = function (uuid) {
 Module.prototype.setProp = function (key, value) {
   if (value instanceof Object) {
     Object.entries(value).map(([k, v]) => {
-      this.props[key][k] = v
+      if (this.props[key][k] !== v) {
+        this.props[key][k] = v
+      }
     })
   } else {
     this.props[key] = value

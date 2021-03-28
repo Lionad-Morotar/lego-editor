@@ -83,8 +83,13 @@ export default {
     curProps () {
       return this.curModel.props
     },
-    curLayout () {
-      return this.curModel.props.layout
+    curLayout: {
+      get () {
+        return this.curModel.props.layout
+      },
+      set (newValue) {
+        this.curModel.setProp('layout', newValue)
+      }
     },
     isSelected () {
       return this.selected === this.curModel
@@ -182,10 +187,10 @@ export default {
     },
     initElementWH ($target) {
       this.lockPropsChangingTick = true
-      this.curLayout.width = $target.offsetWidth
-      this.curLayout.height = $target.offsetHeight
-      this.curLayout.top = $target.offsetTop
-      this.curLayout.left = $target.offsetLeft
+      this.curLayout = { width: $target.offsetWidth }
+      this.curLayout = { height: $target.offsetHeight }
+      this.curLayout = { top: $target.offsetTop }
+      this.curLayout = { left: $target.offsetLeft }
       this.$nextTick(() => (this.lockPropsChangingTick = false))
     },
     calcMove (newPosition) {
@@ -198,8 +203,8 @@ export default {
       return { offsetX, offsetY }
     },
     setPositionByOffset ({ offsetX, offsetY }) {
-      this.curLayout.top = this.anchor.offset.y + offsetY
-      this.curLayout.left = this.anchor.offset.x + offsetX
+      this.curLayout = { top: this.anchor.offset.y + offsetY }
+      this.curLayout = { left: this.anchor.offset.x + offsetX }
     },
 
     /* Resizer & Rotater */
@@ -213,18 +218,18 @@ export default {
       const safe = n => Math.max(0, n)
       switch (direction) {
         case 'left':
-          this.curLayout.left = this.anchor.offset.x + offsetX
-          this.curLayout.width = safe(this.anchor.size.w - offsetX)
+          this.curLayout = { left: this.anchor.offset.x + offsetX }
+          this.curLayout = { width: safe(this.anchor.size.w - offsetX) }
           break
         case 'right':
-          this.curLayout.width = safe(this.anchor.size.w + offsetX)
+          this.curLayout = { width: safe(this.anchor.size.w + offsetX) }
           break
         case 'top':
-          this.curLayout.top = this.anchor.offset.y + offsetY
-          this.curLayout.height = safe(this.anchor.size.h - offsetY)
+          this.curLayout = { top: this.anchor.offset.y + offsetY }
+          this.curLayout = { height: safe(this.anchor.size.h - offsetY) }
           break
         case 'bottom':
-          this.curLayout.height = safe(this.anchor.size.h + offsetY)
+          this.curLayout = { height: safe(this.anchor.size.h + offsetY) }
           break
       }
     },
@@ -235,7 +240,7 @@ export default {
       ]
       const initial = this.anchor.rotate
       const degree = (Math.atan2(offsetY, offsetX) / (Math.PI / 180)) - initial
-      this.curLayout.degree = (+degree.toFixed(1)) % 360
+      this.curLayout = { degree: (+degree.toFixed(1)) % 360 }
     },
     stopEvent (e) {
       e.stopPropagation()

@@ -7,12 +7,6 @@
         <transition name="fade-fast">
           <span class="close-tip" v-if="editPaddingKey" @click="editPadding('')">关闭</span>
         </transition>
-        <div
-          class="icon"
-          title="所有边距"
-          @click="editPadding('all')">
-          <i class="iconfont icon-border-outer" :class="[when(editPaddingKey === 'all') && 'active']" />
-        </div>
         <template v-for="icon in options.paddingIcons">
           <div
             class="icon"
@@ -24,16 +18,7 @@
         </template>
         <template v-if="editPaddingKey">
           <base-slider
-            v-if="editPaddingKey === 'all'"
-            v-model="paddingAll"
-            :min="0"
-            :max="30"
-            :step="1"
-            :key="'all'"
-          />
-          <base-slider
-            v-else
-            v-model="v.padding[editPaddingKey]"
+            v-model="value.padding[editPaddingKey]"
             :min="0"
             :max="30"
             :step="1"
@@ -49,12 +34,6 @@
         <transition name="fade-fast">
           <span class="close-tip" v-if="editBorderKey" @click="editBorder('')">关闭</span>
         </transition>
-        <div
-          class="icon"
-          title="所有边框"
-          @click="editBorder('all')">
-          <i class="iconfont icon-border-outer" :class="[when(editBorderKey === 'all') && 'active']" />
-        </div>
         <template v-for="icon in options.borderIcons">
           <div
             class="icon"
@@ -66,16 +45,7 @@
         </template>
         <template v-if="editBorderKey">
           <base-slider
-            v-if="editBorderKey === 'all'"
-            v-model="borderAll"
-            :min="0"
-            :max="10"
-            :step="1"
-            :key="'all'"
-          />
-          <base-slider
-            v-else
-            v-model="v.border[editBorderKey]"
+            v-model="value.border[editBorderKey]"
             :min="0"
             :max="10"
             :step="1"
@@ -89,7 +59,7 @@
       <div class="config-item-header">圆角</div>
       <div class="config-item-content">
         <base-slider
-          v-model="v.radius"
+          v-model="value.radius"
           :min="0"
           :max="maxRadius"
           :step="1"
@@ -101,7 +71,7 @@
       <div class="config-item-header">背景颜色</div>
       <div class="config-item-content">
         <div class="icon" title="文字颜色" @click="showColor=!showColor">
-          <i class="iconfont icon-bg-colors" :style="{ color: v.bgColor }" />
+          <i class="iconfont icon-bg-colors" :style="{ color: value.bgColor }" />
         </div>
       </div>
       <div v-if="showColor" class="fullscreen-mask" @click="showColor=false" @mousewheel="showColor=false" />
@@ -116,15 +86,8 @@ import Props from '@/models/props'
 import BaseSlider from './base-slider'
 export default {
   props: ['value', 'disable'],
-  model: {
-    prop: 'value',
-    event: 'change'
-  },
   data () {
     return {
-      v: {
-        ...(this.value || Props.DS.layout)
-      },
       paddingAll: 0,
       borderAll: 0,
       bgColor: this.value.bgColor || Props.DS.layout.bgColor,
@@ -154,20 +117,8 @@ export default {
     }
   },
   watch: {
-    v: {
-      deep: true,
-      handler (newValue) {
-        this.$emit('change', newValue)
-      }
-    },
-    paddingAll (newValue) {
-      this.v.padding = Array(4).fill(newValue)
-    },
-    borderAll (newValue) {
-      this.v.border = Array(4).fill(newValue)
-    },
     bgColor (newValue) {
-      this.v.bgColor = newValue.hex8
+      this.value.bgColor = newValue.hex8
     }
   },
   methods: {
