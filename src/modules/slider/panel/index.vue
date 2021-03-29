@@ -14,6 +14,18 @@
       @click="subtract"
       >减少轮播</el-button
     >
+    <div class="config-item">
+      <el-collapse v-model="activeName" accordion>
+        <el-collapse-item
+          v-for="(image, idx) in images"
+          :title="`第 ${idx+1} 张图片`"
+          :key="image.url+idx">
+          <div class="image-preview">
+            <img class="image" :src="image.url" />
+          </div>
+        </el-collapse-item>
+      </el-collapse>
+    </div>
   </div>
 </template>
 
