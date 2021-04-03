@@ -121,19 +121,19 @@ Module.prototype.bindModel = function (uuid) {
  * @param {any} value 变化的值
  */
 Module.prototype.setProp = function (key, value) {
+  // TODO refactor Vue.watch
+  if (value instanceof Object) {
+    Object.entries(value).map(([k, v]) => {
+      if (this.props[key][k] !== v) {
+        this.props[key][k] = v
+      }
+    })
+  } else {
+    this.props[key] = value
+  }
+  /* 校验并将 props 更新到 data */
   const handler = this.propsConfig[key]
   if (handler) {
-    // TODO refactor Vue.watch
-    if (value instanceof Object) {
-      Object.entries(value).map(([k, v]) => {
-        if (this.props[key][k] !== v) {
-          this.props[key][k] = v
-        }
-      })
-    } else {
-      this.props[key] = value
-    }
-    /* 校验并将 props 更新到 data */
     const validate = handler.config?.validator || (() => undefined)
     const error = validate(value, this.props)
     if (error) {
