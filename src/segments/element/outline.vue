@@ -5,6 +5,7 @@
     :class="[
       isActive && 'active',
       propsChangingTick && 'props-changing',
+      active.resizer && 'active-resizer',
       active.rotater && 'active-rotater'
     ]"
     @click.capture="selectElement"
@@ -34,7 +35,7 @@
           ]"
           :key="r"
           :invoke="stopEvent"
-          @mousedown="calcAnchor"
+          @mousedown="activeResizer"
           @mousemove="(e, p) => calcWH(r.split(' ')[2], p)">
           <div :class="r" />
         </Gesture>
@@ -72,6 +73,7 @@ export default {
       propsChangingProtectCountTick: null,
       anchor: {},
       active: {
+        resizer: false,
         rotater: false
       }
     }
@@ -234,6 +236,10 @@ export default {
 
     /* Resizer & Rotater */
 
+    activeResizer (...args) {
+      this.active.resizer = true
+      this.calcAnchor(...args)
+    },
     activeRotater (...args) {
       this.active.rotater = true
       this.calcAnchor(...args)
@@ -290,7 +296,7 @@ export default {
     }
   }
 
-  &.active-rotater {
+  &.props-changing {
     & > .outline {
       &::before {
         position: absolute;
@@ -311,6 +317,11 @@ export default {
     height: 100%;
     outline: solid 0 #79bbff;
     z-index: -1;
+
+    &::before {
+      position: absolute;
+      content: '';
+    }
 
     .point {
       position: absolute;
