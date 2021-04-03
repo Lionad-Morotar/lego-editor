@@ -6,7 +6,7 @@
     :loop="loop"
     :autoplay="autoplay"
     :interval="interval"
-    :indicator-position="hideIndicator ? 'none' : ''"
+    :indicator-position="indicator ? '' : 'none'"
     :style="moduleStyle">
     <el-carousel-item v-for="(image, idx) in images" :key="image.url+idx">
       <img class="lego-slider-item" :src="image.url" :style="styles[idx]" />
@@ -22,7 +22,7 @@ import Panel from './panel/index'
 import Loop from './panel/loop'
 import AutoPlay from './panel/autoplay'
 import AutoPlayInterval from './panel/autoplay-interval'
-import HideIndicator from './panel/hide-indicator'
+import Indicator from './panel/indicator'
 export default {
   name: 'lego-slider',
   props: {
@@ -31,9 +31,9 @@ export default {
         disable: ['padding', 'border', 'bgColor']
       })
     }),
-    hideIndicator: Props.custom({
-      component: HideIndicator,
-      default: false
+    indicator: Props.custom({
+      component: Indicator,
+      default: true
     }),
     loop: Props.custom({
       component: Loop,

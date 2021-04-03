@@ -1,19 +1,18 @@
 <template>
-  <div class="content">
-    <el-button
-      class="action-button"
-      :disabled="len === max"
-      type="text"
-      @click="add"
-      >增加轮播</el-button
-    >
-    <el-button
-      class="action-button"
-      :disabled="len === min"
-      type="text"
-      @click="subtract"
-      >减少轮播</el-button
-    >
+  <div class="config-item-segment">
+    <header>轮播图设置</header>
+    <div class="config-item">
+      <el-collapse accordion>
+        <el-collapse-item
+          v-for="(image, idx) in v"
+          :title="`第 ${idx+1} 张图片`"
+          :key="image.url+idx">
+          <div class="image-preview">
+            <img class="image" :src="image.url" />
+          </div>
+        </el-collapse-item>
+      </el-collapse>
+    </div>
   </div>
 </template>
 
@@ -56,42 +55,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.segment {
-  padding: 0 20px;
-  width: 100%;
-
-  .content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 25px 0;
-
-    .action-button {
-      margin: 25px 0 0 0;
-      padding: 0;
-      width: 180px;
-      height: 40px;
-      line-height: 40px;
-      color: #444;
-      border: solid 1px #eee;
-      border-radius: 20px;
-      transition: 0.25s;
-      &:first-child {
-        margin-top: 0;
-      }
-      &:hover {
-        color: #409eff;
-      }
-      &:active {
-        background: rgba(0, 88, 255, 0.03);
-      }
-      &:disabled {
-        color: #999;
-        pointer-events: none;
-      }
-    }
-  }
-}
-</style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="config-item" v-if="props.images.length > 1 && props.autoplay">
+  <div class="config-item" v-if="canShow">
     <div class="config-item-header">时间间隔</div>
     <div class="config-item-content">
       <base-slider
@@ -19,6 +19,11 @@ export default {
   data () {
     return {
       v: this.value
+    }
+  },
+  computed: {
+    canShow () {
+      return this.props?.images?.length > 1 && this.props.autoplay
     }
   },
   watch: {

@@ -1,6 +1,24 @@
+.config-item + .config-item,
 .config-item-segment + .config-item {
-  margin-top: 16px;;
+  margin-top: 16px;
 }
+.config-item + .config-item-segment,
+.config-item-segment + .config-item-segment {
+  margin-top: 32px;
+}
+
+.config-item-segment {
+  header {
+    font-size: 14px;
+    font-weight: bold;
+    text-indent: .1em;
+
+    & + .config-item {
+      margin-top: 16px;
+    }
+  }
+}
+
 .config-item {
   display: flex;
   justify-content: space-between;
@@ -9,16 +27,12 @@
   gap: 1em;
   position: relative;
   padding: 5px 10px;
-  padding-right: 5px;;
+  // padding-right: 5px;;
   width: 100%;
   min-height: 40px;
   border: solid 1px #eee;
   border-radius: 3px;
   background: #e6e8eb44;
-
-  & + & {
-    margin-top: 16px;
-  }
 
   .config-item-header {
     align-self: flex-start;
@@ -33,42 +47,60 @@
     flex-wrap: wrap;
     flex: 1;
     gap: 5px;
+  }
+  .el-input,
+  .el-input-number {
+    max-width: 200px;
+    height: 30px;
+    line-height: 30px;
+    background: white;
 
-    .el-input,
-    .el-input-number {
-      max-width: 200px;
+    .el-input__inner {
       height: 30px;
       line-height: 30px;
+    }
+    .el-input-number__increase,
+    .el-input-number__decrease {
+      width: 24px;
+      height: 50%;
+      line-height: 15px;
+      border-color: #eee;
+      border-radius: 0;
+    }
+  }
+  .el-textarea {
+    textarea {
+      margin-top: -5px;
+      margin-left: -10px;
+      padding: 10px;
+      width: calc(100% + 15px);
+      height: calc(100% + 10px);
+      border: 0px;
+      padding: 0px;
       background: white;
+      min-height: 40px;
+    }
+  }
+  .el-slider {
+    width: 200px;
+  }
+  .el-collapse {
+    width: 100%;
+    border: unset;
 
-      .el-input__inner {
-        height: 30px;
-        line-height: 30px;
-      }
-      .el-input-number__increase,
-      .el-input-number__decrease {
-        width: 24px;
-        height: 50%;
-        line-height: 15px;
-        border-color: #eee;
-        border-radius: 0;
+    .el-collapse-item__header {
+      height: 30px;
+      line-height: 30px;
+      background: transparent;
+      border-bottom: 1px solid #EBEEF5;
+
+      &:last-child {
+        border: none;
       }
     }
-    .el-textarea {
-      textarea {
-        margin-top: -5px;
-        margin-left: -10px;
-        padding: 10px;
-        width: calc(100% + 15px);
-        height: calc(100% + 10px);
-        border: 0px;
-        padding: 0px;
-        background: white;
-        min-height: 40px;
-      }
-    }
-    .el-slider {
-      width: 200px;
+    .el-collapse-item__content {
+      padding: 0;
+      line-height: 0;
     }
   }
 }

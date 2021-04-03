@@ -1,5 +1,5 @@
 <template>
-  <div class="config-item" v-if="props.images.length > 1">
+  <div class="config-item" v-if="canShow">
     <div class="config-item-header">循环播放</div>
     <div class="config-item-content">
       <el-switch v-model="v" />
@@ -13,6 +13,11 @@ export default {
   data () {
     return {
       v: this.value
+    }
+  },
+  computed: {
+    canShow () {
+      return this.props?.images?.length > 1
     }
   },
   watch: {
