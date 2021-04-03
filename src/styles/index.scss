@@ -47,6 +47,11 @@
   #right-panel {
     background: white;
     z-index: 9;
+
+    &::-webkit-scrollbar,
+    &::-webkit-scrollbar-track {
+      width: 0;
+    }
   }
 }
 
@@ -59,7 +64,7 @@
 /***************** 通用样式 *****************/
 .el-button {
   border: none;
-  border-radius: 0;
+  border-radius: 2px;
   &:hover {
     opacity: .95;
   }

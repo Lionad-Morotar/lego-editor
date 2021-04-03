@@ -1,20 +1,20 @@
+.icons-group + .config-item,
 .config-item + .config-item,
-.config-item-segment + .config-item {
-  margin-top: 16px;
-}
+.config-item-segment + .config-item,
 .config-item + .config-item-segment,
 .config-item-segment + .config-item-segment {
-  margin-top: 32px;
+  margin-top: 14px;
 }
 
 .config-item-segment {
   header {
+    padding-top: 14px;
     font-size: 14px;
     font-weight: bold;
     text-indent: .1em;
 
     & + .config-item {
-      margin-top: 16px;
+      margin-top: 14px;
     }
   }
 }
@@ -48,7 +48,7 @@
     flex: 1;
     gap: 5px;
   }
-  
+
   .el-input,
   .el-input-number {
     max-width: 200px;
@@ -89,18 +89,30 @@
     width: 100%;
     border: unset;
 
-    .el-collapse-item__header {
-      height: 30px;
-      line-height: 30px;
-      background: transparent;
-      border-bottom: 1px solid #EBEEF5;
+    .el-collapse-item {
+      border: unset;
 
-      &:last-child {
-        border: none;
+      &:last-child .el-collapse-item__header {
+        border-bottom: solid 1px transparent;
       }
     }
+    .el-collapse-item__header {
+      height: 40px;
+      line-height: 40px;
+      background: transparent;
+      border: unset;
+      border-bottom: solid 1px #EBEEF5;
+
+      &.is-active {
+        border-bottom: solid 1px #EBEEF5 !important;
+      }
+    }
+    .el-collapse-item__wrap {
+      background: transparent;
+      border: unset;
+    }
     .el-collapse-item__content {
-      padding: 0;
+      padding: 10px 0 2px 0;
       line-height: 0;
     }
   }
@@ -137,4 +149,27 @@
   width: 100vw;
   height: 100vh;
   z-index: 1;
+}
+
+.slider-con {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+  height: 30px;
+
+  .slider {
+    width: 170px !important;
+
+    .el-slider__runway {
+      margin: 10px 0;
+    }
+  }
+  .slider-des {
+    width: 25px;
+    line-height: 30px;
+    font-size: 12px;
+    text-align: right;
+  }
 }

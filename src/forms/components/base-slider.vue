@@ -32,29 +32,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-.slider-con {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 5px;
-  height: 30px;
-
-  .slider {
-    width: 165px !important;
-
-    .el-slider__runway {
-      margin: 10px 0;
-    }
-  }
-  .slider-des {
-    margin-right: 5px;
-    width: 25px;
-    line-height: 30px;
-    text-align: right;
-    font-size: 12px;
-  }
-}
-</style>

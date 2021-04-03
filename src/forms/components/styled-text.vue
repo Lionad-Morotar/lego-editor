@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="config-item-segment">
     <slot name="text" v-if="display('text')">
       <div class="config-item">
         <div class="config-item-header">内容</div>

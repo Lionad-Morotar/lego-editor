@@ -77,6 +77,7 @@ export default {
       /* 以下代码供开发环境调试用 */
       // this.modules.length = 0
       setTimeout(() => {
+        setTimeout(() => this.SELECT_MODULE(this.modules[0]), 100)
         this.ADD_MODULE({
           inits: this.plugins.find(x => x.title === '轮播模块')
         })
@@ -104,7 +105,6 @@ export default {
             })
           }
         })
-        setTimeout(() => this.SELECT_MODULE(this.modules[3]), 100)
         // this.ADD_MODULE({
         //   inits: this.plugins.find(x => x.title === '流程模块')
         // })
