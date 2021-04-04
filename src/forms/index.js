@@ -1,5 +1,6 @@
 import Example from './components/example'
 import BaseText from './components/base-text'
+import BaseTextarea from './components/base-textarea'
 import BaseNumber from './components/base-number'
 import BaseSlider from './components/base-slider'
 import StyledText from './components/styled-text'
@@ -22,6 +23,7 @@ import Layout from './components/layout'
 export default {
   Example,
   BaseText,
+  BaseTextarea,
   BaseNumber,
   BaseSlider,
   StyledText,
