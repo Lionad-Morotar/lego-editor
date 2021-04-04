@@ -23,6 +23,7 @@ const DS = {
   get layout () {
     return {
       auto: true,
+      // autoheight ?
       lock: false,
       degree: 0,
       padding: [0, 0, 0, 0],

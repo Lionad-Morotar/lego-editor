@@ -8,7 +8,7 @@
 
 .config-item-segment {
   header {
-    padding-top: 14px;
+    padding: 14px 0;
     font-size: 14px;
     font-weight: bold;
     text-indent: .1em;
@@ -16,6 +16,9 @@
     & + .config-item {
       margin-top: 14px;
     }
+  }
+  header + .config-item {
+    margin-top: 0;
   }
 }
 

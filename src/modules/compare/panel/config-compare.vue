@@ -1,19 +1,17 @@
 <template>
-  <div>
-    <div class="label">左侧标题</div>
+  <div class="config-item-segment">
+    <header>左侧标题</header>
     <base-text v-model="v.left.title" />
-    <div class="label">左侧描述</div>
+    <header>左侧描述</header>
     <styled-text v-model="v.left.description" />
-    <div class="label">左侧图片</div>
+    <header>左侧图片</header>
     <styled-image v-model="v.left.url" />
 
-    <hr />
-
-    <div class="label">右侧标题</div>
+    <header>右侧标题</header>
     <base-text v-model="v.right.title" />
-    <div class="label">右侧描述</div>
+    <header>右侧描述</header>
     <styled-text v-model="v.right.description" />
-    <div class="label">右侧图片</div>
+    <header>右侧图片</header>
     <styled-image v-model="v.right.url" />
   </div>
 </template>

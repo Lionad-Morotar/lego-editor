@@ -1,13 +1,13 @@
 <template>
-  <fragment>
-    <div class="header">{{ v.title }}</div>
-    <div class="label">流程名称</div>
+  <div class="config-item-segment">
+    <!-- <header>{{ v.title }}</header> -->
+    <header>流程名称</header>
     <base-text v-model="v.title" />
-    <div class="label">流程内容</div>
-    <base-text v-model="v.content" />
-    <div class="label">流程图片</div>
+    <header>流程内容</header>
+    <base-textarea v-model="v.content" />
+    <header>流程图片</header>
     <base-text v-model="v.image" />
-  </fragment>
+  </div>
 </template>
 
 <script>
@@ -28,7 +28,8 @@ export default {
     }
   },
   components: {
-    BaseText: Forms.BaseText
+    BaseText: Forms.BaseText,
+    BaseTextarea: Forms.BaseTextarea
   }
 }
 </script>

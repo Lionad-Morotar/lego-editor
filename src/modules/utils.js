@@ -22,7 +22,15 @@ export function zip (...components) {
     functional: true,
     render (h, context) {
       // 单个组件接收到的所有属性等内容会同时分发到多个组件
-      return h('fragment', {}, components.map(x => h(x, context.data)))
+      return h(
+        'template', {},
+        components.map((x, idx) => {
+          return h(x, {
+            ...context.data,
+            key: (context.data?.key || '') + idx
+          })
+        })
+      )
     }
   }
 }

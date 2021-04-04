@@ -43,7 +43,7 @@ export default {
   },
   computed: {
     len () {
-      return this.v.length
+      return this.v?.length
     }
   },
   watch: {
