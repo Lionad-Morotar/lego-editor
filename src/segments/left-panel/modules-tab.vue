@@ -1,7 +1,7 @@
 <template>
   <div class="modules-block">
     <div class="menus">
-      <div class="header">基础组件</div>
+      <div class="header">基础模块</div>
       <template v-for="cate in basementCategories">
         <div class="menu"
           :key="cate"
@@ -9,7 +9,7 @@
           @click="selectCate(cate)"
         >{{cate}}</div>
       </template>
-      <div class="header">高级组件</div>
+      <div class="header">营销模块</div>
       <template v-for="cate in composedCategories">
         <div class="menu"
           :key="cate"

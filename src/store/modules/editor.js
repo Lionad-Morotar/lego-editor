@@ -33,11 +33,11 @@ const mutations = {
 }
 
 const getters = {
-  // 基础组件
+  // 基础模块
   basementModules: state => state.modules.filter(x => x.categories.includes(ModuleTypeEnums.BASE)),
-  // 高级组件
+  // 营销模块
   composedModules: (_, getters) => state.modules.filter(x => !getters.basementModules.includes(x)),
-  // 基础组件的分类
+  // 基础模块的分类
   // todo order
   basementCategories: (_, getters) => {
     const allCates = getters.basementModules.reduce((h, c) => h.concat(c.categories), [])

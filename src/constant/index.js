@@ -1,3 +1,3 @@
 export const ModuleTypeEnums = {
-  BASE: '基础组件'
+  BASE: '基础模块'
 }
