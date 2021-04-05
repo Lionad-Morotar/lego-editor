@@ -73,7 +73,9 @@ const actions = {
   UPDATE_MODULES ({ commit }, newList) {
     commit('UPDATE_MODULES', newList)
   },
-  CLEAR_MODULES ({ commit }) {
+  // TODO rename to clearCache
+  CLEAR_MODULES ({ commit, dispatch }) {
+    dispatch('UNSELECTED')
     commit('CLEAR_MODULES')
   },
   SELECT_MODULE ({ commit, state }, module) {

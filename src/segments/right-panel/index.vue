@@ -190,16 +190,24 @@ export default {
     border-radius: 50%;
     background: white;
     cursor: pointer;
-    transition: .25s;
 
     &:hover {
-      color: #409eff;
+      .iconfont {
+        color: #409eff;
+      }
+      .iconfont.icon-delete {
+        color: #ff3939;
+      }
     }
     &.disabled {
       background: transparent;
       border-color: transparent;
       color: #bbb;
       pointer-events: none;
+    }
+
+    .iconfont {
+      transition: color .25s;
     }
   }
 }

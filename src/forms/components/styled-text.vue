@@ -101,7 +101,7 @@ export default {
       v: {
         ...(this.value || Props.DS.text)
       },
-      color: this.value.color || Props.DS.text.color,
+      color: this.value?.color || Props.DS.text.color,
       showColor: false
     }
   },

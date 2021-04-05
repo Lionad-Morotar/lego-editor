@@ -1,8 +1,8 @@
 <template>
-  <div class="modules-block">
+  <div class="modules-tab">
     <div class="menus">
       <div class="header">基础模块</div>
-      <template v-for="cate in basementCategories">
+      <template v-for="cate in basementModulesCategories">
         <div class="menu"
           :key="cate"
           :class="selectedModuleCategory===cate ? 'active' : ''"
@@ -10,7 +10,7 @@
         >{{cate}}</div>
       </template>
       <div class="header">营销模块</div>
-      <template v-for="cate in composedCategories">
+      <template v-for="cate in composedModulesCategories">
         <div class="menu"
           :key="cate"
           :class="selectedModuleCategory===cate ? 'active' : ''"
@@ -19,7 +19,7 @@
       </template>
     </div>
     <div class="content">
-      <div class="module-cards-con">
+      <div class="cards-con">
         <!-- TODO 优化落点范围 -->
         <draggable
           :group="{ name: 'installed-moudle', pull: 'clone', put: false }"
@@ -42,7 +42,7 @@ import { mapState, mapActions, mapGetters } from 'vuex'
 import Draggable from 'vuedraggable'
 import ModuleCard from './module-card'
 export default {
-  name: 'modules-block',
+  name: 'modules-tab',
   components: {
     Draggable,
     ModuleCard
@@ -53,8 +53,8 @@ export default {
       selectedModuleCategory: state => state.selectedModuleCategory
     }),
     ...mapGetters('editor', [
-      'basementCategories',
-      'composedCategories',
+      'basementModulesCategories',
+      'composedModulesCategories',
       'selectedModulesByCategories'
     ])
   },
@@ -82,66 +82,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.modules-block {
+.modules-tab {
   display: flex;
   height: 100%;
   overflow: hidden;
-}
-
-.menus {
-  padding: 6px 0;
-  width: 116px;
-  border-right: solid 1px #f0f3f7;
-  font-size: 14px;
-
-  .header {
-    margin-top: 10px;
-    padding-left: 18px;
-    height: 42px;
-    line-height: 42px;
-    font-weight: bold;
-    cursor: default;
-  }
-  .header:first-child {
-    margin-top: 0;
-  }
-
-  .menu {
-    padding-left: 23px;
-    height: 43px;
-    line-height: 43px;
-    border-left: 2px transparent solid;
-    color: #777;
-    font-size: 13px;
-    transition: 0.25s;
-    cursor: pointer;
-
-    &:hover {
-      color: #409eff;
-    }
-    &.active {
-      border-left: 2px #409eff solid;
-      background: #f5f8ff;
-      color: #409eff;
-    }
-    .label {
-      margin-top: 5px;
-      font-size: 12px;
-    }
-  }
-}
-.content {
-  flex: 1;
-
-  .module-cards-con {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    height: 100%;
-    overflow: hidden scroll;
-  }
-}
-.ghost {
-  color: #409eff;
 }
 </style>

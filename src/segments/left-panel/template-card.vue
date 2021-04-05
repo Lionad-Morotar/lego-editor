@@ -1,5 +1,5 @@
 <template>
-  <div class="module-card" @click="addToScreen">
+  <div class="template-card" @click="useTemplate">
     <div class="title">{{ inits.title }}</div>
     <img class="cover" :alt="inits.title" :src="inits.cover" />
   </div>
@@ -8,26 +8,31 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 export default {
-  name: 'module-card',
+  name: 'template-card',
   props: ['inits'],
   computed: {
     ...mapState('screen', {
       modules: state => state.modules
+    }),
+    ...mapState('editor', {
+      installedModules: state => state.modules
     })
   },
   methods: {
-    ...mapActions('screen', ['ADD_MODULE']),
-    addToScreen () {
-      this.ADD_MODULE({
-        inits: this.inits
-      })
-      this.$nextTick(() => {
-        const $el = this.modules[this.modules.length - 1].$instance.$el
-        const $parent = this.$utils.findParentByClass($el, 'module-block')
-        if ($parent.scrollIntoViewIfNeeded) {
-          $parent.scrollIntoViewIfNeeded()
-        } else if ($parent.scrollIntoView) {
-          $parent.scrollIntoView()
+    ...mapActions('screen', [
+      'ADD_MODULE',
+      'CLEAR_MODULES'
+    ]),
+    // 更加人性化的 API
+    useTemplate () {
+      this.CLEAR_MODULES()
+      this.inits.data.map((x) => {
+        const target = this.installedModules.find(y => y.name === x.meta.name)
+        if (target) {
+          this.ADD_MODULE({
+            inits: target,
+            initialData: x
+          })
         }
       })
     }
@@ -36,7 +41,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.module-card {
+.template-card {
   margin: 15px auto;
   cursor: pointer;
 

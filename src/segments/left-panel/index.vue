@@ -101,3 +101,64 @@ export default {
   }
 }
 </style>
+
+<style lang="scss">
+.left-panel {
+  .menus {
+    padding: 6px 0;
+    width: 116px;
+    border-right: solid 1px #f0f3f7;
+    font-size: 14px;
+
+    .header {
+      margin-top: 10px;
+      padding-left: 18px;
+      height: 42px;
+      line-height: 42px;
+      font-weight: bold;
+      cursor: default;
+    }
+    .header:first-child {
+      margin-top: 0;
+    }
+
+    .menu {
+      padding-left: 23px;
+      height: 43px;
+      line-height: 43px;
+      border-left: 2px transparent solid;
+      color: #777;
+      font-size: 13px;
+      transition: 0.25s;
+      cursor: pointer;
+
+      &:hover {
+        color: #409eff;
+      }
+      &.active {
+        border-left: 2px #409eff solid;
+        background: #f5f8ff;
+        color: #409eff;
+      }
+      .label {
+        margin-top: 5px;
+        font-size: 12px;
+      }
+    }
+  }
+  .content {
+    flex: 1;
+
+    .cards-con {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      height: 100%;
+      overflow: hidden scroll;
+    }
+  }
+  .ghost {
+    color: #409eff;
+  }
+}
+</style>
