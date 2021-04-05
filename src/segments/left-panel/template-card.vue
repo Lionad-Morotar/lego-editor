@@ -26,14 +26,16 @@ export default {
     // 更加人性化的 API
     useTemplate () {
       this.CLEAR_MODULES()
-      this.inits.data.map((x) => {
-        const target = this.installedModules.find(y => y.name === x.meta.name)
-        if (target) {
-          this.ADD_MODULE({
-            inits: target,
-            initialData: x
-          })
-        }
+      this.$nextTick(() => {
+        this.inits.data.map((x) => {
+          const target = this.installedModules.find(y => y.name === x.meta.name)
+          if (target) {
+            this.ADD_MODULE({
+              inits: target,
+              initialData: x
+            })
+          }
+        })
       })
     }
   }

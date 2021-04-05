@@ -21,7 +21,7 @@ const mutations = {
     state.modules = newList
   },
   CLEAR_MODULES (state) {
-    state.modules.length = 0
+    state.modules = []
   },
   SELECT_MODULE (state, module) {
     state.selected = module
@@ -77,6 +77,7 @@ const actions = {
   CLEAR_MODULES ({ commit, dispatch }) {
     dispatch('UNSELECTED')
     commit('CLEAR_MODULES')
+    Module.clearCache()
   },
   SELECT_MODULE ({ commit, state }, module) {
     state.cloneCombo = 0
