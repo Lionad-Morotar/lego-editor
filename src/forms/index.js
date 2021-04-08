@@ -6,6 +6,7 @@ import BaseSlider from './components/base-slider'
 import StyledText from './components/styled-text'
 import StyledTextarea from './components/styled-textarea'
 import StyledImage from './components/styled-image'
+import ImageCroper from './components/image-upload-with-croper'
 import Layout from './components/layout'
 
 /**
@@ -20,6 +21,9 @@ import Layout from './components/layout'
  * @todo ？？this.$emit('changeStyles', { key: value })
  */
 
+// todo restructure
+// todo install
+
 export default {
   Example,
   BaseText,
@@ -29,5 +33,6 @@ export default {
   StyledText,
   StyledTextarea,
   StyledImage,
+  ImageCroper,
   Layout
 }

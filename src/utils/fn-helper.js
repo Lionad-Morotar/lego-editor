@@ -5,19 +5,53 @@
 /**
  * polyfill for "for await ... of"
  */
-export async function forAwait (datas, cb, step = 1) {
+async function forAwait (datas, cb) {
   let i = -1
   const isArr = Array.isArray(datas)
+  const len = isArr ? datas.length : datas
   const ret = []
   async function handleNext () {
-    i += step
-    const res = isArr ? datas[i] : i
-    ret.push(await cb(res))
+    if (len > 0 && ++i < len) {
+      const res = isArr ? datas[i] : i
+      ret.push(await cb(res))
 
-    if (i < (isArr ? datas.length : datas)) {
       await handleNext()
     }
   }
   await handleNext()
   return ret
+}
+
+/**
+ * base64 string to binary arrays
+ * @param {String} base64
+ * @returns { u8arr: Arrays, mime: String }
+ */
+export const base64ToBin = base64 => {
+  const arr = base64.split(',')
+  const mime = arr[0].match(/:(.*?);/)[1]
+  const bstr = atob(arr[1])
+  let n = bstr.length
+  const u8arr = new Uint8Array(n)
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n)
+  }
+  return {
+    u8arr,
+    mime
+  }
+}
+
+/**
+ * get url string without 'https:' or 'http:' prefix
+ */
+export const getPureURL = url => {
+  const parts = url.split(/https?:/)
+  return parts[1] || parts[0]
+}
+
+export default {
+  forAwait,
+  base64ToBin,
+  getPureURL
 }

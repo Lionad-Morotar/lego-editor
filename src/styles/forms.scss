@@ -48,8 +48,16 @@
     justify-content: flex-end;
     align-items: center;
     flex-wrap: wrap;
-    flex: 1;
     gap: 5px;
+    width: 100%;
+  }
+
+  .cr-slider-wrap {
+    margin: 8px auto;
+
+    .cr-slider {
+      margin: 0;
+    }
   }
 
   .el-input,

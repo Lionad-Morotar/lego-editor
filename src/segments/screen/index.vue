@@ -72,6 +72,17 @@ export default {
       return this.modules.findIndex(x => x === this.selected)
     }
   },
+  created () {
+    // * for test suppose
+    if (this.modules.length === 0) {
+      setTimeout(() => {
+        setTimeout(() => this.SELECT_MODULE(this.modules[0]), 100)
+        this.ADD_MODULE({
+          inits: this.plugins.find(x => x.title === '图片模块')
+        })
+      }, 200)
+    }
+  },
   mounted () {
     this.$keyboards.watch('up', this.selectPrev)
     this.$keyboards.watch('down', this.selectNext)

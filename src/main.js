@@ -2,24 +2,30 @@ import Vue from 'vue'
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 import Element from 'element-ui'
 import Fragment from 'vue-fragment'
-import 'reset-css'
-import 'element-ui/lib/theme-chalk/index.css'
-
+import VueCroppie from 'vue-croppie'
 import Editor from './index.vue'
 import DefaultTemplate from '@/templates'
 import DefaultModule from '@/modules'
 import store from './store'
 import utils from './utils'
+
+import Alioss from '@/plugins/alioss'
 import KeyboardListener from '@/plugins/keyboards'
 import Gesture from '@/plugins/gesture'
+
+import 'reset-css'
+import 'element-ui/lib/theme-chalk/index.css'
+import 'croppie/croppie.css'
 import './styles/index.scss'
 
 Vue.use(Element)
-Vue.prototype.$utils = utils
-// ! https://github.com/Thunberg087/vue-fragment/issues/62
+Vue.use(VueCroppie)
 Vue.use(Fragment.Plugin)
+Vue.use(Alioss)
 Vue.use(KeyboardListener)
 Vue.use(Gesture)
+
+Vue.prototype.$utils = utils
 
 const LegoEditor = new Vue({
   name: 'lego-editor',

@@ -11,7 +11,7 @@
         <preview v-if="isPreview" />
         <screen v-else />
       </el-main>
-      <el-aside width="340px" id="right-panel">
+      <el-aside width="341px" id="right-panel">
         <right-panel />
       </el-aside>
     </el-container>
