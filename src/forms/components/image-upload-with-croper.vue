@@ -182,7 +182,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .config-item-content {
-  background: #e6e8ebaa;
+  // background: #e6e8ebaa;
   min-height: 208px;
   flex: unset;
   width: 100%;

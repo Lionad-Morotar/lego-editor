@@ -54,10 +54,42 @@
   }
 
   .cr-slider-wrap {
+    display: flex;
+    justify-content: space-evenly;
     margin: 8px auto;
+    width: 100%;
+
+    &::before,
+    &::after {
+      font-family: "iconfont";
+      font-size: 18px;
+      font-style: normal;
+      -webkit-font-smoothing: antialiased;
+      font-weight: 500;
+      color: #ccc;
+    }
+    &::before {
+      content: '\e897';
+    }
+    &::after {
+      content: '\e898';
+    }
 
     .cr-slider {
       margin: 0;
+      width: 62%;
+
+      &::-webkit-slider-runnable-track {
+        -webkit-appearance: none;
+        transition: .25s;
+        background: #cccccc;
+      }
+      &:hover::-webkit-slider-runnable-track {
+        background: #adadad;
+      }
+      &:active::-webkit-slider-runnable-track {
+        background: #409EFF;
+      }
     }
   }
 
