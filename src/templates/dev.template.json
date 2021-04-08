@@ -290,8 +290,7 @@
     },
     "image": {
       "url": "https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/image/default.png",
-      "objectFit": "contain",
-      "objectPosition": "center"
+      "points": null
     }
   }
 ]

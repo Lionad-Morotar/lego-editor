@@ -2,21 +2,29 @@
   <div class="config-item-segment">
     <div slot="text" class="config-item full-content">
       <div class="config-item-content flex-center">
-        <Uploader @success="uploadSuccess">
-          <el-button
-            class="action-button"
-            type="text"
-            icon="el-icon-upload2"
-          >上传图片</el-button>
-        </Uploader>
-        <vue-croppie
-          v-show="false"
-          ref="croppieRef"
-          :showZoomer="true"
-          :enableResize="false"
-          :boundary="boundary"
-          :viewport="viewport"
-        />
+        <transition name="fade-enter">
+          <Uploader
+            v-if="!image"
+            @success="success"
+            @failed="failed">
+            <el-button
+              class="action-button"
+              type="text"
+              icon="el-icon-upload2"
+            >上传图片</el-button>
+          </Uploader>
+          <!-- 当前裁剪不能精确到像素 -->
+          <vue-croppie
+            v-else
+            ref="croppieRef"
+            :key="reRenderKey"
+            :showZoomer="true"
+            :enableResize="false"
+            :boundary="boundary"
+            :viewport="calcViewport"
+            @update="result"
+          />
+        </transition>
       </div>
     </div>
   </div>
@@ -31,6 +39,7 @@ export default {
   },
   data () {
     return {
+      viewport: {},
       image: null,
       boundary: {
         width: 298,
@@ -39,7 +48,7 @@ export default {
     }
   },
   computed: {
-    viewport () {
+    defaultVP () {
       const {
         width = 100,
         height = 100
@@ -48,36 +57,73 @@ export default {
         width: width * 0.62,
         height: height * 0.62
       }
+    },
+    calcViewport () {
+      return Object.assign(
+        { ...this.defaultVP },
+        { ...this.initViewport() }
+      )
+    },
+    reRenderKey () {
+      const { width, height } = this.calcViewport
+      return String(width) + String(height)
     }
   },
   watch: {
     value (newVal) {
-      if (!this.image) {
-        this.image = newVal
+      const { url } = newVal || {}
+      if (!this.image && url) {
+        this.image = url
         this.initCroppie()
       }
     },
-    options (newVal) {
-      if (newVal && newVal.viewport) {
-        this.viewport = newVal.viewport
-      }
+    options () {
+      this.initViewport()
     }
   },
   created () {
     if (!this.image && this.value) {
-      this.image = this.value
-      this.initCroppie()
+      this.image = this.value.url
     }
+    this.initCroppie()
   },
   methods: {
-    uploadSuccess (res) {
-      console.log('res: ', res)
+    success (_, raws) {
+      this.initCroppie(raws[0])
     },
-    async initCroppie () {
-      const binary = await this.getBinary(this.image)
-      this.$refs.croppieRef.bind({
-        url: binary
+    failed (error) {
+      console.error(error)
+      this.$message.error('请稍后重试', '上传失败')
+    },
+    result (e) {
+      const { points = [] } = e
+      // console.log(e)
+      this.$emit('change', {
+        ...this.value,
+        points: points.map(x => +x)
       })
+    },
+    initViewport (options = this.options) {
+      const { viewport, ratio } = options || {}
+      if (viewport) {
+        this.viewport = viewport
+      } else if (ratio) {
+        const defaultWidth = this.defaultVP.width
+        this.viewport = {
+          width: defaultWidth,
+          height: defaultWidth / ratio
+        }
+      }
+      return this.viewport
+    },
+    async initCroppie (target = this.image) {
+      if (target) {
+        const binary = await this.getBinary(target)
+        this.$refs.croppieRef.bind({
+          url: binary,
+          points: this.options.points
+        })
+      }
     },
     async getBinary (target) {
       if (target instanceof File) {
@@ -138,6 +184,8 @@ export default {
 .config-item-content {
   background: #e6e8ebaa;
   min-height: 208px;
+  flex: unset;
+  width: 100%;
 }
 .action-button {
   display: block;

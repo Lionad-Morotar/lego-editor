@@ -55,8 +55,8 @@ const DS = {
   get image () {
     return {
       url: '',
-      objectFit: 'contain',
-      objectPosition: 'center'
+      // 当前仅支持正方形裁剪
+      points: null
     }
   }
 }
@@ -95,11 +95,11 @@ const genStyles = (val = {}, options = {}) => {
     underLine,
     strikeThrough,
     // image
-    objectFit,
-    objectPosition
+    points
   } = val
   let res = {
-    textDecoration: []
+    textDecoration: [],
+    transform: []
   }
 
   // console.log(val)
@@ -112,7 +112,7 @@ const genStyles = (val = {}, options = {}) => {
     if (!auto) {
       if (notEmpty(top)) res.top = top ? (top + 'px') : 0
       if (notEmpty(left)) res.left = left ? (left + 'px') : 0
-      res.transform = `rotate(${degree}deg)`
+      res.transform.push(`rotate(${degree}deg)`)
       res.zIndex = 1
     }
   }
@@ -141,15 +141,22 @@ const genStyles = (val = {}, options = {}) => {
   if (strikeThrough) res.textDecoration.push('line-through')
 
   /* image */
-  if (objectFit) res.objectFit = objectFit
-  if (objectPosition) res.objectPosition = objectPosition
+  if (points) {
+    const p1 = [points[0], points[1]]
+    const p2 = [points[2], points[3]]
+    const wOffset = p2[0] - p1[0]
+    const ratio = wOffset / width
+    // console.log(wOffset, width)
+    res.objectPosition = `-${p1[0]}px -${p1[1]}px`
+    res.transform.push(`scale(${1 / ratio})`)
+    res.transformOrigin = '0 0'
+  }
 
   /* clean useless */
-  if (res.textDecoration.length) {
-    res.textDecoration = res.textDecoration.join(' ')
-  } else {
-    delete res.textDecoration
-  }
+  res.textDecoration = res.textDecoration.join(' ')
+  res.transform = res.transform.join(' ')
+  // todo fillterNull
+
   if (onlyTranslate) {
     res = {
       position: res.position,

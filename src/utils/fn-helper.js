@@ -45,7 +45,7 @@ export const base64ToBin = base64 => {
 /**
  * get url string without 'https:' or 'http:' prefix
  */
-export const getPureURL = url => {
+export const getPureURL = (url = '') => {
   const parts = url.split(/https?:/)
   return parts[1] || parts[0]
 }

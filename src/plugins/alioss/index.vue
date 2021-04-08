@@ -20,8 +20,8 @@ const uuid = require('uuid')
 const checkUploadFiles = function (files, options) {
   return new Promise(resolve => {
     files.map(file => {
-      if (file > options.maxFileSize * 1024) {
-        resolve(`请上传小于 ${options.maxFileSize}KB 大小的图片`)
+      if (file > options.maxFileSizeKB * 1024) {
+        resolve(`请上传小于 ${options.maxFileSizeKB}KB 大小的图片`)
       }
       if (!options.types.includes(file.type)) {
         resolve(`不支持上传文件格式：${file.type}`)
@@ -56,8 +56,8 @@ export default {
   computed: {
     uploadOptions () {
       return Object.assign({
-        maxFileSize: {
-          default: 2048
+        maxFileSizeKB: {
+          default: 1024
         },
         autoUpload: false,
         types: [
@@ -106,13 +106,13 @@ export default {
         const uploadResult = await Promise
           .all(files.map(this.uploadFile))
           .then(data => handleUploadResult.bind(this)(data))
-        this.$emit('success', uploadResult)
+        this.$emit('success', uploadResult, files)
         this.callback({
           isSuccess: true,
           res: uploadResult
         })
       } catch (error) {
-        this.$emit('failed', error)
+        this.$emit('failed', error, files)
         this.callback({
           isSuccess: false,
           error
@@ -129,7 +129,8 @@ export default {
       const filename = uuid.v4() + ext
       const putPath = 'users/admin/' + filename
 
-      return await this.$oss.put(putPath, file)
+      return putPath
+      // return await this.$oss.put(putPath, file)
     }
   }
 }

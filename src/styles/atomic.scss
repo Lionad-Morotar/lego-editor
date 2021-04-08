@@ -8,3 +8,7 @@
   justify-content: center !important;
   align-items: center !important;
 }
+
+.clip-rect {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 0);
+}

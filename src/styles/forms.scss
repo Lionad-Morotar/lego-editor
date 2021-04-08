@@ -48,8 +48,9 @@
     justify-content: flex-end;
     align-items: center;
     flex-wrap: wrap;
+    flex: 1;
     gap: 5px;
-    width: 100%;
+    // width: 100%;
   }
 
   .cr-slider-wrap {
