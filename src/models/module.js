@@ -160,7 +160,7 @@ Module.gatherProps = function (name, component) {
   function getValidProps (props, baseProps = {}) {
     return Object.entries(props || {}).reduce((h, [k, v]) => {
       const isPassValue = v.config?.pass
-      if (v instanceof Props.Prop) {
+      if (Props.isProp(v)) {
         if (isPassValue) {
           h[k] = h[k] || baseProps[k] || v
         } else {

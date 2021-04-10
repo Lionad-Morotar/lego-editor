@@ -187,7 +187,7 @@ const genDefaults = prop => {
     if (obj instanceof Object) {
       const initial = obj instanceof Array ? [] : {}
       return Object.entries(obj).reduce((h, [k, v]) => {
-        if (v instanceof Prop) {
+        if (Props.isProp(v)) {
           h[k] = clone(v.default)
         } else {
           h[k] = clone(v)
@@ -329,7 +329,7 @@ function genVueProps (propsInstance = {}) {
   })
   return Object.entries(propsInstance).reduce((h, [k, v]) => {
     // TODO 处理 Props 约定嵌套的结构
-    if (v instanceof Prop) {
+    if (Props.isProp(v)) {
       h[k] = genVueProp(v)
     } else {
       h[k] = v
@@ -383,6 +383,10 @@ function Prop (base, config = {}) {
   return prop
 }
 
+/**
+ * 判断属性是否是 Prop 实例
+ */
+Props.isProp = x => x instanceof Prop
 Props.DS = DS
 Props.genStyles = genStyles
 Props.genDefaults = genDefaults

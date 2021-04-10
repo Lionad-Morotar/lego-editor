@@ -37,10 +37,6 @@ export default {
 
       const ratio = safe(width / height)
 
-      console.log(
-        width, height
-      )
-
       return {
         ratio,
         points: points || (width ? [0, 0, width, height] : [])

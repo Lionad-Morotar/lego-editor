@@ -66,7 +66,7 @@ export default {
     configEntries () {
       return Object.entries(
         Object.entries(this.config).reduce((h, [k, v]) => {
-          if (v instanceof Props.Prop && v.config.component) {
+          if (Props.isProp(v) && v.config.component) {
             h[k] = v
           }
           return h

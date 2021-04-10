@@ -1,6 +1,6 @@
 <template>
   <div class="config-item">
-    <div class="config-item-header">隐藏指示器</div>
+    <div class="config-item-header">指示器</div>
     <div class="config-item-content">
       <el-switch v-model="v" />
     </div>

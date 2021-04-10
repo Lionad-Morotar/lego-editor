@@ -331,9 +331,9 @@ export default {
       background: white;
       transition: .1s ease-out;
 
+      // 暂时隐藏 scaler
       &.scaler {
         border-radius: 50%;
-        // 暂时隐藏 scaler
         display: none;
 
         &.left {
