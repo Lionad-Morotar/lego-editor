@@ -3,7 +3,7 @@
     <header>轮播图设置</header>
     <el-collapse v-model="active">
       <template v-for="(img, idx) in v">
-        <styled-image
+        <forms-image
           v-model="v[idx]"
           :width="375"
           :height="200"
@@ -22,7 +22,6 @@
 
 <script>
 import Props from '@/models/props'
-import Forms from '@/forms'
 export default {
   props: ['value', 'props'],
   data () {
@@ -61,8 +60,8 @@ export default {
     edit (idx) {
       this.$prompt('请输入图片地址', '编辑', {
         inputValue: this.v[idx].url,
-        confirmButtonText: '确定',
-        cancelButtonText: '取消'
+        confirmButtonString: '确定',
+        cancelButtonString: '取消'
       }).then(({ value }) => {
         this.$message({
           type: 'success',
@@ -74,9 +73,6 @@ export default {
     remove (idx) {
       this.v.splice(idx, 1)
     }
-  },
-  components: {
-    StyledImage: Forms.StyledImage
   }
 }
 </script>

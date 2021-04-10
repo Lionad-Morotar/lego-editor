@@ -1,6 +1,6 @@
 <template>
   <div>
-    <image-croper
+    <forms-image-croper
       v-model="v"
       :options="options"
     />

@@ -19,7 +19,7 @@
     <div class="config-item" v-if="display('letterSpacing')">
       <div class="config-item-header">字距</div>
       <div class="config-item-content">
-        <base-slider
+        <slider
           v-model="v.letterSpacing"
           :min="-3"
           :max="3"
@@ -31,7 +31,7 @@
     <div class="config-item" v-if="display('lineHeight')">
       <div class="config-item-header">行高</div>
       <div class="config-item-content">
-        <base-slider
+        <slider
           v-model="v.lineHeight"
           :min="1"
           :max="3"
@@ -89,7 +89,7 @@
 <script>
 import { Chrome } from 'vue-color'
 import Props from '@/models/props'
-import BaseSlider from './base-slider'
+import Slider from './slider'
 export default {
   props: ['value', 'disable'],
   model: {
@@ -132,7 +132,7 @@ export default {
   },
   components: {
     ChromePicker: Chrome,
-    BaseSlider
+    Slider
   }
 }
 </script>

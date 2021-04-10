@@ -221,7 +221,7 @@ const Props = {
     return new Prop(
       {
         type: String,
-        component: Forms.BaseText
+        component: Forms.String
       },
       config
     )
@@ -231,7 +231,7 @@ const Props = {
     return new Prop(
       {
         type: Number,
-        component: Forms.BaseNumber
+        component: Forms.Number
       },
       config
     )
@@ -252,14 +252,14 @@ const Props = {
         type: Object,
         default: defaultVal,
         _valueKey: 'text',
-        component: Forms.StyledText
+        component: Forms.Text
       },
       config
     )
   },
   textarea (config) {
     return Props.text({
-      component: Forms.StyledTextarea,
+      component: Forms.Textarea,
       ...config
     })
   },
@@ -275,7 +275,7 @@ const Props = {
         type: Object,
         default: defaultVal,
         _valueKey: 'url',
-        component: Forms.StyledImage
+        component: Forms.Image
       },
       config
     )

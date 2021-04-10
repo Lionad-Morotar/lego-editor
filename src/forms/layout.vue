@@ -17,7 +17,7 @@
           </div>
         </template>
         <template v-if="editPaddingKey">
-          <base-slider
+          <slider
             v-model="value.padding[editPaddingKey]"
             :min="0"
             :max="30"
@@ -44,7 +44,7 @@
           </div>
         </template>
         <template v-if="editBorderKey">
-          <base-slider
+          <slider
             v-model="value.border[editBorderKey]"
             :min="0"
             :max="10"
@@ -58,7 +58,7 @@
     <div class="config-item" v-if="display('radius')">
       <div class="config-item-header">圆角</div>
       <div class="config-item-content">
-        <base-slider
+        <slider
           v-model="value.radius"
           :min="0"
           :max="maxRadius"
@@ -83,7 +83,7 @@
 <script>
 import { Chrome } from 'vue-color'
 import Props from '@/models/props'
-import BaseSlider from './base-slider'
+import Slider from './slider'
 
 const half = n => Math.floor(n / 2)
 
@@ -140,7 +140,7 @@ export default {
   },
   components: {
     ChromePicker: Chrome,
-    BaseSlider
+    Slider
   }
 }
 </script>

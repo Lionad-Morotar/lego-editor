@@ -2,7 +2,7 @@
   <div class="config-item" v-if="canShow">
     <div class="config-item-header">时间间隔</div>
     <div class="config-item-content">
-      <base-slider
+      <forms-slider
         v-model="v"
         :min="500"
         :max="5000"
@@ -13,7 +13,6 @@
 </template>
 
 <script>
-import Forms from '@/forms'
 export default {
   props: ['value', 'props'],
   data () {
@@ -33,9 +32,6 @@ export default {
         this.$emit('change', newValue)
       }
     }
-  },
-  components: {
-    BaseSlider: Forms.BaseSlider
   }
 }
 </script>

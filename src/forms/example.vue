@@ -19,8 +19,8 @@ export default {
     prop: 'value',
     event: 'change'
   },
-  // 为了不直接修改 props，
-  // 需要设置一个本地变量（如 v）做中转
+  // 如果不想直接修改 value，
+  // 可以设置一个本地变量（如 v）做中转
   data () {
     return {
       v: this.value

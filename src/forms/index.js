@@ -1,13 +1,14 @@
-import Example from './components/example'
-import BaseText from './components/base-text'
-import BaseTextarea from './components/base-textarea'
-import BaseNumber from './components/base-number'
-import BaseSlider from './components/base-slider'
-import StyledText from './components/styled-text'
-import StyledTextarea from './components/styled-textarea'
-import StyledImage from './components/styled-image'
-import ImageCroper from './components/image-upload-with-croper'
-import Layout from './components/layout'
+import Example from './example'
+
+import String from './string'
+import Stringarea from './stringarea'
+import Number from './number'
+import Slider from './slider'
+import Text from './text'
+import Textarea from './textarea'
+import Image from './image'
+import ImageCroper from './image-upload-with-croper'
+import Layout from './layout'
 
 /**
  * 约定
@@ -22,17 +23,26 @@ import Layout from './components/layout'
  */
 
 // todo restructure
-// todo install
 
-export default {
+const Forms = {
   Example,
-  BaseText,
-  BaseTextarea,
-  BaseNumber,
-  BaseSlider,
-  StyledText,
-  StyledTextarea,
-  StyledImage,
+  String,
+  Stringarea,
+  Number,
+  Slider,
+  Text,
+  Textarea,
+  Image,
   ImageCroper,
   Layout
+}
+
+export default {
+  ...Forms,
+  install (Vue) {
+    Vue.prototype.$forms = Forms
+    Object.entries(Forms).map(([k, v]) => {
+      Vue.component('Forms' + k, v)
+    })
+  }
 }

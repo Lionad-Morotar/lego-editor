@@ -2,7 +2,7 @@
   <div class="config-item">
     <div class="config-item-header">高度</div>
     <div class="config-item-content">
-      <base-slider
+      <forms-slider
         v-model="v.height"
         :min="5"
         :max="500"
@@ -13,7 +13,6 @@
 </template>
 
 <script>
-import Forms from '@/forms'
 export default {
   props: ['value', 'props'],
   data () {
@@ -28,9 +27,6 @@ export default {
         this.$emit('change', newValue)
       }
     }
-  },
-  components: {
-    BaseSlider: Forms.BaseSlider
   }
 }
 </script>

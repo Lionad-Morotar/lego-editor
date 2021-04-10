@@ -1,16 +1,15 @@
 <template>
-  <styled-text v-model="v">
+  <forms-text v-model="v">
     <div slot="text" class="config-item">
       <div class="config-item-content">
         <el-input type="textarea" v-model="v.text" :rows="5" spellcheck="false" />
       </div>
     </div>
-  </styled-text>
+  </forms-text>
 </template>
 
 <script>
 import Props from '@/models/props'
-import StyledText from './styled-text'
 export default {
   props: ['value'],
   model: {
@@ -31,9 +30,6 @@ export default {
         this.$emit('change', newValue)
       }
     }
-  },
-  components: {
-    StyledText
   }
 }
 </script>

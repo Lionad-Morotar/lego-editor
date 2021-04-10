@@ -52,7 +52,7 @@ function ButtonLabel () {
           text: '点击',
           fontSize: 14
         },
-        component: pass(Forms.StyledText, {
+        component: pass(Forms.Text, {
           disable: ['align']
         })
       })

@@ -1,23 +1,25 @@
 import Vue from 'vue'
-import { mapGetters, mapActions, mapMutations } from 'vuex'
 import Element from 'element-ui'
 import Fragment from 'vue-fragment'
 import VueCroppie from 'vue-croppie'
+import Alioss from '@/plugins/alioss'
+import KeyboardListener from '@/plugins/keyboards'
+import Gesture from '@/plugins/gesture'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
+
+import Forms from '@/forms'
 import Editor from './index.vue'
 import DefaultTemplate from '@/templates'
 import DefaultModule from '@/modules'
 import store from './store'
 import utils from './utils'
 
-import Alioss from '@/plugins/alioss'
-import KeyboardListener from '@/plugins/keyboards'
-import Gesture from '@/plugins/gesture'
-
 import 'reset-css'
 import 'element-ui/lib/theme-chalk/index.css'
 import 'croppie/croppie.css'
 import './styles/index.scss'
 
+Vue.use(Forms)
 Vue.use(Element)
 Vue.use(VueCroppie)
 Vue.use(Fragment.Plugin)

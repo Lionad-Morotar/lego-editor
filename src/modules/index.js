@@ -1,11 +1,12 @@
 import clone from 'lodash.clonedeep'
 
 import { ModuleTypeEnums } from '@/constant'
+
 /* 基础模块 */
 import Slider from './slider'
 import Space from './space'
-import Text from './text'
-import Textarea from './textarea'
+import String from './text'
+import Stringarea from './textarea'
 import Image from './image'
 import Button from './button'
 /* 高级模块 */
@@ -19,6 +20,9 @@ import Procedure from './procedure'
 const baseType = ModuleTypeEnums.BASE
 
 export default {
+  install (Vue) {
+    // ...
+  },
   getDefaultModuleList () {
     const moduleList = [
       /* 基础模块 */
@@ -33,16 +37,16 @@ export default {
       {
         title: '单行文本',
         description: '基础单行文本模块，可以调节字体大小，颜色等样式',
-        name: Text.name,
-        component: Text,
+        name: String.name,
+        component: String,
         cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/preview-basic-text.png',
         categories: [baseType, '基础布局']
       },
       {
         title: '文本区域',
         description: '基础文本区域',
-        name: Textarea.name,
-        component: Textarea,
+        name: Stringarea.name,
+        component: Stringarea,
         cover: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/preview-basic-textarea.png',
         categories: [baseType, '基础布局']
       },
