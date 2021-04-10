@@ -74,7 +74,7 @@ const actions = {
     commit('UPDATE_MODULES', newList)
   },
   // TODO rename to clearCache
-  CLEAR_MODULES ({ commit, dispatch }) {
+  CLEAR_SCREEN ({ commit, dispatch }) {
     dispatch('UNSELECTED')
     commit('CLEAR_MODULES')
     Module.clearCache()

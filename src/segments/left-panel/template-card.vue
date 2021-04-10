@@ -21,11 +21,11 @@ export default {
   methods: {
     ...mapActions('screen', [
       'ADD_MODULE',
-      'CLEAR_MODULES'
+      'CLEAR_SCREEN'
     ]),
     // 更加人性化的 API
     useTemplate () {
-      this.CLEAR_MODULES()
+      this.CLEAR_SCREEN()
       this.$nextTick(() => {
         this.inits.data.map((x) => {
           const target = this.installedModules.find(y => y.name === x.meta.name)

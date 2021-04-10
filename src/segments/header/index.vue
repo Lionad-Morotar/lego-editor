@@ -40,7 +40,7 @@ export default {
     ]),
     ...mapActions('screen', [
       'ADD_MODULE',
-      'CLEAR_MODULES'
+      'CLEAR_SCREEN'
     ]),
     save () {
       console.log(this.modules.map(x => x.genStore()))
@@ -48,7 +48,7 @@ export default {
     togglePreview () {
       const datas = clonedeep(this.modules.map(x => x.genStore()))
       Module.clearCache()
-      this.CLEAR_MODULES()
+      this.CLEAR_SCREEN()
       this.TOGGLE_ISPREVIEW()
       datas.map((x, idx) => {
         const target = this.installedModules.find(y => y.name === x.meta.name)
