@@ -109,7 +109,7 @@ export default {
         letter-spacing: 1px;
       }
       .content {
-        padding-top: 6px;
+        padding: 6px 15px;
         text-align: center;
         color: #f2f2f2;
         font-size: 13px;

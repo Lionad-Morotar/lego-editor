@@ -1,23 +1,28 @@
 <template>
-  <fragment>
+  <div>
     <h3>{{ title }}</h3>
-    <div class="hr" />
+    <div v-if="line" class="hr" />
     <h4>{{ subTitle }}</h4>
-  </fragment>
+  </div>
 </template>
 
 <script>
 import Props from '@/models/props'
+import HeaderLine from './panel/header-line'
 export default {
   props: {
     title: Props.string({
-      label: '流程名称',
+      label: '主标题',
       default: '回收流程'
     }),
     subTitle: Props.string({
       label: '副标题',
       default: '累计成交150万+件，是您最好的选择',
       placeholder: '请填写流程副标题'
+    }),
+    line: Props.custom({
+      component: HeaderLine,
+      default: true
     })
   }
 }

@@ -132,6 +132,7 @@ export default {
 <style lang="scss">
 .right-panel {
   padding-top: 20px;
+  padding-bottom: 20px;
   border-left: solid 1px #f0f3f7;
   user-select: none;
 }
