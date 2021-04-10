@@ -49,16 +49,20 @@ export default {
       if (this.height == null) {
         this.height = this.$refs.content.scrollHeight
 
-        // FIXME auto 之后无动画
         if (this.tick) {
           clearTimeout(this.tick)
         }
         this.tick = setTimeout(() => {
-          this.height = null
-        }, this.time * 1000 + 500)
+          this.$nextTick(() => {
+            this.height = null
+          })
+        }, this.time * 1000)
+      } else {
+        this.height = 0
       }
-
-      this.fold = !this.fold
+      setTimeout(() => {
+        this.fold = !this.fold
+      }, 0)
     }
   }
 }
