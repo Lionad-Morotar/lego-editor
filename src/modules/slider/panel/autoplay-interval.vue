@@ -3,10 +3,11 @@
     <div class="config-item-header">时间间隔</div>
     <div class="config-item-content">
       <forms-slider
-        v-model="v"
+        :value="value"
         :min="500"
         :max="5000"
         :step="500"
+        @change="v => $emit('change', v)"
       />
     </div>
   </div>
@@ -15,22 +16,9 @@
 <script>
 export default {
   props: ['value', 'props'],
-  data () {
-    return {
-      v: this.value
-    }
-  },
   computed: {
     canShow () {
       return this.props?.images?.length > 1 && this.props.autoplay
-    }
-  },
-  watch: {
-    v: {
-      deep: true,
-      handler (newValue) {
-        this.$emit('change', newValue)
-      }
     }
   }
 }

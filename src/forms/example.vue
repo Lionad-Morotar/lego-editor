@@ -1,6 +1,8 @@
 <template>
   <div>
     <el-input v-bind="$attrs" v-model="v" />
+    <!-- or -->
+    <el-input :value="v" @change="v => $emit('change', v)" />
   </div>
 </template>
 
