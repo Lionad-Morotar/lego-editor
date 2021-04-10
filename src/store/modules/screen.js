@@ -61,13 +61,15 @@ const getters = {}
 
 const actions = {
   ADD_MODULE ({ commit, state }, { inits, initialData = {}, index }) {
-    const curLen = state.modules.length
-    if (curLen >= 15) {
-      alert('测试版本暂支持最多 15 个组件')
-    } else {
-      const instance = new Module(inits, initialData)
-      const idx = index == null ? curLen : index
-      commit('ADD_MODULE', { instance, idx })
+    if (inits) {
+      const curLen = state.modules.length
+      if (curLen >= 15) {
+        alert('测试版本暂支持最多 15 个组件')
+      } else {
+        const instance = new Module(inits, initialData)
+        const idx = index == null ? curLen : index
+        commit('ADD_MODULE', { instance, idx })
+      }
     }
   },
   UPDATE_MODULES ({ commit }, newList) {

@@ -14,6 +14,12 @@ const state = {
   isPreview: false
 }
 
+/**
+ * * ***************************************
+ * MUTATIONS - M U T A T I O N S - MUTATIONS
+ * * ***************************************
+ */
+
 const mutations = {
   ADD_MODULE (state, { module, inits }) {
     state.modules.push(module)
@@ -24,7 +30,6 @@ const mutations = {
   },
   CLEAR_MODULE (state) {
     state.modules = []
-    state.moduleSets = new Set()
   },
   SELECT_MODULE_CATEGORY (state, value) {
     state.selectedModuleCategory = value
@@ -38,10 +43,16 @@ const mutations = {
   UNSELECT_TEMPLATE_CATEGORY (state) {
     state.selectedTemplateCategory = null
   },
-  TOGGLE_ISPREVIEW (state, value) {
+  TOGGLE_PREVIEW (state, value) {
     state.isPreview = value
   }
 }
+
+/**
+ * * *******************************
+ * GETTERS - G E T T E R S - GETTERS
+ * * *******************************
+ */
 
 const getters = {
 
@@ -91,11 +102,17 @@ const getters = {
   selectedTemplatesByCategories: (state, getters) => getters.getTemplatesByCategories(state.selectedTemplateCategory)
 }
 
+/**
+ * * ***************************************
+ * ACTIONS - A C T I O N S - ACTIONS
+ * * ***************************************
+ */
+
 const actions = {
   CLEAR_MODULE ({ commit }) {
     commit('CLEAR_MODULE')
   },
-  REINSTALL_MODULES ({ commit, state, rootState, dispatch }, isPreview) {
+  REINSTALL_MODULES ({ commit, state, dispatch }, isPreview) {
     commit('CLEAR_MODULE')
     dispatch('INSTALL_MODULES', {
       modules: [...state.moduleSets],
@@ -115,11 +132,10 @@ const actions = {
     })
     installs(modules)
   },
-  TOGGLE_ISPREVIEW ({ commit, state, dispatch }) {
+  TOGGLE_PREVIEW ({ commit, state, dispatch }) {
     const nextPreviewState = !state.isPreview
-    // FIXME reinstall 之后，选中示例模块的高亮框示例，右侧动态面板绑定的值失效的问题
     dispatch('REINSTALL_MODULES', nextPreviewState)
-    commit('TOGGLE_ISPREVIEW', nextPreviewState)
+    commit('TOGGLE_PREVIEW', nextPreviewState)
   },
   SELECT_MODULE_CATEGORY ({ commit }, value) {
     commit('SELECT_MODULE_CATEGORY', value)

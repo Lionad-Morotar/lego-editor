@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     ...mapActions('editor', [
-      'TOGGLE_ISPREVIEW'
+      'TOGGLE_PREVIEW'
     ]),
     ...mapActions('screen', [
       'ADD_MODULE',
@@ -49,7 +49,7 @@ export default {
       const datas = clonedeep(this.modules.map(x => x.genStore()))
       Module.clearCache()
       this.CLEAR_SCREEN()
-      this.TOGGLE_ISPREVIEW()
+      this.TOGGLE_PREVIEW()
       datas.map((x, idx) => {
         const target = this.installedModules.find(y => y.name === x.meta.name)
         if (target) {
