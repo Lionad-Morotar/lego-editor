@@ -36,9 +36,7 @@ export default {
   },
   methods: {
     ...mapActions('editor', [
-      'TOGGLE_ISPREVIEW',
-      'INSTALL_MODULES',
-      'REINSTALL_MODULES'
+      'TOGGLE_ISPREVIEW'
     ]),
     ...mapActions('screen', [
       'ADD_MODULE',

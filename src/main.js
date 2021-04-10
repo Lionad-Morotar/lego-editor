@@ -49,8 +49,10 @@ const LegoEditor = new Vue({
     ])
   },
   mounted () {
-    /* 添加模板 & 安装模块 */
-    DefaultTemplate.getDefaultTemplateList().map(template => this.ADD_TEMPLATE(template))
+    // 添加模板
+    DefaultTemplate.getDefaultTemplateList()
+      .map(template => this.ADD_TEMPLATE(template))
+    // 安装模块
     this.INSTALL_MODULES({
       modules: DefaultModule.getDefaultModuleList()
     })

@@ -98,19 +98,11 @@ const actions = {
   REINSTALL_MODULES ({ commit, state, rootState, dispatch }, isPreview) {
     commit('CLEAR_MODULE')
     dispatch('INSTALL_MODULES', {
-      modules: {
-        moduleList: [...state.moduleSets]
-      },
+      modules: [...state.moduleSets],
       isPreview
     })
   },
-  INSTALL_MODULES ({ commit, state, getters }, { modules = {}, isPreview = false }) {
-    const {
-      exampleModuleList = [],
-      moduleList = []
-    } = modules
-
-    // console.log('isPreview: ', isPreview)
+  INSTALL_MODULES ({ commit }, { modules, isPreview = false }) {
     const install = isPreview ? installElement : installEditableElement
     const installs = mlist => mlist.map(newModule => {
       if (utils.validInitModuleData(newModule)) {
@@ -121,8 +113,7 @@ const actions = {
         })
       }
     })
-    installs(moduleList)
-    installs(exampleModuleList)
+    installs(modules)
   },
   TOGGLE_ISPREVIEW ({ commit, state, dispatch }) {
     const nextPreviewState = !state.isPreview
