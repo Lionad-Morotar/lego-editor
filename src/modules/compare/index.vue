@@ -35,7 +35,7 @@ export default {
                 lineHeight: 1.5
               }
             }),
-            url: Props.image({
+            image: Props.image({
               default:
                 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/left.png'
             })
@@ -50,7 +50,7 @@ export default {
                 lineHeight: 1.5
               }
             }),
-            url: Props.image({
+            image: Props.image({
               default:
                 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/right.png'
             })
@@ -67,7 +67,7 @@ export default {
                 lineHeight: 1.5
               }
             }),
-            url: Props.image({
+            image: Props.image({
               default:
                 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/left.png'
             })
@@ -82,27 +82,13 @@ export default {
                 lineHeight: 1.5
               }
             }),
-            url: Props.image({
+            image: Props.image({
               default:
                 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/right.png'
             })
           }
         }
-      ],
-      validator (v, props) {
-        const { title } = props
-        if (v.length === 0) return '请添加至少一项对比'
-        const errors = v.map((compare, idx) => {
-          const base = `请填写${title.text}的第${idx + 1}项对比中的`
-          if (!compare.left.title) return base + '左侧标题'
-          if (!compare.left.description.text) return base + '左侧描述'
-          if (!compare.left.url.url) return base + '左侧图片'
-          if (!compare.right.title) return base + '右侧标题'
-          if (!compare.right.description.text) return base + '右侧描述'
-          if (!compare.right.url.url) return base + '右侧图片'
-        })
-        return errors.filter(Boolean)[0]
-      }
+      ]
     })
   },
   components: {

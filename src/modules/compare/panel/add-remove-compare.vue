@@ -54,7 +54,7 @@ export default {
             fontSize: 12,
             lineHeight: 1.5
           }),
-          url: Props.merge(Props.DS.image, {
+          image: Props.merge(Props.DS.image, {
             url:
               'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/left.png'
           })
@@ -67,7 +67,7 @@ export default {
             fontSize: 12,
             lineHeight: 1.5
           }),
-          url: Props.merge(Props.DS.image, {
+          image: Props.merge(Props.DS.image, {
             url:
               'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/right.png'
           })

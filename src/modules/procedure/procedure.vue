@@ -4,12 +4,15 @@
       <div class="title">{{ procedure.title }}</div>
       <div class="content">{{ procedure.content }}</div>
     </div>
-    <img
-      class="image"
-      :src="procedure.image"
-      :alt="procedure.content"
-      :title="procedure.title"
-    />
+    <div class="clip-rect">
+      <img
+        class="image"
+        :src="procedure.image.url"
+        :alt="procedure.content"
+        :title="procedure.title"
+        :style="styles"
+      />
+    </div>
   </div>
 </template>
 
@@ -25,6 +28,14 @@ export default {
         return props.procedures[this.idx]
       }
     })
+  },
+  computed: {
+    styles () {
+      return Props.genStyles({
+        ...this.procedure.image,
+        width: 165
+      })
+    }
   }
 }
 </script>

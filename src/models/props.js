@@ -55,7 +55,8 @@ const DS = {
   get image () {
     return {
       url: '',
-      // 当前仅支持正方形裁剪
+      // 当前仅支持方形裁剪
+      // 单位用百分比而不是像素可能好一些
       points: null
     }
   }

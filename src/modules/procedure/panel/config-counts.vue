@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import Props from '@/models/props'
 export default {
   props: ['value', 'props'],
   data () {
@@ -59,7 +60,9 @@ export default {
       this.v.push({
         title: '流程' + (this.v.length + 1),
         content: '流程内容',
-        image: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/pic.png'
+        image: Props.merge(Props.DS.image, {
+          url: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/pic.png'
+        })
       })
     },
     subtract () {

@@ -3,20 +3,26 @@
     <div class="compare">
       <div class="left">
         <div class="title">{{ compare.left.title }}</div>
-        <img
-          :src="compare.left.url.url"
-          :style="styles.leftImage"
-        />
+        <!-- 简单解决 -->
+        <div class="clip-rect">
+          <img
+            :src="compare.left.image.url"
+            :style="styles.leftImage"
+          />
+        </div>
         <div class="description" :style="styles.leftDes">
           {{ compare.left.description.text }}
         </div>
       </div>
       <div class="right">
         <div class="title">{{ compare.right.title }}</div>
-        <img
-          :src="compare.right.url.url"
-          :style="styles.rightImage"
-        />
+        <!-- 简单解决 -->
+        <div class="clip-rect">
+          <img
+            :src="compare.right.image.url"
+            :style="styles.rightImage"
+          />
+        </div>
         <div class="description" :style="styles.rightDes">
           {{ compare.right.description.text }}
         </div>
@@ -43,8 +49,14 @@ export default {
       return {
         leftDes: Props.genStyles(this.compare.left.description),
         rightDes: Props.genStyles(this.compare.right.description),
-        leftImage: Props.genStyles(this.compare.left.url),
-        rightImage: Props.genStyles(this.compare.right.url)
+        leftImage: Props.genStyles({
+          ...this.compare.left.image,
+          width: 140
+        }),
+        rightImage: Props.genStyles({
+          ...this.compare.right.image,
+          width: 140
+        })
       }
     }
   }

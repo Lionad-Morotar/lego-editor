@@ -26,7 +26,9 @@ export default {
   },
   computed: {
     options () {
-      const { width, height } = this.props.layout
+      const { width, height } = this.props
+        ? this.props.layout
+        : this.$attrs
       const { points } = this.value
 
       const max = 100
@@ -35,9 +37,13 @@ export default {
 
       const ratio = safe(width / height)
 
+      console.log(
+        width, height
+      )
+
       return {
         ratio,
-        points: points || [0, 0, width, height]
+        points: points || (width ? [0, 0, width, height] : [])
       }
     }
   },

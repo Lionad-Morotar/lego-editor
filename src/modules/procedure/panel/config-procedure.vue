@@ -3,10 +3,10 @@
     <!-- <header>{{ v.title }}</header> -->
     <header>流程名称</header>
     <base-text v-model="v.title" />
+    <header>流程图片</header>
+    <styled-image v-model="v.image" v-bind="options" />
     <header>流程内容</header>
     <base-textarea v-model="v.content" />
-    <header>流程图片</header>
-    <base-text v-model="v.image" />
   </div>
 </template>
 
@@ -16,7 +16,11 @@ export default {
   props: ['value', 'props'],
   data () {
     return {
-      v: this.value
+      v: this.value,
+      options: {
+        width: 165,
+        height: 122
+      }
     }
   },
   watch: {
@@ -29,7 +33,8 @@ export default {
   },
   components: {
     BaseText: Forms.BaseText,
-    BaseTextarea: Forms.BaseTextarea
+    BaseTextarea: Forms.BaseTextarea,
+    StyledImage: Forms.StyledImage
   }
 }
 </script>
