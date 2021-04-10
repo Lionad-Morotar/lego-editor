@@ -1,9 +1,5 @@
 <template>
-  <div class="segment" v-if="selected && configEntries.length > 0">
-    <div class="header">
-      <span class="label">配置面板</span>
-      <i class="el-icon el-icon-arrow-down" />
-    </div>
+  <folder v-if="selected && configEntries.length > 0" title="配置面板">
     <div class="content">
       <div class="config-panel">
         <template v-for="[name, item] in configEntries">
@@ -17,14 +13,16 @@
         </template>
       </div>
     </div>
-  </div>
+  </folder>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import Props from '@/models/props'
+import Folder from '../folder/index'
 export default {
   components: {
+    Folder,
     ConfigItem: {
       // TODO refactor
       props: ['name', 'config', 'selected', 'selectedOutline'],

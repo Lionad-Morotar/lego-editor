@@ -1,18 +1,16 @@
 <template>
   <div class="config-item-segment">
     <header>轮播图设置</header>
-    <div class="config-item">
-      <el-collapse v-model="active">
-        <template v-for="(img, idx) in v">
-          <styled-image
-            v-model="v[idx]"
-            :width="375"
-            :height="200"
-            :key="idx"
-          />
-        </template>
-      </el-collapse>
-    </div>
+    <el-collapse v-model="active">
+      <template v-for="(img, idx) in v">
+        <styled-image
+          v-model="v[idx]"
+          :width="375"
+          :height="200"
+          :key="idx"
+        />
+      </template>
+    </el-collapse>
     <el-button
       class="action-button"
       type="text"
