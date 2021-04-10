@@ -3,22 +3,16 @@
     <header>轮播图设置</header>
     <div class="config-item">
       <el-collapse v-model="active">
-        <el-collapse-item
-          v-for="(image, idx) in v"
-          :title="`第<${idx+1}>张轮播`"
-          :name="image.url+idx"
-          :key="image.url+idx">
-          <div class="image-preview">
-            <img class="image" :src="image.url" />
-            <div class="icons-group">
-              <i class="icon el-icon-edit" @click="edit(idx)" />
-              <i class="icon el-icon-delete" @click="remove(idx)" />
-            </div>
-          </div>
-        </el-collapse-item>
+        <template v-for="(img, idx) in v">
+          <styled-image
+            v-model="v[idx]"
+            :width="375"
+            :height="200"
+            :key="idx"
+          />
+        </template>
       </el-collapse>
     </div>
-
     <el-button
       class="action-button"
       type="text"
@@ -30,6 +24,7 @@
 
 <script>
 import Props from '@/models/props'
+import Forms from '@/forms'
 export default {
   props: ['value', 'props'],
   data () {
@@ -37,18 +32,13 @@ export default {
       v: this.value,
       min: 0,
       max: 4,
-      active: [] // (this.value || []).map((x, idx) => x.url + idx)
+      active: []
     }
   },
   computed: {
     len () {
       return this.v?.length
     }
-    // first () {
-    //   return this.len
-    //     ? [this.v[0].url + '0']
-    //     : []
-    // }
   },
   watch: {
     v: {
@@ -86,40 +76,14 @@ export default {
     remove (idx) {
       this.v.splice(idx, 1)
     }
+  },
+  components: {
+    StyledImage: Forms.StyledImage
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.image-preview {
-  display: flex;
-  flex-grow: 0;
-  position: relative;
-  // width: 210px;
-  height: 135px;
-  background: white;
-  border: solid 1px #ebeef5;
-
-  .image {
-    width: 100%;
-    object-fit: contain;
-  }
-  .icons-group {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 0.5em;
-    padding-right: 0.8em;
-    position: absolute;
-    bottom: 0;
-    border: unset;
-    background: unset;
-
-    .icon {
-      border: unset;
-    }
-  }
-}
 .action-button {
   display: block;
   margin: 25px auto;

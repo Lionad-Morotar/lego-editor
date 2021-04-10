@@ -149,7 +149,7 @@ const genStyles = (val = {}, options = {}) => {
     const ratio = wOffset / width
     // console.log(wOffset, width)
     res.objectPosition = `-${p1[0]}px -${p1[1]}px`
-    res.transform.push(`scale(${1 / ratio})`)
+    res.transform.push(`scale(${(1 / ratio).toFixed(3)})`)
     res.transformOrigin = '0 0'
   }
 

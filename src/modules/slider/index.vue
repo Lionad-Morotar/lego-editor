@@ -8,8 +8,16 @@
     :interval="interval"
     :indicator-position="indicator ? '' : 'none'"
     :style="moduleStyle">
-    <el-carousel-item v-for="(image, idx) in images" :key="image.url+idx">
-      <img class="lego-slider-item" :src="image.url" :style="styles[idx]" />
+    <el-carousel-item
+      v-for="(image, idx) in images"
+      :key="image.url+idx">
+      <div class="clip-rect">
+        <img
+          class="lego-slider-item"
+          :src="image.url"
+          :style="styles[idx]"
+        />
+      </div>
     </el-carousel-item>
   </el-carousel>
 </template>
@@ -61,7 +69,12 @@ export default {
       return Props.genStyles(this.layout, { removeTranslate: true })
     },
     styles () {
-      return this.images.map(x => Props.genStyles(x))
+      return this.images.map(x =>
+        Props.genStyles({
+          ...x,
+          width: 375
+        })
+      )
     }
   },
   watch: {
