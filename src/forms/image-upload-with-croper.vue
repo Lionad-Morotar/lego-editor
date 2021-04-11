@@ -1,36 +1,66 @@
 <template>
   <div class="config-item-segment">
     <div slot="text" class="config-item full-content">
-      <div class="config-item-content flex-center">
-        <transition name="fade-enter">
-          <Uploader
-            v-if="!image"
-            @success="success"
-            @failed="failed">
-            <el-button
-              class="action-button"
-              type="text"
-              icon="el-icon-upload2"
-            >上传图片</el-button>
-          </Uploader>
-          <!-- 当前裁剪不能精确到像素 -->
-          <vue-croppie
-            v-else
-            ref="croppieRef"
-            :key="reRenderKey"
-            :showZoomer="true"
-            :enableResize="false"
-            :boundary="boundary"
-            :viewport="calcViewport"
-            @update="result"
-          />
-        </transition>
+      <div class="config-item-content uploader flex-center"
+        :style="{ backgroundColor: image ? 'inherit' : '#e6e8eb' }">
+        <Uploader
+          v-show="!image"
+          ref="uploader"
+          @success="success"
+          @failed="failed">
+          <el-button
+            class="action-button"
+            type="text"
+            icon="el-icon-upload2"
+          >上传图片</el-button>
+        </Uploader>
+        <!-- 当前裁剪不能精确到像素 -->
+        <vue-croppie
+          v-show="image"
+          ref="croppieRef"
+          :key="reRenderKey"
+          :showZoomer="true"
+          :enableResize="false"
+          :boundary="boundary"
+          :viewport="calcViewport"
+          @update="result"
+        />
       </div>
     </div>
+    <template name="el-fade-in">
+      <div slot="text" class="config-item compact" v-if="image">
+        <div class="config-item-content">
+          <el-button
+            type="text"
+            @click="() => $refs.uploader.upload()"
+          >上传</el-button>
+          <el-divider direction="vertical" />
+          <el-popconfirm
+            title="确定删除该图片？"
+            confirm-button-text='删除'
+            cancel-button-text='取消'
+            icon="el-icon-info"
+            icon-color="red"
+            @confirm="deleteURL">
+            <el-button
+              slot="reference"
+              type="text"
+              class="color-danger"
+            >删除</el-button>
+          </el-popconfirm>
+        </div>
+      </div>
+    </template>
   </div>
 </template>
 
 <script>
+
+// TODO refactor 酒后驾驶
+// FIXME 比例计算导致点击图片后，points 会增大 1px 的问题
+
+import isEqual from 'lodash.isequal'
+
 export default {
   props: ['value', 'options'],
   model: {
@@ -70,9 +100,11 @@ export default {
     }
   },
   watch: {
-    value (newVal) {
-      const { url } = newVal || {}
-      if (!this.image && url) {
+    // 当 Props.image.points 改变时,
+    // 不会触发重新赋值
+    value (n, o) {
+      if (!isEqual(n, o) && (n && o && (n.url !== o.url))) {
+        const { url } = n || {}
         this.image = url
         this.initCroppie()
       }
@@ -88,12 +120,21 @@ export default {
     this.initCroppie()
   },
   methods: {
-    success (_, raws) {
-      this.initCroppie(raws[0])
+    success (file) {
+      this.$emit('change', {
+        ...this.value,
+        url: file[0].url
+      })
     },
     failed (error) {
       console.error(error)
       this.$message.error('请稍后重试', '上传失败')
+    },
+    deleteURL () {
+      this.$emit('change', {
+        ...this.value,
+        url: null
+      })
     },
     result (e) {
       const { points = [] } = e
@@ -181,9 +222,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.config-item-content {
-  // background: #e6e8ebaa;
-  min-height: 208px;
+.config-item-content.uploader {
+  min-height: 243px;
   flex: unset;
   width: 100%;
 }

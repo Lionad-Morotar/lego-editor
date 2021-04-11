@@ -163,7 +163,7 @@ export default {
         color: #409eff;
       }
       .iconfont.icon-delete {
-        color: #ff3939;
+        color: var(--color-danger);
       }
     }
     &.disabled {

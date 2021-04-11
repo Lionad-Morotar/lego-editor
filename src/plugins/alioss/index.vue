@@ -32,10 +32,11 @@ const checkUploadFiles = function (files, options) {
 }
 
 const handleUploadResult = function (res) {
-  return {
-    ...res,
-    url: this.$utils.getPureURL(res.url)
-  }
+  const results = res instanceof Array ? res : [res]
+  return results.map(x => ({
+    ...x,
+    url: this.$utils.getPureURL(x.url)
+  }))
 }
 
 export default {
@@ -129,8 +130,7 @@ export default {
       const filename = uuid.v4() + ext
       const putPath = 'users/admin/' + filename
 
-      return putPath
-      // return await this.$oss.put(putPath, file)
+      return await this.$oss.put(putPath, file)
     }
   }
 }

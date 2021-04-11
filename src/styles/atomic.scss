@@ -12,3 +12,9 @@
 .clip-rect {
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 0);
 }
+
+/* themes */
+
+.color-danger {
+  color: var(--color-danger) !important;
+}
