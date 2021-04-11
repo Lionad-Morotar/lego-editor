@@ -10,7 +10,6 @@
 <script>
 // import debounce from 'lodash.debounce'
 import Props from '@/models/props'
-import ImageCroper from './image-upload-with-croper'
 export default {
   props: ['value', 'props'],
   model: {
@@ -50,9 +49,6 @@ export default {
         this.$emit('change', newValue)
       }
     }
-  },
-  components: {
-    ImageCroper
   }
 }
 </script>
