@@ -58,6 +58,7 @@
 <script>
 import { mapMutations, mapState, mapActions } from 'vuex'
 import Module from '@/models/module'
+import isEqual from 'lodash.isequal'
 
 const PropsChangingProtectCount = 1
 
@@ -121,8 +122,8 @@ export default {
   watch: {
     curProps: {
       deep: true,
-      handler () {
-        if (!this.lockPropsChangingTick) {
+      handler (n, o) {
+        if (!this.lockPropsChangingTick && !isEqual(n, o)) {
           if (this.propsChangingProtectCount) {
             this.propsChangingProtectCount -= 1
             if (this.propsChangingProtectCountTick) {
