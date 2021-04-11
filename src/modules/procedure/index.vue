@@ -71,6 +71,7 @@ export default {
   .container {
     margin-top: 24px;
 
+    & > *:nth-child(2n).procedure,
     & > *:nth-child(2n) .procedure {
       background: #cc392b;
       flex-direction: row-reverse;
@@ -78,9 +79,6 @@ export default {
       .title {
         color: #cc392b;
       }
-    }
-    & > *:first-child .procedure {
-      margin-top: 0;
     }
 
     .procedure {
