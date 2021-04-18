@@ -365,8 +365,7 @@ function Prop (base, config = {}) {
       },
       // 当依赖值发生变动时，调用此函数以返回一个校验后的值
       // todo 完善逻辑
-      // eslint-disable-next-line
-      genData: (newValue) => {
+      genData: newValue => {
         log('value change to : ', newValue)
         return newValue
       }

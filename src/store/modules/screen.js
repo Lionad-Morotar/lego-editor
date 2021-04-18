@@ -1,9 +1,13 @@
+import clonedeep from 'lodash.clonedeep'
 import Module from '@/models/module'
 
 const state = {
   // 记录是否正在拖拽模块
   moving: false,
   modules: [],
+  drafts: [],
+  draftOffset: 0,
+  maxDragsLen: 50,
   selected: null,
   selectedOutline: null,
   // 记录某个模块连续复制了几次（以计算复制后的模块在Y轴方向上的偏移）
@@ -14,11 +18,20 @@ const mutations = {
   SET_MOVING (state, newVal) {
     state.moving = newVal
   },
-  ADD_MODULE (state, { instance, idx }) {
-    state.modules.splice(idx, 0, instance)
+  ADD_MODULE (state, { newModule, idx }) {
+    state.modules.splice(idx, 0, newModule)
   },
   UPDATE_MODULES (state, newList) {
     state.modules = newList
+  },
+  CLEAR_DRAFTS (state) {
+    state.drafts.length = 0
+  },
+  ADD_DRAFT (state, { newDraft, idx }) {
+    state.drafts.splice(idx, 0, newDraft)
+  },
+  APPLY_DRAFTS (state, idx) {
+    // state.
   },
   CLEAR_MODULES (state) {
     state.modules = []
@@ -57,7 +70,12 @@ const mutations = {
     state.selectedOutline = null
   }
 }
-const getters = {}
+
+const getters = {
+  lastDraft: state => state.drafts.length
+    ? state.drafts[state.drafts.length - 1]
+    : null
+}
 
 const actions = {
   ADD_MODULE ({ commit, state }, { inits, initialData = {}, index }) {
@@ -66,10 +84,12 @@ const actions = {
       if (curLen >= 15) {
         alert('测试版本暂支持最多 15 个组件')
       } else {
-        const instance = new Module(inits, initialData)
+        const newModule = new Module(inits, initialData)
         const idx = index == null ? curLen : index
-        commit('ADD_MODULE', { instance, idx })
+        commit('ADD_MODULE', { newModule, idx })
       }
+    } else {
+      console?.warn && console.warn('[ERR] no modules when ADD_MODULE in screen store')
     }
   },
   UPDATE_MODULES ({ commit }, newList) {
@@ -125,6 +145,38 @@ const actions = {
   DELETE_SELECTED_MODULE ({ commit, state }) {
     if (state.selected) {
       commit('DELETE_MODULE', state.selected)
+    }
+  },
+  ADD_DRAFT ({ state, commit }, datas) {
+    state.draftOffset = 0
+    const idx = state.drafts.length
+    const newDraft = clonedeep(datas)
+    commit('ADD_DRAFT', { newDraft, idx })
+  },
+  APPLY_DRAFT ({ state, dispatch, rootState }) {
+    dispatch('CLEAR_SCREEN')
+    const datas = state.drafts[state.draftOffset]
+    datas.map((x, idx) => {
+      const target = rootState.editor.modules.find(y => y.name === x.meta.name)
+      if (target) {
+        datas[idx].meta.component = target.component
+        dispatch('ADD_MODULE', {
+          inits: target,
+          initialData: x
+        })
+      }
+    })
+  },
+  UNDO ({ state, dispatch }) {
+    if (state.draftOffset < state.drafts.length) {
+      state.draftOffset += 1
+      dispatch('APPLY_DRAFT')
+    }
+  },
+  REDO ({ state, dispatch }) {
+    if (state.draftOffset >= 1) {
+      state.draftOffset -= 1
+      dispatch('APPLY_DRAFT')
     }
   }
 }
