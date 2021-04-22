@@ -136,6 +136,7 @@ const actions = {
     const nextPreviewState = !state.isPreview
     dispatch('REINSTALL_MODULES', nextPreviewState)
     commit('TOGGLE_PREVIEW', nextPreviewState)
+    // TODO clean drafts
   },
   SELECT_MODULE_CATEGORY ({ commit }, value) {
     commit('SELECT_MODULE_CATEGORY', value)

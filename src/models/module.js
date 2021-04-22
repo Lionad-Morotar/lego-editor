@@ -225,8 +225,21 @@ Module.prototype.getMetaData = function () {
 /**
  * 获取所有保存到数据库的数据
  * @todo 剔除默认值，减小保存体积
+ * @todo 剔除 setter getter
  */
 Module.prototype.genStore = function () {
+  function clone (obj) {
+    if (obj instanceof Object) {
+      if (obj)
+      const res = {}
+      Object.entries(obj).map(([k, v]) => {
+        res[k] = clone(v)
+      })
+      return res
+    }
+    return obj
+  }
+
   return {
     [META_KEY]: this.getMetaData(),
     ...this.props

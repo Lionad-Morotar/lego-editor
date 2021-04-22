@@ -4,8 +4,18 @@
       <el-button class="return-btn" type="text"><i class="el-icon el-icon-arrow-left" />返回</el-button>
     </div>
     <div class="center">
-      <el-button disabled type="text" icon="el-icon-back">上一步</el-button>
-      <el-button disabled type="text" icon="el-icon-right">下一步</el-button>
+      <el-button
+        type="text"
+        icon="el-icon-back"
+        :disabled="disableUndo"
+        @click="UNDO"
+      >撤销</el-button>
+      <el-button
+        type="text"
+        icon="el-icon-right"
+        :disabled="disableRedo"
+        @click="REDO"
+      >重做</el-button>
       <el-button title="保存（Ctrl+S）" type="text" icon="el-icon-upload2" @click="save">保 存</el-button>
     </div>
     <div class="right">
@@ -18,8 +28,10 @@
 </template>
 
 <script>
+import isEqual from 'lodash.isequal'
+import debounce from 'lodash.debounce'
 import clonedeep from 'lodash.clonedeep'
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 import Module from '@/models/module'
 export default {
   computed: {
@@ -28,11 +40,37 @@ export default {
       isPreview: state => state.isPreview
     }),
     ...mapState('screen', {
-      modules: state => state.modules
-    })
+      modules: state => state.modules,
+      drafts: state => state.drafts
+    }),
+    ...mapGetters('screen', [
+      'lastDraft'
+    ]),
+    disableUndo () {
+      return this.drafts.length === 0
+    },
+    disableRedo () {
+      return false
+    },
+    datas () {
+      return this.modules.map(x => x.genStore())
+    }
+  },
+  watch: {
+    datas: {
+      deep: true,
+      handler: debounce(function (nv) {
+        if (!isEqual(nv, this.lastDraft)) {
+          const datas = clonedeep(this.datas)
+          this.ADD_DRAFT(datas)
+        }
+      }, 500)
+    }
   },
   mounted () {
     this.$keyboards.watch('ctrl+s', this.save)
+    this.$keyboards.watch('ctrl+z', () => !this.disableUndo && this.UNDO())
+    this.$keyboards.watch('ctrl+y', () => !this.disableRedo && this.REDO())
   },
   methods: {
     ...mapActions('editor', [
@@ -40,13 +78,16 @@ export default {
     ]),
     ...mapActions('screen', [
       'ADD_MODULE',
-      'CLEAR_SCREEN'
+      'CLEAR_SCREEN',
+      'ADD_DRAFT',
+      'REDO',
+      'UNDO'
     ]),
     save () {
-      console.log(this.modules.map(x => x.genStore()))
+      console.log(this.datas)
     },
     togglePreview () {
-      const datas = clonedeep(this.modules.map(x => x.genStore()))
+      const datas = clonedeep(this.datas)
       Module.clearCache()
       this.CLEAR_SCREEN()
       this.TOGGLE_PREVIEW()
