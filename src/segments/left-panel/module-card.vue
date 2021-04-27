@@ -16,11 +16,15 @@ export default {
     })
   },
   methods: {
-    ...mapActions('screen', ['ADD_MODULE']),
+    ...mapActions('screen', [
+      'ADD_MODULE',
+      'ADD_DRAFT'
+    ]),
     addToScreen () {
       this.ADD_MODULE({
         inits: this.inits
       })
+      this.ADD_DRAFT()
       this.$nextTick(() => {
         const $el = this.modules[this.modules.length - 1].$instance.$el
         const $parent = this.$utils.findParentByClass($el, 'module-block')
