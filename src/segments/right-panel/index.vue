@@ -116,19 +116,19 @@ export default {
       for (let i = this.curIDX - 1; i >= 0; i--) {
         if (this.modules[i].layout.auto) {
           this.MOVE_MODULE(i - this.curIDX)
+          this.ADD_DRAFT()
           return
         }
       }
-      this.ADD_DRAFT()
     },
     handleMoveDown () {
       for (let i = this.curIDX + 1; i < this.modules.length; i++) {
         if (this.modules[i].layout.auto) {
           this.MOVE_MODULE(i - this.curIDX)
+          this.ADD_DRAFT()
           return
         }
       }
-      this.ADD_DRAFT()
     }
   }
 }
