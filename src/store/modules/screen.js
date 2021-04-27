@@ -25,8 +25,8 @@ const mutations = {
   SET_MOVING (state, newVal) {
     state.moving = newVal
   },
-  ADD_MODULE (state, { newModule, idx }) {
-    state.modules.splice(idx, 0, newModule)
+  ADD_MODULE (state, { instance, idx }) {
+    state.modules.splice(idx, 0, instance)
   },
   UPDATE_MODULES (state, newList) {
     state.modules = newList
@@ -106,9 +106,9 @@ const actions = {
       if (curLen >= 15) {
         alert('当前测试版本只支持最多 15 个组件')
       } else {
-        const newModule = new Module(inits, initialData)
+        const instance = new Module(inits, initialData)
         const idx = index == null ? curLen : index
-        commit('ADD_MODULE', { newModule, idx })
+        commit('ADD_MODULE', { instance, idx })
       }
     } else {
       console?.warn && console.warn('[ERR] no modules when ADD_MODULE in screen store')

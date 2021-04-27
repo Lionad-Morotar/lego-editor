@@ -79,9 +79,6 @@ export default {
         this.ADD_MODULE({
           inits: this.plugins.find(x => x.title === '图片模块')
         })
-        this.ADD_MODULE({
-          inits: this.plugins.find(x => x.title === '图片模块')
-        })
         this.ADD_DRAFT()
       }, 200)
     }
