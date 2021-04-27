@@ -1,5 +1,5 @@
-import clonedeep from 'lodash.clonedeep'
 import Props from '@/models/props'
+import Utils from '@/utils'
 
 /**
  * TYPE
@@ -60,10 +60,7 @@ export default function Module (inits, initialData = {}) {
 
 /* 克隆单个模块 */
 Module.prototype.clone = function () {
-  const clonedProps = {
-    ...clonedeep(this.props),
-    [META_KEY]: this.getMetaData()
-  }
+  const clonedProps = this.genStore()
   delete clonedProps.meta.uuid
   return new Module(this.inits, { ...clonedProps })
 }
@@ -228,20 +225,8 @@ Module.prototype.getMetaData = function () {
  * @todo 剔除 setter getter
  */
 Module.prototype.genStore = function () {
-  function clone (obj) {
-    if (obj instanceof Object) {
-      if (obj)
-      const res = {}
-      Object.entries(obj).map(([k, v]) => {
-        res[k] = clone(v)
-      })
-      return res
-    }
-    return obj
-  }
-
   return {
-    [META_KEY]: this.getMetaData(),
-    ...this.props
+    ...Utils.clonevalue(this.props),
+    [META_KEY]: this.getMetaData()
   }
 }

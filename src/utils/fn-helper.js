@@ -50,8 +50,27 @@ export const getPureURL = (url = '') => {
   return parts[1] || parts[0]
 }
 
+/**
+ * shadow clone
+ */
+export function clonevalue (obj) {
+  if (obj instanceof Object) {
+    if (obj instanceof Array) {
+      return obj.map(x => clonevalue(x))
+    } else {
+      const res = {}
+      Object.entries(obj).map(([k, v]) => {
+        res[k] = clonevalue(v)
+      })
+      return res
+    }
+  }
+  return obj
+}
+
 export default {
   forAwait,
   base64ToBin,
-  getPureURL
+  getPureURL,
+  clonevalue
 }
