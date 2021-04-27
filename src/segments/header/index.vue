@@ -28,8 +28,6 @@
 </template>
 
 <script>
-import isEqual from 'lodash.isequal'
-import debounce from 'lodash.debounce'
 import clonedeep from 'lodash.clonedeep'
 import { mapState, mapGetters, mapActions } from 'vuex'
 import Module from '@/models/module'
@@ -41,30 +39,21 @@ export default {
     }),
     ...mapState('screen', {
       modules: state => state.modules,
-      drafts: state => state.drafts
+      drafts: state => state.drafts,
+      draftOffset: state => state.draftOffset
     }),
     ...mapGetters('screen', [
       'lastDraft'
     ]),
     disableUndo () {
-      return this.drafts.length === 0
+      const canUndo = this.drafts.length && (this.draftOffset < this.drafts.length - 1)
+      return !canUndo
     },
     disableRedo () {
-      return false
+      return this.draftOffset === 0
     },
     datas () {
       return this.modules.map(x => x.genStore())
-    }
-  },
-  watch: {
-    datas: {
-      deep: true,
-      handler: debounce(function (nv) {
-        if (!isEqual(nv, this.lastDraft)) {
-          const datas = clonedeep(this.datas)
-          this.ADD_DRAFT(datas)
-        }
-      }, 500)
     }
   },
   mounted () {
@@ -79,12 +68,14 @@ export default {
     ...mapActions('screen', [
       'ADD_MODULE',
       'CLEAR_SCREEN',
+      'CLEAR_DRAFTS',
       'ADD_DRAFT',
       'REDO',
       'UNDO'
     ]),
     save () {
       console.log(this.datas)
+      this.CLEAR_DRAFTS()
     },
     togglePreview () {
       const datas = clonedeep(this.datas)

@@ -1,5 +1,6 @@
-import clonedeep from 'lodash.clonedeep'
+import Vue from 'vue'
 import Module from '@/models/module'
+import Utils from '@/utils'
 
 const state = {
   // 记录是否正在拖拽模块
@@ -31,13 +32,16 @@ const mutations = {
     state.modules = newList
   },
   CLEAR_DRAFTS (state) {
-    state.drafts.length = 0
+    state.drafts = []
+  },
+  CLEAR_DRAFTS_OFFSET (state) {
+    state.draftOffset = 0
   },
   ADD_DRAFT (state, { newDraft, idx }) {
     state.drafts.splice(idx, 0, newDraft)
   },
-  APPLY_DRAFTS (state, idx) {
-    // state.
+  APPLY_DRAFTS (state, newDrafts) {
+    state.drafts = newDrafts
   },
   CLEAR_MODULES (state) {
     state.modules = []
@@ -100,7 +104,7 @@ const actions = {
     if (inits) {
       const curLen = state.modules.length
       if (curLen >= 15) {
-        alert('测试版本暂支持最多 15 个组件')
+        alert('当前测试版本只支持最多 15 个组件')
       } else {
         const newModule = new Module(inits, initialData)
         const idx = index == null ? curLen : index
@@ -165,26 +169,42 @@ const actions = {
       commit('DELETE_MODULE', state.selected)
     }
   },
+  CLEAR_DRAFTS ({ commit }) {
+    commit('CLEAR_DRAFTS_OFFSET')
+    commit('CLEAR_DRAFTS')
+  },
   ADD_DRAFT ({ state, commit }, datas) {
-    state.draftOffset = 0
+    datas = datas || state.modules.map(x => x.genStore())
+
+    // 添加新的草稿时需要清空用于重做的草稿项
+    if (state.draftOffset) {
+      commit('APPLY_DRAFTS', state.drafts.slice(0, -state.draftOffset))
+    }
+
+    commit('CLEAR_DRAFTS_OFFSET')
     const idx = state.drafts.length
-    const newDraft = clonedeep(datas)
+    const newDraft = Utils.clonevalue(datas)
     commit('ADD_DRAFT', { newDraft, idx })
   },
   APPLY_DRAFT ({ state, dispatch, rootState }) {
-    dispatch('CLEAR_SCREEN')
-    const datas = state.drafts[state.drafts.length - state.draftOffset]
-    console.log('datas:', datas)
-    // datas.map((x, idx) => {
-    //   const target = rootState.editor.modules.find(y => y.name === x.meta.name)
-    //   if (target) {
-    //     datas[idx].meta.component = target.component
-    //     dispatch('ADD_MODULE', {
-    //       inits: target,
-    //       initialData: x
-    //     })
-    //   }
-    // })
+    const datas = state.drafts[state.drafts.length - state.draftOffset - 1]
+    if (datas) {
+      dispatch('CLEAR_SCREEN')
+      Vue.nextTick(() => {
+        datas.map((x, idx) => {
+          const target = rootState.editor.modules.find(y => y.name === x.meta.name)
+          if (target) {
+            datas[idx].meta.component = target.component
+            dispatch('ADD_MODULE', {
+              inits: target,
+              initialData: x
+            })
+          }
+        })
+      })
+    } else {
+      console.warn('[WARN] no draft to apply to')
+    }
   },
   UNDO ({ state, dispatch }) {
     if (state.draftOffset < state.drafts.length) {

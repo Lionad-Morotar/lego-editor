@@ -58,13 +58,6 @@ export default function Module (inits, initialData = {}) {
   Module.instanceList.push(this)
 }
 
-/* 克隆单个模块 */
-Module.prototype.clone = function () {
-  const clonedProps = this.genStore()
-  delete clonedProps.meta.uuid
-  return new Module(this.inits, { ...clonedProps })
-}
-
 /* 保存实例、保存实例与 uuid 的映射关系 */
 Module.instanceList = []
 Module.instanceMap = {}
@@ -229,4 +222,11 @@ Module.prototype.genStore = function () {
     ...Utils.clonevalue(this.props),
     [META_KEY]: this.getMetaData()
   }
+}
+
+/* 克隆单个模块 */
+Module.prototype.clone = function () {
+  const clonedProps = this.genStore()
+  delete clonedProps.meta.uuid
+  return new Module(this.inits, { ...clonedProps })
 }
