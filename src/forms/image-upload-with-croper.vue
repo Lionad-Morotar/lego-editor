@@ -14,7 +14,6 @@
             icon="el-icon-upload2"
           >上传图片</el-button>
         </Uploader>
-        <!-- 当前裁剪不能精确到像素 -->
         <vue-croppie
           v-show="image"
           ref="croppieRef"
@@ -109,10 +108,12 @@ export default {
     this.initCroppie()
   },
   methods: {
-    success (file) {
+    async success (file) {
+      const { width, height } = await this.getImageWH(file[0].url)
       this.$emit('change', {
         ...this.value,
-        url: file[0].url
+        url: file[0].url,
+        points: [0, 0, width, height]
       })
     },
     failed (error) {
@@ -123,6 +124,23 @@ export default {
       this.$emit('change', {
         ...this.value,
         url: null
+      })
+    },
+    getImageWH (url) {
+      return new Promise(resolve => {
+        const $image = new Image()
+        $image.src = url
+        $image.onload = () => {
+          resolve({
+            width: $image.width,
+            height: $image.height
+          })
+        }
+        $image.onerror = error => {
+          throw new Error(error)
+        }
+      }).catch(error => {
+        console.error(error)
       })
     },
     result (e) {
