@@ -45,6 +45,10 @@
   &.compact {
     min-height: 30px;
   }
+  &.transparent {
+    background: none;
+    border-color: transparent;
+  }
 
   .config-item-header {
     align-self: flex-start;

@@ -217,6 +217,10 @@ export default {
     flex-shrink: 0;
     width: 375px;
   }
+
+  img {
+    image-rendering: pixelated;
+  }
 }
 .ghost:not(.selected) {
   outline: dashed 3px #409eff;

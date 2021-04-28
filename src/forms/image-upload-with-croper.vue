@@ -28,7 +28,7 @@
       </div>
     </div>
     <template name="el-fade-in">
-      <div slot="text" class="config-item compact" v-if="image">
+      <div slot="text" class="config-item compact transparent" v-if="image">
         <div class="config-item-content">
           <el-button
             type="text"
@@ -78,7 +78,7 @@ export default {
     }
   },
   computed: {
-    defaultVP () {
+    defViewport () {
       const {
         width = 100,
         height = 100
@@ -90,7 +90,7 @@ export default {
     },
     calcViewport () {
       return Object.assign(
-        { ...this.defaultVP },
+        { ...this.defViewport },
         { ...this.initViewport() }
       )
     },
@@ -138,7 +138,6 @@ export default {
     },
     result (e) {
       const { points = [] } = e
-      // console.log(e)
       this.$emit('change', {
         ...this.value,
         points: points.map(x => +x)
@@ -149,7 +148,7 @@ export default {
       if (viewport) {
         this.viewport = viewport
       } else if (ratio) {
-        const defaultWidth = this.defaultVP.width
+        const defaultWidth = this.defViewport.width
         this.viewport = {
           width: defaultWidth,
           height: defaultWidth / ratio
