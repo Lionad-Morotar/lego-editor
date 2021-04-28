@@ -55,12 +55,6 @@
 </template>
 
 <script>
-
-// TODO refactor 酒后驾驶
-// FIXME 比例计算导致点击图片后，points 会增大 1px 的问题
-
-import isEqual from 'lodash.isequal'
-
 export default {
   props: ['value', 'options'],
   model: {
@@ -79,10 +73,7 @@ export default {
   },
   computed: {
     defViewport () {
-      const {
-        width = 100,
-        height = 100
-      } = this.boundary
+      const { width, height } = this.boundary
       return {
         width: width * 0.62,
         height: height * 0.62
@@ -100,12 +91,10 @@ export default {
     }
   },
   watch: {
-    // 当 Props.image.points 改变时,
-    // 不会触发重新赋值
+    // 仅当 URL 变化时重新初始化裁剪框
     value (n, o) {
-      if (!isEqual(n, o) && (n && o && (n.url !== o.url))) {
-        const { url } = n || {}
-        this.image = url
+      if (n && o && (n.url !== o.url)) {
+        this.image = n.url
         this.initCroppie()
       }
     },
@@ -150,8 +139,8 @@ export default {
       } else if (ratio) {
         const defaultWidth = this.defViewport.width
         this.viewport = {
-          width: defaultWidth,
-          height: defaultWidth / ratio
+          width: Math.ceil(defaultWidth),
+          height: Math.ceil(defaultWidth / ratio)
         }
       }
       return this.viewport
