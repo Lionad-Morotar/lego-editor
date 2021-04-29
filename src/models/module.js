@@ -1,5 +1,5 @@
-import clonedeep from 'lodash.clonedeep'
 import Props from '@/models/props'
+import Utils from '@/utils'
 
 /**
  * TYPE
@@ -56,16 +56,6 @@ export default function Module (inits, initialData = {}) {
   this.layout = this.props[LAYOUT_KEY]
 
   Module.instanceList.push(this)
-}
-
-/* 克隆单个模块 */
-Module.prototype.clone = function () {
-  const clonedProps = {
-    ...clonedeep(this.props),
-    [META_KEY]: this.getMetaData()
-  }
-  delete clonedProps.meta.uuid
-  return new Module(this.inits, { ...clonedProps })
 }
 
 /* 保存实例、保存实例与 uuid 的映射关系 */
@@ -225,10 +215,18 @@ Module.prototype.getMetaData = function () {
 /**
  * 获取所有保存到数据库的数据
  * @todo 剔除默认值，减小保存体积
+ * @todo 剔除 setter getter
  */
 Module.prototype.genStore = function () {
   return {
-    [META_KEY]: this.getMetaData(),
-    ...this.props
+    ...Utils.clonevalue(this.props),
+    [META_KEY]: this.getMetaData()
   }
+}
+
+/* 克隆单个模块 */
+Module.prototype.clone = function () {
+  const clonedProps = this.genStore()
+  delete clonedProps.meta.uuid
+  return new Module(this.inits, { ...clonedProps })
 }

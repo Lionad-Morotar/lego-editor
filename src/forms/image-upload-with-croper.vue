@@ -14,7 +14,6 @@
             icon="el-icon-upload2"
           >上传图片</el-button>
         </Uploader>
-        <!-- 当前裁剪不能精确到像素 -->
         <vue-croppie
           v-show="image"
           ref="croppieRef"
@@ -28,7 +27,7 @@
       </div>
     </div>
     <template name="el-fade-in">
-      <div slot="text" class="config-item compact" v-if="image">
+      <div slot="text" class="config-item compact transparent" v-if="image">
         <div class="config-item-content">
           <el-button
             type="text"
@@ -55,12 +54,6 @@
 </template>
 
 <script>
-
-// TODO refactor 酒后驾驶
-// FIXME 比例计算导致点击图片后，points 会增大 1px 的问题
-
-import isEqual from 'lodash.isequal'
-
 export default {
   props: ['value', 'options'],
   model: {
@@ -78,11 +71,8 @@ export default {
     }
   },
   computed: {
-    defaultVP () {
-      const {
-        width = 100,
-        height = 100
-      } = this.boundary
+    defViewport () {
+      const { width, height } = this.boundary
       return {
         width: width * 0.62,
         height: height * 0.62
@@ -90,7 +80,7 @@ export default {
     },
     calcViewport () {
       return Object.assign(
-        { ...this.defaultVP },
+        { ...this.defViewport },
         { ...this.initViewport() }
       )
     },
@@ -100,12 +90,10 @@ export default {
     }
   },
   watch: {
-    // 当 Props.image.points 改变时,
-    // 不会触发重新赋值
+    // 仅当 URL 变化时重新初始化裁剪框
     value (n, o) {
-      if (!isEqual(n, o) && (n && o && (n.url !== o.url))) {
-        const { url } = n || {}
-        this.image = url
+      if (n && o && (n.url !== o.url)) {
+        this.image = n.url
         this.initCroppie()
       }
     },
@@ -120,10 +108,12 @@ export default {
     this.initCroppie()
   },
   methods: {
-    success (file) {
+    async success (file) {
+      const { width, height } = await this.getImageWH(file[0].url)
       this.$emit('change', {
         ...this.value,
-        url: file[0].url
+        url: file[0].url,
+        points: [0, 0, width, height]
       })
     },
     failed (error) {
@@ -136,9 +126,25 @@ export default {
         url: null
       })
     },
+    getImageWH (url) {
+      return new Promise(resolve => {
+        const $image = new Image()
+        $image.src = url
+        $image.onload = () => {
+          resolve({
+            width: $image.width,
+            height: $image.height
+          })
+        }
+        $image.onerror = error => {
+          throw new Error(error)
+        }
+      }).catch(error => {
+        console.error(error)
+      })
+    },
     result (e) {
       const { points = [] } = e
-      // console.log(e)
       this.$emit('change', {
         ...this.value,
         points: points.map(x => +x)
@@ -149,10 +155,10 @@ export default {
       if (viewport) {
         this.viewport = viewport
       } else if (ratio) {
-        const defaultWidth = this.defaultVP.width
+        const defaultWidth = this.defViewport.width
         this.viewport = {
-          width: defaultWidth,
-          height: defaultWidth / ratio
+          width: Math.ceil(defaultWidth),
+          height: Math.ceil(defaultWidth / ratio)
         }
       }
       return this.viewport

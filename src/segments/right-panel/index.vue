@@ -101,18 +101,22 @@ export default {
     ...mapActions('screen', [
       'DELETE_SELECTED_MODULE',
       'CLONE_MODULE',
-      'MOVE_MODULE'
+      'MOVE_MODULE',
+      'ADD_DRAFT'
     ]),
     cloneModule () {
       this.CLONE_MODULE()
+      this.ADD_DRAFT()
     },
     deleteModule () {
       this.DELETE_SELECTED_MODULE()
+      this.ADD_DRAFT()
     },
     handleMoveUp () {
       for (let i = this.curIDX - 1; i >= 0; i--) {
         if (this.modules[i].layout.auto) {
           this.MOVE_MODULE(i - this.curIDX)
+          this.ADD_DRAFT()
           return
         }
       }
@@ -121,6 +125,7 @@ export default {
       for (let i = this.curIDX + 1; i < this.modules.length; i++) {
         if (this.modules[i].layout.auto) {
           this.MOVE_MODULE(i - this.curIDX)
+          this.ADD_DRAFT()
           return
         }
       }

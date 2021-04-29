@@ -40,30 +40,22 @@ export default {
       isPreview: state => state.isPreview
     }),
     ...mapState('screen', {
-      modules: state => state.modules
+      modules: state => state.modules,
+      drafts: state => state.drafts,
+      draftOffset: state => state.draftOffset
     }),
     ...mapGetters('screen', [
       'lastDraft'
     ]),
     disableUndo () {
-      return false
+      const canUndo = this.drafts.length && (this.draftOffset < this.drafts.length - 1)
+      return !canUndo
     },
     disableRedo () {
-      return false
+      return this.draftOffset === 0
     },
     datas () {
       return this.modules.map(x => x.genStore())
-    }
-  },
-  watch: {
-    datas: {
-      deep: true,
-      handler: debounce(function (nv) {
-        if (!isEqual(nv, this.lastDraft)) {
-          const datas = clonedeep(this.datas)
-          this.ADD_DRAFT(datas)
-        }
-      }, 500)
     }
   },
   mounted () {
@@ -78,12 +70,14 @@ export default {
     ...mapActions('screen', [
       'ADD_MODULE',
       'CLEAR_SCREEN',
+      'CLEAR_DRAFTS',
       'ADD_DRAFT',
       'REDO',
       'UNDO'
     ]),
     save () {
       console.log(this.datas)
+      this.CLEAR_DRAFTS()
     },
     togglePreview () {
       const datas = clonedeep(this.datas)

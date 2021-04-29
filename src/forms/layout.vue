@@ -74,8 +74,11 @@
           <i class="iconfont icon-bg-colors" :style="{ color: value.bgColor }" />
         </div>
       </div>
-      <div v-if="showColor" class="fullscreen-mask" @click="showColor=false" @mousewheel="showColor=false" />
-      <chrome-picker v-model="bgColor" :class="when(showColor)" />
+      <!-- 为了覆盖 el-slider -->
+      <div style="z-index: 9999">
+        <div v-if="showColor" class="fullscreen-mask" @click="showColor=false" @mousewheel="showColor=false" />
+        <chrome-picker v-model="bgColor" :class="when(showColor)" />
+      </div>
     </div>
   </div>
 </template>

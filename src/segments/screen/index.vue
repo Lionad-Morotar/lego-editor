@@ -79,6 +79,7 @@ export default {
         this.ADD_MODULE({
           inits: this.plugins.find(x => x.title === '图片模块')
         })
+        this.ADD_DRAFT()
       }, 200)
     }
   },
@@ -92,7 +93,8 @@ export default {
       'SELECT_MODULE',
       'SELECT_OUTLINE',
       'UNSELECTED',
-      'UPDATE_MODULES'
+      'UPDATE_MODULES',
+      'ADD_DRAFT'
     ]),
     // 点击 PaddingBox 时高亮最外层 Outline
     selectTopElement (targetModule) {
@@ -214,6 +216,10 @@ export default {
   .module {
     flex-shrink: 0;
     width: 375px;
+  }
+
+  img {
+    image-rendering: pixelated;
   }
 }
 .ghost:not(.selected) {

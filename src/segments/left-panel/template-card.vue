@@ -21,7 +21,8 @@ export default {
   methods: {
     ...mapActions('screen', [
       'ADD_MODULE',
-      'CLEAR_SCREEN'
+      'CLEAR_SCREEN',
+      'ADD_DRAFT'
     ]),
     // 更加人性化的 API
     useTemplate () {
@@ -36,6 +37,7 @@ export default {
             })
           }
         })
+        this.ADD_DRAFT()
       })
     }
   }
