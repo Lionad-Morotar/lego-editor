@@ -17,28 +17,6 @@
 <script>
 const uuid = require('uuid')
 
-const checkUploadFiles = function (files, options) {
-  return new Promise(resolve => {
-    files.map(file => {
-      if (file > options.maxFileSizeKB * 1024) {
-        resolve(`请上传小于 ${options.maxFileSizeKB}KB 大小的图片`)
-      }
-      if (!options.types.includes(file.type)) {
-        resolve(`不支持上传文件格式：${file.type}`)
-      }
-    })
-    resolve()
-  })
-}
-
-const handleUploadResult = function (res) {
-  const results = res instanceof Array ? res : [res]
-  return results.map(x => ({
-    ...x,
-    url: this.$utils.getPureURL(x.url)
-  }))
-}
-
 export default {
   props: {
     options: Object,
@@ -88,25 +66,29 @@ export default {
       this.uploadFiles(e.target.files)
     },
     async uploadFiles (rawFiles) {
-      const {
-        uploadOptions,
-        beforeUpload
-      } = this
+      const { beforeUpload } = this
 
       const wash = beforeUpload || (_ => _)
       const unwashFiles = [].slice.call(rawFiles)
       const files = await this.$utils.forAwait(unwashFiles, wash)
 
-      const error = await checkUploadFiles(files, uploadOptions)
-      if (error) {
-        return this.$message.error(error)
+      try {
+        await this.checkUploadFiles(files)
+      } catch (error) {
+        this.$message.error(error)
       }
 
       try {
         this.loading = true
         const uploadResult = await Promise
           .all(files.map(this.uploadFile))
-          .then(data => handleUploadResult.bind(this)(data))
+          .then(data => {
+            const dataWithFiles = data.map((x, i) => ({
+              ...x,
+              file: files[i]
+            }))
+            return this.handleUploadResult(dataWithFiles)
+          })
         this.$emit('success', uploadResult, files)
         this.callback({
           isSuccess: true,
@@ -121,6 +103,24 @@ export default {
       } finally {
         this.loading = false
       }
+    },
+    async checkUploadFiles (files, options = this.uploadOptions) {
+      const { maxFileSizeKB } = options
+      files.map(file => {
+        if (file > maxFileSizeKB * 1024) {
+          throw new Error(`请上传小于 ${options.maxFileSizeKB}KB 大小的图片`)
+        }
+        if (!options.types.includes(file.type)) {
+          throw new Error(`不支持上传文件格式：${file.type}`)
+        }
+      })
+    },
+    handleUploadResult (res) {
+      const results = res instanceof Array ? res : [res]
+      return results.map(x => ({
+        ...x,
+        url: this.$utils.getPureURL(x.url)
+      }))
     },
     async uploadFile (file) {
       const name = file.name || ''

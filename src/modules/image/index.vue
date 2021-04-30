@@ -1,5 +1,4 @@
 <template>
-  <!-- FIXME 图片重新上传后裁剪问题 -->
   <div class="lego-image clip-rect">
     <img :src="image.url" :style="styles" />
   </div>
@@ -15,7 +14,10 @@ export default {
     }),
     image: Props.image({
       label: '图片地址',
-      default: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/image/default.png'
+      default: {
+        url: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/image/default.png',
+        points: [0, 0, 375, 250]
+      }
     })
   },
   computed: {
