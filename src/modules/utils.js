@@ -24,6 +24,7 @@ export function zip (...components) {
       // 单个组件接收到的所有属性等内容会同时分发到多个组件
       return h(
         'div', {
+          class: 'pass',
           style: 'display: content'
         },
         components.map((x, idx) => {

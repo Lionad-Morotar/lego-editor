@@ -3,7 +3,13 @@
 .config-item-segment + .config-item,
 .config-item + .config-item-segment,
 .config-item-segment + .config-item-segment,
-.config-item-content + .config-item-content {
+.config-item-content + .config-item-content,
+.icons-group + .pass > .config-item,
+.config-item + .pass > .config-item,
+.config-item-segment + .pass > .config-item,
+.config-item + .pass > .config-item-segment,
+.config-item-segment + .pass > .config-item-segment,
+.config-item-content + .pass > .config-item-content {
   margin-top: 14px;
 
   &.compact {
