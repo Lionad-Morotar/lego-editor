@@ -23,7 +23,9 @@ export function zip (...components) {
     render (h, context) {
       // 单个组件接收到的所有属性等内容会同时分发到多个组件
       return h(
-        'template', {},
+        'div', {
+          style: 'display: content'
+        },
         components.map((x, idx) => {
           return h(x, {
             ...context.data,

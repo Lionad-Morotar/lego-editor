@@ -1,8 +1,8 @@
 <template>
-  <fragment>
+  <div>
     <h3 :style="styles.title">{{ title.text }}</h3>
     <h4 :style="styles.subTitle">{{ subTitle.text }}</h4>
-  </fragment>
+  </div>
 </template>
 
 <script>
