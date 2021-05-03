@@ -39,7 +39,9 @@ export default {
           : this.height == null
             ? 'auto'
             : String(this.height) + 'px',
-        overflow: 'hidden',
+        overflow: this.fold
+          ? 'hidden'
+          : 'visible',
         transition: String(this.time) + 's'
       }
     }
