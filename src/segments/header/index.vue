@@ -28,8 +28,6 @@
 </template>
 
 <script>
-import isEqual from 'lodash.isequal'
-import debounce from 'lodash.debounce'
 import clonedeep from 'lodash.clonedeep'
 import { mapState, mapGetters, mapActions } from 'vuex'
 import Module from '@/models/module'
