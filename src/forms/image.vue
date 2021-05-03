@@ -8,7 +8,7 @@
 </template>
 
 <script>
-// import debounce from 'lodash.debounce'
+import isEqual from 'lodash.isequal'
 import Props from '@/models/props'
 export default {
   props: ['value', 'props'],
@@ -45,8 +45,13 @@ export default {
   watch: {
     v: {
       deep: true,
-      handler (newValue) {
-        this.$emit('change', newValue)
+      handler (newValue, oldValue) {
+        if (!isEqual(
+          this.$utils.clonevalue(newValue),
+          this.$utils.clonevalue(oldValue)
+        )) {
+          this.$emit('change', newValue)
+        }
       }
     }
   }

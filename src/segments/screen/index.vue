@@ -1,5 +1,5 @@
 <template>
-  <div class="screen" @click="unselectedModule">
+  <div class="screen" @click="UNSELECTED">
     <div class="page" :class="[moving && 'moving']">
       <draggable
         v-bind="dragOptions"
@@ -96,8 +96,11 @@ export default {
       'UPDATE_MODULES',
       'ADD_DRAFT'
     ]),
-    // 点击 PaddingBox 时高亮最外层 Outline
+    // 点击 PaddingBox 时选中模块，同时高亮最外层 Outline
     selectTopElement (targetModule) {
+      if (this.selected !== targetModule) {
+        this.UNSELECTED()
+      }
       const curModuleTopElement = targetModule.$outlines[0]
       this.SELECT_OUTLINE(curModuleTopElement)
     },
@@ -117,7 +120,7 @@ export default {
         ? this.modules.find((x, idx) => idx > this.curIDX && x.layout.auto)
         : this.modules.find(x => x.layout.auto)
       targetModule && this.selectModule(targetModule)
-    },
+    }
     // selectAnyPrev () {
     //   const targetModule = this.selected
     //     ? this.modules.find((_, idx) => idx > this.curIDX)
@@ -129,10 +132,7 @@ export default {
     //     ? this.modules.find((_, idx) => idx > this.curIDX)
     //     : this.modules[0]
     //   targetModule && this.selectModule(targetModule)
-    // },
-    unselectedModule () {
-      this.UNSELECTED()
-    }
+    // }
   }
 }
 </script>

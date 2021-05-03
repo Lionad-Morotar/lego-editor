@@ -1,4 +1,5 @@
 import Forms from '@/forms'
+import Utils from '@/utils'
 
 const merge = (...args) => Object.assign(...args)
 const notEmpty = val => val != null
@@ -366,7 +367,13 @@ function Prop (base, config = {}) {
       // 当依赖值发生变动时，调用此函数以返回一个校验后的值
       // todo 完善逻辑
       genData: newValue => {
-        log('value change to : ', newValue)
+        if (window._debbug === 'full') {
+          log('value change to : ', Utils.clonevalue(newValue))
+        } else if (window._debbug === false) {
+          // noop
+        } else {
+          log('value changed : ', newValue)
+        }
         return newValue
       }
     },

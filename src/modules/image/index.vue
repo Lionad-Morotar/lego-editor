@@ -16,7 +16,7 @@ export default {
       label: '图片地址',
       default: {
         url: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/image/default.png',
-        points: [0, 0, 375, 250]
+        points: [0, 0, 375, 251]
       }
     })
   },
