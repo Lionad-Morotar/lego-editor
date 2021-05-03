@@ -143,13 +143,13 @@ const genStyles = (val = {}, options = {}) => {
 
   /* image */
   if (points) {
-    const p1 = [points[0], points[1]]
-    const p2 = [points[2], points[3]]
-    const wOffset = p2[0] - p1[0]
+    const p1 = { w: points[0], h: points[1] }
+    const p2 = { w: points[2], h: points[3] }
+    const wOffset = p2.w - p1.w
     const ratio = wOffset / width
     // console.log(wOffset, width)
-    res.objectPosition = `-${p1[0]}px -${p1[1]}px`
-    res.transform.push(`scale(${(1 / ratio).toFixed(3)})`)
+    res.objectPosition = `-${p1.w}px -${p1.h}px`
+    res.transform.push(`scale(${((1 / ratio) || 1).toFixed(3)})`)
     res.transformOrigin = '0 0'
   }
 
