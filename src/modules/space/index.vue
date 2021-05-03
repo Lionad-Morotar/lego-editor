@@ -4,13 +4,20 @@
 
 <script>
 import Props from '@/models/props'
+import { pass, zip } from '@/modules/utils'
+import Forms from '@/forms'
 import Height from './panel/height'
 export default {
   name: 'lego-space',
   resizable: true,
   props: {
     layout: Props.layout({
-      component: Height,
+      component: zip(
+        Height,
+        pass(Forms.Layout, {
+          use: ['bgColor']
+        })
+      ),
       default: {
         lock: true,
         width: 375,

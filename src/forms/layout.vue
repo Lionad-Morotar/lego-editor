@@ -67,7 +67,7 @@
       </div>
     </div>
 
-    <div class="config-item" v-if="display('bgColor')">
+    <div class="config-item config-color" v-if="display('bgColor')">
       <div class="config-item-header">背景颜色</div>
       <div class="config-item-content">
         <div class="icon" title="文字颜色" @click="showColor=!showColor">
@@ -91,7 +91,7 @@ import Slider from './slider'
 const half = n => Math.floor(n / 2)
 
 export default {
-  props: ['value', 'disable'],
+  props: ['value', 'enable', 'disable', 'use'],
   data () {
     return {
       paddingAll: 0,
@@ -132,7 +132,14 @@ export default {
       return valid ? 'active' : ''
     },
     display (key) {
-      return !(this.disable || []).includes(key)
+      const { enable = [], disable = [], use = [] } = this
+      if (use.length) {
+        return use.includes(key)
+      } else {
+        if (disable.includes(key)) return false
+        if (enable.includes(key)) return true
+        return true
+      }
     },
     editPadding (key) {
       this.editPaddingKey = key

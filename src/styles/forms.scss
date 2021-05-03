@@ -50,6 +50,10 @@
     border-color: transparent;
   }
 
+  &.config-color {
+    gap: unset;
+  }
+
   .config-item-header {
     align-self: flex-start;
     flex-shrink: 0;
