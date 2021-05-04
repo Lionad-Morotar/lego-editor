@@ -300,7 +300,8 @@ export default {
     }
   }
 
-  &.props-changing {
+  &.active-resizer,
+  &.active-rotater {
     & > .outline {
       &::before {
         position: absolute;
