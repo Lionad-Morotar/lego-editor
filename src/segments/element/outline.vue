@@ -8,7 +8,7 @@
       active.resizer && 'active-resizer',
       active.rotater && 'active-rotater'
     ]"
-    @mousedown="checkDraggable"
+    @mousedown="initElementProps"
     @click.capture="selectElement"
     @click.stop="active.rotater = false">
     <slot />
@@ -75,6 +75,9 @@ export default {
       active: {
         resizer: false,
         rotater: false
+      },
+      store: {
+        e: null
       }
     }
   },
@@ -111,18 +114,39 @@ export default {
     isFreeLayout () {
       return !this.curModel.layout.auto
     },
-    selectedTopOutline () {
+    isSelectTopOutline () {
       return this === this.curModel.$outlines[0]
     },
     showResizer () {
       const resizable = this.curModel.component.resizable
-      return this.isFreeLayout && resizable && this.selectedTopOutline
+      return this.isFreeLayout && resizable && this.isSelectTopOutline
     },
     showRotater () {
-      return this.isFreeLayout && this.selectedTopOutline
+      return this.isFreeLayout && this.isSelectTopOutline
     }
   },
   watch: {
+    // 切换到自由布局时初始化模块的相关属性
+    'selected.layout.auto': {
+      handler (isAuto) {
+        if (isAuto == null) {
+          return
+        }
+        if (isAuto) {
+          const $el = this.selected.$instance.$el
+          const $parent = $el.offsetParent
+          if (this.selected.layout.top == null) {
+            this.curLayout = { top: $parent.offsetTop }
+          }
+          if (this.selected.layout.left == null) {
+            this.curLayout = { left: $parent.offsetLeft }
+          }
+        } else {
+          this.curLayout = { width: null, height: null }
+        }
+      }
+    },
+    // 当依赖项的值在一定时间内变化多次时，才通知外部
     curProps: {
       deep: true,
       handler (n, o) {
@@ -171,10 +195,13 @@ export default {
         this.$nextTick(() => (this.lockPropsChangingTick = false))
       }
     },
-    checkDraggable (e) {
+    initElementProps (e) {
+      this.store.e = e
       const isFree = !this.curLayout.auto
+      const $target = this.$utils.findParentByClass(e.target, 'module-block')
+      this.initElementWH($target)
       if (isFree) {
-        this.calcAnchor(e)
+        this.calcAnchor(e, $target)
         document.body.addEventListener('mousemove', this.calcMove)
         const clean = () => {
           document.body.removeEventListener('mousemove', this.calcMove)
@@ -184,15 +211,22 @@ export default {
         document.body.addEventListener('mouseup', clean)
         // 自由布局的组件拖拽时不使用 vue-draggle 交换位置
         e.preventDefault()
-      } else {
-        const $target = this.$utils.findParentByClass(e.target, 'module-block')
-        this.initElementWH($target)
       }
     },
+    initElementWH ($target) {
+      this.lockPropsChangingTick = true
+      this.curLayout = { width: $target.offsetWidth }
+      this.curLayout = { height: $target.offsetHeight }
+      this.curLayout = { top: $target.offsetTop }
+      this.curLayout = { left: $target.offsetLeft }
+      this.$nextTick(() => (this.lockPropsChangingTick = false))
+    },
     // TODO refactor 把 calcAnchor 移到 Gesture
-    calcAnchor (e) {
-      const $target = this.$utils.findParentByClass(e.target, 'module-block')
-      this.initElementWH($target)
+    calcAnchor (e, $target) {
+      if (!$target) {
+        $target = this.$utils.findParentByClass(e.target, 'module-block')
+        this.initElementWH($target)
+      }
       this.anchor.start = { x: e.x, y: e.y }
       this.anchor.offset = {
         x: this.curLayout.left,
@@ -207,7 +241,6 @@ export default {
         x: $pos.x + (this.anchor.size.w / 2),
         y: $pos.y + (this.anchor.size.h / 2)
       }
-
       const [offsetX, offsetY] = [
         this.anchor.start.x - this.anchor.center.x,
         this.anchor.start.y - this.anchor.center.y
@@ -215,14 +248,6 @@ export default {
       // 初始角度即点击位置与模块中心位置的夹角 + 90°（由于 Y 轴正向向下）
       const initialDegree = (Math.atan2(offsetY, offsetX) / (Math.PI / 180))
       this.anchor.rotate = initialDegree - this.curLayout.degree
-    },
-    initElementWH ($target) {
-      this.lockPropsChangingTick = true
-      this.curLayout = { width: $target.offsetWidth }
-      this.curLayout = { height: $target.offsetHeight }
-      this.curLayout = { top: $target.offsetTop }
-      this.curLayout = { left: $target.offsetLeft }
-      this.$nextTick(() => (this.lockPropsChangingTick = false))
     },
     calcMove (newPosition) {
       this.SET_MOVING(true)
@@ -240,13 +265,13 @@ export default {
 
     /* Resizer & Rotater */
 
-    activeResizer (...args) {
+    activeResizer (e) {
       this.active.resizer = true
-      this.calcAnchor(...args)
+      this.calcAnchor(e)
     },
-    activeRotater (...args) {
+    activeRotater (e) {
       this.active.rotater = true
-      this.calcAnchor(...args)
+      this.calcAnchor(e)
     },
     calcWH (direction, offset) {
       const { offsetX, offsetY } = offset

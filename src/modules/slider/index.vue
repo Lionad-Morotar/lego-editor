@@ -37,7 +37,10 @@ export default {
     layout: Props.layout({
       component: pass(Forms.Layout, {
         disable: ['padding', 'border', 'bgColor']
-      })
+      }),
+      default: {
+        lock: true
+      }
     }),
     indicator: Props.custom({
       component: Indicator,
