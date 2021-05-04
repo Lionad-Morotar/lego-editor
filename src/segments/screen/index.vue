@@ -4,7 +4,7 @@
       <draggable
         v-bind="dragOptions"
         v-model="draggableModules">
-        <!-- ? Vue.Draggable 在鼠标事件时会清空行内样式如 transform 导致样式不生效，所以这里额外包一层 DIV -->
+        <!-- FIXME ? Vue.Draggable 在鼠标事件时会清空行内样式如 transform 导致样式不生效，所以这里额外包一层 DIV -->
         <!-- FIXME 模块的 zindex 层级控制 -->
         <div v-for="(m, idx) in modules" :key="m.uuid">
           <div
@@ -66,7 +66,15 @@ export default {
       }
     },
     styles () {
-      return this.modules.map(m => Props.genStyles(m.layout, { onlyTranslate: true }))
+      return this.modules.map(m => {
+        const isSelected = this.selected === m
+        const style = Props.genStyles(m.layout, { onlyTranslate: true })
+        if (isSelected && style.transform) {
+          style.transform += ' translateZ(0)'
+          style.willChange = 'auto'
+        }
+        return style
+      })
     },
     curIDX () {
       return this.modules.findIndex(x => x === this.selected)

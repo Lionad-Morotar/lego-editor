@@ -13,7 +13,8 @@
     @click.stop="active.rotater = false">
     <slot />
     <div class="outline">
-      <div
+      <!-- 暂时隐藏 scaler -->
+      <!-- <div
         v-for="r in [
           'point scaler left top',
           'point scaler left bottom',
@@ -22,7 +23,7 @@
         ]"
         :class="r"
         :key="r"
-      />
+      /> -->
       <!-- FIXME 旋转后缩放出现诡异的问题 -->
       <template v-if="showResizer">
         <Gesture
@@ -40,16 +41,15 @@
         </Gesture>
       </template>
       <!-- FIXME Rotater 的动画会导致子模块变模糊 ╮(╯▽╰)╭ -->
-      <template v-if="showRotater">
-        <Gesture
-          :invoke="stopEvent"
-          @mousedown="activeRotater"
-          @mousemove="calcRotate">
-          <div class="point" id="rotater">
-            <i class="iconfont icon-reload" />
-          </div>
-        </Gesture>
-      </template>
+      <Gesture
+        v-if="showRotater"
+        :invoke="stopEvent"
+        @mousedown="activeRotater"
+        @mousemove="calcRotate">
+        <div class="point" id="rotater">
+          <i class="iconfont icon-reload" />
+        </div>
+      </Gesture>
     </div>
   </div>
 </template>
@@ -404,9 +404,6 @@ export default {
           left: calc(50% - 4px);
           cursor: s-resize;
         }
-        & + #rotater {
-          bottom: -32px;
-        }
       }
 
       &#rotater {
@@ -414,7 +411,7 @@ export default {
         justify-content: center;
         align-items: center;
         left: calc(50% - 7px);
-        bottom: -25px;
+        bottom: -32px;
         padding: 2px;
         width: 12px;
         height: 12px;
