@@ -8,11 +8,10 @@
       active.resizer && 'active-resizer',
       active.rotater && 'active-rotater'
     ]"
+    @mousedown="checkDraggable"
     @click.capture="selectElement"
-    @click.stop="active.rotater = false"
-    @mousedown="checkDraggable">
+    @click.stop="active.rotater = false">
     <slot />
-    <!-- 也许不应该用 DOM ？ -->
     <div class="outline">
       <div
         v-for="r in [
@@ -56,9 +55,9 @@
 </template>
 
 <script>
+import isEqual from 'lodash.isequal'
 import { mapMutations, mapState, mapActions } from 'vuex'
 import Module from '@/models/module'
-import isEqual from 'lodash.isequal'
 
 const PropsChangingProtectCount = 1
 
@@ -96,7 +95,11 @@ export default {
         return this.curModel.props.layout
       },
       set (newValue) {
-        this.curModel.setProp('layout', newValue)
+        const keys = Object.keys(newValue)
+        const notSame = keys.find(k => !isEqual(this.curLayout[k], newValue[k]))
+        if (notSame) {
+          this.curModel.setProp('layout', newValue)
+        }
       }
     },
     isSelected () {
@@ -186,7 +189,7 @@ export default {
         this.initElementWH($target)
       }
     },
-    // 把 calcAnchor 移到 Gesture
+    // TODO refactor 把 calcAnchor 移到 Gesture
     calcAnchor (e) {
       const $target = this.$utils.findParentByClass(e.target, 'module-block')
       this.initElementWH($target)
