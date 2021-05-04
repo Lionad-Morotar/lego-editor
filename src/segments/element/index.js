@@ -5,8 +5,12 @@ import Props from '@/models/props'
 import ScreenElement from './index.vue'
 
 /**
- * 安装模块
+ * Element 提供了安装模块的方法，包含了应如何渲染模块的逻辑
+ * 当前有两种模式：
+ * 1. 预览模式
+ * 2. 编辑模式
  */
+
 export const installElement = (newModule, config = {}) => {
   const newModuleCopy = clone(newModule)
   const {
@@ -77,7 +81,7 @@ export const installElement = (newModule, config = {}) => {
  * 安装可编辑的模块
  * 即附加上高亮选框、放点击等功能
  */
-export const installEditableElement = newModule => installElement(newModule, {
+export const installPreviewElement = newModule => installElement(newModule, {
   gatherProps: true,
   standardizeProp: false,
   outline: true,

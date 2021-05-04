@@ -1,6 +1,6 @@
 import { ModuleTypeEnums } from '@/constant'
 import utils from '@/utils'
-import { installEditableElement, installElement } from '@/segments/element'
+import { installPreviewElement, installElement } from '@/segments/element'
 
 const state = {
   // 已注册的模块，用于左侧面板展示、点击选择或拖拽用
@@ -120,7 +120,7 @@ const actions = {
     })
   },
   INSTALL_MODULES ({ commit }, { modules, isPreview = false }) {
-    const install = isPreview ? installElement : installEditableElement
+    const install = isPreview ? installElement : installPreviewElement
     const installs = mlist => mlist.map(newModule => {
       if (utils.validInitModuleData(newModule)) {
         const wrappedModule = install(newModule)

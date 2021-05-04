@@ -77,15 +77,16 @@ export default {
     }
   },
   watch: {
+    // 切换到自由布局时初始化模块的相关属性
     'selected.layout.auto': {
       handler (isAuto) {
         if (isAuto != null && isAuto) {
-          const target = this.selected.$instance.$el
-          const $parent = target.offsetParent
-          if (!this.selected.layout.top) {
+          const $target = this.selected.$instance.$el
+          const $parent = $target.offsetParent
+          if (this.selected.layout.top == null) {
             this.selected.layout.top = $parent.offsetTop
           }
-          if (!this.selected.layout.left) {
+          if (this.selected.layout.left == null) {
             this.selected.layout.left = $parent.offsetLeft
           }
         }

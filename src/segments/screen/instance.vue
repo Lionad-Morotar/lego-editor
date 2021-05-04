@@ -1,5 +1,5 @@
 <script>
-// instance 只用作绑定 Model/Module。渲染相关逻辑请移至 ./element
+// 用作绑定 Model/Module
 export default {
   props: ['module', 'bindModule'],
   provide () {
