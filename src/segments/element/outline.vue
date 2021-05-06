@@ -128,7 +128,7 @@ export default {
   watch: {
     // 切换到自由布局时初始化模块的相关属性
     'selected.layout.auto': {
-      handler (isAuto) {
+      handler (isAuto, oldValue) {
         if (isAuto == null) {
           return
         }
@@ -141,7 +141,7 @@ export default {
           if (this.selected.layout.left == null) {
             this.curLayout = { left: $parent.offsetLeft }
           }
-        } else {
+        } else if (!oldValue) {
           this.curLayout = { width: null, height: null }
         }
       }

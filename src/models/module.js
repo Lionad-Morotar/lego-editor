@@ -1,5 +1,6 @@
 import Props from '@/models/props'
 import Utils from '@/utils'
+import isEqual from 'lodash.isequal'
 
 /**
  * TYPE
@@ -133,7 +134,7 @@ Module.prototype.setProp = function (key, value) {
       handler.lastError = ''
       const oldValue = this.data[key]
       const newValue = handler.genData(value, oldValue)
-      if (newValue !== oldValue) {
+      if (!isEqual(newValue, oldValue)) {
         this.data[key] = newValue
       }
     }
