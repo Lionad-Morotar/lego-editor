@@ -10,7 +10,7 @@
     ]"
     @mousedown="initElementProps"
     @click.capture="selectElement"
-    @click.stop="active.rotater = false">
+    @click.stop="stopMask">
     <slot />
     <div class="outline">
       <!-- 暂时隐藏 scaler -->
@@ -306,6 +306,10 @@ export default {
     stopEvent (e) {
       e.stopPropagation()
       e.preventDefault()
+    },
+    stopMask () {
+      this.active.resizer = false
+      this.active.rotater = false
     }
   }
 }
