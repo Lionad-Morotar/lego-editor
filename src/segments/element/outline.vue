@@ -9,6 +9,7 @@
       active.rotater && 'active-rotater'
     ]"
     @mousedown="initElementProps"
+    @dblclick="logElement"
     @click.capture="selectElement"
     @click.stop="stopMask">
     <slot />
@@ -126,6 +127,7 @@ export default {
     }
   },
   watch: {
+    // ? FIXME 同一个模块内若包含多个 outline 则会触发多次
     // 切换到自由布局时初始化模块的相关属性
     'curLayout.auto': {
       handler (isAuto, oldValue) {
@@ -188,6 +190,9 @@ export default {
 
     /* Module Functions */
 
+    logElement () {
+      console.log(this.curModel.genStore())
+    },
     selectElement () {
       if (!this.moving && !this.isActive) {
         this.lockPropsChangingTick = true
