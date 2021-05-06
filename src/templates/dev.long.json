@@ -1,0 +1,587 @@
+[
+  {
+    "meta": {
+      "uuid": "1620313836952_075527",
+      "title": "轮播模块",
+      "description": "轮播图",
+      "name": "lego-slider"
+    },
+    "layout": {
+      "auto": true,
+      "lock": true,
+      "degree": 0,
+      "padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "top": 0,
+      "left": 0,
+      "width": 375,
+      "height": 200,
+      "border": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderStyle": "solid",
+      "borderColor": "black",
+      "radius": 0,
+      "bgColor": ""
+    },
+    "indicator": true,
+    "loop": true,
+    "autoplay": true,
+    "interval": 4000,
+    "images": [
+      {
+        "url": "https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/slider/default.png",
+        "points": [
+          1,
+          0,
+          374,
+          200
+        ]
+      },
+      {
+        "url": "https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/slider/default.png",
+        "points": [
+          1,
+          0,
+          374,
+          200
+        ]
+      }
+    ]
+  },
+  {
+    "meta": {
+      "uuid": "1620313831720_804734",
+      "title": "单行文本",
+      "description": "基础单行文本模块，可以调节字体大小，颜色等样式",
+      "name": "lego-text"
+    },
+    "layout": {
+      "auto": true,
+      "lock": false,
+      "degree": 0,
+      "padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "top": 0,
+      "left": 0,
+      "width": 0,
+      "height": 0,
+      "border": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderStyle": "solid",
+      "borderColor": "black",
+      "radius": 0,
+      "bgColor": ""
+    },
+    "text": {
+      "text": "文本内容",
+      "fontSize": 20,
+      "lineHeight": 2,
+      "letterSpacing": 0,
+      "color": "#333",
+      "textAlign": "center",
+      "bold": true,
+      "italic": false,
+      "underLine": false,
+      "strikeThrough": false
+    }
+  },
+  {
+    "meta": {
+      "uuid": "1620313832453_764768",
+      "title": "文本区域",
+      "description": "基础文本区域",
+      "name": "lego-textarea"
+    },
+    "layout": {
+      "auto": true,
+      "lock": false,
+      "degree": 0,
+      "padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "top": 0,
+      "left": 0,
+      "width": 0,
+      "height": 0,
+      "border": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderStyle": "solid",
+      "borderColor": "black",
+      "radius": 0,
+      "bgColor": ""
+    },
+    "text": {
+      "text": "Officia fugiat cillum officia ullamco voluptate tempor pariatur irure cupidatat nisi incididunt proident irure. Voluptate cillum ullamco ea occaecat veniam ullamco reprehenderit labore adipisicing sint ea.",
+      "fontSize": 12,
+      "lineHeight": 1.6,
+      "letterSpacing": 0,
+      "color": "#666",
+      "textAlign": "left",
+      "bold": false,
+      "italic": false,
+      "underLine": false,
+      "strikeThrough": false
+    }
+  },
+  {
+    "meta": {
+      "uuid": "1620313833179_388026",
+      "title": "图片模块",
+      "description": "基础图片模块",
+      "name": "lego-image"
+    },
+    "layout": {
+      "auto": true,
+      "lock": false,
+      "degree": 0,
+      "padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "top": 0,
+      "left": 0,
+      "width": 0,
+      "height": 0,
+      "border": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderStyle": "solid",
+      "borderColor": "black",
+      "radius": 0,
+      "bgColor": ""
+    },
+    "image": {
+      "url": "https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/image/default.png",
+      "points": [
+        0,
+        0,
+        375,
+        251
+      ]
+    }
+  },
+  {
+    "meta": {
+      "uuid": "1620313845998_892995",
+      "title": "单行文本",
+      "description": "基础单行文本模块，可以调节字体大小，颜色等样式",
+      "name": "lego-text"
+    },
+    "layout": {
+      "auto": true,
+      "lock": false,
+      "degree": 0,
+      "padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "top": 0,
+      "left": 0,
+      "width": 0,
+      "height": 0,
+      "border": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderStyle": "solid",
+      "borderColor": "black",
+      "radius": 0,
+      "bgColor": ""
+    },
+    "text": {
+      "text": "文本内容",
+      "fontSize": 20,
+      "lineHeight": 2,
+      "letterSpacing": 0,
+      "color": "#333",
+      "textAlign": "center",
+      "bold": true,
+      "italic": false,
+      "underLine": false,
+      "strikeThrough": false
+    }
+  },
+  {
+    "meta": {
+      "uuid": "1620313846473_243415",
+      "title": "文本区域",
+      "description": "基础文本区域",
+      "name": "lego-textarea"
+    },
+    "layout": {
+      "auto": true,
+      "lock": false,
+      "degree": 0,
+      "padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "top": 0,
+      "left": 0,
+      "width": 0,
+      "height": 0,
+      "border": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderStyle": "solid",
+      "borderColor": "black",
+      "radius": 0,
+      "bgColor": ""
+    },
+    "text": {
+      "text": "Officia fugiat cillum officia ullamco voluptate tempor pariatur irure cupidatat nisi incididunt proident irure. Voluptate cillum ullamco ea occaecat veniam ullamco reprehenderit labore adipisicing sint ea.",
+      "fontSize": 12,
+      "lineHeight": 1.6,
+      "letterSpacing": 0,
+      "color": "#666",
+      "textAlign": "left",
+      "bold": false,
+      "italic": false,
+      "underLine": false,
+      "strikeThrough": false
+    }
+  },
+  {
+    "meta": {
+      "uuid": "1620313848152_719853",
+      "title": "图片模块",
+      "description": "基础图片模块",
+      "name": "lego-image"
+    },
+    "layout": {
+      "auto": true,
+      "lock": false,
+      "degree": 0,
+      "padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "top": 0,
+      "left": 0,
+      "width": 0,
+      "height": 0,
+      "border": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderStyle": "solid",
+      "borderColor": "black",
+      "radius": 0,
+      "bgColor": ""
+    },
+    "image": {
+      "url": "https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/image/default.png",
+      "points": [
+        0,
+        0,
+        375,
+        251
+      ]
+    }
+  },
+  {
+    "meta": {
+      "uuid": "1620313936874_625664",
+      "title": "单行文本",
+      "description": "基础单行文本模块，可以调节字体大小，颜色等样式",
+      "name": "lego-text"
+    },
+    "layout": {
+      "auto": true,
+      "lock": false,
+      "degree": 0,
+      "padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "top": 0,
+      "left": 0,
+      "width": 0,
+      "height": 0,
+      "border": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderStyle": "solid",
+      "borderColor": "black",
+      "radius": 0,
+      "bgColor": ""
+    },
+    "text": {
+      "text": "文本内容",
+      "fontSize": 20,
+      "lineHeight": 2,
+      "letterSpacing": 0,
+      "color": "#333",
+      "textAlign": "center",
+      "bold": true,
+      "italic": false,
+      "underLine": false,
+      "strikeThrough": false
+    }
+  },
+  {
+    "meta": {
+      "uuid": "1620313937591_915332",
+      "title": "文本区域",
+      "description": "基础文本区域",
+      "name": "lego-textarea"
+    },
+    "layout": {
+      "auto": true,
+      "lock": false,
+      "degree": 0,
+      "padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "top": 0,
+      "left": 0,
+      "width": 0,
+      "height": 0,
+      "border": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderStyle": "solid",
+      "borderColor": "black",
+      "radius": 0,
+      "bgColor": ""
+    },
+    "text": {
+      "text": "Officia fugiat cillum officia ullamco voluptate tempor pariatur irure cupidatat nisi incididunt proident irure. Voluptate cillum ullamco ea occaecat veniam ullamco reprehenderit labore adipisicing sint ea.",
+      "fontSize": 12,
+      "lineHeight": 1.6,
+      "letterSpacing": 0,
+      "color": "#666",
+      "textAlign": "left",
+      "bold": false,
+      "italic": false,
+      "underLine": false,
+      "strikeThrough": false
+    }
+  },
+  {
+    "meta": {
+      "uuid": "1620313938415_081507",
+      "title": "图片模块",
+      "description": "基础图片模块",
+      "name": "lego-image"
+    },
+    "layout": {
+      "auto": true,
+      "lock": false,
+      "degree": 0,
+      "padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "top": 0,
+      "left": 0,
+      "width": 0,
+      "height": 0,
+      "border": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderStyle": "solid",
+      "borderColor": "black",
+      "radius": 0,
+      "bgColor": ""
+    },
+    "image": {
+      "url": "https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/image/default.png",
+      "points": [
+        0,
+        0,
+        375,
+        251
+      ]
+    }
+  },
+  {
+    "meta": {
+      "uuid": "1620313939236_022517",
+      "title": "单行文本",
+      "description": "基础单行文本模块，可以调节字体大小，颜色等样式",
+      "name": "lego-text"
+    },
+    "layout": {
+      "auto": true,
+      "lock": false,
+      "degree": 0,
+      "padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "top": 0,
+      "left": 0,
+      "width": 0,
+      "height": 0,
+      "border": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderStyle": "solid",
+      "borderColor": "black",
+      "radius": 0,
+      "bgColor": ""
+    },
+    "text": {
+      "text": "文本内容",
+      "fontSize": 20,
+      "lineHeight": 2,
+      "letterSpacing": 0,
+      "color": "#333",
+      "textAlign": "center",
+      "bold": true,
+      "italic": false,
+      "underLine": false,
+      "strikeThrough": false
+    }
+  },
+  {
+    "meta": {
+      "uuid": "1620313939567_680243",
+      "title": "文本区域",
+      "description": "基础文本区域",
+      "name": "lego-textarea"
+    },
+    "layout": {
+      "auto": true,
+      "lock": false,
+      "degree": 0,
+      "padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "top": 0,
+      "left": 0,
+      "width": 0,
+      "height": 0,
+      "border": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderStyle": "solid",
+      "borderColor": "black",
+      "radius": 0,
+      "bgColor": ""
+    },
+    "text": {
+      "text": "Officia fugiat cillum officia ullamco voluptate tempor pariatur irure cupidatat nisi incididunt proident irure. Voluptate cillum ullamco ea occaecat veniam ullamco reprehenderit labore adipisicing sint ea.",
+      "fontSize": 12,
+      "lineHeight": 1.6,
+      "letterSpacing": 0,
+      "color": "#666",
+      "textAlign": "left",
+      "bold": false,
+      "italic": false,
+      "underLine": false,
+      "strikeThrough": false
+    }
+  },
+  {
+    "meta": {
+      "uuid": "1620313940043_707025",
+      "title": "图片模块",
+      "description": "基础图片模块",
+      "name": "lego-image"
+    },
+    "layout": {
+      "auto": true,
+      "lock": false,
+      "degree": 0,
+      "padding": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "top": 0,
+      "left": 0,
+      "width": 0,
+      "height": 0,
+      "border": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "borderStyle": "solid",
+      "borderColor": "black",
+      "radius": 0,
+      "bgColor": ""
+    },
+    "image": {
+      "url": "https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/image/default.png",
+      "points": [
+        0,
+        0,
+        375,
+        251
+      ]
+    }
+  }
+]
