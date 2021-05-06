@@ -127,9 +127,10 @@ export default {
   },
   watch: {
     // 切换到自由布局时初始化模块的相关属性
-    'selected.layout.auto': {
+    'curLayout.auto': {
       handler (isAuto, oldValue) {
-        if (isAuto == null) {
+        console.log('isAuto:', isAuto, oldValue)
+        if (isAuto == null || oldValue == null) {
           return
         }
         if (isAuto) {
@@ -146,7 +147,7 @@ export default {
         }
       }
     },
-    // 当依赖项的值在一定时间内变化多次时，才通知外部
+    // 当依赖项的值在一定时间内变化多次时，再通知外部
     curProps: {
       deep: true,
       handler (n, o) {
