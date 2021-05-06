@@ -120,6 +120,7 @@ export default {
     },
     showResizer () {
       const resizable = this.curModel.component.resizable
+      // const resizable = this.curModel.component.resizable && (this.curLayout.degree > -50) && (this.curLayout.degree < 50)
       return this.isFreeLayout && resizable && this.isSelectTopOutline
     },
     showRotater () {
@@ -202,12 +203,16 @@ export default {
       }
     },
     initElementProps (e) {
+      if (this.active.resizer) {
+        return null
+      }
       this.store.e = e
       const isFree = !this.curLayout.auto
       const $target = this.$utils.findParentByClass(e.target, 'module-block')
       this.initElementWH($target)
       if (isFree) {
         this.calcAnchor(e, $target)
+        // const calcMove = (...args) => !this.active.resizer && this.calcMove(...args)
         document.body.addEventListener('mousemove', this.calcMove)
         const clean = () => {
           document.body.removeEventListener('mousemove', this.calcMove)
@@ -280,23 +285,54 @@ export default {
       this.calcAnchor(e)
     },
     calcWH (direction, offset) {
+      const { degree } = this.curLayout
       const { offsetX, offsetY } = offset
-      const safe = n => Math.max(0, n)
-      switch (direction) {
-        case 'left':
-          this.curLayout = { left: this.anchor.offset.x + offsetX }
-          this.curLayout = { width: safe(this.anchor.size.w - offsetX) }
-          break
-        case 'right':
-          this.curLayout = { width: safe(this.anchor.size.w + offsetX) }
-          break
-        case 'top':
-          this.curLayout = { top: this.anchor.offset.y + offsetY }
-          this.curLayout = { height: safe(this.anchor.size.h - offsetY) }
-          break
-        case 'bottom':
-          this.curLayout = { height: safe(this.anchor.size.h + offsetY) }
-          break
+      const { x: anchorX, y: anchorY } = this.anchor.offset
+      const { w, h } = this.anchor.size
+
+      const safe = n => {
+        const isSafe = n === 0 || (Math.max(0, n) > 0)
+        if (!isSafe) {
+          throw new Error('break')
+        } else {
+          return Math.max(0, n)
+        }
+      }
+      const getArc = (fn, d) => fn(d * Math.PI / 180)
+      const sin = Math.sin
+      const cos = Math.cos
+
+      try {
+        switch (direction) {
+          case 'left':
+            this.curLayout = {
+              top: anchorY + getArc(sin, degree) * offsetX / 2,
+              left: anchorX + getArc(cos, degree) * offsetX,
+              width: safe(w - getArc(cos, degree) * offsetX)
+            }
+            break
+          case 'right':
+            this.curLayout = {
+              top: anchorY + getArc(sin, degree) * offsetX / 2,
+              width: safe(w + getArc(cos, degree) * offsetX)
+            }
+            break
+          case 'top':
+            this.curLayout = {
+              top: anchorY + getArc(sin, degree + 90) * offsetY,
+              left: anchorX + getArc(cos, degree + 90) * offsetY / 2,
+              height: safe(h - getArc(sin, degree + 90) * offsetY)
+            }
+            break
+          case 'bottom':
+            this.curLayout = {
+              left: anchorX + getArc(cos, degree + 90) * offsetY / 2,
+              height: safe(h + getArc(sin, degree + 90) * offsetY)
+            }
+            break
+        }
+      } catch (error) {
+        // noop
       }
     },
     calcRotate (_, { x, y }) {
