@@ -43,6 +43,9 @@
             <i class="iconfont" :class="[icon.icon, when(editBorderKey === icon.key) && 'active']" />
           </div>
         </template>
+        <div v-if="hasBorderValue" class="icon" title="边框颜色" @click="showBorderColor=!showBorderColor">
+          <i class="iconfont icon-bg-colors" :style="{ color: value.borderColor }" />
+        </div>
         <template v-if="editBorderKey">
           <slider
             v-model="value.border[editBorderKey]"
@@ -52,6 +55,11 @@
             :key="editBorderKey"
           />
         </template>
+      </div>
+      <!-- 为了覆盖 el-slider -->
+      <div style="z-index: 9999; position: absolute; top: 5px; right: 0">
+        <div v-if="showBorderColor" class="fullscreen-mask" @click="showBorderColor=false" @mousewheel="showBorderColor=false" />
+        <chrome-picker v-model="borderColor" :class="when(showBorderColor)" />
       </div>
     </div>
 
@@ -70,14 +78,18 @@
     <div class="config-item config-color" v-if="display('bgColor')">
       <div class="config-item-header">背景颜色</div>
       <div class="config-item-content">
-        <div class="icon" title="文字颜色" @click="showColor=!showColor">
-          <i class="iconfont icon-bg-colors" :style="{ color: value.bgColor }" />
+        <div
+          class="icon"
+          title="背景颜色"
+          :style="{ width: '80px', background: value.bgColor }"
+          @click="showBgColor=!showBgColor">
+          <i v-if="isWhiteBgColorOrNull" class="iconfont icon-bg-colors" />
         </div>
       </div>
       <!-- 为了覆盖 el-slider -->
       <div style="z-index: 9999">
-        <div v-if="showColor" class="fullscreen-mask" @click="showColor=false" @mousewheel="showColor=false" />
-        <chrome-picker v-model="bgColor" :class="when(showColor)" />
+        <div v-if="showBgColor" class="fullscreen-mask" @click="showBgColor=false" @mousewheel="showBgColor=false" />
+        <chrome-picker v-model="bgColor" :class="when(showBgColor)" />
       </div>
     </div>
   </div>
@@ -96,8 +108,10 @@ export default {
     return {
       paddingAll: 0,
       borderAll: 0,
+      borderColor: this.value.borderColor || Props.DS.layout.borderColor,
       bgColor: this.value.bgColor || Props.DS.layout.bgColor,
-      showColor: false,
+      showBgColor: false,
+      showBorderColor: false,
       editPaddingKey: '',
       editBorderKey: '',
       options: {
@@ -120,9 +134,23 @@ export default {
     maxRadius () {
       const { width, height } = this.value
       return Math.max(10, Math.min(half(width), half(height)))
+    },
+    isWhiteBgColorOrNull () {
+      const isNull = !this.value.bgColor
+      const isWhite = this.value.bgColor === 'white' ||
+        this.value.bgColor.toLowerCase().includes('#ffffff') ||
+        /00$/.test(this.value.bgColor)
+      return isNull || isWhite
+    },
+    hasBorderValue () {
+      const borders = this.value.border || []
+      return borders.find(x => x)
     }
   },
   watch: {
+    borderColor (newValue) {
+      this.value.borderColor = newValue.hex8
+    },
     bgColor (newValue) {
       this.value.bgColor = newValue.hex8
     }
@@ -164,12 +192,14 @@ export default {
   border: solid 1px #eee;
   cursor: pointer;
   background: white;
+  opacity: 1;
+  transition: opacity .1s;
 
   &:hover {
     background: #fafafa;
   }
   &:active {
-    background: #eee;
+    opacity: .8;
   }
   & + & {
     margin-left: -1px;
