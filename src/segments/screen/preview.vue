@@ -21,7 +21,13 @@ export default {
       modules: state => state.modules
     }),
     styles () {
-      return this.modules.map(m => Props.genStyles(m.props.layout, { onlyTranslate: true }))
+      return this.modules.map(m => {
+        const style = Props.genStyles(m.props.layout, { onlyTranslate: true })
+        if (!m.props.layout.auto) {
+          style.zIndex = 1
+        }
+        return style
+      })
     }
   }
 }
