@@ -21,7 +21,7 @@
           <div class="config-item-content">
             <el-switch
               v-model="selected.layout.auto"
-              :disabled="selected.layout.lock"
+              :disabled="selected.layout.lockLayout"
             />
           </div>
         </div>

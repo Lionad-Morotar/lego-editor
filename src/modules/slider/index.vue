@@ -39,7 +39,7 @@ export default {
         disable: ['padding', 'border', 'bgColor']
       }),
       default: {
-        lock: true
+        lockLayout: true
       }
     }),
     indicator: Props.custom({

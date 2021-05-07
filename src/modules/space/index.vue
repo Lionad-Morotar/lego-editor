@@ -19,7 +19,7 @@ export default {
         })
       ),
       default: {
-        lock: true,
+        lockLayout: true,
         width: 375,
         height: 70
       }

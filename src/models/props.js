@@ -26,6 +26,7 @@ const DS = {
       auto: true,
       // autoheight ?
       lock: false,
+      lockLayout: false,
       degree: 0,
       padding: [0, 0, 0, 0],
       top: 0,
