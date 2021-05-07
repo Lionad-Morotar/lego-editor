@@ -28,11 +28,7 @@ export default {
       this.$nextTick(() => {
         const $el = this.modules[this.modules.length - 1].$instance.$el
         const $parent = this.$utils.findParentByClass($el, 'module-block')
-        if ($parent.scrollIntoViewIfNeeded) {
-          $parent.scrollIntoViewIfNeeded()
-        } else if ($parent.scrollIntoView) {
-          $parent.scrollIntoView()
-        }
+        this.$utils.scrollIntoView($parent)
       })
     }
   }

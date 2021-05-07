@@ -13,6 +13,20 @@ const findParentByClass = ($ele, classname) => {
   return null
 }
 
+/**
+ * 视窗滚动到某元素
+ */
+const scrollIntoView = ($el) => {
+  if ($el.scrollIntoViewIfNeeded) {
+    $el.scrollIntoViewIfNeeded()
+  } else if ($el.scrollIntoView) {
+    $el.scrollIntoView()
+  } else {
+    // noop
+  }
+}
+
 export default {
-  findParentByClass
+  findParentByClass,
+  scrollIntoView
 }

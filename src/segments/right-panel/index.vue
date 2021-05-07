@@ -101,6 +101,7 @@ export default {
         if (this.modules[i].layout.auto) {
           this.MOVE_MODULE(i - this.curIDX)
           this.ADD_DRAFT()
+          this.scrollIntoView()
           return
         }
       }
@@ -110,9 +111,17 @@ export default {
         if (this.modules[i].layout.auto) {
           this.MOVE_MODULE(i - this.curIDX)
           this.ADD_DRAFT()
+          this.scrollIntoView()
           return
         }
       }
+    },
+    scrollIntoView () {
+      this.$nextTick(() => {
+        const $el = this.selected.$instance.$el
+        const $parent = this.$utils.findParentByClass($el, 'module-block')
+        this.$utils.scrollIntoView($parent)
+      })
     }
   }
 }
