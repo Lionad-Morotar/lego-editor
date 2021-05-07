@@ -342,10 +342,23 @@ export default {
       ]
       const initial = this.anchor.rotate
       const degree = (Math.atan2(offsetY, offsetX) / (Math.PI / 180)) - initial
-      const isPressShiftKey = e.shiftKey
-      const preferThreshold = isPressShiftKey ? 15 : 0.9
-      const preferZero = n => (Math.abs(n - 0) < preferThreshold) ? 0 : n
-      this.curLayout = { degree: preferZero((+degree.toFixed(1)) % 360) }
+
+      /**
+       * 吸附坐标系方向
+       * 按下 Shift 键时吸附度数为 15 度，
+       * 正常情况下仅吸附 0.9 度
+       */
+      const preferDegree = n => {
+        const abs = Math.abs
+        const isPressShiftKey = e.shiftKey
+        const preferThreshold = isPressShiftKey ? 15 : 0.9
+        const toCheck = n > 0
+          ? [270, 180, 90, 0, -90, -180, -270]
+          : [-270, -180, -90, 0, 90, 180, 270]
+        const preferDegree = toCheck.find(x => (abs(abs(n) - abs(x)) < preferThreshold))
+        return preferDegree == null ? n : preferDegree
+      }
+      this.curLayout = { degree: preferDegree((+degree.toFixed(1)) % 360) }
     },
     stopEvent (e) {
       e.stopPropagation()
