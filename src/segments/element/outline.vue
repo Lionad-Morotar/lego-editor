@@ -335,14 +335,17 @@ export default {
         // noop
       }
     },
-    calcRotate (_, { x, y }) {
+    calcRotate (e, { x, y }) {
       const [offsetX, offsetY] = [
         x - this.anchor.center.x,
         y - this.anchor.center.y
       ]
       const initial = this.anchor.rotate
       const degree = (Math.atan2(offsetY, offsetX) / (Math.PI / 180)) - initial
-      this.curLayout = { degree: (+degree.toFixed(1)) % 360 }
+      const isPressShiftKey = e.shiftKey
+      const preferThreshold = isPressShiftKey ? 15 : 0.9
+      const preferZero = n => (Math.abs(n - 0) < preferThreshold) ? 0 : n
+      this.curLayout = { degree: preferZero((+degree.toFixed(1)) % 360) }
     },
     stopEvent (e) {
       e.stopPropagation()
