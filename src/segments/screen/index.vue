@@ -15,11 +15,7 @@
             ]"
             :style="styles[idx]"
             @click.stop="selectModule(m)">
-              <!-- 每个模块都附带一左一右两个 padding block，将剩余的空间填充满 -->
-              <!-- todo refactor 拖拽的时候会带影子 -->
-              <div class="padding left" @click="selectTopElement(m)" />
               <instance :module="m" :bindModule="true" />
-              <div class="padding right" @click="selectTopElement(m)" />
           </div>
         </div>
       </draggable>
@@ -192,34 +188,16 @@ export default {
     }
   }
 
-  // todo refactor
-  & > *:nth-child(2) {
+  // todo refactor ?
+  & > * {
     width: 375px;
   }
-  &.free > *:nth-child(2) {
+  &.free > * {
     width: unset;
   }
 
   &.selected {
     z-index: 2;
-
-    .padding {
-      background: #e6e8eb;
-    }
-  }
-  .padding {
-    position: absolute;
-    width: 100vw;
-    transition: 0.25s;
-    z-index: 0;
-    height: 100%;
-
-    &.left {
-      left: -100vw;
-    }
-    &.right {
-      right: -100vw;
-    }
   }
   .module {
     flex-shrink: 0;
