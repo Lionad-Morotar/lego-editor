@@ -447,23 +447,23 @@ export default {
         transition-delay: .1s;
 
         &.left {
-          left: -5px;
-          top: calc(50% - 4px);
+          left: -4.5px;
+          top: calc(50% - 5px);
           cursor: w-resize;
         }
         &.right {
-          right: -5px;
+          right: -4.5px;
           top: calc(50% - 4px);
           cursor: e-resize;
         }
         &.top {
-          top: -5px;
+          top: -4.5px;
           left: calc(50% - 4px);
           cursor: n-resize;
         }
         &.bottom {
-          bottom: -7px;
-          left: calc(50% - 4px);
+          bottom: -4.5px;
+          left: calc(50% - 5px);
           cursor: s-resize;
         }
       }
@@ -472,7 +472,7 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
-        left: calc(50% - 7px);
+        left: calc(50% - 8px);
         bottom: -32px;
         padding: 2px;
         width: 12px;
