@@ -13,6 +13,8 @@
     @click.capture="selectElement"
     @click.stop="stopMask">
     <slot />
+    <!-- TODO 使用 Portal，不然会影响元素宽高的计算 -->
+    <!-- https://github.com/LinusBorg/portal-vue -->
     <div class="outline">
       <!-- 暂时隐藏 scaler -->
       <!-- <div
@@ -232,32 +234,40 @@ export default {
       this.curLayout = { left: $target.offsetLeft }
       this.$nextTick(() => (this.lockPropsChangingTick = false))
     },
-    // TODO refactor 把 calcAnchor 移到 Gesture
+    // REFACT 把 calcAnchor 移到 Gesture
     calcAnchor (e, $target) {
       if (!$target) {
         $target = this.$utils.findParentByClass(e.target, 'module-block')
         this.initElementWH($target)
       }
-      this.anchor.start = { x: e.x, y: e.y }
-      this.anchor.offset = {
+
+      // 点击的坐标位置
+      this.anchor.clickPos = { x: e.x, y: e.y }
+      // 元素的绝对定位偏移量
+      this.anchor.elemPos = {
         x: this.curLayout.left,
         y: this.curLayout.top
       }
-      this.anchor.size = {
+      // 元素宽高
+      this.anchor.elemSize = {
         w: this.curLayout.width,
         h: this.curLayout.height
       }
-      const $pos = $target.getBoundingClientRect()
-      this.anchor.center = {
-        x: $pos.x + (this.anchor.size.w / 2),
-        y: $pos.y + (this.anchor.size.h / 2)
+      // FIXME outline 也会计算到 bounding 中
+      // 元素边界
+      const elemBounding = $target.getBoundingClientRect()
+      // 元素中心坐标
+      this.anchor.elemBoundingCenter = {
+        x: elemBounding.x + (this.anchor.elemSize.w / 2),
+        y: elemBounding.y + (this.anchor.elemSize.h / 2)
       }
-      const [offsetX, offsetY] = [
-        this.anchor.start.x - this.anchor.center.x,
-        this.anchor.start.y - this.anchor.center.y
+
+      // 点击坐标到元素中心坐标的偏移量
+      const [offsetCenterX, offsetCenterY] = [
+        this.anchor.clickPos.x - this.anchor.elemBoundingCenter.x,
+        this.anchor.clickPos.y - this.anchor.elemBoundingCenter.y
       ]
-      // 初始角度即点击位置与模块中心位置的夹角 + 90°（由于 Y 轴正向向下）
-      const initialDegree = (Math.atan2(offsetY, offsetX) / (Math.PI / 180))
+      const initialDegree = (Math.atan2(offsetCenterY, offsetCenterX) / (Math.PI / 180))
       this.anchor.rotate = initialDegree - this.curLayout.degree
     },
     calcMove (newPosition) {
@@ -265,13 +275,13 @@ export default {
       this.setPositionByOffset(this.calcOffset(newPosition))
     },
     calcOffset (newPosition) {
-      const offsetX = newPosition.x - this.anchor.start.x
-      const offsetY = newPosition.y - this.anchor.start.y
+      const offsetX = newPosition.x - this.anchor.clickPos.x
+      const offsetY = newPosition.y - this.anchor.clickPos.y
       return { offsetX, offsetY }
     },
     setPositionByOffset ({ offsetX, offsetY }) {
-      this.curLayout = { top: this.anchor.offset.y + offsetY }
-      this.curLayout = { left: this.anchor.offset.x + offsetX }
+      this.curLayout = { top: this.anchor.elemPos.y + offsetY }
+      this.curLayout = { left: this.anchor.elemPos.x + offsetX }
     },
 
     /* Resizer & Rotater */
@@ -284,25 +294,27 @@ export default {
       this.active.rotater = true
       this.calcAnchor(e)
     },
-    calcWH (direction, offset) {
+    calcWH (direction, offsets) {
+      const { sin, cos, sqrt } = Math
       const { degree } = this.curLayout
-      const { offsetX, offsetY } = offset
-      const { x: anchorX, y: anchorY } = this.anchor.offset
-      const { w, h } = this.anchor.size
+      const { offsetX, offsetY } = offsets
+      const offset = sqrt(offsetX ** 2, offsetY ** 2)
+      const { x: anchorX, y: anchorY } = this.anchor.elemPos
+      const { w, h } = this.anchor.elemSize
 
       const safe = n => {
-        const isSafe = n === 0 || (Math.max(0, n) > 0)
+        const safeNum = 0
+        const isSafe = n === safeNum || (Math.max(safeNum, n) > safeNum)
         if (!isSafe) {
           throw new Error('break')
         } else {
-          return Math.max(0, n)
+          return Math.max(safeNum, n)
         }
       }
       const getArc = (fn, d) => fn(d * Math.PI / 180)
-      const sin = Math.sin
-      const cos = Math.cos
 
       try {
+        let offsetVector = null
         switch (direction) {
           case 'left':
             this.curLayout = {
@@ -313,8 +325,9 @@ export default {
             break
           case 'right':
             this.curLayout = {
-              top: anchorY + getArc(sin, degree) * offsetX / 2,
-              width: safe(w + getArc(cos, degree) * offsetX)
+              // top: anchorY + getArc(sin, degree) * offset / 2,
+              // left: anchorX + getArc(cos, degree) * offset / 2,
+              width: safe(w + getArc(sin, degree) * offsetY + getArc(cos, degree) * offsetX)
             }
             break
           case 'top':
@@ -325,9 +338,13 @@ export default {
             }
             break
           case 'bottom':
+            offsetVector = getArc(sin, degree + 90) * offsetY + getArc(cos, degree + 90) * offsetX
             this.curLayout = {
-              left: anchorX + getArc(cos, degree + 90) * offsetY / 2,
-              height: safe(h + getArc(sin, degree + 90) * offsetY)
+              // top: anchorY - (2 * offsetVector - getArc(cos, degree) * offsetVector - getArc(cos, degree + 180) * offsetVector),
+              // left: anchorX + getArc(cos, degree + 90) * offsetY / 2,
+              // top: anchorY - (1 / 2) * offsetVector,
+              top: anchorY - offsetVector / (1 / sqrt(2)),
+              height: safe(h + offsetVector)
             }
             break
         }
@@ -337,8 +354,8 @@ export default {
     },
     calcRotate (e, { x, y }) {
       const [offsetX, offsetY] = [
-        x - this.anchor.center.x,
-        y - this.anchor.center.y
+        x - this.anchor.elemBoundingCenter.x,
+        y - this.anchor.elemBoundingCenter.y
       ]
       const initial = this.anchor.rotate
       const degree = (Math.atan2(offsetY, offsetX) / (Math.PI / 180)) - initial
@@ -358,7 +375,9 @@ export default {
         const preferDegree = toCheck.find(x => (abs(abs(n) - abs(x)) < preferThreshold))
         return preferDegree == null ? n : preferDegree
       }
-      this.curLayout = { degree: preferDegree((+degree.toFixed(1)) % 360) }
+      this.curLayout = {
+        degree: preferDegree(+degree % 360)
+      }
     },
     stopEvent (e) {
       e.stopPropagation()
