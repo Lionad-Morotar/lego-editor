@@ -17,13 +17,14 @@ const name = process.argv[2]
 const moduleSavePath = path.resolve(__dirname, '../../modules', name)
 
 /* 生成 components.json */
-const componentsFile = require('../../modules/components.json')
+const componentJSONFile = '../../modules/components.json'
+const componentsFile = require(componentJSONFile)
 if (componentsFile[name]) {
   console.error(`模块 ${name} 已存在，请重新命名。`)
   process.exit(1)
 }
 componentsFile[name] = `./modules/${name}`
-fileSave(path.join(__dirname, '../../components.json'))
+fileSave(path.join(__dirname, componentJSONFile))
   .write(JSON.stringify(componentsFile, null, '  '), 'utf8')
   .end('\n')
 

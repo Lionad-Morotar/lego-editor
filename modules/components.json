@@ -1,10 +1,10 @@
 {
-  "button": "./button",
-  "compare": "./compare",
   "header": "./header",
+  "textarea": "./textarea",
   "image": "./image",
-  "procedure": "./procedure",
   "slider": "./slider",
+  "button": "./button",
   "space": "./space",
-  "textarea": "./textarea"
+  "procedure": "./procedure",
+  "compare": "./compare"
 }
