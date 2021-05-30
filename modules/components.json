@@ -6,6 +6,5 @@
   "button": "./button",
   "space": "./space",
   "procedure": "./procedure",
-  "compare": "./compare",
-  "button-a": "./modules/button-a"
+  "compare": "./compare"
 }

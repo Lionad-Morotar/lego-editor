@@ -13,7 +13,7 @@ const fileSave = require('file-save')
 
 // TODO 校验 name，kabe-case
 const title = process.argv[2]
-// const description = process.argv[3] || title
+const description = process.argv[3] || title
 const moduleSavePath = path.resolve(__dirname, '../../modules', title)
 
 /* 生成 components.json */
@@ -23,7 +23,7 @@ if (componentsFile[title]) {
   console.error(`模块 ${title} 已存在，请重新命名。`)
   process.exit(1)
 }
-componentsFile[title] = `./modules/${title}`
+componentsFile[title] = `./${title}`
 fileSave(path.join(__dirname, componentJSONFile))
   .write(JSON.stringify(componentsFile, null, '  '), 'utf8')
   .end('\n')
@@ -50,7 +50,7 @@ function getFileTemplates () {
 </template>
 
 <script>
-import Props from '@/models/props'
+// import Props from '@/models/props'
 export default {
   name: 'lego-${title}',
   props: {
@@ -64,6 +64,16 @@ export default {
 .lego-${title} {
 }
 </style>`
+    },
+    {
+      filename: 'meta.json',
+      content: `{
+  "title": "${title}",
+  "description": "${description}",
+  "cover": "",
+  "is-base-category": false,
+  "categories": []
+}`
     }
   ]
 }

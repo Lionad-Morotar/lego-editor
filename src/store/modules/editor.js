@@ -1,4 +1,4 @@
-import { ModuleTypeEnums } from '@/constant'
+import { ModuleTypeEnums } from 'constant'
 import utils from '@/utils'
 import { installPreviewElement, installElement } from '@/segments/element'
 

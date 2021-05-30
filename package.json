@@ -42,9 +42,11 @@
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^6.2.2",
     "file-save": "^0.2.0",
+    "json-templater": "^1.2.0",
     "lint-staged": "^10.5.4",
     "node-sass": "4.14.1",
     "sass-loader": "^8.0.2",
+    "uppercamelcase": "^3.0.0",
     "vue-template-compiler": "^2.6.11"
   },
   "lint-staged": {
