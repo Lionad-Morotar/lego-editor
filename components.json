@@ -1,0 +1,11 @@
+{
+  "button": "./button",
+  "compare": "./compare",
+  "header": "./header",
+  "image": "./image",
+  "procedure": "./procedure",
+  "slider": "./slider",
+  "space": "./space",
+  "textarea": "./textarea",
+  "button-a": "./modules/button-a"
+}
