@@ -298,7 +298,7 @@ export default {
       const { sin, cos, sqrt } = Math
       const { degree } = this.curLayout
       const { offsetX, offsetY } = offsets
-      const offset = sqrt(offsetX ** 2, offsetY ** 2)
+      // const offset = sqrt(offsetX ** 2, offsetY ** 2)
       const { x: anchorX, y: anchorY } = this.anchor.elemPos
       const { w, h } = this.anchor.elemSize
 

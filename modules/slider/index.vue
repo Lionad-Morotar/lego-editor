@@ -25,7 +25,7 @@
 <script>
 import Props from '@/models/props'
 import Forms from '@/forms'
-import { pass } from '@/modules/utils'
+import { pass } from 'modules/utils'
 import Panel from './panel/index'
 import Loop from './panel/loop'
 import AutoPlay from './panel/autoplay'

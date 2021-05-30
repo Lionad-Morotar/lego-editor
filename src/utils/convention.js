@@ -3,7 +3,7 @@
  */
 
 // 判断数据是否符合安装模块所需的数据格式，
-// 对应示例见 @/modules/index
+// 对应示例见 modules/index
 const validInitModuleData = inits => {
   const validator = {
     title: v => typeof v === 'string' && v.length > 0,

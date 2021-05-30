@@ -10,7 +10,7 @@ import { mapGetters, mapActions, mapMutations } from 'vuex'
 import Forms from '@/forms'
 import Editor from './index.vue'
 import DefaultTemplate from '@/templates'
-import DefaultModule from '@/modules'
+import DefaultModule from 'modules'
 import store from './store'
 import utils from './utils'
 

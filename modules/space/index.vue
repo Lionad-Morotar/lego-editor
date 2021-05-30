@@ -4,7 +4,7 @@
 
 <script>
 import Props from '@/models/props'
-import { pass, zip } from '@/modules/utils'
+import { pass, zip } from 'modules/utils'
 import Forms from '@/forms'
 import Height from './panel/height'
 export default {

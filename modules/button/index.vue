@@ -1,6 +1,6 @@
 <script>
 import Props from '@/models/props'
-import { pass } from '@/modules/utils'
+import { pass } from 'modules/utils'
 import Forms from '@/forms'
 
 export default {
