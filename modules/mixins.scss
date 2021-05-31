@@ -1,0 +1,50 @@
+/***************** BEM *****************/
+
+$ns: 'm';
+$e-sep: '__';
+$m-sep: '--';
+$is: 'is-';
+
+@mixin b($block) {
+  $B: $ns+'-'+$block !global;
+
+  .#{$B} {
+    @content;
+  }
+}
+
+@mixin e($element) {
+  $E: $element !global;
+  $selector: &;
+  $cur: "";
+  @each $unit in $element {
+    $cur: #{$cur + "." + $B + $e-sep + $unit + ","};
+  }
+  @at-root {
+    #{$cur} {
+      @content;
+    }
+  }
+}
+
+@mixin m($modifier) {
+  $selector: &;
+  $cur: "";
+  @each $unit in $modifier {
+    $cur: #{$cur + & + $m-sep + $unit + ","};
+  }
+
+  @at-root {
+    #{$cur} {
+      @content;
+    }
+  }
+}
+
+@mixin is($state) {
+  @at-root {
+    &.#{$is + $state} {
+      @content;
+    }
+  }
+}
