@@ -13,6 +13,7 @@ import Props from '@/models/props'
 import { pass, zip } from 'modules/utils'
 import Forms from '@/forms'
 import Height from './panel/height'
+// TODO 没有 description 时，closebtn 和 title 同 line-height
 export default {
   name: 'm-alert',
   props: {
