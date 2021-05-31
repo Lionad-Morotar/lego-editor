@@ -10,6 +10,12 @@
       "auto": true,
       "lock": false,
       "degree": 0,
+      "margin": [
+        0, 
+        0, 
+        0, 
+        0
+      ],
       "padding": [
         0,
         0,
@@ -37,7 +43,7 @@
     "interval": 2000,
     "images": [
       {
-        "url": "https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/slider/default.png",
+        "url": "https://lego-editor.oss-cn-shanghai.aliyuncs.com/preview/modules/slider/default.png",
         "objectFit": "contain",
         "objectPosition": "center"
       }
@@ -54,6 +60,12 @@
       "auto": true,
       "lock": false,
       "degree": 0,
+      "margin": [
+        0, 
+        0, 
+        0, 
+        0
+      ],
       "padding": [
         0,
         0,
@@ -99,6 +111,12 @@
       "auto": true,
       "lock": false,
       "degree": 0,
+      "margin": [
+        0, 
+        0, 
+        0, 
+        0
+      ],
       "padding": [
         0,
         0,
@@ -144,6 +162,12 @@
       "auto": false,
       "lock": false,
       "degree": -45,
+      "margin": [
+        0, 
+        0, 
+        0, 
+        0
+      ],
       "padding": [
         15,
         15,
@@ -189,6 +213,12 @@
       "auto": false,
       "lock": false,
       "degree": 0,
+      "margin": [
+        0, 
+        0, 
+        0, 
+        0
+      ],
       "padding": [
         0,
         0,
@@ -234,6 +264,12 @@
       "auto": true,
       "lock": true,
       "degree": 0,
+      "margin": [
+        0, 
+        0, 
+        0, 
+        0
+      ],
       "padding": [
         0,
         0,
@@ -267,6 +303,12 @@
       "auto": true,
       "lock": false,
       "degree": 0,
+      "margin": [
+        0, 
+        0, 
+        0, 
+        0
+      ],
       "padding": [
         0,
         0,
@@ -289,7 +331,7 @@
       "bgColor": ""
     },
     "image": {
-      "url": "https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/image/default.png",
+      "url": "https://lego-editor.oss-cn-shanghai.aliyuncs.com/images/default.png",
       "points": null
     }
   }

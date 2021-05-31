@@ -28,6 +28,7 @@ const DS = {
       lock: false,
       lockLayout: false,
       degree: 0,
+      margin: [0, 0, 0, 0],
       padding: [0, 0, 0, 0],
       top: 0,
       left: 0,
@@ -77,6 +78,7 @@ const genStyles = (val = {}, options = {}) => {
     // layout
     auto,
     degree,
+    margin,
     padding,
     top,
     left,
@@ -118,6 +120,9 @@ const genStyles = (val = {}, options = {}) => {
       res.transform.push(`rotate(${degree}deg)`)
       res.zIndex = 1
     }
+  }
+  if (notEmpty(margin)) {
+    res.margin = margin.map(x => x + 'px').join(' ')
   }
   if (notEmpty(padding)) {
     res.padding = padding.map(x => x + 'px').join(' ')

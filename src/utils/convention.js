@@ -8,7 +8,7 @@ const validInitModuleData = inits => {
   const validator = {
     title: v => typeof v === 'string' && v.length > 0,
     description: () => true,
-    thanks: () => true,
+    // thanks: () => true,
     component: v => typeof v === 'object',
     name: v => typeof v === 'string' && v.length > 0,
     cover: () => true,

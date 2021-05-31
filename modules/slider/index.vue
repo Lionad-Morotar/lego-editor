@@ -59,7 +59,7 @@ export default {
       component: Panel,
       default: [
         Props.merge(Props.DS.image, {
-          url: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/slider/default.png'
+          url: 'https://lego-editor.oss-cn-shanghai.aliyuncs.com/preview/modules/slider/default.png'
         })
       ]
     })

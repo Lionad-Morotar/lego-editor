@@ -1,7 +1,7 @@
 {
   "title": "基础文本",
   "description": "基础文本",
-  "cover": "https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/preview-basic-textarea.png",
+  "cover": "https://lego-editor.oss-cn-shanghai.aliyuncs.com/preview/modules/preview-basic-textarea.png",
   "is-base-category": true,
   "categories": ["文本模块"]
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="config-item">
-    <div class="config-item-label">{{ $attrs.label || '内容' }}</div>
+    <div class="config-item-label">{{ $attrs.label }}</div>
     <div class="config-item-content">
       <el-input v-model="v" spellcheck="false" />
     </div>

@@ -10,6 +10,12 @@
       "auto": true,
       "lock": true,
       "degree": 0,
+      "margin": [
+        0, 
+        0, 
+        0, 
+        0
+      ],
       "padding": [
         0,
         0,
@@ -37,7 +43,7 @@
     "interval": 4000,
     "images": [
       {
-        "url": "https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/slider/default.png",
+        "url": "https://lego-editor.oss-cn-shanghai.aliyuncs.com/preview/modules/slider/default.png",
         "points": [
           1,
           0,
@@ -46,7 +52,7 @@
         ]
       },
       {
-        "url": "https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/slider/default.png",
+        "url": "https://lego-editor.oss-cn-shanghai.aliyuncs.com/preview/modules/slider/default.png",
         "points": [
           1,
           0,
@@ -67,6 +73,12 @@
       "auto": true,
       "lock": false,
       "degree": 0,
+      "margin": [
+        0, 
+        0, 
+        0, 
+        0
+      ],
       "padding": [
         0,
         0,
@@ -112,6 +124,12 @@
       "auto": true,
       "lock": false,
       "degree": 0,
+      "margin": [
+        0, 
+        0, 
+        0, 
+        0
+      ],
       "padding": [
         0,
         0,
@@ -157,6 +175,12 @@
       "auto": true,
       "lock": false,
       "degree": 0,
+      "margin": [
+        0, 
+        0, 
+        0, 
+        0
+      ],
       "padding": [
         0,
         0,
@@ -179,7 +203,7 @@
       "bgColor": ""
     },
     "image": {
-      "url": "https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/image/default.png",
+      "url": "https://lego-editor.oss-cn-shanghai.aliyuncs.com/images/default.png",
       "points": [
         0,
         0,
@@ -199,6 +223,12 @@
       "auto": true,
       "lock": false,
       "degree": 0,
+      "margin": [
+        0, 
+        0, 
+        0, 
+        0
+      ],
       "padding": [
         0,
         0,
@@ -244,6 +274,12 @@
       "auto": true,
       "lock": false,
       "degree": 0,
+      "margin": [
+        0, 
+        0, 
+        0, 
+        0
+      ],
       "padding": [
         0,
         0,
@@ -289,6 +325,12 @@
       "auto": true,
       "lock": false,
       "degree": 0,
+      "margin": [
+        0, 
+        0, 
+        0, 
+        0
+      ],
       "padding": [
         0,
         0,
@@ -311,7 +353,7 @@
       "bgColor": ""
     },
     "image": {
-      "url": "https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/image/default.png",
+      "url": "https://lego-editor.oss-cn-shanghai.aliyuncs.com/images/default.png",
       "points": [
         0,
         0,
@@ -331,6 +373,12 @@
       "auto": true,
       "lock": false,
       "degree": 0,
+      "margin": [
+        0, 
+        0, 
+        0, 
+        0
+      ],
       "padding": [
         0,
         0,
@@ -376,6 +424,12 @@
       "auto": true,
       "lock": false,
       "degree": 0,
+      "margin": [
+        0, 
+        0, 
+        0, 
+        0
+      ],
       "padding": [
         0,
         0,
@@ -421,6 +475,12 @@
       "auto": true,
       "lock": false,
       "degree": 0,
+      "margin": [
+        0, 
+        0, 
+        0, 
+        0
+      ],
       "padding": [
         0,
         0,
@@ -443,7 +503,7 @@
       "bgColor": ""
     },
     "image": {
-      "url": "https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/image/default.png",
+      "url": "https://lego-editor.oss-cn-shanghai.aliyuncs.com/images/default.png",
       "points": [
         0,
         0,
@@ -463,6 +523,12 @@
       "auto": true,
       "lock": false,
       "degree": 0,
+      "margin": [
+        0, 
+        0, 
+        0, 
+        0
+      ],
       "padding": [
         0,
         0,
@@ -508,6 +574,12 @@
       "auto": true,
       "lock": false,
       "degree": 0,
+      "margin": [
+        0, 
+        0, 
+        0, 
+        0
+      ],
       "padding": [
         0,
         0,
@@ -553,6 +625,12 @@
       "auto": true,
       "lock": false,
       "degree": 0,
+      "margin": [
+        0, 
+        0, 
+        0, 
+        0
+      ],
       "padding": [
         0,
         0,
@@ -575,7 +653,7 @@
       "bgColor": ""
     },
     "image": {
-      "url": "https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/image/default.png",
+      "url": "https://lego-editor.oss-cn-shanghai.aliyuncs.com/images/default.png",
       "points": [
         0,
         0,
