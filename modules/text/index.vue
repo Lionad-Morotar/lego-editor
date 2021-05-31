@@ -1,11 +1,11 @@
 <template>
-  <div class="lego-text" :style="styles">{{ text.text }}</div>
+  <div class="m-text" :style="styles">{{ text.text }}</div>
 </template>
 
 <script>
 import Props from '@/models/props'
 export default {
-  name: 'lego-text',
+  name: 'm-text',
   props: {
     text: Props.text({
       label: '文本内容',
@@ -27,7 +27,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.lego-text {
+.m-text {
   white-space: nowrap;
 }
 </style>

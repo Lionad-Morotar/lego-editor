@@ -46,13 +46,13 @@ function getFileTemplates () {
     {
       filename: 'index.vue',
       content: `<template>
-  <div class="lego-${title}" />
+  <div class="m-${title}" />
 </template>
 
 <script>
 // import Props from '@/models/props'
 export default {
-  name: 'lego-${title}',
+  name: 'm-${title}',
   props: {
   },
   computed: {
@@ -61,7 +61,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.lego-${title} {
+.m-${title} {
 }
 </style>`
     },

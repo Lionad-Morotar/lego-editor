@@ -8,18 +8,19 @@ const validInitModuleData = inits => {
   const validator = {
     title: v => typeof v === 'string' && v.length > 0,
     description: () => true,
-    name: v => typeof v === 'string' && v.length > 0,
+    thanks: () => true,
     component: v => typeof v === 'object',
-    cover: v => typeof v === 'string' && v.length > 0,
+    name: v => typeof v === 'string' && v.length > 0,
+    cover: () => true,
+    // cover: v => typeof v === 'string' && v.length > 0,
     categories: v => v instanceof Array
   }
   const toValidKeys = Object.keys(inits)
-
-  const validKeys = () => toValidKeys.every(key => {
-    return validator[key] && validator[key](inits[key])
+  const errorKey = toValidKeys.find(key => {
+    return !(validator[key] && validator[key](inits[key]))
   })
 
-  return validKeys()
+  return errorKey
 }
 
 export default {

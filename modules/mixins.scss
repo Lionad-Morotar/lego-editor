@@ -7,7 +7,6 @@ $is: 'is-';
 
 @mixin b($block) {
   $B: $ns+'-'+$block !global;
-
   .#{$B} {
     @content;
   }
@@ -33,7 +32,6 @@ $is: 'is-';
   @each $unit in $modifier {
     $cur: #{$cur + & + $m-sep + $unit + ","};
   }
-
   @at-root {
     #{$cur} {
       @content;

@@ -1,5 +1,5 @@
 <template>
-  <div class="lego-procedure">
+  <div class="m-procedure">
     <procedure-header />
     <div class="container">
       <procedure
@@ -19,7 +19,7 @@ import ProcedureHeader from './procedure-header'
 import Procedure from './procedure'
 import ConfigCounts from './panel/config-counts'
 export default {
-  name: 'lego-procedure',
+  name: 'm-procedure',
   props: {
     procedures: Props.custom({
       type: Array,
@@ -76,7 +76,7 @@ export default {
 </script>
 
 <style lang="scss">
-.lego-procedure {
+.m-procedure {
   padding: 24px 16px;
   background: white;
 

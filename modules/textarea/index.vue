@@ -1,11 +1,11 @@
 <template>
-  <div class="lego-textarea" :style="styles">{{ text.text }}</div>
+  <div class="m-textarea" :style="styles">{{ text.text }}</div>
 </template>
 
 <script>
 import Props from '@/models/props'
 export default {
-  name: 'lego-textarea',
+  name: 'm-textarea',
   props: {
     layout: Props.layout(),
     text: Props.textarea({
@@ -30,7 +30,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.lego-textarea {
+.m-textarea {
   word-break: break-all;
   white-space: break-spaces;
 }

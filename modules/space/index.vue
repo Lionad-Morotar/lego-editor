@@ -1,5 +1,5 @@
 <template>
-  <div class="lego-space" :style="styles" />
+  <div class="m-space" :style="styles" />
 </template>
 
 <script>
@@ -8,7 +8,7 @@ import { pass, zip } from 'modules/utils'
 import Forms from '@/forms'
 import Height from './panel/height'
 export default {
-  name: 'lego-space',
+  name: 'm-space',
   resizable: true,
   props: {
     layout: Props.layout({
@@ -34,7 +34,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.lego-space {
+.m-space {
   width: 100%;
 }
 </style>

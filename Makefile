@@ -6,4 +6,5 @@ help:
 
 new:
 	node build/bin/new-module.js $(filter-out $@,$(MAKECMDGOALS))
+	# gulp watch
 	node build/bin/modules-entry.js

@@ -12,7 +12,7 @@ import Button from './button'
 import Space from './space'
 import Procedure from './procedure'
 import Compare from './compare'
-// import Alert from './alert'
+import Alert from './alert'
 
 export default {
   getDefaultModuleList () {
@@ -25,7 +25,7 @@ export default {
         "文本模块"
       ],
       "component": Text,
-      "name": "lego-text"
+      "name": "m-text"
     },
     {
       "title": "基础文本",
@@ -36,7 +36,7 @@ export default {
         "文本模块"
       ],
       "component": Textarea,
-      "name": "lego-textarea"
+      "name": "m-textarea"
     },
     {
       "title": "图片模块",
@@ -47,7 +47,7 @@ export default {
         "图片模块"
       ],
       "component": Image,
-      "name": "lego-image"
+      "name": "m-image"
     },
     {
       "title": "轮播模块",
@@ -58,7 +58,7 @@ export default {
         "图片模块"
       ],
       "component": Slider,
-      "name": "lego-slider"
+      "name": "m-slider"
     },
     {
       "title": "按钮模块",
@@ -69,7 +69,7 @@ export default {
         "按钮模块"
       ],
       "component": Button,
-      "name": "lego-button"
+      "name": "m-button"
     },
     {
       "title": "空白占位",
@@ -80,7 +80,7 @@ export default {
         "分隔模块"
       ],
       "component": Space,
-      "name": "lego-space"
+      "name": "m-space"
     },
     {
       "title": "流程模块",
@@ -90,7 +90,7 @@ export default {
         "流程模块"
       ],
       "component": Procedure,
-      "name": "lego-procedure"
+      "name": "m-procedure"
     },
     {
       "title": "对比模块",
@@ -100,16 +100,19 @@ export default {
         "对比模块"
       ],
       "component": Compare,
-      "name": "lego-compare"
+      "name": "m-compare"
     },
-    // {
-    //   "title": "alert",
-    //   "description": "alert",
-    //   "cover": "",
-    //   "categories": [],
-    //   "component": Alert,
-    //   "name": "lego-alert"
-    // }
-  ])
+    {
+      "title": "提示文本",
+      "description": "用于页面中展示重要的提示信息",
+      "thanks": "https://element.eleme.cn/#/zh-CN/component/alert",
+      "cover": "",
+      "categories": [
+        "基础模块",
+        "分隔模块"
+      ],
+      "component": Alert,
+      "name": "m-alert"
+    }])
   }
 }

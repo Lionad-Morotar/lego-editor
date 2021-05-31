@@ -4,7 +4,7 @@
       "uuid": "1617636311918_686086",
       "title": "轮播模块",
       "description": "轮播图",
-      "name": "lego-slider"
+      "name": "m-slider"
     },
     "layout": {
       "auto": true,
@@ -48,7 +48,7 @@
       "uuid": "1617636311918_979986",
       "title": "单行文本",
       "description": "基础单行文本模块，可以调节字体大小，颜色等样式",
-      "name": "lego-text"
+      "name": "m-text"
     },
     "layout": {
       "auto": true,
@@ -93,7 +93,7 @@
       "uuid": "1617636311919_705892",
       "title": "文本区域",
       "description": "基础文本区域",
-      "name": "lego-textarea"
+      "name": "m-textarea"
     },
     "layout": {
       "auto": true,
@@ -138,7 +138,7 @@
       "uuid": "1617636311919_335453",
       "title": "按钮模块",
       "description": "基础按钮模块",
-      "name": "lego-button"
+      "name": "m-button"
     },
     "layout": {
       "auto": false,
@@ -183,7 +183,7 @@
       "uuid": "1617636311919_013802",
       "title": "单行文本",
       "description": "基础单行文本模块，可以调节字体大小，颜色等样式",
-      "name": "lego-text"
+      "name": "m-text"
     },
     "layout": {
       "auto": false,
@@ -228,7 +228,7 @@
       "uuid": "1617636311919_278265",
       "title": "空白占位",
       "description": "空白占位模块，可以用来填充自由布局模块的背景",
-      "name": "lego-space"
+      "name": "m-space"
     },
     "layout": {
       "auto": true,
@@ -261,7 +261,7 @@
       "uuid": "1617636311920_571529",
       "title": "图片模块",
       "description": "基础图片模块",
-      "name": "lego-image"
+      "name": "m-image"
     },
     "layout": {
       "auto": true,

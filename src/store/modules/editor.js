@@ -122,7 +122,10 @@ const actions = {
   INSTALL_MODULES ({ commit }, { modules, isPreview = false }) {
     const install = isPreview ? installElement : installPreviewElement
     const installs = mlist => mlist.map(newModule => {
-      if (utils.validInitModuleData(newModule)) {
+      const validErr = utils.validInitModuleData(newModule)
+      if (validErr) {
+        utils.warn('模块安装失败，元信息校验错误', validErr, newModule)
+      } else {
         const wrappedModule = install(newModule)
         commit('ADD_MODULE', {
           module: wrappedModule,

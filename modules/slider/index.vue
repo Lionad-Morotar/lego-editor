@@ -1,6 +1,6 @@
 <template>
   <el-carousel
-    class="lego-slider"
+    class="m-slider"
     arrow="never"
     :height="'200px'"
     :loop="loop"
@@ -13,7 +13,7 @@
       :key="image.url+idx">
       <div class="clip-rect">
         <img
-          class="lego-slider-item"
+          class="m-slider-item"
           :src="image.url"
           :style="styles[idx]"
         />
@@ -29,7 +29,7 @@ import { pass } from 'modules/utils'
 import Panel from './panel/index'
 import AutoPlayInterval from './panel/autoplay-interval'
 export default {
-  name: 'lego-slider',
+  name: 'm-slider',
   props: {
     layout: Props.layout({
       component: pass(Forms.Layout, {
@@ -86,10 +86,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.lego-slider {
+.m-slider {
   background: #f2f2f2;
 
-  .lego-slider-item {
+  .m-slider-item {
     width: 100%;
     height: auto;
   }

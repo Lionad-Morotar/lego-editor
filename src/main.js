@@ -30,7 +30,7 @@ Vue.use(Gesture)
 Vue.prototype.$utils = utils
 
 const LegoEditor = new Vue({
-  name: 'lego-editor',
+  name: 'm-editor',
   store,
   computed: {
     ...mapGetters('editor', [

@@ -18,7 +18,7 @@ const metas = names.map(name => {
 
   requires.push(`import ${upperName} from '${components[name]}'`)
   meta.component = upperName
-  meta.name = `lego-${name}`
+  meta.name = `m-${name}`
   if (meta['is-base-category']) {
     const cates = (meta.categories || [])
     cates.unshift(baseType)

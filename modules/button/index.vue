@@ -4,7 +4,7 @@ import { pass } from 'modules/utils'
 import Forms from '@/forms'
 
 export default {
-  name: 'lego-button',
+  name: 'm-button',
   inline: true,
   // resizer 是否应该默认就有？
   resizable: true,
@@ -32,7 +32,7 @@ export default {
   },
   render () {
     return (
-      <div class="lego-button" style={this.styles} onClick={this.handleClick}>
+      <div class="m-button" style={this.styles} onClick={this.handleClick}>
         <button-label />
       </div>
     )
@@ -72,7 +72,7 @@ function ButtonLabel () {
 </script>
 
 <style lang="scss" scoped>
-.lego-button {
+.m-button {
   display: inline-block;
   box-sizing: border-box;
   margin: 0;
