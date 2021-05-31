@@ -219,10 +219,15 @@ const Props = {
    * 可类比为 VueJS 中给 Props 传入的 Type
    */
 
-  bool (config = false) {
+  bool (config = {}) {
+    const defaultVal =
+      typeof config === 'boolean'
+        ? config
+        : config.default || false
     return new Prop(
       {
         type: Boolean,
+        default: defaultVal,
         component: Forms.Switch
       },
       config
@@ -230,9 +235,14 @@ const Props = {
   },
 
   string (config = {}) {
+    const defaultVal =
+      typeof config === 'string'
+        ? config
+        : config.default || ''
     return new Prop(
       {
         type: String,
+        default: defaultVal,
         component: Forms.String
       },
       config
@@ -240,9 +250,14 @@ const Props = {
   },
 
   number (config = {}) {
+    const defaultVal =
+      typeof config === 'number'
+        ? config
+        : config.default || 0
     return new Prop(
       {
         type: Number,
+        default: defaultVal,
         component: Forms.Number
       },
       config
