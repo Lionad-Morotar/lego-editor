@@ -1,6 +1,6 @@
 <template>
   <div class="config-item">
-    <div class="config-item-header">高度</div>
+    <div class="config-item-label">高度</div>
     <div class="config-item-content">
       <forms-slider
         :min="5"

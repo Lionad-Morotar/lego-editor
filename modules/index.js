@@ -12,6 +12,7 @@ import Button from './button'
 import Space from './space'
 import Procedure from './procedure'
 import Compare from './compare'
+// import Alert from './alert'
 
 export default {
   getDefaultModuleList () {
@@ -100,6 +101,15 @@ export default {
       ],
       "component": Compare,
       "name": "lego-compare"
-    }])
+    },
+    // {
+    //   "title": "alert",
+    //   "description": "alert",
+    //   "cover": "",
+    //   "categories": [],
+    //   "component": Alert,
+    //   "name": "lego-alert"
+    // }
+  ])
   }
 }

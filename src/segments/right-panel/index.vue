@@ -17,7 +17,7 @@
           </div>
         </div>
         <div class="config-item">
-          <div class="config-item-header">自动排版</div>
+          <div class="config-item-label">自动排版</div>
           <div class="config-item-content">
             <el-switch
               v-model="selected.layout.auto"

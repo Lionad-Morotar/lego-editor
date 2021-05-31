@@ -2,7 +2,7 @@
   <div class="config-item-segment">
     <!-- 应该跟随模块的宽高变化 min、max -->
     <div class="config-item" v-if="display('padding')">
-      <div class="config-item-header">边距</div>
+      <div class="config-item-label">边距</div>
       <div class="config-item-content">
         <transition name="fade-fast">
           <span class="close-tip" v-if="editPaddingKey" @click="editPadding('')">关闭</span>
@@ -29,7 +29,7 @@
     </div>
 
     <div class="config-item" v-if="display('border')">
-      <div class="config-item-header">边框</div>
+      <div class="config-item-label">边框</div>
       <div class="config-item-content">
         <transition name="fade-fast">
           <span class="close-tip" v-if="editBorderKey" @click="editBorder('')">关闭</span>
@@ -64,7 +64,7 @@
     </div>
 
     <div class="config-item" v-if="display('radius')">
-      <div class="config-item-header">圆角</div>
+      <div class="config-item-label">圆角</div>
       <div class="config-item-content">
         <slider
           v-model="value.radius"
@@ -76,7 +76,7 @@
     </div>
 
     <div class="config-item config-color" v-if="display('bgColor')">
-      <div class="config-item-header">背景颜色</div>
+      <div class="config-item-label">背景颜色</div>
       <div class="config-item-content">
         <div
           class="icon"

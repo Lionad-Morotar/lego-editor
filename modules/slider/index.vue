@@ -27,10 +27,7 @@ import Props from '@/models/props'
 import Forms from '@/forms'
 import { pass } from 'modules/utils'
 import Panel from './panel/index'
-import Loop from './panel/loop'
-import AutoPlay from './panel/autoplay'
 import AutoPlayInterval from './panel/autoplay-interval'
-import Indicator from './panel/indicator'
 export default {
   name: 'lego-slider',
   props: {
@@ -42,16 +39,16 @@ export default {
         lockLayout: true
       }
     }),
-    indicator: Props.custom({
-      component: Indicator,
+    indicator: Props.bool({
+      label: '指示器',
       default: true
     }),
-    loop: Props.custom({
-      component: Loop,
+    loop: Props.bool({
+      label: '循环播放',
       default: true
     }),
-    autoplay: Props.custom({
-      component: AutoPlay,
+    autoplay: Props.bool({
+      label: '自动播放',
       default: false
     }),
     interval: Props.custom({

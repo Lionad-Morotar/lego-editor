@@ -1,8 +1,8 @@
 <template>
   <div class="config-item">
-    <div class="config-item-label">{{ $attrs.label || '内容' }}</div>
+    <div class="config-item-label">{{$attrs.label}}</div>
     <div class="config-item-content">
-      <el-input v-model="v" spellcheck="false" />
+      <el-switch :value="value" @change="v => $emit('change', v)" />
     </div>
   </div>
 </template>
@@ -21,7 +21,6 @@ export default {
   },
   watch: {
     v: {
-      deep: true,
       handler (newValue) {
         this.$emit('change', newValue)
       }
