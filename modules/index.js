@@ -4,7 +4,7 @@
 
 import clone from 'lodash.clonedeep'
 
-import Header from './header'
+import Text from './text'
 import Textarea from './textarea'
 import Image from './image'
 import Slider from './slider'
@@ -23,8 +23,8 @@ export default {
         "基础模块",
         "文本模块"
       ],
-      "component": Header,
-      "name": "lego-header"
+      "component": Text,
+      "name": "lego-text"
     },
     {
       "title": "基础文本",
