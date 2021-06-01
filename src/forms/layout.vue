@@ -67,8 +67,8 @@
       <div class="config-item-label">高度</div>
       <div class="config-item-content">
         <forms-slider
-          :min="5"
-          :max="100"
+          :min="minHeight"
+          :max="maxHeight"
           :step="1"
           :value="value.height"
           @change="v => value.height = v"
@@ -143,6 +143,15 @@ export default {
     }
   },
   computed: {
+    minHeight () {
+      const { padding = [0, 0, 0, 0], minHeight } = this.value
+      return (minHeight != null)
+        ? minHeight
+        : (padding[0] + padding[2])
+    },
+    maxHeight () {
+      return 100
+    },
     maxRadius () {
       const { width, height } = this.value
       return Math.max(10, Math.min(half(width), half(height)))
