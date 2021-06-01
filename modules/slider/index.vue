@@ -33,7 +33,7 @@ export default {
   props: {
     layout: Props.layout({
       component: pass(Forms.Layout, {
-        disable: ['padding', 'border', 'bgColor']
+        use: ['radius']
       }),
       default: {
         lockLayout: true
