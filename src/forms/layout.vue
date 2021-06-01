@@ -17,7 +17,7 @@
           </div>
         </template>
         <template v-if="editPaddingKey">
-          <slider
+          <forms-slider
             v-model="value.padding[editPaddingKey]"
             :min="0"
             :max="30"
@@ -47,7 +47,7 @@
           <i class="iconfont icon-bg-colors" :style="{ color: value.borderColor }" />
         </div>
         <template v-if="editBorderKey">
-          <slider
+          <forms-slider
             v-model="value.border[editBorderKey]"
             :min="0"
             :max="10"
@@ -63,10 +63,23 @@
       </div>
     </div>
 
+    <div class="config-item" v-if="display('height')">
+      <div class="config-item-label">高度</div>
+      <div class="config-item-content">
+        <forms-slider
+          :min="5"
+          :max="100"
+          :step="1"
+          :value="value.height"
+          @change="v => value.height = v"
+        />
+      </div>
+    </div>
+
     <div class="config-item" v-if="display('radius')">
       <div class="config-item-label">圆角</div>
       <div class="config-item-content">
-        <slider
+        <forms-slider
           v-model="value.radius"
           :min="0"
           :max="maxRadius"
@@ -98,7 +111,6 @@
 <script>
 import { Chrome } from 'vue-color'
 import Props from '@/models/props'
-import Slider from './slider'
 
 const half = n => Math.floor(n / 2)
 
@@ -177,8 +189,7 @@ export default {
     }
   },
   components: {
-    ChromePicker: Chrome,
-    Slider
+    ChromePicker: Chrome
   }
 }
 </script>

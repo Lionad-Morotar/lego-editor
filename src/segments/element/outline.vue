@@ -572,6 +572,7 @@ export default {
 
   & > *:first-child {
     width: 100%;
+    overflow: hidden;
   }
 }
 </style>

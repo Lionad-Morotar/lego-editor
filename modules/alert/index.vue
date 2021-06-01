@@ -10,9 +10,8 @@
 
 <script>
 import Props from '@/models/props'
-import { pass, zip } from 'modules/utils'
+import { pass } from 'modules/utils'
 import Forms from '@/forms'
-import Height from './panel/height'
 // TODO 没有 description 时，closebtn 和 title 同 line-height
 export default {
   name: 'm-alert',
@@ -23,12 +22,9 @@ export default {
         padding: [8, 12, 8, 12],
         radius: 0
       },
-      component: zip(
-        Height,
-        pass(Forms.Layout, {
-          use: ['radius']
-        })
-      )
+      component: pass(Forms.Layout, {
+        use: ['height', 'radius']
+      })
     }),
     title: Props.string({
       label: '标题',

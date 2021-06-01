@@ -4,20 +4,16 @@
 
 <script>
 import Props from '@/models/props'
-import { pass, zip } from 'modules/utils'
+import { pass } from 'modules/utils'
 import Forms from '@/forms'
-import Height from './panel/height'
 export default {
   name: 'm-space',
   resizable: true,
   props: {
     layout: Props.layout({
-      component: zip(
-        Height,
-        pass(Forms.Layout, {
-          use: ['bgColor']
-        })
-      ),
+      component: pass(Forms.Layout, {
+        use: ['height', 'bgColor']
+      }),
       default: {
         lockLayout: true,
         width: 375,
