@@ -43,7 +43,7 @@
     "interval": 4000,
     "images": [
       {
-        "url": "https://lego-editor.oss-cn-shanghai.aliyuncs.com/preview/modules/slider/default.png",
+        "url": "https://lego-editor.oss-cn-shanghai.aliyuncs.com/defaults/slider/default.png",
         "points": [
           1,
           0,
@@ -52,7 +52,7 @@
         ]
       },
       {
-        "url": "https://lego-editor.oss-cn-shanghai.aliyuncs.com/preview/modules/slider/default.png",
+        "url": "https://lego-editor.oss-cn-shanghai.aliyuncs.com/defaults/slider/default.png",
         "points": [
           1,
           0,
@@ -203,7 +203,7 @@
       "bgColor": ""
     },
     "image": {
-      "url": "https://lego-editor.oss-cn-shanghai.aliyuncs.com/images/default.png",
+      "url": "https://lego-editor.oss-cn-shanghai.aliyuncs.com/defaults/image/default.png",
       "points": [
         0,
         0,
@@ -353,7 +353,7 @@
       "bgColor": ""
     },
     "image": {
-      "url": "https://lego-editor.oss-cn-shanghai.aliyuncs.com/images/default.png",
+      "url": "https://lego-editor.oss-cn-shanghai.aliyuncs.com/defaults/image/default.png",
       "points": [
         0,
         0,
@@ -503,7 +503,7 @@
       "bgColor": ""
     },
     "image": {
-      "url": "https://lego-editor.oss-cn-shanghai.aliyuncs.com/images/default.png",
+      "url": "https://lego-editor.oss-cn-shanghai.aliyuncs.com/defaults/image/default.png",
       "points": [
         0,
         0,
@@ -653,7 +653,7 @@
       "bgColor": ""
     },
     "image": {
-      "url": "https://lego-editor.oss-cn-shanghai.aliyuncs.com/images/default.png",
+      "url": "https://lego-editor.oss-cn-shanghai.aliyuncs.com/defaults/image/default.png",
       "points": [
         0,
         0,

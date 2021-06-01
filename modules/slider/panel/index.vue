@@ -51,7 +51,7 @@ export default {
     },
     add () {
       this.v.push(Props.merge(Props.DS.image, {
-        url: 'https://lego-editor.oss-cn-shanghai.aliyuncs.com/preview/modules/slider/default.png'
+        url: 'https://lego-editor.oss-cn-shanghai.aliyuncs.com/defaults/slider/default.png'
       }))
     },
     subtract () {

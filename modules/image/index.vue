@@ -15,7 +15,7 @@ export default {
     image: Props.image({
       label: '图片地址',
       default: {
-        url: 'https://lego-editor.oss-cn-shanghai.aliyuncs.com/images/default.png',
+        url: 'https://lego-editor.oss-cn-shanghai.aliyuncs.com/defaults/image/default.png',
         points: [0, 0, 375, 251]
       }
     })
