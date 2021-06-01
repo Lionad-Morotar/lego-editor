@@ -20,7 +20,7 @@ export default {
       default: '累计成交150万+件，是您最好的选择',
       placeholder: '请填写流程副标题'
     }),
-    line: Props.custom({
+    line: Props.bool({
       component: HeaderLine,
       default: true
     })

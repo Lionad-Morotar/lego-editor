@@ -1,6 +1,6 @@
 <template>
   <div class="config-item" v-if="canShow">
-    <div class="config-item-header">时间间隔</div>
+    <div class="config-item-label">时间间隔</div>
     <div class="config-item-content">
       <forms-slider
         :value="value"

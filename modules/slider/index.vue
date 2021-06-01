@@ -1,6 +1,6 @@
 <template>
   <el-carousel
-    class="lego-slider"
+    class="m-slider"
     arrow="never"
     :height="'200px'"
     :loop="loop"
@@ -13,7 +13,7 @@
       :key="image.url+idx">
       <div class="clip-rect">
         <img
-          class="lego-slider-item"
+          class="m-slider-item"
           :src="image.url"
           :style="styles[idx]"
         />
@@ -27,12 +27,9 @@ import Props from '@/models/props'
 import Forms from '@/forms'
 import { pass } from 'modules/utils'
 import Panel from './panel/index'
-import Loop from './panel/loop'
-import AutoPlay from './panel/autoplay'
 import AutoPlayInterval from './panel/autoplay-interval'
-import Indicator from './panel/indicator'
 export default {
-  name: 'lego-slider',
+  name: 'm-slider',
   props: {
     layout: Props.layout({
       component: pass(Forms.Layout, {
@@ -42,16 +39,16 @@ export default {
         lockLayout: true
       }
     }),
-    indicator: Props.custom({
-      component: Indicator,
+    indicator: Props.bool({
+      label: '指示器',
       default: true
     }),
-    loop: Props.custom({
-      component: Loop,
+    loop: Props.bool({
+      label: '循环播放',
       default: true
     }),
-    autoplay: Props.custom({
-      component: AutoPlay,
+    autoplay: Props.bool({
+      label: '自动播放',
       default: false
     }),
     interval: Props.custom({
@@ -62,7 +59,7 @@ export default {
       component: Panel,
       default: [
         Props.merge(Props.DS.image, {
-          url: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/slider/default.png'
+          url: 'https://lego-editor.oss-cn-shanghai.aliyuncs.com/preview/modules/slider/default.png'
         })
       ]
     })
@@ -89,10 +86,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.lego-slider {
+.m-slider {
   background: #f2f2f2;
 
-  .lego-slider-item {
+  .m-slider-item {
     width: 100%;
     height: auto;
   }

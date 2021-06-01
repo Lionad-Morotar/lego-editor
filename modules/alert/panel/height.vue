@@ -4,7 +4,7 @@
     <div class="config-item-content">
       <forms-slider
         :min="5"
-        :max="500"
+        :max="100"
         :step="1"
         :value="value.height"
         @change="v => value.height = v"

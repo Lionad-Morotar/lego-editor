@@ -1,5 +1,5 @@
 <template>
-  <div class="lego-image clip-rect">
+  <div class="m-image clip-rect">
     <img :src="image.url" :style="styles" />
   </div>
 </template>
@@ -7,7 +7,7 @@
 <script>
 import Props from '@/models/props'
 export default {
-  name: 'lego-image',
+  name: 'm-image',
   props: {
     layout: Props.layout({
       component: null
@@ -15,7 +15,7 @@ export default {
     image: Props.image({
       label: '图片地址',
       default: {
-        url: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/image/default.png',
+        url: 'https://lego-editor.oss-cn-shanghai.aliyuncs.com/images/default.png',
         points: [0, 0, 375, 251]
       }
     })
@@ -32,7 +32,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.lego-image {
+.m-image {
   line-height: 0;
 
   & > img {

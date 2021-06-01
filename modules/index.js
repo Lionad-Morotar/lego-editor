@@ -4,7 +4,7 @@
 
 import clone from 'lodash.clonedeep'
 
-import Header from './header'
+import Text from './text'
 import Textarea from './textarea'
 import Image from './image'
 import Slider from './slider'
@@ -12,94 +12,106 @@ import Button from './button'
 import Space from './space'
 import Procedure from './procedure'
 import Compare from './compare'
+import Alert from './alert'
 
 export default {
   getDefaultModuleList () {
     return clone([{
       "title": "标题文本",
       "description": "标题文本",
-      "cover": "https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/preview-basic-text.png",
+      "cover": "https://lego-editor.oss-cn-shanghai.aliyuncs.com/preview/modules/preview-basic-text.png",
       "categories": [
         "基础模块",
         "文本模块"
       ],
-      "component": Header,
-      "name": "lego-header"
+      "component": Text,
+      "name": "m-text"
     },
     {
       "title": "基础文本",
       "description": "基础文本",
-      "cover": "https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/preview-basic-textarea.png",
+      "cover": "https://lego-editor.oss-cn-shanghai.aliyuncs.com/preview/modules/preview-basic-textarea.png",
       "categories": [
         "基础模块",
         "文本模块"
       ],
       "component": Textarea,
-      "name": "lego-textarea"
+      "name": "m-textarea"
     },
     {
       "title": "图片模块",
       "description": "图片模块",
-      "cover": "https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/preview-image.png",
+      "cover": "https://lego-editor.oss-cn-shanghai.aliyuncs.com/preview/modules/preview-image.png",
       "categories": [
         "基础模块",
         "图片模块"
       ],
       "component": Image,
-      "name": "lego-image"
+      "name": "m-image"
     },
     {
       "title": "轮播模块",
       "description": "轮播模块",
-      "cover": "https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/preview-slider.png",
+      "cover": "https://lego-editor.oss-cn-shanghai.aliyuncs.com/preview/modules/preview-slider.png",
       "categories": [
         "基础模块",
         "图片模块"
       ],
       "component": Slider,
-      "name": "lego-slider"
+      "name": "m-slider"
     },
     {
       "title": "按钮模块",
       "description": "按钮模块",
-      "cover": "https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/preview-basic-button.png",
+      "cover": "https://lego-editor.oss-cn-shanghai.aliyuncs.com/preview/modules/preview-basic-button.png",
       "categories": [
         "基础模块",
         "按钮模块"
       ],
       "component": Button,
-      "name": "lego-button"
+      "name": "m-button"
     },
     {
       "title": "空白占位",
       "description": "空白占位模块，可以用来填充自由布局模块的背景",
-      "cover": "https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/preview-space.png",
+      "cover": "https://lego-editor.oss-cn-shanghai.aliyuncs.com/preview/modules/preview-space.png",
       "categories": [
         "基础模块",
         "分隔模块"
       ],
       "component": Space,
-      "name": "lego-space"
+      "name": "m-space"
     },
     {
       "title": "流程模块",
       "description": "流程模块",
-      "cover": "https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/preview-procedure.png",
+      "cover": "https://lego-editor.oss-cn-shanghai.aliyuncs.com/preview/modules/preview-procedure.png",
       "categories": [
         "流程模块"
       ],
       "component": Procedure,
-      "name": "lego-procedure"
+      "name": "m-procedure"
     },
     {
       "title": "对比模块",
       "description": "对比模块",
-      "cover": "https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/preview-compare.png",
+      "cover": "https://lego-editor.oss-cn-shanghai.aliyuncs.com/preview/modules/preview-compare.png",
       "categories": [
         "对比模块"
       ],
       "component": Compare,
-      "name": "lego-compare"
+      "name": "m-compare"
+    },
+    {
+      "title": "提示文本",
+      "description": "用于页面中展示重要的提示信息",
+      "cover": "https://lego-editor.oss-cn-shanghai.aliyuncs.com/preview/modules/preview-alert.png",
+      "categories": [
+        "基础模块",
+        "分隔模块"
+      ],
+      "component": Alert,
+      "name": "m-alert"
     }])
   }
 }

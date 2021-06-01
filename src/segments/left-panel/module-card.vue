@@ -1,7 +1,8 @@
 <template>
   <div class="module-card" @click="addToScreen">
     <div class="title">{{ inits.title }}</div>
-    <img class="cover" :alt="inits.title" :src="inits.cover" />
+    <img class="cover" v-if="inits.cover" :alt="inits.title" :src="inits.cover" />
+    <div class="fake-cover" v-else>{{ inits.title }}</div>
   </div>
 </template>
 
@@ -51,7 +52,8 @@ export default {
     color: #444;
   }
 
-  .cover {
+  .cover,
+  .fake-cover {
     width: 210px;
     height: auto;
     min-height: 62px;
@@ -65,6 +67,15 @@ export default {
       box-shadow: 0 0 7px 0 #ccc;
       transform: scale(1.05);
     }
+  }
+
+  .fake-cover {
+    line-height: 60px;
+    color: #94c7fb;
+    font-size: 26px;
+    font-weight: bold;
+    letter-spacing: 3.5px;
+    text-align: center;
   }
 }
 </style>

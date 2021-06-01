@@ -4,6 +4,7 @@ import String from './string'
 import Stringarea from './stringarea'
 import Number from './number'
 import Slider from './slider'
+import Switch from './switch'
 import Text from './text'
 import Textarea from './textarea'
 import Image from './image'
@@ -30,6 +31,7 @@ const Forms = {
   Stringarea,
   Number,
   Slider,
+  Switch,
   Text,
   Textarea,
   Image,

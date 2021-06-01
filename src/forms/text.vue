@@ -2,7 +2,7 @@
   <div class="config-item-segment">
     <slot name="text" v-if="display('text')">
       <div class="config-item">
-        <div class="config-item-header">内容</div>
+        <div class="config-item-label">内容</div>
         <div class="config-item-content">
           <el-input v-model="v.text" spellcheck="false" />
         </div>
@@ -10,14 +10,14 @@
     </slot>
 
     <div class="config-item" v-if="display('fontSize')">
-      <div class="config-item-header">字体大小</div>
+      <div class="config-item-label">字体大小</div>
       <div class="config-item-content">
         <el-input-number v-model="v.fontSize" controls-position="right" :min="12" :max="99" />
       </div>
     </div>
 
     <div class="config-item" v-if="display('letterSpacing')">
-      <div class="config-item-header">字距</div>
+      <div class="config-item-label">字距</div>
       <div class="config-item-content">
         <slider
           v-model="v.letterSpacing"
@@ -29,7 +29,7 @@
     </div>
 
     <div class="config-item" v-if="display('lineHeight')">
-      <div class="config-item-header">行高</div>
+      <div class="config-item-label">行高</div>
       <div class="config-item-content">
         <slider
           v-model="v.lineHeight"
@@ -41,7 +41,7 @@
     </div>
 
     <div class="config-item" v-if="display('styles')">
-      <div class="config-item-header">样式</div>
+      <div class="config-item-label">样式</div>
       <div class="config-item-content">
         <div class="icon" title="加粗（Ctrl+B）" @click="v.bold = !v.bold">
           <i class="iconfont icon-bold" :class="when(v.bold)" />
@@ -59,7 +59,7 @@
     </div>
 
     <div class="config-item" v-if="display('align')">
-      <div class="config-item-header">对齐</div>
+      <div class="config-item-label">对齐</div>
       <div class="config-item-content">
         <div class="icon" title="左对齐" @click="v.textAlign = 'left'">
           <i class="iconfont icon-align-left" :class="when(v.textAlign === 'left')" />
@@ -74,7 +74,7 @@
     </div>
 
     <div class="config-item" v-if="display('color')">
-      <div class="config-item-header">颜色</div>
+      <div class="config-item-label">颜色</div>
       <div class="config-item-content">
         <div class="icon" title="文字颜色（Ctrl+C）" @click="showColor=!showColor">
           <i class="iconfont icon-bg-colors" :style="{ color: v.color }" />

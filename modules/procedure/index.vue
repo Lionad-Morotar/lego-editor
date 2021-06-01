@@ -1,5 +1,5 @@
 <template>
-  <div class="lego-procedure">
+  <div class="m-procedure">
     <procedure-header />
     <div class="container">
       <procedure
@@ -19,7 +19,7 @@ import ProcedureHeader from './procedure-header'
 import Procedure from './procedure'
 import ConfigCounts from './panel/config-counts'
 export default {
-  name: 'lego-procedure',
+  name: 'm-procedure',
   props: {
     procedures: Props.custom({
       type: Array,
@@ -30,7 +30,7 @@ export default {
           content: '24小时上门验货\n专人快速鉴定',
           image: Props.image({
             default: {
-              url: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/procedure-1-1.png',
+              url: 'https://lego-editor.oss-cn-shanghai.aliyuncs.com/preview/modules/procedure-1-1.png',
               points: [0, 0, 250, 185]
             }
           })
@@ -40,7 +40,7 @@ export default {
           content: '咨询考察签订合同专家\n鉴定团队、交易迅速',
           image: Props.image({
             default: {
-              url: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/procedure-1-2.png',
+              url: 'https://lego-editor.oss-cn-shanghai.aliyuncs.com/preview/modules/procedure-1-2.png',
               points: [0, 0, 250, 185]
             }
           })
@@ -50,7 +50,7 @@ export default {
           content: '全国品牌连锁店铺\n售后有保障',
           image: Props.image({
             default: {
-              url: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/procedure-1-3.png',
+              url: 'https://lego-editor.oss-cn-shanghai.aliyuncs.com/preview/modules/procedure-1-3.png',
               points: [0, 0, 250, 185]
             }
           })
@@ -60,7 +60,7 @@ export default {
           content: '咨询考察签订合同\n现场转账，快捷',
           image: Props.image({
             default: {
-              url: 'https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/procedure-1-4.png',
+              url: 'https://lego-editor.oss-cn-shanghai.aliyuncs.com/preview/modules/procedure-1-4.png',
               points: [0, 0, 250, 185]
             }
           })
@@ -76,7 +76,7 @@ export default {
 </script>
 
 <style lang="scss">
-.lego-procedure {
+.m-procedure {
   padding: 24px 16px;
   background: white;
 

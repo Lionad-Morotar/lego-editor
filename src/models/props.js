@@ -28,6 +28,7 @@ const DS = {
       lock: false,
       lockLayout: false,
       degree: 0,
+      margin: [0, 0, 0, 0],
       padding: [0, 0, 0, 0],
       top: 0,
       left: 0,
@@ -77,6 +78,7 @@ const genStyles = (val = {}, options = {}) => {
     // layout
     auto,
     degree,
+    margin,
     padding,
     top,
     left,
@@ -118,6 +120,9 @@ const genStyles = (val = {}, options = {}) => {
       res.transform.push(`rotate(${degree}deg)`)
       res.zIndex = 1
     }
+  }
+  if (notEmpty(margin)) {
+    res.margin = margin.map(x => x + 'px').join(' ')
   }
   if (notEmpty(padding)) {
     res.padding = padding.map(x => x + 'px').join(' ')
@@ -219,20 +224,45 @@ const Props = {
    * 可类比为 VueJS 中给 Props 传入的 Type
    */
 
-  string (config) {
+  bool (config = {}) {
+    const defaultVal =
+      typeof config === 'boolean'
+        ? config
+        : config.default || false
+    return new Prop(
+      {
+        type: Boolean,
+        default: defaultVal,
+        component: Forms.Switch
+      },
+      config
+    )
+  },
+
+  string (config = {}) {
+    const defaultVal =
+      typeof config === 'string'
+        ? config
+        : config.default || ''
     return new Prop(
       {
         type: String,
+        default: defaultVal,
         component: Forms.String
       },
       config
     )
   },
 
-  number (config) {
+  number (config = {}) {
+    const defaultVal =
+      typeof config === 'number'
+        ? config
+        : config.default || 0
     return new Prop(
       {
         type: Number,
+        default: defaultVal,
         component: Forms.Number
       },
       config
@@ -244,7 +274,7 @@ const Props = {
    */
 
   // 字符串，可设置文本居中、加粗等样式
-  text (config) {
+  text (config = {}) {
     const defaultVal =
       typeof config.default === 'string'
         ? merge(DS.text, { text: config.default })
@@ -259,7 +289,7 @@ const Props = {
       config
     )
   },
-  textarea (config) {
+  textarea (config = {}) {
     return Props.text({
       component: Forms.Textarea,
       ...config
@@ -267,7 +297,7 @@ const Props = {
   },
 
   // 图片链接，可设置图片缩放、对齐等样式
-  image (config) {
+  image (config = {}) {
     const defaultVal =
       typeof config.default === 'string'
         ? merge(DS.image, { url: config.default })
@@ -300,7 +330,7 @@ const Props = {
    */
 
   // 用于配置自定义编辑面板
-  custom (config) {
+  custom (config = {}) {
     return new Prop(
       {
         type: config?.type || [String, Number, Object, Array, Function, Boolean] // remove ?
@@ -310,7 +340,7 @@ const Props = {
   },
 
   // 使用 Pass 标记该 Props 是父组件传递过来的而非依赖项
-  pass (config) {
+  pass (config = {}) {
     return new Prop({}, {
       ...config,
       component: config?.component,

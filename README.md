@@ -1,6 +1,6 @@
 # 乐高H5编辑器（WIP Warning）
 
-![预览](https://baxing-lionad.oss-cn-shanghai.aliyuncs.com/lego/dev-assets/preview/preview-20210404.png)
+![预览](https://lego-editor.oss-cn-shanghai.aliyuncs.com/preview/modules/dev-assets/preview/preview-20210404.png)
 
 乐高H5编辑器是一款基于 Vue 的可视化搭建编辑器。与常见开源页面编辑器的最大的不同是，乐高H5使用开发约定而不是数据结构约定（[JSON Schema](https://json-schema.org/understanding-json-schema/)）编写模板，可以最大程度减少心智成本，降低编写模块以及调试时的复杂度。乐高H5并不关心你在编写模块时用不用 TypeScript 或者写了哪些业务逻辑，你只需正常编写 Vue 组件，它会自动帮你处理编辑时和渲染时一系列恼人问题，比如编辑时禁用点击、模块可设置的最大圆角可动态根据组件高度调整...
 
@@ -8,13 +8,13 @@
 
 ```vue
 <template>
-  <div class="lego-textarea" :style="styles">{{ text.text }}</div>
+  <div class="m-textarea" :style="styles">{{ text.text }}</div>
 </template>
 
 <script>
 import Props from '@/models/props'
 export default {
-  name: 'lego-textarea',
+  name: 'm-textarea',
   props: {
     text: Props.textarea({
       label: '文本内容',
@@ -35,7 +35,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.lego-textarea {
+.m-textarea {
   word-break: break-all;
   white-space: break-spaces;
 }

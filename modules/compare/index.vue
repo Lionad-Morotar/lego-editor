@@ -1,5 +1,5 @@
 <template>
-  <div class="lego-compare">
+  <div class="m-compare">
     <form-header />
     <div class="compare-con">
       <compare
@@ -18,7 +18,7 @@ import FormHeader from './form-header'
 import Compare from './compare'
 import AddRemoveCompare from './panel/add-remove-compare'
 export default {
-  name: 'lego-compare',
+  name: 'm-compare',
   props: {
     compares: Props.custom({
       type: Array,
@@ -99,7 +99,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.lego-compare {
+.m-compare {
   padding: 24px 16px;
   background: white;
 }
