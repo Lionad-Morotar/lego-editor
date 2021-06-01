@@ -43,8 +43,14 @@
             <i class="iconfont" :class="[icon.icon, when(editBorderKey === icon.key) && 'active']" />
           </div>
         </template>
-        <div v-if="hasBorderValue" class="icon" title="边框颜色" @click="showBorderColor=!showBorderColor">
-          <i class="iconfont icon-bg-colors" :style="{ color: value.borderColor }" />
+        <div v-if="hasBorderValue"
+          class="icon"
+          title="边框颜色"
+          :style="{ background: value.borderColor, border: `solid 1px ${clearColor(value.borderColor, 0.1)}` }"
+          @click="showBorderColor=!showBorderColor">
+          <i class="iconfont icon-bg-colors"
+            :style="{ color: clearColor(value.borderColor) }"
+          />
         </div>
         <template v-if="editBorderKey">
           <forms-slider
@@ -94,9 +100,11 @@
         <div
           class="icon"
           title="背景颜色"
-          :style="{ width: '80px', background: value.bgColor }"
+          :style="{ width: '80px', background: value.bgColor, border: `solid 1px ${clearColor(value.bgColor, 0.1)}` }"
           @click="showBgColor=!showBgColor">
-          <i v-if="isWhiteBgColorOrNull" class="iconfont icon-bg-colors" />
+          <i class="iconfont icon-bg-colors"
+            :style="{ color: clearColor(value.bgColor) }"
+          />
         </div>
       </div>
       <!-- 为了覆盖 el-slider -->
@@ -156,13 +164,6 @@ export default {
       const { width, height } = this.value
       return Math.max(10, Math.min(half(width), half(height)))
     },
-    isWhiteBgColorOrNull () {
-      const isNull = !this.value.bgColor
-      const isWhite = this.value.bgColor === 'white' ||
-        this.value.bgColor.toLowerCase().includes('#ffffff') ||
-        /00$/.test(this.value.bgColor)
-      return isNull || isWhite
-    },
     hasBorderValue () {
       const borders = this.value.border || []
       return borders.find(x => x)
@@ -195,6 +196,25 @@ export default {
     },
     editBorder (key) {
       this.editBorderKey = key
+    },
+
+    /* Computed */
+
+    // 获得和背景色颜色反差大的颜色
+    clearColor (cStr, ratio = 0.68) {
+      const dark = '#000'
+      const white = '#fff'
+      const color = this.$color(cStr)
+      const targetDark = this.$color.mix(color, dark, ratio * 100)
+      const targetWhite = this.$color.mix(color, white, ratio * 100)
+
+      if (!color.isValid()) {
+        return targetDark
+      }
+      const isLightColor = color.isLight()
+      return isLightColor
+        ? targetDark
+        : targetWhite
     }
   },
   components: {

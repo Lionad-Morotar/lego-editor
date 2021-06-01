@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Element from 'element-ui'
 import Fragment from 'vue-fragment'
 import VueCroppie from 'vue-croppie'
+import Color from 'tinycolor2'
 import Alioss from '@/plugins/alioss'
 import KeyboardListener from '@/plugins/keyboards'
 import Gesture from '@/plugins/gesture'
@@ -28,6 +29,7 @@ Vue.use(KeyboardListener)
 Vue.use(Gesture)
 
 Vue.prototype.$utils = utils
+Vue.prototype.$color = Color
 
 const LegoEditor = new Vue({
   name: 'm-editor',
