@@ -22,6 +22,7 @@
           :enableResize="false"
           :boundary="boundary"
           :viewport="calcViewport"
+          :mouseWheelZoom="false"
           @update="result"
         />
       </div>
