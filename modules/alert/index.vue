@@ -92,8 +92,12 @@ export default {
   }
 
   @include e(description) {
+    margin-top: 5px;
     font-size: 12px;
-    margin: 5px 0 0 0;
+
+    @include pseudo(first-child) {
+      margin-top: 0;
+    }
   }
 
   @include e(closebtn) {
