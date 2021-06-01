@@ -52,3 +52,11 @@ $is: 'is-';
     @content
   }
 }
+
+/***************** Atomics *****************/
+
+@mixin ensure-wh {
+  display: block;
+  min-height: 1em;
+  min-width: 1em;
+}

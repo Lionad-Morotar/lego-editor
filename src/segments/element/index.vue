@@ -7,7 +7,9 @@ import ClickCapture from './click-capture'
 export default {
   inject: ['model'],
   props: [
-    // 子元素
+    // 是否是根模块
+    'isRoot',
+    // 待渲染的内容
     'component',
     // 是否包裹一层高亮选框
     'outline',
@@ -48,7 +50,8 @@ export default {
     }
   },
   render (h) {
-    const { component, outline, captureClick } = this.$props
+    // eslint-disable-next-line no-unused-vars
+    const { isRoot, component, outline, captureClick } = this.$props
 
     const $slots = this.$parent.$slots.default || []
     const cmptWithProps = h(component, {
