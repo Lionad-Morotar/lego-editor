@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Element from 'element-ui'
-import Fragment from 'vue-fragment'
 import VueCroppie from 'vue-croppie'
 import Color from 'tinycolor2'
+import Fragment from '@/plugins/fragment'
 import Alioss from '@/plugins/alioss'
 import KeyboardListener from '@/plugins/keyboards'
 import Gesture from '@/plugins/gesture'
@@ -23,7 +23,7 @@ import './styles/index.scss'
 Vue.use(Forms)
 Vue.use(Element)
 Vue.use(VueCroppie)
-Vue.use(Fragment.Plugin)
+Vue.use(Fragment)
 Vue.use(Alioss)
 Vue.use(KeyboardListener)
 Vue.use(Gesture)
