@@ -1,13 +1,13 @@
 <template>
   <div class="m-alert" v-if="visible" :style="styles" role="alert">
     <div class="m-alert__content">
-      <span class="m-alert__title" :class="[ isBoldTitle ]" v-if="title">
+      <span class="m-alert__title" v-if="title">
         <title-label :title="title" />
       </span>
       <p class="m-alert__description" v-if="description">
         <description :description="description" />
       </p>
-      <i class="m-alert__closebtn" :class="[ 'el-icon-close' ]" v-show="closable" @click="close()" />
+      <i class="m-alert__closebtn" :class="['el-icon-close', isCenterIcon ]" v-show="closable" @click="close()" />
     </div>
   </div>
 </template>
@@ -51,8 +51,8 @@ export default {
     styles () {
       return Props.genStyles(this.layout, { removeTranslate: true })
     },
-    isBoldTitle () {
-      return this.description ? 'is-bold' : ''
+    isCenterIcon () {
+      return (!this.title || !this.description) ? 'is-center' : ''
     }
   },
   data () {
@@ -120,15 +120,11 @@ function Description () {
 
   @include e(title) {
     font-size: 13px;
-    line-height: 18px;
-
-    @include is(bold) {
-      font-weight: bold;
-    }
+    font-weight: bold;
   }
 
   @include e(description) {
-    margin-top: 5px;
+    margin-top: 9px;
     font-size: 12px;
 
     @include pseudo(first-child) {
@@ -142,6 +138,10 @@ function Description () {
     top: 9px;
     right: 11px;
     cursor: pointer;
+
+    @include is(center) {
+      top: calc(50% - 6px);
+    }
   }
 }
 </style>
