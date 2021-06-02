@@ -37,7 +37,17 @@ export default {
         {
           title: '问题反馈',
           type: 'go',
+          link: packageJSON.issues
+        },
+        {
+          title: '项目主页',
+          type: 'go',
           link: packageJSON.homepage
+        },
+        {
+          title: '联络作者',
+          type: 'go',
+          link: packageJSON['authour-homepage']
         }
       ],
       keys: []
