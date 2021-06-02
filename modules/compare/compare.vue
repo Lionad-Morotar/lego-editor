@@ -1,31 +1,29 @@
 <template>
-  <div class="compare-wrapper">
-    <div class="compare">
-      <div class="left">
-        <div class="title">{{ compare.left.title }}</div>
-        <!-- 简单解决 -->
-        <div class="clip-rect">
-          <img
-            :src="compare.left.image.url"
-            :style="styles.leftImage"
-          />
-        </div>
-        <div class="description" :style="styles.leftDes">
-          {{ compare.left.description.text }}
-        </div>
+  <div class="compare">
+    <div class="left">
+      <div class="title">{{ compare.left.title }}</div>
+      <!-- 简单解决 -->
+      <div class="clip-rect">
+        <img
+          :src="compare.left.image.url"
+          :style="styles.leftImage"
+        />
       </div>
-      <div class="right">
-        <div class="title">{{ compare.right.title }}</div>
-        <!-- 简单解决 -->
-        <div class="clip-rect">
-          <img
-            :src="compare.right.image.url"
-            :style="styles.rightImage"
-          />
-        </div>
-        <div class="description" :style="styles.rightDes">
-          {{ compare.right.description.text }}
-        </div>
+      <div class="description" :style="styles.leftDes">
+        {{ compare.left.description.text }}
+      </div>
+    </div>
+    <div class="right">
+      <div class="title">{{ compare.right.title }}</div>
+      <!-- 简单解决 -->
+      <div class="clip-rect">
+        <img
+          :src="compare.right.image.url"
+          :style="styles.rightImage"
+        />
+      </div>
+      <div class="description" :style="styles.rightDes">
+        {{ compare.right.description.text }}
       </div>
     </div>
   </div>
@@ -64,10 +62,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.compare-wrapper {
-  margin-top: 13px;
-  padding-top: 12px;
-}
 .compare {
   display: flex;
   justify-content: center;

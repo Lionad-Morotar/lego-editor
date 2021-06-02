@@ -2,12 +2,9 @@
   <div class="m-compare">
     <form-header />
     <div class="compare-con">
-      <compare
-        v-for="(compare, idx) in compares"
-        :compare="compare"
-        :idx="idx"
-        :key="idx"
-      />
+      <div class="compare-wrapper" v-for="(compare, idx) in compares" :key="idx">
+        <compare :compare="compare" :idx="idx" />
+      </div>
     </div>
   </div>
 </template>
@@ -108,5 +105,9 @@ export default {
   font-size: 12px;
   color: #f0f3f7;
   text-align: center;
+}
+.compare-wrapper {
+  margin-top: 13px;
+  padding-top: 12px;
 }
 </style>

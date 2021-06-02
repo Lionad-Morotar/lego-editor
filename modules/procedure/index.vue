@@ -2,13 +2,15 @@
   <div class="m-procedure">
     <procedure-header />
     <div class="container">
-      <procedure
+      <div class="procedure-wrapper"
         v-for="(procedure, idx) in procedures"
-        :procedures="procedures"
-        :procedure="procedure"
-        :idx="idx"
-        :key="idx+procedure.title"
-      />
+        :key="idx+procedure.title">
+          <procedure
+            :procedures="procedures"
+            :procedure="procedure"
+            :idx="idx"
+          />
+      </div>
     </div>
   </div>
 </template>
@@ -93,8 +95,10 @@ export default {
       }
     }
 
-    .procedure {
+    .procedure-wrapper {
       margin-top: 10px;
+    }
+    .procedure {
       display: flex;
       width: 100%;
       height: 122px;

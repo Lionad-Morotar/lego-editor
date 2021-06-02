@@ -139,7 +139,7 @@ export default {
           $ele => [...$ele.classList].find(
             cn => !['click-capture', 'box-outline', 'outline'].includes(cn))
         )
-        const radius = parseInt(getComputedStyle($target).borderRadius) || 0
+        const radius = ($target && parseInt(getComputedStyle($target).borderRadius)) || 0
         return {
           borderRadius: `${radius}px`,
           outlineRadius: `${radius}px`
@@ -590,7 +590,7 @@ export default {
 
   & > *:first-child {
     width: 100%;
-    overflow: hidden;
+    // overflow: hidden;
   }
 }
 </style>
