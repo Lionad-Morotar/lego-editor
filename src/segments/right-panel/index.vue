@@ -77,9 +77,10 @@ export default {
     }
   },
   mounted () {
-    this.$keyboards.watch('ctrl+up', !this.disableMoveUp && this.handleMoveUp)
-    this.$keyboards.watch('ctrl+down', !this.disableMoveDown && this.handleMoveDown)
-    this.$keyboards.watch('del', this.deleteModule)
+    const type = '选中模块'
+    this.$keyboards.watch('ctrl+up', { type, title: '上移' }, !this.disableMoveUp && this.handleMoveUp)
+    this.$keyboards.watch('ctrl+down', { type, title: '下移' }, !this.disableMoveDown && this.handleMoveDown)
+    this.$keyboards.watch('del', { type, title: '删除' }, this.deleteModule)
   },
   methods: {
     ...mapActions('screen', [

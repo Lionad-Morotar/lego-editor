@@ -91,8 +91,9 @@ export default {
     }
   },
   mounted () {
-    this.$keyboards.watch('up', this.selectPrev)
-    this.$keyboards.watch('down', this.selectNext)
+    const type = '选中模块'
+    this.$keyboards.watch('up', { type, title: '向上选择' }, this.selectPrev)
+    this.$keyboards.watch('down', { type, title: '向下选择' }, this.selectNext)
   },
   methods: {
     ...mapActions('screen', [
@@ -146,6 +147,7 @@ export default {
 
 <style lang="scss" scoped>
 .screen {
+  position: relative;
   padding: 45px 0;
   width: 100%;
   height: 100%;

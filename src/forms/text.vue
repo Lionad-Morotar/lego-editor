@@ -117,10 +117,11 @@ export default {
     }
   },
   mounted () {
-    this.$keyboards.watch('ctrl+b', () => (this.v.bold = !this.v.bold))
-    this.$keyboards.watch('ctrl+i', () => (this.v.italic = !this.v.italic))
-    this.$keyboards.watch('ctrl+c', () => (this.showColor = !this.showColor))
-    this.$keyboards.watch('esc', () => (this.showColor = false))
+    const type = '编辑字体'
+    this.$keyboards.watch('ctrl+b', { type, title: '加粗' }, () => (this.v.bold = !this.v.bold))
+    this.$keyboards.watch('ctrl+i', { type, title: '倾斜' }, () => (this.v.italic = !this.v.italic))
+    this.$keyboards.watch('ctrl+c', { type, title: '设置颜色' }, () => (this.showColor = !this.showColor))
+    this.$keyboards.watch('esc', { type, title: '关闭颜色' }, () => (this.showColor = false))
   },
   methods: {
     when (valid) {

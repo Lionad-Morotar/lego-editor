@@ -9,7 +9,10 @@
       </el-aside>
       <el-main id="main">
         <preview v-if="isPreview" />
-        <screen v-else />
+        <template v-else>
+          <screen />
+          <screen-footer />
+        </template>
       </el-main>
       <el-aside width="341px" id="right-panel">
         <right-panel />
@@ -26,14 +29,16 @@ import LeftPanel from './segments/left-panel/index'
 import RightPanel from './segments/right-panel/index'
 import Screen from './segments/screen/index'
 import Preview from './segments/screen/preview'
+import ScreenFooter from './segments/screen-footer/index'
 
-export default {
+const Layout = {
   components: {
     NavHeader,
     LeftPanel,
     RightPanel,
     Screen,
-    Preview
+    Preview,
+    ScreenFooter
   },
   computed: {
     ...mapState('editor', {
@@ -41,4 +46,6 @@ export default {
     })
   }
 }
+
+export default Layout
 </script>

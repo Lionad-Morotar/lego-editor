@@ -57,9 +57,10 @@ export default {
     }
   },
   mounted () {
-    this.$keyboards.watch('ctrl+s', this.save)
-    this.$keyboards.watch('ctrl+z', () => !this.disableUndo && this.UNDO())
-    this.$keyboards.watch('ctrl+y', () => !this.disableRedo && this.REDO())
+    const type = '编辑器'
+    this.$keyboards.watch('ctrl+s', { type, title: '保存' }, this.save)
+    this.$keyboards.watch('ctrl+z', { type, title: '撤销' }, () => !this.disableUndo && this.UNDO())
+    this.$keyboards.watch('ctrl+y', { type, title: '重做' }, () => !this.disableRedo && this.REDO())
   },
   methods: {
     ...mapActions('editor', [

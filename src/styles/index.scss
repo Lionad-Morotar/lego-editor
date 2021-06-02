@@ -1,7 +1,13 @@
-@import url('https://at.alicdn.com/t/font_2401027_ic9uayxhq9.css');
+@import url('//at.alicdn.com/t/font_2401027_4ss0ykbbz9i.css');
+
+// 使用 SCSS 而不是 JS 导入，这样可以设置动画时长变量
+$animationDuration: 0.3s;
+@import "../../node_modules/vue2-animate/src/sass/vue2-animate.scss";
+
 @import url("./themes.scss");
 @import url("./forms.scss");
 @import url("./atomic.scss");
+
 * {
   box-sizing: border-box;
 }
@@ -44,6 +50,7 @@
     padding: 0;
     height: 100%;
     background: #f6f6f6;
+    overflow: hidden;
   }
   #left-panel,
   #right-panel {

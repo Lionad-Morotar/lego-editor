@@ -2,12 +2,13 @@ import Vue from 'vue'
 import Element from 'element-ui'
 import VueCroppie from 'vue-croppie'
 import Color from 'tinycolor2'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
+import lodash from 'lodash'
+
 import Fragment from '@/plugins/fragment'
 import Alioss from '@/plugins/alioss'
 import KeyboardListener from '@/plugins/keyboards'
 import Gesture from '@/plugins/gesture'
-import { mapGetters, mapActions, mapMutations } from 'vuex'
-
 import Forms from '@/forms'
 import Editor from './index.vue'
 import DefaultTemplate from '@/templates'
@@ -28,8 +29,20 @@ Vue.use(Alioss)
 Vue.use(KeyboardListener)
 Vue.use(Gesture)
 
+Vue.prototype._ = lodash
 Vue.prototype.$utils = utils
 Vue.prototype.$color = Color
+
+Vue.prototype.$keymaps = {}
+const rawKeyboardWatchFn = Vue.prototype.$keyboards.watch
+Vue.prototype.$keyboards.watch = (key, des, cb) => {
+  if (!cb) {
+    cb = des
+  } else {
+    Vue.prototype.$keymaps[key] = des
+  }
+  return rawKeyboardWatchFn(key, cb)
+}
 
 const LegoEditor = new Vue({
   name: 'm-editor',
