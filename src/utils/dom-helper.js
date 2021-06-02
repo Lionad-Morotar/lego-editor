@@ -14,6 +14,22 @@ const findParentByClass = ($ele, classname) => {
 }
 
 /**
+ * 找到某一个符合条件子元素
+ */
+const findChild = ($ele, condFn) => {
+  const $toFinds = $ele instanceof Array ? $ele : [$ele]
+  let $next
+  $toFinds.push(...[...($ele.children || [])])
+  while (($next = $toFinds.shift(), $next)) {
+    if (condFn($next)) {
+      return $next
+    } else {
+      $toFinds.push(...($next.children || []))
+    }
+  }
+}
+
+/**
  * 视窗滚动到某元素
  */
 const scrollIntoView = ($el) => {
@@ -28,5 +44,6 @@ const scrollIntoView = ($el) => {
 
 export default {
   findParentByClass,
+  findChild,
   scrollIntoView
 }

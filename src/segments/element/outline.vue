@@ -15,7 +15,7 @@
     <slot />
     <!-- TODO 使用 Portal，不然会影响元素宽高的计算 -->
     <!-- https://github.com/LinusBorg/portal-vue -->
-    <div class="outline">
+    <div class="outline" :style="outlineStyles">
       <!-- 暂时隐藏 scaler -->
       <!-- <div
         v-for="r in [
@@ -127,6 +127,24 @@ export default {
     },
     showRotater () {
       return this.isFreeLayout && this.isSelectTopOutline
+    },
+    outlineStyles () {
+      if (!this.isActive) {
+        return {}
+      } else {
+        // 给 outline 设置和子模块相同的圆角
+        // TODO constant
+        const $target = this.$utils.findChild(
+          this.$el,
+          $ele => [...$ele.classList].find(
+            cn => !['click-capture', 'box-outline', 'outline'].includes(cn))
+        )
+        const radius = parseInt(getComputedStyle($target).borderRadius) || 0
+        return {
+          borderRadius: `${radius}px`,
+          outlineRadius: `${radius}px`
+        }
+      }
     }
   },
   watch: {
