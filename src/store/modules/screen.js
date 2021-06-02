@@ -88,6 +88,10 @@ const mutations = {
  */
 
 const getters = {
+  isSelectedTopOutline: state =>
+    state.selected &&
+    state.selected.$outlines &&
+    state.selected.$outlines[0] === state.selectedOutline,
   lastDraft: state => state.drafts.length
     ? state.drafts[state.drafts.length - 1]
     : null

@@ -1,5 +1,8 @@
 <template>
   <folder v-if="selected && configEntries.length > 0" title="配置面板">
+    <span slot="header-postpend" v-if="!isSelectedTopOutline">
+      <span class="go-back-btn" @click="goBack">返回父模块</span>
+    </span>
     <div class="content">
       <div class="config-panel">
         <template v-for="[name, item] in configEntries">
@@ -17,7 +20,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 import Props from '@/models/props'
 import Folder from '../folder/index'
 import ConfigItem from './item'
@@ -31,6 +34,9 @@ export default {
       selected: state => state.selected,
       selectedOutline: state => state.selectedOutline
     }),
+    ...mapGetters('screen', [
+      'isSelectedTopOutline'
+    ]),
     config () {
       return this.selectedOutline?.props || {}
     },
@@ -43,9 +49,19 @@ export default {
           return h
         }, {})
       )
+    },
+    title () {
+      return '配置面板'
     }
   },
-  methods: {}
+  methods: {
+    ...mapActions('screen', [
+      'SELECT_OUTLINE'
+    ]),
+    goBack () {
+      this.SELECT_OUTLINE(this.selected.$outlines[0])
+    }
+  }
 }
 </script>
 
@@ -72,5 +88,12 @@ export default {
   .el-input-number {
     width: 100%;
   }
+}
+.go-back-btn {
+  margin-left: 1em;
+  font-size: 12px;
+  font-weight: normal;
+  cursor: pointer;
+  color: #555;
 }
 </style>

@@ -1,8 +1,11 @@
 <template>
   <div class="segment">
-    <div class="header">
-      <span class="label">{{title}}</span>
-    </div>
+    <slot name="header">
+      <div class="header">
+        <span class="label">{{title}}</span>
+        <slot name="header-postpend" />
+      </div>
+    </slot>
     <i v-if="closable" class="el-icon el-icon-arrow-down" @click="toggleFold" />
     <div ref="content" class="content-wrapper" :style="styles">
       <slot />
@@ -91,7 +94,6 @@ export default {
 
   .header {
     display: flex;
-    justify-content: space-between;
     font-size: 20px;
     font-weight: bold;
     letter-spacing: 0.4px;

@@ -1,12 +1,12 @@
 <template>
   <div class="right-panel">
-    <folder v-if="isSelectedTopOutline" title="模块操作">
+    <folder v-if="selected" title="模块操作">
       <div class="content">
         <div class="icons-group">
-          <div class="icon" title="上移模块（Ctrl+Up）" :class="disableMoveUp && 'disabled'" @click="handleMoveUp">
+          <div class="icon" title="上移模块（Ctrl+Up）" :class="disableMoveUpClass" @click="handleMoveUp">
             <i class="iconfont icon-arrowup" />
           </div>
-          <div class="icon" title="下移模块（Ctrl+Down）" :class="disableMoveDown && 'disabled'" @click="handleMoveDown">
+          <div class="icon" title="下移模块（Ctrl+Down）" :class="disableMoveDownClass" @click="handleMoveDown">
             <i class="iconfont icon-arrowdown" />
           </div>
           <div class="icon" title="复制模块" @click="cloneModule">
@@ -55,13 +55,6 @@ export default {
       selected: state => state.selected,
       selectedOutline: state => state.selectedOutline
     }),
-    isSelectedTopOutline () {
-      return (
-        this.selected &&
-        this.selected.$outlines &&
-        this.selected.$outlines[0] === this.selectedOutline
-      )
-    },
     isFreeElement () {
       return this.selected && !this.selected.layout.auto
     },
@@ -71,6 +64,12 @@ export default {
     disableMoveDown () {
       const reversed = [].concat(this.modules).reverse()
       return this.isFreeElement || this.selected === reversed.find(x => x.layout.auto)
+    },
+    disableMoveUpClass () {
+      return this.disableMoveUp ? 'disabled' : ''
+    },
+    disableMoveDownClass () {
+      return this.disableMoveDown ? 'disabled' : ''
     },
     curIDX () {
       return this.modules.findIndex(x => x === this.selected)
