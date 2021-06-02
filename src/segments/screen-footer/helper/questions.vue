@@ -71,6 +71,7 @@ export default {
           group: v.type,
           title: v.title,
           content: k.split('+').join(' + '),
+          callback: v.callback,
           type: 'key'
         }
       }, [])
@@ -96,6 +97,11 @@ export default {
       }
       if (item.select) {
         this.select = item.select
+      }
+      if (item.callback) {
+        item.callback()
+        this.$message.info(`已触发 ${item.title} 功能`)
+        this.$emit('close')
       }
     }
   }

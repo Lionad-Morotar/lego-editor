@@ -39,6 +39,7 @@ Vue.prototype.$keyboards.watch = (key, des, cb) => {
   if (!cb) {
     cb = des
   } else {
+    des.callback = cb
     Vue.prototype.$keymaps[key] = des
   }
   return rawKeyboardWatchFn(key, cb)
