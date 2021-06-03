@@ -1,0 +1,73 @@
+{
+  "name": "wox-editor",
+  "description": "TODO",
+  "author": "lionad-trident <tangnad@qq.com>",
+  "license": "MIT",
+  "version": "0.1.0",
+  "homepage": "https://github.com/Lionad-Morotar/lego-editor/tree/main/packages/editor",
+  "issues": "https://github.com/wox-builder/wox-editor/issues",
+  "authour-homepage": "https://www.lionad.art",
+  "scripts": {
+    "dev": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "ali-oss": "^6.15.2",
+    "core-js": "^3.6.5",
+    "element-ui": "^2.15.1",
+    "eslint": "7.14",
+    "lodash": "^4.17.21",
+    "register-service-worker": "^1.7.1",
+    "reset-css": "^5.0.1",
+    "test": "^0.6.0",
+    "uuid": "^8.3.2",
+    "vue": "^2.6.11",
+    "vue-croppie": "^2.0.2",
+    "vue-router": "^3.2.0",
+    "vue2-animate": "^2.1.4",
+    "vuedraggable": "^2.24.3",
+    "vuex": "^3.4.0",
+    "wox-forms": "^0.1.0",
+    "wox-modules": "^0.1.0",
+    "wox-props": "^0.1.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^4.5.0",
+    "@vue/cli-plugin-eslint": "^4.5.0",
+    "@vue/cli-plugin-pwa": "^4.5.0",
+    "@vue/cli-plugin-router": "^4.5.0",
+    "@vue/cli-plugin-vuex": "^4.5.0",
+    "@vue/cli-service": "^4.5.0",
+    "@vue/eslint-config-standard": "^6.0.0",
+    "babel-eslint": "^10.1.0",
+    "babel-plugin-component": "^1.1.1",
+    "eslint": "7.14",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^5.0.0",
+    "eslint-plugin-vue": "^7.10.0",
+    "file-save": "^0.2.0",
+    "json-templater": "^1.2.0",
+    "lint-staged": "^10.5.4",
+    "node-sass": "4.14.1",
+    "sass-loader": "^8.0.2",
+    "tinycolor2": "^1.4.2",
+    "uppercamelcase": "^3.0.0",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "lint-staged": {
+    "*.{js,vue}": "eslint"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npm.taobao.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/wox-builder/wox-editor.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wox-builder/wox-editor/issues"
+  }
+}

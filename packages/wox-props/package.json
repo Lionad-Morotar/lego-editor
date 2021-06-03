@@ -1,0 +1,39 @@
+{
+  "name": "wox-props",
+  "version": "0.1.0",
+  "description": "> TODO: description",
+  "author": "lionad-trident <tangnad@qq.com>",
+  "homepage": "https://github.com/wox-builder/wox-props#readme",
+  "license": "MIT",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npm.taobao.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/wox-builder/wox-props.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/wox-builder/wox-props/issues"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "wox-forms": "^0.1.0"
+  },
+  "devDependencies": {
+    "@vue/eslint-config-standard": "^6.0.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "7.14",
+    "eslint-plugin-standard": "^5.0.0",
+    "eslint-plugin-vue": "^7.10.0"
+  }
+}
