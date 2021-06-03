@@ -1,12 +1,9 @@
 * Screen 的样式隔离
 * 模块的 CSS、JS 依赖问题（loadScriptURL）
-* 模块、编辑器解耦
-* 新增完模块后，滚动到模块位置
 * 所有“约定”应该出文档
 * Props 某些属性不应该透传（enumerable）
-* functional components
-* 删除所有校验相关内容
 * zIndex 层级管理
 * 图片加载失败的处理
 * CSS 优化 https://mp.weixin.qq.com/s/uga8enKl1Yx7yE6d8Bn0bQ
-* https:// -> //
+
+* Lerna：正在测试使用 Lerna 管理项目（以便将来拆包）
