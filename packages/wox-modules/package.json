@@ -22,6 +22,7 @@
   "dependencies": {
     "element-ui": "^2.15.1",
     "lodash": "^4.17.21",
+    "vue": "^2.6.11",
     "wox-forms": "^0.1.0",
     "wox-props": "^0.1.0"
   },

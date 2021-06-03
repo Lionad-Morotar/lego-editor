@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Element from 'element-ui'
-import VueCroppie from 'vue-croppie'
 import Color from 'tinycolor2'
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 import lodash from 'lodash'
@@ -10,7 +9,6 @@ import Forms from 'wox-forms'
 import DefaultTemplate from 'wox-templates'
 
 import Fragment from '@/plugins/fragment'
-import Alioss from '@/plugins/alioss'
 import KeyboardListener from '@/plugins/keyboards'
 import Gesture from '@/plugins/gesture'
 import Editor from './index.vue'
@@ -24,9 +22,7 @@ import './styles/index.scss'
 
 Vue.use(Forms)
 Vue.use(Element)
-Vue.use(VueCroppie)
 Vue.use(Fragment)
-Vue.use(Alioss)
 Vue.use(KeyboardListener)
 Vue.use(Gesture)
 

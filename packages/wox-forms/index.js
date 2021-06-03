@@ -1,3 +1,12 @@
+/* eslint-disable */
+
+
+import Vue from 'vue'
+import VueCroppie from 'vue-croppie'
+import Alioss from './plugins/alioss'
+
+Vue.use(Alioss)
+Vue.use(VueCroppie)
 
 import String from './string'
 import Stringarea from './stringarea'

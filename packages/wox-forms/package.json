@@ -25,7 +25,9 @@
   },
   "dependencies": {
     "element-ui": "^2.15.1",
+    "vue": "^2.6.11",
     "vue-color": "^2.8.1",
+    "vue-croppie": "^2.0.2",
     "wox-props": "^0.1.0"
   },
   "devDependencies": {
