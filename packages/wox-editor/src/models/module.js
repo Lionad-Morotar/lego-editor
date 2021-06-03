@@ -63,7 +63,7 @@ export default function Module (inits, initialData = {}) {
 Module.instanceList = []
 Module.instanceMap = {}
 Module.clearCache = () => {
-  Module.instanceList.map(x => {
+  Module.instanceList.foreach(x => {
     delete x.$instance
     while (x.$outlines.length) x.$outlines.pop()
   })
@@ -114,7 +114,7 @@ Module.prototype.bindModel = function (uuid) {
 Module.prototype.setProp = function (key, value) {
   // TODO refactor Vue.watch
   if (value instanceof Object) {
-    Object.entries(value).map(([k, v]) => {
+    Object.entries(value).foreach(([k, v]) => {
       if (this.props[key][k] !== v) {
         this.props[key][k] = v
       }

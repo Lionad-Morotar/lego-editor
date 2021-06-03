@@ -1,0 +1,19 @@
+{
+  "name": "wox-templates",
+  "version": "0.1.0",
+  "description": "> TODO: description",
+  "author": "lionad-trident <tangnad@qq.com>",
+  "homepage": "https://github.com/Lionad-Morotar/lego-editor#readme",
+  "license": "MIT",
+  "main": "index.js",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@vue/eslint-config-standard": "^6.0.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "7.14",
+    "eslint-plugin-standard": "^5.0.0",
+    "eslint-plugin-vue": "^7.10.0"
+  }
+}

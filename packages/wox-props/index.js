@@ -129,7 +129,7 @@ const genStyles = (val = {}, options = {}) => {
   }
   if (notEmpty(border)) {
     const direcs = ['Top', 'Right', 'Bottom', 'Left']
-    border.map((borderVal, idx) => {
+    border.foreach((borderVal, idx) => {
       const key = 'border' + direcs[idx]
       res[key] = [borderStyle, borderVal + 'px', borderColor].join(' ')
     })
@@ -389,11 +389,11 @@ function Prop (base, config = {}) {
         const displayValue = k ? prop.default[k] : prop.default
         return noFallback
           ? propVal
-          : displayValue
-            ? Object.assign(propVal, {
-              [k]: displayValue
-            })
-            : undefined
+          : !displayValue
+              ? undefined
+              : Object.assign(propVal, {
+                [k]: displayValue
+              })
       },
       // 当依赖值发生变动时，调用此函数以返回一个校验后的值
       // todo 完善逻辑

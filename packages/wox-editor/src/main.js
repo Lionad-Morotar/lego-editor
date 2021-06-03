@@ -6,14 +6,14 @@ import { mapGetters, mapActions, mapMutations } from 'vuex'
 import lodash from 'lodash'
 
 import DefaultModule from 'wox-modules'
+import Forms from 'wox-forms'
+import DefaultTemplate from 'wox-templates'
 
 import Fragment from '@/plugins/fragment'
 import Alioss from '@/plugins/alioss'
 import KeyboardListener from '@/plugins/keyboards'
 import Gesture from '@/plugins/gesture'
-import Forms from 'wox-forms'
 import Editor from './index.vue'
-import DefaultTemplate from '@/templates'
 import store from './store'
 import utils from './utils'
 

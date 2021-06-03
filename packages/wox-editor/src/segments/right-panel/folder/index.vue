@@ -38,7 +38,8 @@ export default {
       return {
         opacity: this.fold ? '0' : '1',
         marginTop: this.fold ? '0' : '25px',
-        height: this.fold ? 0
+        height: this.fold
+          ? 0
           : this.height == null
             ? 'auto'
             : String(this.height) + 'px',

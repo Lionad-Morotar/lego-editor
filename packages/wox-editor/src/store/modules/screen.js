@@ -195,7 +195,7 @@ const actions = {
     if (datas) {
       dispatch('CLEAR_SCREEN')
       Vue.nextTick(() => {
-        datas.map((x, idx) => {
+        datas.foreach((x, idx) => {
           const target = rootState.editor.modules.find(y => y.name === x.meta.name)
           if (target) {
             datas[idx].meta.component = target.component

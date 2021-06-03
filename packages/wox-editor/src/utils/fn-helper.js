@@ -59,7 +59,7 @@ export function clonevalue (obj) {
       return obj.map(x => clonevalue(x))
     } else {
       const res = {}
-      Object.entries(obj).map(([k, v]) => {
+      Object.entries(obj).forEach(([k, v]) => {
         res[k] = clonevalue(v)
       })
       return res

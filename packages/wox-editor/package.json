@@ -8,6 +8,7 @@
   "issues": "https://github.com/wox-builder/wox-editor/issues",
   "authour-homepage": "https://www.lionad.art",
   "scripts": {
+    "start": "npm run dev",
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
@@ -30,7 +31,8 @@
     "vuex": "^3.4.0",
     "wox-forms": "^0.1.0",
     "wox-modules": "^0.1.0",
-    "wox-props": "^0.1.0"
+    "wox-props": "^0.1.0",
+    "wox-templates": "^0.1.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.5.0",

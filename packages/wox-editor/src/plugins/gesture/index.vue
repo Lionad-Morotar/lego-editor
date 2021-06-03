@@ -99,17 +99,17 @@ export default {
       eventInvoke: e => {
         const params = e.type.includes('move')
           ? {
-            x: e.pageX,
-            y: e.pageY,
-            offsetX: this.moveOffsetX,
-            offsetY: this.moveOffsetY
-          }
+              x: e.pageX,
+              y: e.pageY,
+              offsetX: this.moveOffsetX,
+              offsetY: this.moveOffsetY
+            }
           : {
-            x: e.pageX,
-            y: e.pageY,
-            offsetX: this.touchOffsetX,
-            offsetY: this.touchOffsetY
-          }
+              x: e.pageX,
+              y: e.pageY,
+              offsetX: this.touchOffsetX,
+              offsetY: this.touchOffsetY
+            }
         this.$emit(e.type, e, params)
         this.invoke(e)
       }
@@ -149,12 +149,12 @@ export default {
     this.calcEventsName()
     this.$ele = this.$slots.default[0].elm
 
-    this.events.listens.map(x => {
+    this.events.listens.foreach(x => {
       this.$ele.addEventListener(x, this.getEvent(x))
     })
   },
   beforeDestroy () {
-    this.events.listens.map(x => {
+    this.events.listens.foreach(x => {
       this.$ele.removeEventListener(x, this.getEvent(x))
     })
   },
@@ -216,11 +216,11 @@ export default {
       }
     },
     triggerMove () {
-      this.events.moves.map(x => {
+      this.events.moves.foreach(x => {
         document.body.addEventListener(x, this.getEvent(x))
       })
       const upEvents = this.isMobile ? ['touchend', 'touchcancel'] : ['mouseup']
-      upEvents.map(x => {
+      upEvents.foreach(x => {
         const clean = () => {
           document.body.removeEventListener(x, clean)
           this.unTriggerMove()
@@ -248,7 +248,7 @@ export default {
       }
     },
     unTriggerMove () {
-      this.events.moves.map(x => {
+      this.events.moves.foreach(x => {
         document.body.removeEventListener(x, this.getEvent(x))
       })
     },
@@ -328,15 +328,14 @@ export default {
         //     this.$emit(x)
         //   }
         // })
-        gestures.find(x => {
+        const release = gestures.find(x => {
           const canRelease = this[x] && judgement[x] && judgement[x]()
-          const release = () => this[x]()
-
-          if (canRelease) {
-            release()
-            this.reset()
-          }
+          return canRelease
         })
+        if (release) {
+          this[release]()
+          this.reset()
+        }
       }
     })(),
 

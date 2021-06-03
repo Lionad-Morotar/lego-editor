@@ -18,7 +18,7 @@
         </template>
         <template v-if="editPaddingKey">
           <forms-slider
-            v-model="value.padding[editPaddingKey]"
+            v-model="curSelectPadding"
             :min="0"
             :max="30"
             :step="1"
@@ -54,7 +54,7 @@
         </div>
         <template v-if="editBorderKey">
           <forms-slider
-            v-model="value.border[editBorderKey]"
+            v-model="curSelectBorder"
             :min="0"
             :max="10"
             :step="1"
@@ -73,11 +73,10 @@
       <div class="config-item-label">高度</div>
       <div class="config-item-content">
         <forms-slider
+          v-model="valueHeight"
           :min="minHeight"
           :max="maxHeight"
           :step="1"
-          :value="value.height"
-          @change="v => value.height = v"
         />
       </div>
     </div>
@@ -86,7 +85,7 @@
       <div class="config-item-label">圆角</div>
       <div class="config-item-content">
         <forms-slider
-          v-model="value.radius"
+          v-model="valueRadius"
           :min="0"
           :max="maxRadius"
           :step="1"
@@ -167,14 +166,64 @@ export default {
     hasBorderValue () {
       const borders = this.value.border || []
       return borders.find(x => x)
+    },
+    curSelectPadding: {
+      get () {
+        return this.value.padding[this.editPaddingKey]
+      },
+      set (val) {
+        this.$emit('change', Object.assign(this.value, {
+          padding: {
+            ...this.value.padding,
+            [this.editPaddingKey]: val
+          }
+        }))
+      }
+    },
+    curSelectBorder: {
+      get () {
+        return this.value.border[this.editBorderKey]
+      },
+      set (val) {
+        this.$emit('change', Object.assign(this.value, {
+          border: {
+            ...this.value.border,
+            [this.editBorderKey]: val
+          }
+        }))
+      }
+    },
+    valueHeight: {
+      get () {
+        return this.value
+      },
+      set (val) {
+        this.$emit('change', Object.assign(this.value, {
+          height: val
+        }))
+      }
+    },
+    valueRadius: {
+      get () {
+        return this.value
+      },
+      set (val) {
+        this.$emit('change', Object.assign(this.value, {
+          radius: val
+        }))
+      }
     }
   },
   watch: {
     borderColor (newValue) {
-      this.value.borderColor = newValue.hex8
+      this.$emit('change', Object.assign(this.value, {
+        borderColor: newValue.hex8
+      }))
     },
     bgColor (newValue) {
-      this.value.bgColor = newValue.hex8
+      this.$emit('change', Object.assign(this.value, {
+        bgColor: newValue.hex8
+      }))
     }
   },
   methods: {

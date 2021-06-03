@@ -82,7 +82,7 @@ export default {
       Module.clearCache()
       this.CLEAR_SCREEN()
       this.TOGGLE_PREVIEW()
-      datas.map((x, idx) => {
+      datas.foreach((x, idx) => {
         const target = this.installedModules.find(y => y.name === x.meta.name)
         if (target) {
           datas[idx].meta.component = target.component

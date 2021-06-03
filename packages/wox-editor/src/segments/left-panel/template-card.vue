@@ -28,7 +28,7 @@ export default {
     useTemplate () {
       this.CLEAR_SCREEN()
       this.$nextTick(() => {
-        this.inits.data.map((x) => {
+        this.inits.data.foreach((x) => {
           const target = this.installedModules.find(y => y.name === x.meta.name)
           if (target) {
             this.ADD_MODULE({
