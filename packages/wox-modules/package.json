@@ -20,6 +20,7 @@
     "url": "https://github.com/wox-builder/wox-modules/issues"
   },
   "dependencies": {
+    "element-ui": "^2.15.1",
     "lodash": "^4.17.21",
     "wox-forms": "^0.1.0",
     "wox-props": "^0.1.0"
