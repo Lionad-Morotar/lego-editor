@@ -1,6 +1,6 @@
 # 乐高H5编辑器（WIP Warning）
 
-![预览](https://lego-editor.oss-cn-shanghai.aliyuncs.com/preview/modules/dev-assets/preview/preview-20210404.png)
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 
 乐高H5编辑器是一款基于 Vue 的可视化搭建编辑器。与常见开源页面编辑器的最大的不同是，乐高H5使用开发约定而不是数据结构约定（[JSON Schema](https://json-schema.org/understanding-json-schema/)）编写模板，可以最大程度减少心智成本，降低编写模块以及调试时的复杂度。乐高H5并不关心你在编写模块时用不用 TypeScript 或者写了哪些业务逻辑，你只需正常编写 Vue 组件，它会自动帮你处理编辑时和渲染时一系列恼人问题，比如编辑时禁用点击、模块可设置的最大圆角可动态根据组件高度调整...
 
