@@ -1,8 +1,8 @@
 default: help
 
 help:
-	@echo "   使用说明"
-	@echo "   make new <module-title> <module-cn-title>  ---  创建新模块，例如 'make new button 按钮模块'"
+	@echo "   Documents & Usage"
+	@echo "   make new <module-title> <module-cn-title>  ---  create a new module，eg. 'make new button button-cn-name'"
 
 new:
 	node build/bin/new-module.js $(filter-out $@,$(MAKECMDGOALS))
