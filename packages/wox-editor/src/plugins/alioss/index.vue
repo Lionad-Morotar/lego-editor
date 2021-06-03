@@ -106,7 +106,7 @@ export default {
     },
     async checkUploadFiles (files, options = this.uploadOptions) {
       const { maxFileSizeKB } = options
-      files.foreach(file => {
+      files.forEach(file => {
         if (file > maxFileSizeKB * 1024) {
           throw new Error(`请上传小于 ${options.maxFileSizeKB}KB 大小的图片`)
         }

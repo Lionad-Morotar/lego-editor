@@ -195,7 +195,7 @@ export default {
     },
     valueHeight: {
       get () {
-        return this.value
+        return this.value.height
       },
       set (val) {
         this.$emit('change', Object.assign(this.value, {
@@ -205,7 +205,7 @@ export default {
     },
     valueRadius: {
       get () {
-        return this.value
+        return this.value.radius
       },
       set (val) {
         this.$emit('change', Object.assign(this.value, {

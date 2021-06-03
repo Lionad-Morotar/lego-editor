@@ -149,12 +149,12 @@ export default {
     this.calcEventsName()
     this.$ele = this.$slots.default[0].elm
 
-    this.events.listens.foreach(x => {
+    this.events.listens.forEach(x => {
       this.$ele.addEventListener(x, this.getEvent(x))
     })
   },
   beforeDestroy () {
-    this.events.listens.foreach(x => {
+    this.events.listens.forEach(x => {
       this.$ele.removeEventListener(x, this.getEvent(x))
     })
   },
@@ -216,11 +216,11 @@ export default {
       }
     },
     triggerMove () {
-      this.events.moves.foreach(x => {
+      this.events.moves.forEach(x => {
         document.body.addEventListener(x, this.getEvent(x))
       })
       const upEvents = this.isMobile ? ['touchend', 'touchcancel'] : ['mouseup']
-      upEvents.foreach(x => {
+      upEvents.forEach(x => {
         const clean = () => {
           document.body.removeEventListener(x, clean)
           this.unTriggerMove()
@@ -248,7 +248,7 @@ export default {
       }
     },
     unTriggerMove () {
-      this.events.moves.foreach(x => {
+      this.events.moves.forEach(x => {
         document.body.removeEventListener(x, this.getEvent(x))
       })
     },

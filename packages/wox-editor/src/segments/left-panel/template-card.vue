@@ -28,7 +28,7 @@ export default {
     useTemplate () {
       this.CLEAR_SCREEN()
       this.$nextTick(() => {
-        this.inits.data.foreach((x) => {
+        this.inits.data.forEach((x) => {
           const target = this.installedModules.find(y => y.name === x.meta.name)
           if (target) {
             this.ADD_MODULE({

@@ -129,7 +129,7 @@ const genStyles = (val = {}, options = {}) => {
   }
   if (notEmpty(border)) {
     const direcs = ['Top', 'Right', 'Bottom', 'Left']
-    border.foreach((borderVal, idx) => {
+    border.forEach((borderVal, idx) => {
       const key = 'border' + direcs[idx]
       res[key] = [borderStyle, borderVal + 'px', borderColor].join(' ')
     })
