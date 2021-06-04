@@ -13,6 +13,7 @@ import Space from './space'
 import Procedure from './procedure'
 import Compare from './compare'
 import Alert from './alert'
+import Icon from './icon'
 
 export default {
   getDefaultModuleList () {
@@ -108,10 +109,21 @@ export default {
       "cover": "https://lego-editor.oss-cn-shanghai.aliyuncs.com/preview/modules/preview-alert.png",
       "categories": [
         "基础模块",
-        "分隔模块"
+        "文本模块"
       ],
       "component": Alert,
       "name": "m-alert"
+    },
+    {
+      "title": "图标模块",
+      "description": "图标模块",
+      "cover": "",
+      "categories": [
+        "基础模块",
+        "图标模块"
+      ],
+      "component": Icon,
+      "name": "m-icon"
     }])
   }
 }

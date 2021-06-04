@@ -38,7 +38,9 @@ const DS = {
       borderStyle: 'solid',
       borderColor: 'black',
       radius: 0,
-      bgColor: ''
+      bgColor: '',
+      fontSize: 14,
+      lineHeight: 1
     }
   },
   get text () {
@@ -139,7 +141,7 @@ const genStyles = (val = {}, options = {}) => {
 
   /* text */
   if (fontSize) res.fontSize = fontSize + 'px'
-  if (lineHeight) res.lineHeight = lineHeight
+  if (lineHeight) res.lineHeight = isNaN(lineHeight) ? lineHeight : +lineHeight
   if (letterSpacing) res.letterSpacing = letterSpacing + 'px'
   if (color) res.color = color
   if (textAlign) res.textAlign = textAlign

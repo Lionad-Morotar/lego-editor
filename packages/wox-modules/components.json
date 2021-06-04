@@ -7,5 +7,6 @@
   "space": "./space",
   "procedure": "./procedure",
   "compare": "./compare",
-  "alert": "./alert"
+  "alert": "./alert",
+  "icon": "./icon"
 }

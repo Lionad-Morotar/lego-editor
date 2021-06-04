@@ -24,6 +24,7 @@
     "url": "https://github.com/wox-builder/wox-forms/issues"
   },
   "dependencies": {
+    "ali-oss": "^6.15.2",
     "element-ui": "^2.15.1",
     "vue": "^2.6.11",
     "vue-color": "^2.8.1",

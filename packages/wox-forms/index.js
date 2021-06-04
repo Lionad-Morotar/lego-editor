@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-
+// TODO FIXME
 import Vue from 'vue'
 import VueCroppie from 'vue-croppie'
 import Alioss from './plugins/alioss'

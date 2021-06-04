@@ -3,5 +3,5 @@
   "description": "用于页面中展示重要的提示信息",
   "cover": "https://lego-editor.oss-cn-shanghai.aliyuncs.com/preview/modules/preview-alert.png",
   "is-base-category": true,
-  "categories": ["分割模块"]
+  "categories": ["文本模块"]
 }
