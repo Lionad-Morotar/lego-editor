@@ -8,12 +8,12 @@ const endOfLine = require('os').EOL
 
 // FIXME 从 constant 引入常量 ModuleTypeEnums.BASE
 const baseType = '基础模块'
-const components = require('../../packages/modules/components.json')
+const components = require('../../packages/wox-modules/components.json')
 const names = Object.keys(components)
 const requires = []
 const metas = names.map(name => {
   const upperName = uppercamelcase(name)
-  const metaFile = path.join(__dirname, '../../packages/modules', components[name], './meta.json')
+  const metaFile = path.join(__dirname, '../../packages/wox-modules', components[name], './meta.json')
   const meta = JSON.parse(fs.readFileSync(metaFile, 'utf-8'))
 
   requires.push(`import ${upperName} from '${components[name]}'`)
@@ -56,6 +56,6 @@ const template = render(TEMPLATE, {
     .replace(/\r\n|\n|\r/g, endOfLine + '    ')
 }).replace(/"component":\s"([^"]*)"/g, '"component": $1')
 
-const SAVE_PATH = path.join(__dirname, '../../packages/modules/components.js')
+const SAVE_PATH = path.join(__dirname, '../../packages/wox-modules/components.js')
 fs.writeFileSync(SAVE_PATH, template)
 console.log('[build entry] DONE:', SAVE_PATH)

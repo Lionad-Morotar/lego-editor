@@ -14,10 +14,10 @@ const fileSave = require('file-save')
 // TODO 校验 name，kabe-case
 const title = process.argv[2]
 const description = process.argv[3] || title
-const moduleSavePath = path.resolve(__dirname, '../../packages/modules', title)
+const moduleSavePath = path.resolve(__dirname, '../../packages/wox-modules', title)
 
 /* 生成 components.json */
-const componentJSONFile = '../../packages/modules/components.json'
+const componentJSONFile = '../../packages/wox-modules/components.json'
 const componentsFile = require(componentJSONFile)
 if (componentsFile[title]) {
   console.error(`模块 ${title} 已存在，请重新命名。`)
@@ -68,7 +68,7 @@ export default {
     {
       filename: 'meta.json',
       content: `{
-  "title": "${title}",
+  "title": "${description}",
   "description": "${description}",
   "cover": "",
   "is-base-category": false,
