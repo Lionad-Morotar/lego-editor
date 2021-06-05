@@ -10,9 +10,15 @@ import Forms from 'wox-forms'
 import { zip, pass } from '../utils'
 import Size from './panel/size'
 import FontSize from './panel/font-size'
+import Icon from './panel/icon'
 export default {
   name: 'm-icon',
   props: {
+    icon: Props.string({
+      component: Icon,
+      label: '图标',
+      default: 'icon-earth'
+    }),
     layout: Props.layout({
       default: {
         width: 40,
@@ -26,14 +32,9 @@ export default {
         Size,
         FontSize,
         pass(Forms.Layout, {
-          use: ['radius']
+          use: ['bgColor', 'radius']
         })
       )
-    }),
-    icon: Props.string({
-      component: null,
-      label: '图标',
-      default: 'icon-earth'
     })
   },
   computed: {

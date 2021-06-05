@@ -9,7 +9,13 @@
 .config-item + .pass > .config-item-segment,
 .config-item-segment + .pass > .config-item,
 .config-item-segment + .pass > .config-item-segment,
-.config-item-content + .pass > .config-item-content {
+.config-item-content + .pass > .config-item-content,
+.pass + .config-item,
+.pass + .config-item,
+.pass + .config-item-segment,
+.pass + .config-item,
+.pass + .config-item-segment,
+.pass + .config-item-content {
   margin-top: 14px;
 
   &.compact {
@@ -73,7 +79,56 @@
     flex-wrap: wrap;
     flex: 1;
     gap: 5px;
-    // width: 100%;
+
+    .icon {
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+      border: solid 1px #eee;
+      cursor: pointer;
+      background: white;
+      opacity: 1;
+      transition: opacity .1s;
+
+      &:hover {
+        background: #fafafa;
+      }
+      &:active {
+        opacity: .8;
+      }
+      & + & {
+        margin-left: -1px;
+      }
+
+      .iconfont {
+        font-size: 18px;
+        &.active {
+          color: #409eff;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+  .config-item-dialog {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    padding: 8px 10px;
+    width: 300px;
+    height: 500px;
+    background: white;
+    overflow: hidden scroll;
+    filter: drop-shadow(0 0 3px #ddd);
+
+    .header {
+      padding: 0 6px;
+      height: 60px;
+      line-height: 58px;
+      font-size: 14px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
   }
 
   .cr-slider-wrap {

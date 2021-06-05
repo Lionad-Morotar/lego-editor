@@ -273,35 +273,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.icon {
-  width: 30px;
-  height: 30px;
-  line-height: 30px;
-  text-align: center;
-  border: solid 1px #eee;
-  cursor: pointer;
-  background: white;
-  opacity: 1;
-  transition: opacity .1s;
-
-  &:hover {
-    background: #fafafa;
-  }
-  &:active {
-    opacity: .8;
-  }
-  & + & {
-    margin-left: -1px;
-  }
-
-  .iconfont {
-    font-size: 18px;
-    &.active {
-      color: #409eff;
-      font-weight: bold;
-    }
-  }
-}
 .vc-chrome {
   margin-left: auto;
   position: absolute;

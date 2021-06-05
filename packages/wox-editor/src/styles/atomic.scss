@@ -31,6 +31,17 @@
     opacity: .9;
   }
 }
+.clicked-white {
+  background: white;
+  transition: .25s;
+
+  &:hover {
+    background: #f3f3f3;
+  }
+  &:active {
+    background: #e8e8e8;
+  }
+}
 
 .fullscreen-mask {
   position: fixed;
@@ -39,4 +50,9 @@
   width: 100vw;
   height: 100vh;
   z-index: 1;
+
+  // 覆盖掉 Element 的样式的简单方法
+  & + * {
+    z-index: 9999;
+  }
 }

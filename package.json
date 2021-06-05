@@ -2,7 +2,7 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "preinstall": "npm install -g lerna",
+    "preinstall": "cnpm install -g lerna",
     "install": "lerna bootstrap --hoist",
     "start": "cd ./packages/wox-editor && npm run dev",
     "lerna": "lerna run dev --stream --scope=wox-editor"
