@@ -39,6 +39,7 @@ const DS = {
       borderColor: 'black',
       radius: 0,
       bgColor: '',
+      color: '#333',
       fontSize: 14,
       lineHeight: 1
     }

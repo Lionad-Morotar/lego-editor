@@ -32,7 +32,7 @@ export default {
         Size,
         FontSize,
         pass(Forms.Layout, {
-          use: ['bgColor', 'radius']
+          use: ['bgColor', 'color', 'radius']
         })
       )
     })

@@ -93,6 +93,26 @@
       </div>
     </div>
 
+    <div class="config-item config-color" v-if="display('color')">
+      <div class="config-item-label">颜色</div>
+      <div class="config-item-content">
+        <div
+          class="icon"
+          title="颜色"
+          :style="{ width: '80px', background: value.color, border: `solid 1px ${clearColor(value.color, 0.1)}` }"
+          @click="showColor=!showColor">
+          <i class="iconfont icon-bg-colors"
+            :style="{ color: clearColor(value.color) }"
+          />
+        </div>
+      </div>
+      <!-- 为了覆盖 el-slider -->
+      <div style="z-index: 9999">
+        <div v-if="showColor" class="fullscreen-mask" @click="showColor=false" @mousewheel="showColor=false" />
+        <chrome-picker v-model="color" :class="when(showColor)" />
+      </div>
+    </div>
+
     <div class="config-item config-color" v-if="display('bgColor')">
       <div class="config-item-label">背景颜色</div>
       <div class="config-item-content">
@@ -129,6 +149,8 @@ export default {
       borderAll: 0,
       borderColor: this.value.borderColor || Props.DS.layout.borderColor,
       bgColor: this.value.bgColor || Props.DS.layout.bgColor,
+      color: this.value.color || Props.DS.layout.color,
+      showColor: false,
       showBgColor: false,
       showBorderColor: false,
       editPaddingKey: '',
@@ -223,6 +245,11 @@ export default {
     bgColor (newValue) {
       this.$emit('change', Object.assign(this.value, {
         bgColor: newValue.hex8
+      }))
+    },
+    color (newValue) {
+      this.$emit('change', Object.assign(this.value, {
+        color: newValue.hex8
       }))
     }
   },
