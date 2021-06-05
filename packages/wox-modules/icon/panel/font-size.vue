@@ -5,7 +5,7 @@
       <forms-slider
         v-model="fontSize"
         :min="12"
-        :max="100"
+        :max="375"
         :step="1"
       />
     </div>

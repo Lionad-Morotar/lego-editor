@@ -4,8 +4,8 @@
     <div class="config-item-content">
       <forms-slider
         v-model="valueHeight"
-        :min="minHeight"
-        :max="maxHeight"
+        :min="30"
+        :max="375"
         :step="1"
       />
     </div>
@@ -16,12 +16,6 @@
 export default {
   props: ['value', 'props'],
   computed: {
-    minHeight () {
-      return 30
-    },
-    maxHeight () {
-      return 100
-    },
     valueHeight: {
       get () {
         return this.value.height
