@@ -3,11 +3,8 @@
     <div class="question-btn clicked" @click="toggleCard">
       <i class="iconfont icon-question-plain" />
     </div>
-    <div class="fullscreen-mask" v-if="open" @click="open=false" @mousewheel="open=false" />
-    <transition
-      enter-active-class="fadeIn"
-      leave-active-class="fadeOut">
-        <questions v-if="open" @close="closeCard" />
+    <transition enter-active-class="fadeIn" leave-active-class="fadeOut">
+      <questions v-if="open" @close="closeCard" v-clickoutside="closeCard" />
     </transition>
   </fragment>
 </template>

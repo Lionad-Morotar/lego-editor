@@ -253,16 +253,9 @@
   cursor: pointer;
 }
 .vc-chrome {
-  box-shadow: 0 4px 6px 0 rgb(240,240,240);
-  border: solid 1px #e6e8eb;
-  border-radius: 1px;
-  z-index: 9;
-  transition: .25s;
-  clip-path: polygon(-10% -10%, 110% -10%, 110% -10%, -10% -10%);
-
-  &.active {
-    clip-path: polygon(-10% -10%, 110% -10%, 110% 110%, -10% 110%);
-  }
+  border: solid 1px #ddd;
+  box-shadow: unset !important;
+  filter: drop-shadow(0 0 3px #ddd);
 
   .vc-chrome-saturation-wrap {
     border-radius: 0;

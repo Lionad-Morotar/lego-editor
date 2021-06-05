@@ -11,6 +11,7 @@ import DefaultTemplate from 'wox-templates'
 import Fragment from '@/plugins/fragment'
 import KeyboardListener from '@/plugins/keyboards'
 import Gesture from '@/plugins/gesture'
+import Clickoutside from '@/plugins/clickoutside'
 import Editor from './index.vue'
 import store from './store'
 import utils from './utils'
@@ -25,6 +26,7 @@ Vue.use(Element)
 Vue.use(Fragment)
 Vue.use(KeyboardListener)
 Vue.use(Gesture)
+Vue.use(Clickoutside)
 
 Vue.prototype._ = lodash
 Vue.prototype.$utils = utils

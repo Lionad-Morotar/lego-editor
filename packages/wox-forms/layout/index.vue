@@ -62,11 +62,13 @@
           />
         </template>
       </div>
-      <!-- 为了覆盖 el-slider -->
-      <div style="z-index: 9999; position: absolute; top: 5px; right: 0">
-        <div v-if="showBorderColor" class="fullscreen-mask" @click="showBorderColor=false" @mousewheel="showBorderColor=false" />
-        <chrome-picker v-model="borderColor" :class="when(showBorderColor)" />
-      </div>
+      <transition name="zoom">
+        <chrome-picker
+          v-if="showBorderColor"
+          v-model="borderColor"
+          v-clickoutside="closeBorderColorSelector"
+        />
+      </transition>
     </div>
 
     <div class="config-item" v-if="display('height')">
@@ -106,11 +108,13 @@
           />
         </div>
       </div>
-      <!-- 为了覆盖 el-slider -->
-      <div style="z-index: 9999">
-        <div v-if="showColor" class="fullscreen-mask" @click="showColor=false" @mousewheel="showColor=false" />
-        <chrome-picker v-model="color" :class="when(showColor)" />
-      </div>
+      <transition name="zoom">
+        <chrome-picker
+          v-if="showColor"
+          v-model="color"
+          v-clickoutside="closeColorSelector"
+        />
+      </transition>
     </div>
 
     <div class="config-item config-color" v-if="display('bgColor')">
@@ -126,11 +130,13 @@
           />
         </div>
       </div>
-      <!-- 为了覆盖 el-slider -->
-      <div style="z-index: 9999">
-        <div v-if="showBgColor" class="fullscreen-mask" @click="showBgColor=false" @mousewheel="showBgColor=false" />
-        <chrome-picker v-model="bgColor" :class="when(showBgColor)" />
-      </div>
+      <transition name="zoom">
+        <chrome-picker
+          v-if="showBgColor"
+          v-model="bgColor"
+          v-clickoutside="closeBgColorSelector"
+        />
+      </transition>
     </div>
   </div>
 </template>
@@ -272,6 +278,15 @@ export default {
     },
     editBorder (key) {
       this.editBorderKey = key
+    },
+    closeColorSelector () {
+      this.showColor = false
+    },
+    closeBorderColorSelector () {
+      this.showBorderColor = false
+    },
+    closeBgColorSelector () {
+      this.showBgColor = false
     },
 
     /* Computed */

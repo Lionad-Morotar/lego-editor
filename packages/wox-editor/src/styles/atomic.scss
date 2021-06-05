@@ -50,9 +50,4 @@
   width: 100vw;
   height: 100vh;
   z-index: 1;
-
-  // 覆盖掉 Element 的样式的简单方法
-  & + * {
-    z-index: 9999;
-  }
 }

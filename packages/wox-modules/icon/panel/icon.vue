@@ -6,8 +6,7 @@
         <i class="iconfont" :class="props.icon" />
       </div>
     </div>
-    <div class="fullscreen-mask" v-if="visible.iconDialog" @click="closeIconDialog" @mousewheel="closeIconDialog" />
-    <div class="config-item-dialog" v-if="visible.iconDialog">
+    <div class="config-item-dialog" v-if="visible.iconDialog" v-clickoutside="closeIconDialog">
       <template v-for="cate in iconCates">
         <div class="header" :key="cate.header + 1">{{cate.header}}</div>
         <div class="icons-con" @click="selectIcon" :key="cate.header + 2">

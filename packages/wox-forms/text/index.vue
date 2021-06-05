@@ -80,8 +80,13 @@
           <i class="iconfont icon-bg-colors" :style="{ color: v.color }" />
         </div>
       </div>
-      <div v-if="showColor" class="fullscreen-mask" @click="showColor=false" @mousewheel="showColor=false" />
-      <chrome-picker v-model="color" :class="when(showColor)" />
+      <transition name="zoom">
+        <chrome-picker
+          v-if="showColor"
+          v-model="color"
+          v-clickoutside="closeColorSelector"
+        />
+      </transition>
     </div>
   </div>
 </template>
@@ -129,6 +134,9 @@ export default {
     },
     display (key) {
       return !(this.disable || []).includes(key)
+    },
+    closeColorSelector () {
+      this.showColor = false
     }
   },
   components: {
