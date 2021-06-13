@@ -6,8 +6,8 @@
         <Uploader
           v-show="!image"
           ref="uploader"
-          @success="success"
-          @failed="failed">
+          @success="changeImage"
+          @failed="uploadFailed">
           <el-button
             class="action-button"
             type="text"
@@ -30,11 +30,25 @@
     <template name="el-fade-in">
       <div slot="text" class="config-item compact transparent" v-if="image">
         <div class="config-item-content">
+
+          <el-button
+            type="text"
+            @click="openPixabayDialog"
+          >在线搜索</el-button>
+          <pixabay-dialog
+            :visible="visible.pixabay"
+            @select="selectPixabayImage"
+          />
+
+          <el-divider direction="vertical" />
+
           <el-button
             type="text"
             @click="() => $refs.uploader.upload()"
-          >上传</el-button>
+          >本地上传</el-button>
+
           <el-divider direction="vertical" />
+
           <el-popconfirm
             title="确定删除该图片？"
             confirm-button-text='删除'
@@ -48,6 +62,7 @@
               class="color-danger"
             >删除</el-button>
           </el-popconfirm>
+
         </div>
       </div>
     </template>
@@ -55,11 +70,15 @@
 </template>
 
 <script>
+import PixabayDialog from './pixabay-dialog.vue'
 export default {
   props: ['value', 'options'],
   model: {
     prop: 'value',
     event: 'change'
+  },
+  components: {
+    PixabayDialog
   },
   data () {
     return {
@@ -68,6 +87,9 @@ export default {
       boundary: {
         width: 298,
         height: 208
+      },
+      visible: {
+        pixabay: false
       }
     }
   },
@@ -109,17 +131,39 @@ export default {
     this.initCroppie()
   },
   methods: {
-    async success (file) {
-      const { width, height } = await this.getImageWH(file[0].url)
+    async changeImage (files) {
+      if (!files) {
+        return
+      }
+      const file = files instanceof Array
+        ? files[0]
+        : files instanceof String
+          ? { url: files }
+          : files
+      if (!file.width || !file.height) {
+        const { width, height } = await this.getImageWH(file.url)
+        ;[file.width, file.height] = [width, height]
+      }
+      const { url, width, height } = file
       this.$emit('change', {
         ...this.value,
-        url: file[0].url,
+        url: url,
         points: [0, 0, width, height]
       })
     },
-    failed (error) {
+    selectPixabayImage (images) {
+      this.changeImage(images)
+      this.closePixabayDialog()
+    },
+    uploadFailed (error) {
       console.error(error)
       this.$message.error('请稍后重试', '上传失败')
+    },
+    openPixabayDialog () {
+      this.visible.pixabay = true
+    },
+    closePixabayDialog () {
+      this.visible.pixabay = false
     },
     deleteURL () {
       this.$emit('change', {

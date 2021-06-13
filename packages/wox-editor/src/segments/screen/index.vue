@@ -81,6 +81,9 @@ export default {
     if (this.modules.length === 0) {
       setTimeout(() => {
         this.ADD_MODULE({
+          inits: this.plugins.find(x => x.title === '图片模块')
+        })
+        this.ADD_MODULE({
           inits: this.plugins.find(x => x.title === '提示文本')
         })
         this.ADD_MODULE({
