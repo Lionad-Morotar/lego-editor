@@ -4,7 +4,7 @@
   "author": "lionad-trident <tangnad@qq.com>",
   "license": "MIT",
   "version": "0.1.0",
-  "homepage": "https://github.com/Lionad-Morotar/lego-editor/tree/main/packages/editor",
+  "homepage": "https://github.com/Lionad-Morotar/lego-editor",
   "issues": "https://github.com/wox-builder/wox-editor/issues",
   "authour-homepage": "https://www.lionad.art",
   "scripts": {
