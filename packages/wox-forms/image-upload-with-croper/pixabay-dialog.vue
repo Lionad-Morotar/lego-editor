@@ -6,13 +6,18 @@
     :modal-append-to-body="false"
     :append-to-body="true"
     :visible="visible"
-    :before-close="() => select('')">
+    :before-close="close">
     <!-- 搜索框 -->
     <el-input placeholder="请输入搜索内容" v-model="query">
-      <el-button slot="append" icon="el-icon-search" @click="search"></el-button>
+      <el-button slot="append" icon="el-icon-search" @click="() => search()"></el-button>
     </el-input>
     <!-- 结果数量 -->
-    <p class="tips" v-if="hits">共找到 {{hits}} 张关于 "{{prevQuery}}" 的图片</p>
+    <p class="tips" v-if="hits">
+      <template v-if="prevQuery">共找到 {{hits}} 张关于 "{{prevQuery}}" 的图片</template>
+      <template v-else>找到 {{hits}} 张默认图片</template>
+    </p>
+    <p class="tips" v-else>没有找到相关图片，换个搜索词试试？</p>
+
     <div class="image-con">
       <div v-for="img in imgs" class="image" :key="img.id" @click="() => select(img)">
         <img :src="img.webformatURL" />
@@ -34,7 +39,7 @@ export default {
   data () {
     return {
       imgs: [],
-      query: 'Corgi',
+      query: '',
       prevQuery: '',
       pageNum: 1,
       hits: '',
@@ -43,10 +48,15 @@ export default {
     }
   },
   mounted () {
+    this.$keyboards.watch('enter', this.search)
+    this.$keyboards.watch('esc', this.close)
     this.search()
   },
+  beforeDestroy () {
+    this.$keyboards.unwatch('enter')
+    this.$keyboards.unwatch('esc')
+  },
   methods: {
-    // TODO 搜索失败时
     search (page = 1) {
       this.pageNum = page
       const getURL = (query, pageNum) => `${PIXABAY_PREFIX}?key=${API_KEY}&q=${encodeURIComponent(query)}&per_page=${this.perPage}&page=${pageNum}`
@@ -57,7 +67,8 @@ export default {
           if (this.pageNum === 1) {
             this.imgs = json.hits
           } else {
-          this.imgs = this.imgs.concat(json.hits)
+            this.imgs = this.imgs.concat(json.hits)
+          }
           this.hits = json.total
           if (json.hits.length >= this.perPage) {
             this.moreImgs = true
@@ -70,10 +81,7 @@ export default {
       this.search(++this.pageNum)
     },
     select (val) {
-      if (!val) {
-        this.$emit('select', '')
-      } else {
-        console.log(val)
+      if (val) {
         const { imageURL, largeImageURL, imageWidth, imageHeight } = val
         this.$emit('select', {
           url: imageURL || largeImageURL,
@@ -81,6 +89,9 @@ export default {
           height: imageHeight
         })
       }
+    },
+    close () {
+      this.$emit('select', '')
     }
   }
 }
