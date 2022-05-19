@@ -19,7 +19,7 @@ export const LAYOUT_KEY = 'layout'
 /**
  * Module 用来承接模块的公用方法和属性
  * ***
- * @param uuid   模块的独一无二的 ID，就算两个模块类型相同也如此
+ * @param uuid   模块实例的独一无二的 ID
  * @param title  模块名称
  * @param description  模块的描述
  * @param name   模块对应组件的名称
@@ -59,7 +59,7 @@ export default function Module (inits, initialData = {}) {
   Module.instanceList.push(this)
 }
 
-/* 保存实例、保存实例与 uuid 的映射关系 */
+/* 保存实例、实例与 uuid 的映射关系 */
 Module.instanceList = []
 Module.instanceMap = {}
 Module.clearCache = () => {

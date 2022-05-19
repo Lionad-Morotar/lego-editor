@@ -84,7 +84,7 @@ const LegoEditor = new Vue({
   }
 }).$mount('#app')
 
-// 导出模块，方面引入或做成多入口
+// 导出模块，方便引入或做成多入口
 LegoEditor.install = function (Vue) {
   Vue.component(LegoEditor.name, LegoEditor)
 }
