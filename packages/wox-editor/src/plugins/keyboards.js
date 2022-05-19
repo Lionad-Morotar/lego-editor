@@ -1,7 +1,8 @@
 /**
+ * how to use
  * 1. import KeyboardListener from '@/plugins/keyboards'
  * 2. Vue.use(KeyboardListener)
- * 3. Vue.prototype.keyboards.watch('ctrl+s', callback)
+ * 3. this.$keyboards.watch('ctrl+s', yourCallback)
  * @todo watch scope
  * @todo page visibible change
  * @fix order
@@ -27,7 +28,7 @@ const remaps = Object.entries({
   ).map(nk => (h[nk] = k))
   return h
 }, {})
-const getKeyRemap = k => remaps[k]
+const stdKeyName = k => remaps[k]
 
 /* Init */
 
@@ -40,26 +41,26 @@ if ($body) {
   $body.addEventListener('keyup', keyup)
 }
 
-// 若是组合按键，会被拆分成单个按键存入
+// 若是组合按键，会被拆分成单个按键存入，缓存以提高性能
 const unTrigger = {}
 // 储存回调函数
-const callbacks = {}
+let callbacks = []
 
 // eslint-disable-next-line no-prototype-builtins
 const inList = k => unTrigger.hasOwnProperty(k)
 const curTriggered = () => Object.entries(unTrigger).reduce((h, [k, v]) => h.concat(v ? [k] : []), [])
 const getCombines = () => curTriggered().join('+')
-const record = k => (unTrigger[k] = true)
-const clear = k => (unTrigger[k] = false)
+const record = k => (unTrigger[k] = (unTrigger[k] || 0) + 1)
+const clear = k => (unTrigger[k] = unTrigger[k] - 1)
 
 function keydown (e) {
-  // console.log(e.key)
   if (inList(e.key)) {
     record(e.key)
     const curKeys = getCombines()
-    if (callbacks[curKeys]) {
+    const callback = callbacks.find(x => x._keyboards_keys === curKeys)
+    if (callback) {
       e.preventDefault()
-      callbacks[curKeys]()
+      callback()
     }
   }
 }
@@ -71,13 +72,33 @@ function keyup (e) {
   }
 }
 
-function watch (keys, callback) {
+const getKeys = keys => {
   const joinKey = '+'
-  const remapedKeys = keys instanceof Array
-    ? keys.map(x => getKeyRemap(x) || x)
-    : keys.split(joinKey).map(x => getKeyRemap(x) || x)
-  remapedKeys.map(k => (unTrigger[k] = false))
-  callbacks[remapedKeys.join(joinKey)] = callback
+  const washedKeys = keys instanceof Array
+    ? keys.map(x => stdKeyName(x) || x)
+    : keys.split(joinKey).map(x => stdKeyName(x) || x)
+  washedKeys.map(k => (unTrigger[k] = unTrigger[k] || 0))
+  return washedKeys.join(joinKey)
+}
+
+function watch (keys, callback) {
+  const washedKeys = getKeys(keys)
+  callback._keyboards_keys = washedKeys
+  callbacks.push(callback)
+}
+
+function unwatch (keys, callback) {
+  const washedKeys = getKeys(keys)
+  const find = callbacks.find(x => x._keyboards_keys === washedKeys)
+  if (find) {
+    if (callback) {
+      if (callback === find) {
+        callbacks = callbacks.filter(x => x !== find)
+      }
+    } else {
+      callbacks = callbacks.filter(x => x !== find)
+    }
+  }
 }
 
 /* Install */
@@ -86,7 +107,8 @@ export default {
   install (vue) {
     vue.prototype.$keyboards = {
       callbacks,
-      watch
+      watch,
+      unwatch
     }
   }
 }
