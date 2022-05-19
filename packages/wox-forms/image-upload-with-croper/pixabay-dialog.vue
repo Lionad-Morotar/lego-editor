@@ -54,6 +54,9 @@ export default {
         .then(res => res.json())
         .then(json => {
           this.prevQuery = this.query
+          if (this.pageNum === 1) {
+            this.imgs = json.hits
+          } else {
           this.imgs = this.imgs.concat(json.hits)
           this.hits = json.total
           if (json.hits.length >= this.perPage) {
