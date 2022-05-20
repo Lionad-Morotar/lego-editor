@@ -180,10 +180,10 @@ export default {
   right: 10px;
   top: 40px;
   transition: .25s;
-  clip-path: polygon(-10% -10%, 110% -10%, 110% -10%, -10% -10%);
+  // clip-path: polygon(-10% -10%, 110% -10%, 110% -10%, -10% -10%);
 
-  &.active {
-    clip-path: polygon(-10% -10%, 110% -10%, 110% 110%, -10% 110%);
-  }
+  // &.active {
+  //   clip-path: polygon(-10% -10%, 110% -10%, 110% 110%, -10% 110%);
+  // }
 }
 </style>

@@ -291,7 +291,10 @@ export default {
 
     /* Computed */
 
-    // 获得和背景色颜色反差大的颜色
+    /**
+     * clearColor
+     * 获得和背景色颜色反差大的颜色
+     */
     clearColor (cStr, ratio = 0.68) {
       const dark = '#000'
       const white = '#fff'
