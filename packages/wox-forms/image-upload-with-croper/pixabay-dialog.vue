@@ -82,9 +82,9 @@ export default {
     },
     select (val) {
       if (val) {
-        const { imageURL, largeImageURL, imageWidth, imageHeight } = val
+        const { webformatURL, largeImageURL, imageWidth, imageHeight } = val
         this.$emit('select', {
-          url: imageURL || largeImageURL,
+          url: webformatURL || largeImageURL,
           width: imageWidth,
           height: imageHeight
         })
@@ -112,7 +112,7 @@ export default {
     height: 112px;
 
     img {
-      object-fit: scale-down;
+      object-fit: cover;
       object-position: center;
       width: 100%;
       height: 100%;
@@ -124,7 +124,7 @@ export default {
 
       &:hover {
         background: #e9e9e9;
-        border: solid 3px #e2e2e2;
+        border: solid 3px #66b1ff;
         filter: brightness(1.08);
       }
       &:active {

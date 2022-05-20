@@ -59,10 +59,13 @@ const DS = {
     }
   },
   get image () {
+    // points 是一个数组，前两个元素指代图片左上角点的位置，
+    // 再通过 scale 属性指定图片的缩放比例，以及 zoom 图片与容器的比例，
+    // 间接指定右下角点的位置
     return {
       url: '',
-      // 当前仅支持方形裁剪
-      // 单位用百分比而不是像素可能好一些
+      scale: 1,
+      zoom: 1,
       points: null
     }
   }
@@ -103,7 +106,9 @@ const genStyles = (val = {}, options = {}) => {
     underLine,
     strikeThrough,
     // image
-    points
+    points,
+    scale,
+    zoom
   } = val
   let res = {
     textDecoration: [],
@@ -154,12 +159,12 @@ const genStyles = (val = {}, options = {}) => {
   /* image */
   if (points) {
     const p1 = { w: points[0], h: points[1] }
-    const p2 = { w: points[2], h: points[3] }
-    const wOffset = p2.w - p1.w
-    const ratio = wOffset / width
-    // console.log(wOffset, width)
-    res.objectPosition = `-${p1.w}px -${p1.h}px`
-    res.transform.push(`scale(${((1 / ratio) || 1).toFixed(3)})`)
+    if (scale) {
+      res.transform.push(`scale(${scale.toFixed(3)})`)
+    }
+    if (zoom) {
+      res.transform.push(`translate(-${p1.w / zoom}px, -${p1.h / zoom}px)`)
+    }
     res.transformOrigin = '0 0'
   }
 

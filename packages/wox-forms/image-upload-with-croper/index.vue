@@ -88,13 +88,22 @@ export default {
         width: 298,
         height: 208
       },
+      store: {
+        imageWidth: null,
+        imageHeight: null
+      },
       visible: {
         pixabay: false
       }
     }
   },
   computed: {
-    defViewport () {
+    // TODO 计算屏幕宽度以便求 Module.image.scale
+    defaultScreenWidth () {
+      // const width = document.query('.page').style.width
+      return 375
+    },
+    defaultViewport () {
       const { width, height } = this.boundary
       return {
         width: width * 0.62,
@@ -103,10 +112,11 @@ export default {
     },
     calcViewport () {
       return Object.assign(
-        { ...this.defViewport },
+        { ...this.defaultViewport },
         { ...this.initViewport() }
       )
     },
+    // 当 viewport 改变，重新触发 croppie 的渲染
     reRenderKey () {
       const { width, height } = this.calcViewport
       return String(width) + String(height)
@@ -131,6 +141,7 @@ export default {
     this.initCroppie()
   },
   methods: {
+    // ---------------------------------------------------- actions
     async changeImage (files) {
       if (!files) {
         return
@@ -140,14 +151,18 @@ export default {
         : files instanceof String
           ? { url: files }
           : files
-      if (!file.width || !file.height) {
+      {
+        // pixabay 返回的宽高不准，所以重新计算
         const { width, height } = await this.getImageWH(file.url)
         ;[file.width, file.height] = [width, height]
       }
       const { url, width, height } = file
+      this.store.imageWidth = width
+      this.store.imageHeight = height
       this.$emit('change', {
         ...this.value,
         url: url,
+        scale: 1,
         points: [0, 0, width, height]
       })
     },
@@ -156,6 +171,7 @@ export default {
       this.closePixabayDialog()
     },
     uploadFailed (error) {
+      // TODO image uploader
       console.error(error)
       this.$message.error('请稍后重试', '上传失败')
     },
@@ -168,9 +184,11 @@ export default {
     deleteURL () {
       this.$emit('change', {
         ...this.value,
-        url: null
+        url: null,
+        points: null
       })
     },
+    // ---------------------------------------------------- internal methods
     getImageWH (url) {
       return new Promise(resolve => {
         const $image = new Image()
@@ -190,17 +208,20 @@ export default {
     },
     result (e) {
       const { points = [] } = e
+      const [x1,, x2] = points
+      const ratio = this.store.imageWidth / (+x2 - x1)
       this.$emit('change', {
         ...this.value,
+        scale: ratio,
+        zoom: this.store.imageWidth / this.defaultScreenWidth,
         points: points.map(x => +x)
       })
     },
+    // 根据外部图片的比例，计算出 croppie 白色框框遮罩的宽高
     initViewport (options = this.options) {
-      const { viewport, ratio } = options || {}
-      if (viewport) {
-        this.viewport = viewport
-      } else if (ratio) {
-        const defaultWidth = this.defViewport.width
+      const { ratio } = options || {}
+      if (ratio) {
+        const defaultWidth = this.defaultViewport.width
         this.viewport = {
           width: Math.ceil(defaultWidth),
           height: Math.ceil(defaultWidth / ratio)
@@ -211,9 +232,13 @@ export default {
     async initCroppie (target = this.image) {
       if (target) {
         const binary = await this.getBinary(target)
+        const { width, height } = await this.getImageWH(binary)
+        this.store.imageWidth = width
+        this.store.imageHeight = height
+        // @see https://foliotek.github.io/Croppie/
         this.$refs.croppieRef.bind({
           url: binary,
-          points: this.options.points
+          points: this.value.points
         })
       }
     },
