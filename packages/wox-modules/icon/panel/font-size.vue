@@ -5,7 +5,7 @@
       <forms-slider
         v-model="fontSize"
         :min="12"
-        :max="375"
+        :max="max"
         :step="1"
       />
     </div>
@@ -27,6 +27,9 @@ export default {
         value.height = Math.max(value.height, val)
         this.$emit('change', value)
       }
+    },
+    max () {
+      return Math.min(374, this.value.height)
     }
   }
 }

@@ -4,7 +4,7 @@
     <div class="config-item-content">
       <forms-slider
         v-model="valueHeight"
-        :min="30"
+        :min="min"
         :max="375"
         :step="1"
       />
@@ -27,6 +27,9 @@ export default {
         value.fontSize = Math.min(value.fontSize, val)
         this.$emit('change', value)
       }
+    },
+    min () {
+      return Math.max(12, this.value.fontSize)
     }
   }
 }
