@@ -238,7 +238,7 @@ export default {
         // @see https://foliotek.github.io/Croppie/
         this.$refs.croppieRef.bind({
           url: binary,
-          points: this.value.points
+          points: this.value.points || [0, 0, width, height]
         })
       }
     },
