@@ -60,6 +60,7 @@ function keydown (e) {
     const callback = callbacks.find(x => x._keyboards_keys === curKeys)
     if (callback) {
       e.preventDefault()
+      e.stopPropagation()
       callback()
     }
   }
