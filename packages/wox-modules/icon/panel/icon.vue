@@ -8,8 +8,9 @@
     </div>
     <div class="config-item-dialog" v-if="visible.iconDialog" v-clickoutside="closeIconDialog">
       <template v-for="cate in iconCates">
-        <div class="header" :key="cate.header + 1">{{cate.header}}</div>
-        <div class="icons-con" @click="selectIcon" :key="cate.header + 2">
+        <h5 class="header" :id="'cate-header-'+cate.header" :key="cate.header+1" />
+        <div class="header sticky index" :key="cate.header+2"><a :href="'#cate-header-'+cate.header">{{cate.header}}</a></div>
+        <div class="icons-con" @click="selectIcon" :key="cate.header+3">
           <template v-for="icon in cate.icons">
             <i class="iconfont clicked-white" :class="icon" :data-icon="icon" :key="icon"/>
           </template>
@@ -41,20 +42,20 @@ export default {
     return {
       iconCates: [
         {
-          header: '空心图标',
-          icons: Object.freeze(iconsNotCircled)
-        },
-        {
           header: '空心圆形',
           icons: Object.freeze(iconsCircled)
         },
         {
-          header: '实心图标',
-          icons: Object.freeze(iconsFilledNotCircled)
+          header: '空心不规则',
+          icons: Object.freeze(iconsNotCircled)
         },
         {
           header: '实心圆形',
           icons: Object.freeze(iconsFilledCircled)
+        },
+        {
+          header: '实心不规则',
+          icons: Object.freeze(iconsFilledNotCircled)
         }
       ].filter(x => x.icons.length > 0),
       visible: {
@@ -90,18 +91,48 @@ export default {
     color: #333;
   }
 }
-.config-item-dialog {
-  .icons-con {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1em;
-  }
-  .iconfont {
-    font-size: 20px;
-    padding: 5px;
-    border-radius: 3px;
-    border: solid 1px #f3f3f3;
-    cursor: pointer;
+.config-item {
+  .config-item-dialog {
+    padding-top: 0;
+    scroll-padding-top: 40px;
+
+    .header {
+      height: 0;
+    }
+    .sticky {
+      position: sticky;
+      height: 40px;
+      line-height: 38px;
+      background: inherit;
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+    }
+    .index:nth-of-type(1) {
+      top: 0;
+    }
+    .index:nth-of-type(3) {
+      top: 40px;
+    }
+    .index:nth-of-type(5) {
+      top: 80px;
+    }
+    .index:nth-of-type(7) {
+      top: 120px;
+    }
+    .icons-con {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1em;
+    }
+    .iconfont {
+      font-size: 20px;
+      padding: 5px;
+      border-radius: 3px;
+      border: solid 1px #f3f3f3;
+      cursor: pointer;
+    }
   }
 }
 </style>
