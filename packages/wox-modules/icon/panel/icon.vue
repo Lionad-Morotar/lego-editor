@@ -30,7 +30,7 @@ const icons = cssRaw
   .map(x => x.replace(':before', ''))
 const iconsFilled = icons.filter(x => x.endsWith('-fill'))
 const iconsNotFilled = icons.filter(x => !iconsFilled.includes(x))
-const iconsFilledCircled = iconsFilled.filter(x => x.endsWith('-circle'))
+const iconsFilledCircled = iconsFilled.filter(x => x.endsWith('-circle-fill'))
 const iconsFilledNotCircled = iconsFilled.filter(x => !iconsFilledCircled.includes(x))
 const iconsCircled = iconsNotFilled.filter(x => x.endsWith('-circle'))
 const iconsNotCircled = iconsNotFilled.filter(x => !iconsCircled.includes(x))
