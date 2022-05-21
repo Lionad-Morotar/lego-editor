@@ -2,6 +2,7 @@
   <div class="config-item-segment">
     <div slot="text" class="config-item full-content">
       <div class="config-item-content uploader flex-center"
+        v-loading="loading"
         :style="{ backgroundColor: image ? 'inherit' : '#e6e8eb' }">
         <Uploader
           v-show="!image"
@@ -92,6 +93,7 @@ export default {
         imageWidth: null,
         imageHeight: null
       },
+      loading: false,
       visible: {
         pixabay: false
       }
@@ -231,15 +233,20 @@ export default {
     },
     async initCroppie (target = this.image) {
       if (target) {
-        const binary = await this.getBinary(target)
-        const { width, height } = await this.getImageWH(binary)
-        this.store.imageWidth = width
-        this.store.imageHeight = height
-        // @see https://foliotek.github.io/Croppie/
-        this.$refs.croppieRef.bind({
-          url: binary,
-          points: this.value.points || [0, 0, width, height]
-        })
+        this.loading = true
+        try {
+          const binary = await this.getBinary(target)
+          const { width, height } = await this.getImageWH(binary)
+          this.store.imageWidth = width
+          this.store.imageHeight = height
+          // @see https://foliotek.github.io/Croppie/
+          this.$refs.croppieRef.bind({
+            url: binary,
+            points: this.value.points || [0, 0, width, height]
+          })
+        } finally {
+          this.loading = false
+        }
       }
     },
     async getBinary (target) {
