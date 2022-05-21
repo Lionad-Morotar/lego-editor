@@ -1,5 +1,4 @@
 <template>
-  <!-- TODO 迁移到 Gesture  -->
   <div
     class="box-outline"
     :class="[
@@ -8,7 +7,7 @@
       active.resizer && 'active-resizer',
       active.rotater && 'active-rotater'
     ]"
-    @mousedown="initElementProps"
+    @mousedown="initElementMove"
     @dblclick="logElement"
     @click.capture="selectElement"
     @click.stop="stopMask">
@@ -79,7 +78,6 @@ export default {
         rotater: false
       },
       store: {
-        e: null
       }
     }
   },
@@ -95,6 +93,7 @@ export default {
     curProps () {
       return this.curModel.props
     },
+    // 当前选中模块的 layout 属性
     curLayout: {
       get () {
         return this.curModel.props.layout
@@ -147,25 +146,35 @@ export default {
     }
   },
   watch: {
-    // ? FIXME 同一个模块内若包含多个 outline 则会触发多次
     // 切换到自由布局时初始化模块的相关属性
+    // ? FIXME 同一个模块内若包含多个 outline 则会触发多次
     'curLayout.auto': {
       handler (isAuto, oldValue) {
-        console.log('isAuto:', isAuto, oldValue)
         if (isAuto == null || oldValue == null) {
           return
         }
         if (isAuto) {
           const $el = this.selected.$instance.$el
           const $parent = $el.offsetParent
-          if (this.selected.layout.top == null) {
+          if (!this.selected.layout.top) {
             this.curLayout = { top: $parent.offsetTop }
           }
-          if (this.selected.layout.left == null) {
+          if (!this.selected.layout.left) {
             this.curLayout = { left: $parent.offsetLeft }
           }
-        } else if (!oldValue) {
-          this.curLayout = { width: null, height: null }
+          const [width = 0, height = 0] = [
+            this.curModel?.component?.props?.layout?.default?.width,
+            this.curModel?.component?.props?.layout?.default?.height
+          ]
+          this.curLayout = { width, height }
+        } else {
+          const $el = this.selected.$instance.$el
+          if (!this.selected.layout.width) {
+            this.curLayout = { width: $el.offsetWidth }
+          }
+          if (!this.selected.layout.height) {
+            this.curLayout = { height: $el.offsetHeight }
+          }
         }
       }
     },
@@ -221,17 +230,14 @@ export default {
         this.$nextTick(() => (this.lockPropsChangingTick = false))
       }
     },
-    initElementProps (e) {
+    initElementMove (e) {
       if (this.active.resizer) {
         return null
       }
-      this.store.e = e
       const isFree = !this.curLayout.auto
-      const $target = this.$utils.findParentByClass(e.target, 'module-block')
-      this.initElementWH($target)
       if (isFree) {
+        const $target = this.$utils.findParentByClass(e.target, 'module-block')
         this.calcAnchor(e, $target)
-        // const calcMove = (...args) => !this.active.resizer && this.calcMove(...args)
         document.body.addEventListener('mousemove', this.calcMove)
         const clean = () => {
           document.body.removeEventListener('mousemove', this.calcMove)
@@ -239,7 +245,6 @@ export default {
           this.$nextTick(() => this.SET_MOVING(false))
         }
         document.body.addEventListener('mouseup', clean)
-        // 自由布局的组件拖拽时不使用 vue-draggle 交换位置
         e.preventDefault()
       }
     },
@@ -360,7 +365,7 @@ export default {
               // top: anchorY - (2 * offsetVector - getArc(cos, degree) * offsetVector - getArc(cos, degree + 180) * offsetVector),
               // left: anchorX + getArc(cos, degree + 90) * offsetY / 2,
               // top: anchorY - (1 / 2) * offsetVector,
-              top: anchorY - offsetVector / (1 / sqrt(2)),
+              // top: anchorY - offsetVector / (1 / sqrt(2)),
               height: safe(h + offsetVector)
             }
             break

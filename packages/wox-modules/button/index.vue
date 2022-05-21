@@ -6,7 +6,6 @@ import { pass } from '../utils'
 export default {
   name: 'm-button',
   inline: true,
-  // resizer 是否应该默认就有？
   resizable: true,
   props: {
     layout: Props.layout({
@@ -14,6 +13,8 @@ export default {
       default: {
         padding: [12, 20, 12, 20],
         border: [1, 2, 5, 2],
+        width: 72,
+        height: 45,
         borderStyle: 'solid',
         borderColor: '#999',
         radius: 30
