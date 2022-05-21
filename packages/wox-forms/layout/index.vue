@@ -71,7 +71,8 @@
       </transition>
     </div>
 
-    <div class="config-item" v-if="display('height')">
+    <!-- 暂时禁用高度选项，因为高度在自由布局时可设置，所以非自由布局时希望保持为 0 -->
+    <!-- <div class="config-item" v-if="display('height')">
       <div class="config-item-label">高度</div>
       <div class="config-item-content">
         <forms-slider
@@ -81,7 +82,7 @@
           :step="1"
         />
       </div>
-    </div>
+    </div> -->
 
     <div class="config-item" v-if="display('radius')">
       <div class="config-item-label">圆角</div>
@@ -178,15 +179,15 @@ export default {
     }
   },
   computed: {
-    minHeight () {
-      const { padding = [0, 0, 0, 0], minHeight } = this.value
-      return (minHeight != null)
-        ? minHeight
-        : (padding[0] + padding[2])
-    },
-    maxHeight () {
-      return 100
-    },
+    // minHeight () {
+    //   const { padding = [0, 0, 0, 0], minHeight } = this.value
+    //   return (minHeight != null)
+    //     ? minHeight
+    //     : (padding[0] + padding[2])
+    // },
+    // maxHeight () {
+    //   return 300
+    // },
     maxRadius () {
       const { width, height } = this.value
       return Math.max(10, Math.min(half(width), half(height)))
@@ -221,16 +222,16 @@ export default {
         }))
       }
     },
-    valueHeight: {
-      get () {
-        return this.value.height
-      },
-      set (val) {
-        this.$emit('change', Object.assign(this.value, {
-          height: val
-        }))
-      }
-    },
+    // valueHeight: {
+    //   get () {
+    //     return this.value.height
+    //   },
+    //   set (val) {
+    //     this.$emit('change', Object.assign(this.value, {
+    //       height: val
+    //     }))
+    //   }
+    // },
     valueRadius: {
       get () {
         return this.value.radius

@@ -25,9 +25,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.m-text {
-  white-space: nowrap;
-}
-</style>

@@ -12,6 +12,7 @@ export default {
       label: '文本内容',
       default: {
         text: 'Officia fugiat cillum officia ullamco voluptate tempor pariatur irure cupidatat nisi incididunt proident irure. Voluptate cillum ullamco ea occaecat veniam ullamco reprehenderit labore adipisicing sint ea.',
+        wrap: true,
         fontSize: 12,
         lineHeight: 1.6,
         color: '#666'
@@ -28,10 +29,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.m-textarea {
-  word-break: break-all;
-  white-space: break-spaces;
-}
-</style>

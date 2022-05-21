@@ -9,6 +9,13 @@
       </div>
     </slot>
 
+    <div class="config-item" v-if="display('wrap')">
+      <div class="config-item-label">自动换行</div>
+      <div class="config-item-content">
+        <el-switch v-model="v.wrap" />
+      </div>
+    </div>
+
     <div class="config-item" v-if="display('fontSize')">
       <div class="config-item-label">字体大小</div>
       <div class="config-item-content">

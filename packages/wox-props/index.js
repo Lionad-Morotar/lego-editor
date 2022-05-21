@@ -47,6 +47,7 @@ const DS = {
   get text () {
     return {
       text: '',
+      wrap: false,
       fontSize: 14,
       lineHeight: 1,
       letterSpacing: 0,
@@ -96,6 +97,7 @@ const genStyles = (val = {}, options = {}) => {
     radius,
     bgColor,
     // text
+    wrap,
     fontSize,
     lineHeight,
     letterSpacing,
@@ -155,6 +157,12 @@ const genStyles = (val = {}, options = {}) => {
   if (italic) res.fontStyle = 'italic'
   if (underLine) res.textDecoration.push('underLine')
   if (strikeThrough) res.textDecoration.push('line-through')
+  if (wrap) {
+    res.wordBreak = 'break-all'
+    res.whiteSpace = 'break-spaces'
+  } else {
+    res.whiteSpace = 'nowrap'
+  }
 
   /* image */
   if (points) {
@@ -347,7 +355,7 @@ const Props = {
     )
   },
 
-  // 使用 Pass 标记该 Props 是父组件传递过来的而非依赖项
+  // 使用 Pass 标记该 Props 是父组件传递过来的而非自身的依赖项
   pass (config = {}) {
     return new Prop({}, {
       ...config,
@@ -358,7 +366,7 @@ const Props = {
 }
 
 /**
- * 正常渲染（如 C 端渲染）时，Props 约定需要转成 Vue Props 约定
+ * 正常渲染（C 端渲染）时，Props 约定需要转成 Vue Props 约定
  * @see https://cn.vuejs.org/v2/guide/components-props.html#ad
  */
 function genVueProps (propsInstance = {}) {
@@ -385,6 +393,8 @@ function Prop (base, config = {}) {
   const prop = Object.assign(
     Object.create(Prop.prototype),
     {
+      // 保存模块的初始化的值信息，
+      // 一般可以通过 curModel.component.props.layout.default 拿到
       default: config.default,
       // 保留依赖项最后一次校验失败的错误信息
       lastError: '',
