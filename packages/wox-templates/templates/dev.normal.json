@@ -140,6 +140,7 @@
     },
     "text": {
       "text": "Officia fugiat cillum officia ullamco voluptate tempor pariatur irure cupidatat nisi incididunt proident irure. Voluptate cillum ullamco ea occaecat veniam ullamco reprehenderit labore adipisicing sint ea.",
+      "wrap": true,
       "fontSize": 12,
       "lineHeight": 1.6,
       "letterSpacing": 0,
